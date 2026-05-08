@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스크린으로 읽는 UX — 에이전트 대시보드</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#f5f4f0;color:#111110;font-size:14px;line-height:1.6}
+.topbar{background:#fff;border-bottom:1px solid #e8e6e0;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;backdrop-filter:blur(8px)}
+.logo{font-weight:600;font-size:15px}.logo em{font-style:italic;color:#6b6b67}
+.topright{display:flex;gap:8px;align-items:center}
+.stat-text{font-size:12px;color:#6b6b67}
+.btn-run{background:#111110;color:#fff;border:none;border-radius:8px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s}
+.btn-run:hover{background:#1c1c1a}
+.btn-run:disabled{background:#888;cursor:not-allowed}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:16px;padding:16px 20px;max-width:1200px;margin:0 auto}
+.left-panel{background:#fff;border:1px solid #e8e6e0;border-radius:14px;overflow:hidden;position:sticky;top:68px;max-height:calc(100vh - 84px);display:flex;flex-direction:column}
+.panel-head{padding:16px 16px 12px;border-bottom:1px solid #e8e6e0;flex-shrink:0}
+.panel-title{font-weight:600;font-size:14px;color:#111110;margin-bottom:2px}
+.panel-sub{font-size:11px;color:#6b6b67}
+.ep-scroll{overflow-y:auto;flex:1}
+.ep-item{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid #e8e6e0;transition:all .12s;border-left:3px solid transparent}
+.ep-item:last-child{border-bottom:none}
+.ep-item:hover{background:#f5f4f0}
+.ep-item.active{background:#f0f0ef;border-left-color:#111110}
+.ep-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ep-info{flex:1;min-width:0}
+.ep-num{font-size:10px;font-weight:500;color:#6b6b67;margin-bottom:1px;letter-spacing:.04em}
+.ep-title{font-size:12px;font-weight:500;color:#111110;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ep-hook{font-size:10px;color:#6b6b67;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ep-prog-wrap{margin-top:5px;height:2px;background:#e8e6e0;border-radius:2px;overflow:hidden}
+.ep-prog-fill{height:100%;background:#111110;border-radius:2px;transition:width .5s}
+.ep-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;flex-shrink:0}
+.right-col{display:flex;flex-direction:column;gap:14px}
+.card{background:#fff;border:1px solid #e8e6e0;border-radius:14px;overflow:hidden}
+.agent-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;padding:16px 20px}
+.agent-label{font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:#6b6b67;padding:16px 20px 0}
+.ac{border:1px solid #e8e6e0;border-radius:10px;padding:10px 8px}
+.aico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;margin-bottom:7px}
+.aname{font-size:11px;font-weight:500;color:#111110;margin-bottom:1px;line-height:1.3}
+.arole{font-size:10px;color:#6b6b67;line-height:1.3;margin-bottom:5px}
+.abadge{font-size:9px;font-weight:500;padding:2px 6px;border-radius:20px;display:inline-flex;align-items:center;gap:3px}
+.det-head{padding:16px 20px;border-bottom:1px solid #e8e6e0;display:flex;align-items:center;gap:12px}
+.det-epnum{font-size:11px;font-weight:500;color:#6b6b67;margin-bottom:2px}
+.det-title{font-size:16px;font-weight:600;color:#111110;line-height:1.2}
+.det-hook{font-size:12px;color:#6b6b67;margin-top:2px}
+.det-actions{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.btn-ep-run{background:#111110;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.btn-ep-run:disabled{background:#888;cursor:not-allowed}
+.det-status{font-size:11px;color:#6b6b67}
+.out-list{display:flex;flex-direction:column}
+.out-row{display:flex;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid #e8e6e0;transition:background .12s;cursor:default}
+.out-row:last-child{border-bottom:none}
+.out-row.ready{cursor:pointer}.out-row.ready:hover{background:#f5f4f0}
+.out-ico-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:background .15s}
+.out-name{font-size:13px;font-weight:600;color:#111110;margin-bottom:2px}
+.out-desc{font-size:11px;color:#6b6b67}
+.out-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.tab-chip{font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;border:1px solid #e8e6e0;background:#fff;cursor:pointer;color:#3d3d3a;transition:all .12s;white-space:nowrap;font-family:'DM Sans',sans-serif}
+.tab-chip:hover{background:#111110;color:#fff;border-color:#111110}
+.out-status{font-size:11px;font-weight:500}
+.archive-card{background:#fff;border:1px solid #e8e6e0;border-radius:14px;overflow:hidden}
+.archive-head{padding:14px 20px;border-bottom:1px solid #e8e6e0;display:flex;align-items:center;justify-content:space-between}
+.archive-head-left{display:flex;align-items:center;gap:8px}
+.archive-title{font-size:13px;font-weight:600;color:#111110}
+.archive-sub{font-size:11px;color:#6b6b67}
+.archive-badge{font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px;background:#d8f3dc;color:#2d6a4f}
+.tbl-head{display:grid;grid-template-columns:28px 1fr 60px 60px 60px 60px 60px 60px 50px;align-items:center;padding:8px 16px;border-bottom:1px solid #e8e6e0;background:#f9f8f6}
+.tbl-col{font-size:11px;font-weight:500;color:#6b6b67;text-align:center}
+.tbl-col.left{text-align:left}
+.archive-empty{padding:32px 20px;text-align:center}
+.archive-empty-ico{font-size:24px;margin-bottom:8px;opacity:.3}
+.archive-empty-txt{font-size:13px;color:#b4b2a9}
+.archive-empty-sub{font-size:11px;color:#b4b2a9;margin-top:4px}
+.arc-row-wrap{border-bottom:1px solid #e8e6e0}
+.arc-row-wrap:last-child{border-bottom:none}
+.arc-row{display:grid;grid-template-columns:28px 1fr 60px 60px 60px 60px 60px 60px 50px;align-items:center;padding:10px 16px;cursor:pointer;transition:background .12s}
+.arc-row:hover{background:#f9f8f6}
+.arc-arrow{font-size:10px;color:#b4b2a9;transition:transform .2s;text-align:center}
+.arc-arrow.open{transform:rotate(90deg)}
+.arc-ep-info{display:flex;align-items:center;gap:8px;min-width:0}
+.arc-ep-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.arc-ep-num{font-size:10px;color:#b4b2a9;margin-bottom:1px}
+.arc-ep-title{font-size:13px;font-weight:500;color:#111110;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arc-ico{text-align:center;font-size:13px}
+.arc-done-badge{text-align:right}
+.arc-expand{background:#fafaf9;border-top:1px solid #e8e6e0}
+.arc-expand-bar{padding:10px 20px 8px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e8e6e0}
+.arc-expand-dot{width:6px;height:6px;border-radius:50%}
+.arc-expand-title{font-size:12px;font-weight:600;color:#111110}
+.arc-expand-hook{font-size:11px;color:#6b6b67}
+.arc-out-row{display:flex;align-items:center;gap:12px;padding:10px 20px 10px 44px;border-bottom:1px solid #e8e6e0;cursor:pointer;transition:background .12s}
+.arc-out-row:last-child{border-bottom:none}
+.arc-out-row:hover{background:#f0f0ef}
+.arc-out-ico{width:30px;height:30px;border-radius:8px;background:#111110;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.arc-out-name{font-size:12px;font-weight:600;color:#111110;margin-bottom:1px}
+.arc-out-desc{font-size:11px;color:#6b6b67}
+.arc-out-tabs{display:flex;gap:5px;flex-shrink:0;margin-left:auto}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:32px 20px;overflow-y:auto}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:18px;width:100%;max-width:700px;margin:auto;box-shadow:0 40px 80px rgba(0,0,0,.25);overflow:hidden}
+.modal-head{padding:22px 26px 0}
+.modal-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.modal-left{display:flex;align-items:center;gap:12px}
+.modal-ico{width:44px;height:44px;border-radius:12px;background:#f0f0ef;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.modal-ep-badge{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.modal-ep-dot{width:7px;height:7px;border-radius:50%}
+.modal-ep-text{font-size:11px;font-weight:500;color:#6b6b67}
+.modal-title{font-size:20px;font-weight:700;color:#111110;line-height:1.2}
+.close-btn{width:32px;height:32px;border-radius:50%;border:1px solid #e8e6e0;background:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:#6b6b67;flex-shrink:0}
+.modal-tabs{display:flex;border-bottom:1px solid #e8e6e0}
+.mtab{font-size:13px;font-weight:500;padding:10px 18px;cursor:pointer;border:none;background:none;color:#6b6b67;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;font-family:'DM Sans',sans-serif}
+.mtab:hover{color:#111110}
+.mtab.on{color:#111110;border-bottom-color:#111110}
+.modal-body{padding:24px 26px}
+.modal-how{background:#f5f4f0;border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#6b6b67;line-height:1.6}
+.modal-how strong{color:#111110;font-weight:600}
+.prompt-box{background:#111110;border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.prompt-label{font-size:10px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+.prompt-text{font-size:12px;color:rgba(255,255,255,.8);line-height:1.65;font-family:'DM Mono',monospace,sans-serif;word-break:break-all}
+.modal-foot{padding:14px 26px;border-top:1px solid #e8e6e0;display:flex;align-items:center;justify-content:space-between}
+.modal-foot-left{font-size:12px;color:#6b6b67}
+.modal-foot-right{display:flex;gap:8px}
+.btn-copy{padding:7px 14px;border-radius:8px;border:1px solid #e8e6e0;background:#fff;font-size:13px;font-weight:500;cursor:pointer;color:#3d3d3a;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-copy:hover{background:#f5f4f0}
+.btn-close{padding:7px 14px;border-radius:8px;border:none;background:#111110;color:#fff;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.left-panel{position:static}.agent-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">스크린으로 읽는 <em>UX</em></div>
+  <div class="topright">
+    <span class="stat-text" id="stat-text">0 / 10 완성</span>
+    <button class="btn-run" id="btn-run" onclick="runPipeline()">▶ 파이프라인 실행</button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- 왼쪽 EP 리스트 -->
+  <div class="left-panel">
+    <div class="panel-head">
+      <div class="panel-title">시리즈 목록</div>
+      <div class="panel-sub">EP를 선택하면 산출물을 확인할 수 있어요</div>
+    </div>
+    <div class="ep-scroll" id="ep-list"></div>
+  </div>
+
+  <!-- 오른쪽 -->
+  <div class="right-col">
+
+    <!-- 에이전트 -->
+    <div class="card">
+      <div class="agent-label">에이전트 현황</div>
+      <div class="agent-grid" id="agent-grid"></div>
+    </div>
+
+    <!-- 선택 EP 산출물 -->
+    <div class="card">
+      <div class="det-head">
+        <div id="det-dot" class="ep-dot" style="width:10px;height:10px;flex-shrink:0"></div>
+        <div>
+          <div class="det-epnum" id="det-epnum">EP.01</div>
+          <div class="det-title" id="det-title">토스가 버튼을 항상 아래에 두는 이유</div>
+          <div class="det-hook" id="det-hook">"엄지 존" 설계의 비밀</div>
+        </div>
+        <div class="det-actions">
+          <button class="btn-ep-run" id="btn-ep-run" onclick="runPipeline()">▶ 이 EP 실행</button>
+          <div class="det-status" id="det-status">파이프라인 대기 중</div>
+        </div>
+      </div>
+      <div class="out-list" id="out-list"></div>
+    </div>
+
+    <!-- 아카이브 -->
+    <div class="archive-card">
+      <div class="archive-head">
+        <div class="archive-head-left">
+          <span style="font-size:14px">🗂</span>
+          <div>
+            <div class="archive-title">콘텐츠 아카이브</div>
+            <div class="archive-sub">완성된 EP의 모든 산출물을 한눈에</div>
+          </div>
+        </div>
+        <div class="archive-badge" id="archive-badge">0편 완성</div>
+      </div>
+      <div class="tbl-head">
+        <div></div>
+        <div class="tbl-col left">에피소드</div>
+        <div class="tbl-col">📄</div>
+        <div class="tbl-col">🎬</div>
+        <div class="tbl-col">🪄</div>
+        <div class="tbl-col">✍</div>
+        <div class="tbl-col">🖼</div>
+        <div class="tbl-col">📊</div>
+        <div class="tbl-col"></div>
+      </div>
+      <div id="archive-body">
+        <div class="archive-empty">
+          <div class="archive-empty-ico">📭</div>
+          <div class="archive-empty-txt">아직 완성된 EP가 없어요</div>
+          <div class="archive-empty-sub">파이프라인을 실행하면 여기에 쌓여요</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 산출물 팝업 -->
+<div class="overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-top">
+        <div class="modal-left">
+          <div class="modal-ico" id="m-ico">📄</div>
+          <div>
+            <div class="modal-ep-badge">
+              <div class="modal-ep-dot" id="m-dot"></div>
+              <span class="modal-ep-text" id="m-ep-text">EP.01 — 제목</span>
+            </div>
+            <div class="modal-title" id="m-title">브런치 원고</div>
+          </div>
+        </div>
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-tabs" id="m-tabs"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-how">
+        <strong>📋 사용 방법</strong><br>
+        아래 명령어를 복사해서 <strong>Claude 채팅창</strong>에 붙여넣으세요.<br>
+        Claude가 해당 산출물을 바로 생성해줘요.
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-label">Claude에게 붙여넣을 명령어</div>
+        <div class="prompt-text" id="m-prompt"></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div class="modal-foot-left" id="m-foot-txt">명령어를 복사해서 Claude 채팅에 붙여넣으세요</div>
+      <div class="modal-foot-right">
+        <button class="btn-copy" id="btn-copy" onclick="copyPrompt()">📋 명령어 복사</button>
+        <button class="btn-close" onclick="closeModal()">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOPICS=[
+  {t:'토스가 버튼을 항상 아래에 두는 이유',h:'"엄지 존" 설계의 비밀'},
+  {t:'당근마켓 채팅창이 단순한 이유',h:'기능을 빼는 것도 설계다'},
+  {t:'카카오뱅크 이체 화면의 심리학',h:'불안을 없애는 UI 설계'},
+  {t:'배달의민족 주문 버튼이 빨간 이유',h:'색이 행동을 만드는 방식'},
+  {t:'유튜브 홈 피드는 왜 끝이 없나',h:'무한스크롤의 중독 설계'},
+  {t:'쿠팡 리뷰가 신뢰받는 구조',h:'사회적 증거 설계법'},
+  {t:'라인 메시지 읽음 표시의 압박',h:'UX가 만드는 사회적 불안'},
+  {t:'네이버 검색창이 항상 첫 화면인 이유',h:'진입점 설계의 비밀'},
+  {t:'인스타 좋아요가 숨겨진 날',h:'지표를 없애면 뭐가 달라질까'},
+  {t:'앱 온보딩이 3초 안에 실패하는 패턴',h:'첫 화면이 전부다'}
+];
+const COLORS=['#cc3333','#cc9900','#0055cc','#226622','#664499','#cc5500','#226666','#886622','#993356','#444444'];
+const OUTS=[
+  {ico:'📄',name:'브런치 원고',desc:'에디터 + 페르소나 검수 완료본',tabs:['원고 전문','에디터 검수'],
+   prompts:[(ep,t)=>`EP.${ep} — ${t}: 브런치 원고 전문을 작성해줘. 브런치 스타일로 1200~1500자, 패턴 3가지 분류, 공감 도입부, 클로징 포함.`,(ep,t)=>`EP.${ep} — ${t}: 브런치 원고 에디터 검수. 약한 부분 3가지 짚고 수정 제안 달아줘.`]},
+  {ico:'🎬',name:'콘티 + 나레이션',desc:'컷별 연출 + 나레이션 스크립트',tabs:['씬별 콘티','나레이션 스크립트'],
+   prompts:[(ep,t)=>`EP.${ep} — ${t}: 인스타 릴스 55초 콘티를 표 형식으로 작성해줘. Hook→패턴1~3→CTA 구성.`,(ep,t)=>`EP.${ep} — ${t}: 55초 나레이션 스크립트 전문을 작성해줘. 씬별 타이밍 포함.`]},
+  {ico:'🪄',name:'MJ 프롬프트',desc:'컷별 MJ 프롬프트 전체',tabs:['컷별 프롬프트','공통 세팅'],
+   prompts:[(ep,t)=>`EP.${ep} — ${t}: 컷별 미드저니 프롬프트를 --ar 9:16 --style raw --v 6.1 --q 2 파라미터 포함해서 작성해줘.`,(ep,t)=>`EP.${ep} — ${t}: 미드저니 공통 세팅 가이드를 작성해줘.`]},
+  {ico:'✍',name:'인스타 캡션',desc:'복붙 캡션 완성본 + 해시태그',tabs:['캡션 완성본','해시태그 전략'],
+   prompts:[(ep,t)=>`EP.${ep} — ${t}: 인스타 릴스 캡션 완성본을 작성해줘. 훅/브릿지/목차/CTA/해시태그 10개 포함.`,(ep,t)=>`EP.${ep} — ${t}: 해시태그 전략을 메인 5개 + 니치 5개로 표 형식으로 작성해줘.`]},
+  {ico:'🖼',name:'커버 이미지',desc:'1:1 커버 A형 MJ 프롬프트',tabs:['A형 프롬프트','컬러 시스템'],
+   prompts:[(ep,t)=>`EP.${ep} — ${t}: 커버 이미지 미드저니 프롬프트를 --ar 1:1 파라미터 포함해서 작성해줘.`,(ep,t)=>`"스크린으로 읽는 UX" EP.01~10 커버 컬러 시스템을 표로 정리해줘. EP.${ep}(${t}) 컬러 포함.`]},
+  {ico:'📊',name:'품질 리포트',desc:'훅강도 · 저장율 · 개선방향',tabs:['품질 분석','다음 EP 제안'],
+   prompts:[(ep,t)=>`EP.${ep} — ${t}: 품질 리포트를 작성해줘. 훅 강도 점수, 예상 저장율, 강한/약한 씬, 바이럴 가능성 포함.`,(ep,t)=>`EP.${ep} — ${t}: 분석 기반으로 다음 EP 기획 방향을 제안해줘. 훅 카피 3가지, 타겟 페르소나 포함.`]}
+];
+const AGENTS=[
+  {ico:'✍',name:'카피라이터',role:'브런치 원고',bg:'#fef3c7',isNew:false},
+  {ico:'📣',name:'콘텐츠 마케터',role:'숏츠 · 캡션',bg:'#dbeafe',isNew:false},
+  {ico:'🎬',name:'영상 PD',role:'콘티 · 타임라인',bg:'#d8f3dc',isNew:false},
+  {ico:'🪄',name:'이미지 디렉터',role:'MJ 프롬프트',bg:'#f3e8ff',isNew:false},
+  {ico:'🎨',name:'브랜딩 마케터',role:'커버 · 그리드',bg:'#fee2e2',isNew:false},
+  {ico:'👁',name:'에디터',role:'원고 비평',bg:'#e0f2fe',isNew:true},
+  {ico:'👤',name:'독자 페르소나',role:'일반인 시점',bg:'#fce7f3',isNew:true},
+  {ico:'📊',name:'데이터 애널리스트',role:'품질 리포트',bg:'#f0fdf4',isNew:true}
+];
+const UNLOCK=[null,null,0,null,[1,2],3,4,5];
+const DELAYS=[900,2200,1900,1700,2300,1300,1100,1500];
+const epn=i=>String(i+1).padStart(2,'0');
+
+let sel=0, running=false;
+const state=TOPICS.map(()=>({steps:0,outs:[false,false,false,false,false,false]}));
+const expanded={};
+
+// 현재 팝업 상태
+let curModal={epIdx:0,outIdx:0,tabIdx:0};
+
+function renderAgents(){
+  const g=document.getElementById('agent-grid');
+  g.innerHTML=AGENTS.map(a=>`
+    <div class="ac">
+      <div class="aico" style="background:${a.bg}">${a.ico}</div>
+      <div class="aname">${a.name}</div>
+      <div class="arole">${a.role}</div>
+      <div class="abadge" style="background:${a.isNew?'#dbeafe':'#d8f3dc'};color:${a.isNew?'#1e3a5f':'#2d6a4f'}">
+        <div style="width:4px;height:4px;border-radius:50%;background:currentColor"></div>
+        ${a.isNew?'신규':'대기중'}
+      </div>
+    </div>`).join('');
+}
+
+function renderEpList(){
+  const list=document.getElementById('ep-list');
+  list.innerHTML=TOPICS.map((tp,i)=>{
+    const es=state[i], pct=Math.round(es.steps/8*100), active=i===sel;
+    const bg=es.steps===8?'#d8f3dc':es.steps>0?'#fef3c7':'#e8e6e0';
+    const fc=es.steps===8?'#2d6a4f':es.steps>0?'#92400e':'#6b6b67';
+    const txt=es.steps===8?'완성':es.steps>0?`${es.steps}/8`:'대기';
+    return `<div class="ep-item${active?' active':''}" onclick="selectEp(${i})">
+      <div class="ep-dot" style="background:${COLORS[i]}"></div>
+      <div class="ep-info">
+        <div class="ep-num">EP.${epn(i)}</div>
+        <div class="ep-title">${tp.t}</div>
+        <div class="ep-hook">${tp.h}</div>
+        ${es.steps>0?`<div class="ep-prog-wrap"><div class="ep-prog-fill" style="width:${pct}%"></div></div>`:''}
+      </div>
+      <div class="ep-badge" style="background:${bg};color:${fc}">${txt}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderDetHead(){
+  const tp=TOPICS[sel], s=state[sel];
+  document.getElementById('det-dot').style.background=COLORS[sel];
+  document.getElementById('det-epnum').textContent=`EP.${epn(sel)}`;
+  document.getElementById('det-title').textContent=tp.t;
+  document.getElementById('det-hook').textContent=tp.h;
+  document.getElementById('det-status').textContent=
+    s.steps===0?'파이프라인 대기 중':s.steps===8?'✓ 8단계 완료':`${s.steps}/8단계 진행중`;
+}
+
+function renderOutList(){
+  const s=state[sel];
+  const list=document.getElementById('out-list');
+  list.innerHTML=OUTS.map((o,i)=>{
+    const done=s.outs[i];
+    const tabBtns=done?o.tabs.map((tab,ti)=>
+      `<button class="tab-chip" onclick="event.stopPropagation();openModal(${sel},${i},${ti})">${tab}</button>`
+    ).join(''):'';
+    return `<div class="out-row${done?' ready':''}" ${done?`onclick="openModal(${sel},${i},0)"`:''}
+      onmouseenter="${done?`this.style.background='#f5f4f0'`:''}"
+      onmouseleave="this.style.background=''">
+      <div class="out-ico-wrap" style="background:${done?'#111110':'#f0f0ef'}">
+        <span style="filter:${done?'none':'grayscale(1)'};opacity:${done?1:.4}">${o.ico}</span>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div class="out-name">${o.name}</div>
+        <div class="out-desc">${o.desc}</div>
+      </div>
+      <div class="out-right">
+        ${tabBtns}
+        <div class="out-status" style="color:${done?'#2d6a4f':'#b4b2a9'}">${done?'✓':'● 대기중'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderArchive(){
+  const doneList=state.map((e,i)=>e.steps===8?i:-1).filter(i=>i>=0);
+  document.getElementById('archive-badge').textContent=`${doneList.length}편 완성`;
+  const body=document.getElementById('archive-body');
+  if(!doneList.length){
+    body.innerHTML=`<div class="archive-empty">
+      <div class="archive-empty-ico">📭</div>
+      <div class="archive-empty-txt">아직 완성된 EP가 없어요</div>
+      <div class="archive-empty-sub">파이프라인을 실행하면 여기에 쌓여요</div>
+    </div>`;
+    return;
+  }
+  body.innerHTML=doneList.map(i=>{
+    const isOpen=expanded[i];
+    const icoRow=OUTS.map((_,oi)=>`<div class="arc-ico" style="opacity:${state[i].outs[oi]?1:.15}">${OUTS[oi].ico}</div>`).join('');
+    const expandContent=isOpen?`
+      <div class="arc-expand">
+        <div class="arc-expand-bar">
+          <div class="arc-expand-dot" style="background:${COLORS[i]}"></div>
+          <span class="arc-expand-title">EP.${epn(i)} — ${TOPICS[i].t}</span>
+          <span class="arc-expand-hook">/ ${TOPICS[i].h}</span>
+        </div>
+        ${OUTS.map((o,oi)=>`
+          <div class="arc-out-row" onclick="openModal(${i},${oi},0)">
+            <div class="arc-out-ico">${o.ico}</div>
+            <div style="flex:1;min-width:0">
+              <div class="arc-out-name">${o.name}</div>
+              <div class="arc-out-desc">${o.desc}</div>
+            </div>
+            <div class="arc-out-tabs">
+              ${o.tabs.map((tab,ti)=>`<button class="tab-chip" onclick="event.stopPropagation();openModal(${i},${oi},${ti})">${tab}</button>`).join('')}
+            </div>
+          </div>`).join('')}
+      </div>`:''
+    return `<div class="arc-row-wrap">
+      <div class="arc-row" onclick="toggleArchive(${i})">
+        <div class="arc-arrow${isOpen?' open':''}">▶</div>
+        <div class="arc-ep-info">
+          <div class="arc-ep-dot" style="background:${COLORS[i]}"></div>
+          <div style="min-width:0">
+            <div class="arc-ep-num">EP.${epn(i)}</div>
+            <div class="arc-ep-title">${TOPICS[i].t}</div>
+          </div>
+        </div>
+        ${icoRow}
+        <div class="arc-done-badge">
+          <span style="font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;background:#d8f3dc;color:#2d6a4f">완성</span>
+        </div>
+      </div>
+      ${expandContent}
+    </div>`;
+  }).join('');
+}
+
+function renderStat(){
+  const done=state.filter(e=>e.steps===8).length;
+  document.getElementById('stat-text').textContent=`${done} / ${TOPICS.length} 완성`;
+}
+
+function selectEp(i){
+  sel=i;
+  renderEpList(); renderDetHead(); renderOutList();
+}
+
+function toggleArchive(i){
+  expanded[i]=!expanded[i];
+  renderArchive();
+}
+
+function runPipeline(){
+  if(running) return;
+  running=true;
+  document.getElementById('btn-run').disabled=true;
+  document.getElementById('btn-ep-run').disabled=true;
+  const s=state[sel];
+  s.steps=0; s.outs=[false,false,false,false,false,false];
+  renderDetHead(); renderOutList(); renderEpList();
+  let step=0;
+  function tick(){
+    step++; s.steps=step;
+    const u=UNLOCK[step];
+    if(u!==null&&u!==undefined){
+      Array.isArray(u)?u.forEach(o=>{s.outs[o]=true;}):s.outs[u]=true;
+    }
+    if(step===8){s.outs=[true,true,true,true,true,true];}
+    renderDetHead(); renderOutList(); renderEpList(); renderArchive(); renderStat();
+    if(step<8) setTimeout(tick,DELAYS[step]);
+    else{
+      running=false;
+      document.getElementById('btn-run').disabled=false;
+      document.getElementById('btn-ep-run').disabled=false;
+    }
+  }
+  setTimeout(tick,DELAYS[0]);
+}
+
+// ── 팝업 ──────────────────────────────────────────
+function openModal(epIdx,outIdx,tabIdx){
+  curModal={epIdx,outIdx,tabIdx};
+  const o=OUTS[outIdx], tp=TOPICS[epIdx];
+  const ep=epn(epIdx);
+  document.getElementById('m-ico').textContent=o.ico;
+  document.getElementById('m-dot').style.background=COLORS[epIdx];
+  document.getElementById('m-ep-text').textContent=`EP.${ep} — ${tp.t}`;
+  document.getElementById('m-title').textContent=o.name;
+  document.getElementById('m-prompt').textContent=o.prompts[tabIdx](ep,tp.t);
+  // 탭
+  const tabs=document.getElementById('m-tabs');
+  tabs.innerHTML=o.tabs.map((tab,ti)=>
+    `<button class="mtab${ti===tabIdx?' on':''}" onclick="switchModalTab(${ti})">${tab}</button>`
+  ).join('');
+  document.getElementById('btn-copy').textContent='📋 명령어 복사';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function switchModalTab(ti){
+  openModal(curModal.epIdx,curModal.outIdx,ti);
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function copyPrompt(){
+  const txt=document.getElementById('m-prompt').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const b=document.getElementById('btn-copy');
+    b.textContent='✓ 복사됨';
+    setTimeout(()=>{b.textContent='📋 명령어 복사';},2000);
+  });
+}
+
+document.getElementById('modal-overlay').addEventListener('click',e=>{
+  if(e.target===e.currentTarget) closeModal();
+});
+
+// 초기 렌더
+renderAgents(); renderEpList(); renderDetHead(); renderOutList(); renderArchive(); renderStat();
+</script>
+</body>
+</html>
