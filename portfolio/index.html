@@ -737,6 +737,29 @@ section{position:relative;}
 
 /* WORK */
 .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+/* 카테고리 필터 탭 */
+.work-filter{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:clamp(28px,4vh,44px);
+}
+.work-filter button{
+  font-family:'Manrope',sans-serif;font-weight:700;
+  font-size:.86rem;letter-spacing:-.01em;
+  padding:11px 22px;border-radius:40px;
+  background:var(--bg-2);border:1px solid var(--line);
+  color:var(--txt-dim);cursor:pointer;
+  transition:.3s var(--ease);
+}
+.work-filter button:hover{color:var(--paper);}
+.work-filter button.active{
+  background:var(--paper);border-color:var(--paper);color:var(--txt-dark);
+}
+.work-filter button .cnt{
+  font-size:.78rem;opacity:.6;margin-left:5px;
+}
+/* 필터링 시 숨김/표시 */
+.work.is-hidden{display:none;}
+.work-grid{transition:opacity .3s var(--ease);}
 .work{position:relative;border-radius:var(--radius);overflow:hidden;
   background:var(--bg-2);border:1px solid var(--line);
   aspect-ratio:16/11;transition:.5s var(--ease);}
@@ -1268,23 +1291,40 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
   </section>
   <section class="sec-pad dark">
     <div class="wrap">
-      <div class="work-grid">
-        <!-- [[ 프로젝트 카드 ]] -->
-        <div class="work sr" onclick="alert('프로젝트 상세 링크를 연결하세요')">
+      <!-- 카테고리 필터 탭 -->
+      <div class="work-filter sr" id="workFilter">
+        <button class="active" data-cat="all">All</button>
+        <button data-cat="uiux">UI / UX</button>
+        <button data-cat="web">Web Design</button>
+        <button data-cat="brand">Branding</button>
+        <button data-cat="clone">Clone</button>
+      </div>
+
+      <div class="work-grid" id="workGrid">
+        <!-- [[ 프로젝트 카드 ]] data-cat 으로 카테고리 지정: uiux / web / brand / clone -->
+        <div class="work sr" data-cat="uiux" onclick="alert('프로젝트 상세 링크를 연결하세요')">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta"><span class="tag">UI / UX</span><h3>[[ Project Title ]]</h3></div>
         </div>
-        <div class="work sr" onclick="alert('프로젝트 상세 링크를 연결하세요')">
+        <div class="work sr" data-cat="web" onclick="alert('프로젝트 상세 링크를 연결하세요')">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta"><span class="tag">Web Design</span><h3>[[ Project Title ]]</h3></div>
         </div>
-        <div class="work sr" onclick="alert('프로젝트 상세 링크를 연결하세요')">
+        <div class="work sr" data-cat="clone" onclick="alert('프로젝트 상세 링크를 연결하세요')">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta"><span class="tag">Clone Coding</span><h3>[[ Project Title ]]</h3></div>
         </div>
-        <div class="work sr" onclick="alert('프로젝트 상세 링크를 연결하세요')">
+        <div class="work sr" data-cat="uiux" onclick="alert('프로젝트 상세 링크를 연결하세요')">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta"><span class="tag">UI / UX</span><h3>[[ Project Title ]]</h3></div>
+        </div>
+        <div class="work sr" data-cat="brand" onclick="alert('프로젝트 상세 링크를 연결하세요')">
+          <div class="ph"></div><div class="corner">↗</div>
+          <div class="meta"><span class="tag">Branding</span><h3>[[ Project Title ]]</h3></div>
+        </div>
+        <div class="work sr" data-cat="web" onclick="alert('프로젝트 상세 링크를 연결하세요')">
+          <div class="ph"></div><div class="corner">↗</div>
+          <div class="meta"><span class="tag">Web Design</span><h3>[[ Project Title ]]</h3></div>
         </div>
       </div>
     </div>
@@ -1451,6 +1491,39 @@ window.addEventListener('load',()=>{
   },1700);
 });
 document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
+
+/* ---------- WORK 카테고리 필터 ---------- */
+(function(){
+  const filter=document.getElementById('workFilter');
+  const grid=document.getElementById('workGrid');
+  if(!filter||!grid) return;
+  const cards=[...grid.querySelectorAll('.work')];
+  // 각 탭 버튼에 개수 표시
+  filter.querySelectorAll('button').forEach(btn=>{
+    const cat=btn.dataset.cat;
+    const n=cat==='all'?cards.length:cards.filter(c=>c.dataset.cat===cat).length;
+    const cnt=document.createElement('span');
+    cnt.className='cnt';cnt.textContent=n;
+    btn.appendChild(cnt);
+  });
+  // 탭 클릭 → 필터링
+  filter.addEventListener('click',e=>{
+    const btn=e.target.closest('button');
+    if(!btn) return;
+    filter.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat=btn.dataset.cat;
+    grid.style.opacity='0';
+    setTimeout(()=>{
+      cards.forEach(c=>{
+        const show=cat==='all'||c.dataset.cat===cat;
+        c.classList.toggle('is-hidden',!show);
+      });
+      grid.style.opacity='1';
+    },200);
+  });
+})();
+
 
 /* ---------- SHOWCASE 슬라이더 ---------- */
 (function(){
