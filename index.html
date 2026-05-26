@@ -262,42 +262,24 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:#f5f4f0;color:#111110
     <div class="modal-head">
       <div class="modal-top">
         <div class="modal-left">
-          <div class="modal-ico-w">🔍</div>
+          <div class="modal-ico-w">✨</div>
           <div>
-            <div style="font-size:18px;font-weight:700;color:#111110">리서치 에이전트</div>
-            <div style="font-size:12px;color:#6b6b67;margin-top:3px">EP를 선택하고 원고 방향을 잡아보세요</div>
+            <div style="font-size:18px;font-weight:700;color:#111110">새 시리즈 주제 추천</div>
+            <div style="font-size:12px;color:#6b6b67;margin-top:3px">요즘 트렌드 기반으로 5개 추천해드릴게요</div>
           </div>
         </div>
         <button class="close-btn" onclick="closeResearch()">✕</button>
       </div>
     </div>
     <div class="modal-body">
-      <div style="background:#f5f4f0;border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#6b6b67;line-height:1.6">
-        <strong style="color:#111110;font-weight:600">📋 사용 방법</strong><br>
-        아래 명령어를 복사해서 <strong style="color:#111110;font-weight:600">Claude 채팅창</strong>에 붙여넣으세요.
+      <div style="background:#f5f4f0;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#6b6b67;line-height:1.6">
+        원하는 주제를 선택하면 EP로 바로 추가돼요. 추가 후 산출물 탭에서 원고를 뽑으세요.
       </div>
-      <div style="margin-bottom:12px">
-        <label style="font-size:12px;font-weight:500;color:#6b6b67;display:block;margin-bottom:6px">EP 선택</label>
-        <select id="research-ep-select" onchange="updateResearchPrompt()" style="width:100%;padding:8px 10px;border:1px solid #e8e6e0;border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;color:#111110;background:#fff"></select>
-      </div>
-      <div style="margin-bottom:12px">
-        <label style="font-size:12px;font-weight:500;color:#6b6b67;display:block;margin-bottom:6px">리서치 유형</label>
-        <div style="display:flex;gap:6px;flex-wrap:wrap" id="research-type-tabs">
-          <button class="tab-chip on" onclick="selectResearchType(0,this)">트렌드 조사</button>
-          <button class="tab-chip" onclick="selectResearchType(1,this)">키워드 분석</button>
-        </div>
-      </div>
-      <div class="prompt-box">
-        <div class="prompt-lbl">Claude에게 붙여넣을 명령어</div>
-        <div class="prompt-txt" id="research-prompt"></div>
-      </div>
+      <div id="suggest-list" style="display:flex;flex-direction:column;gap:8px"></div>
     </div>
     <div class="modal-foot">
-      <div style="font-size:12px;color:#6b6b67">명령어 복사 후 Claude 채팅에 붙여넣으세요</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn" id="btn-research-copy" onclick="copyResearchPrompt()">📋 명령어 복사</button>
-        <button class="btn btn-dark" onclick="closeResearch()">닫기</button>
-      </div>
+      <button class="btn" onclick="refreshSuggestions()">🔄 다시 추천</button>
+      <button class="btn btn-dark" onclick="closeResearch()">닫기</button>
     </div>
   </div>
 </div>
@@ -357,12 +339,23 @@ const OUTS=[
        {name:'고백형', guide:'나도 몰랐던 사실 형식으로 시작. 나도 당하고 있었다는 반전 구조. 공감에서 시작해서 깨달음으로 끝나는 흐름.'},
      ];
      const style=styles[(parseInt(ep)-1)%styles.length];
-     return `EP.${ep} — ${t}: 브런치 원고 전문을 작성해줘.\n\n[원고 스타일: ${style.name}]\n${style.guide}\n\n리서치 에이전트가 조사한 내용을 바탕으로 독자에게 실질적으로 유용한 내용으로 작성해줘. 분량은 내용의 깊이에 맞게 자유롭게 조절해도 돼. 공감 도입부와 클로징 포함.`;
+     return `EP.${ep} — ${t}: 브런치 원고 전문을 작성해줘.\n\n[원고 스타일: ${style.name}]\n${style.guide}\n\n리서치 에이전트가 조사한 내용을 바탕으로 아래 스타일 가이드를 반드시 적용해서 작성해줘.
+
+[우디 스타일 글쓰기 가이드]
+1. 제목: 독자의 고통 포인트를 정확히 찌르는 감정형으로 ("왜 ~을 못 하는가", "~이 아니다, 설계다")
+2. 첫 문단: 독자가 직접 경험했을 법한 순간으로 바로 시작. 이론 설명 금지.
+3. 숫자/데이터: 첫 3문단 안에 신뢰를 높이는 수치 1개 이상 삽입 (예: "이탈률 70%", "출시 20일 만에 30만 좌")
+4. 반전 구조: "이건 당신 문제가 아니다. 설계다" 형식의 반전을 글 중반에 한 번 이상 넣기
+5. 행동 유도: 마지막 직전 문단에 "지금 앱을 열어보자" 형식의 구체적 행동 제안
+6. 클로징: "이거 아는 사람이 다르게 봐요. 저장해두세요." + 다음 편 예고로 마무리
+7. 분량: 내용의 깊이에 맞게 자유롭게. 짧아도 되고 길어도 됨.
+
+위 가이드를 지키면서 브런치 독자가 중간에 이탈하지 않고 끝까지 읽고 저장 버튼을 누르게 만드는 글을 써줘.`;
    },
-      (ep,t)=>`EP.${ep} — ${t}: 브런치 원고 에디터 검수. 약한 부분 3가지 짚고 수정 제안 달아줘.`]},
+      (ep,t)=>`EP.${ep} — ${t}: 브런치 원고 에디터 검수를 해줘.\n\n[검수 기준 — 우디 스타일]\n1. 제목이 독자 고통을 찌르는가 (감정형인가)\n2. 첫 문단에 독자 경험이 바로 나오는가\n3. 숫자/데이터가 첫 3문단 안에 있는가\n4. 반전 구조 (설계다, 의지력 문제가 아니다)가 있는가\n5. 행동 유도 문장이 마지막 직전에 있는가\n\n각 항목별로 점수 매기고, 약한 부분 수정 제안 달아줘. 그리고 최종본도 바로 작성해줘.`]},
   {ico:'🎨',name:'배너 이미지',desc:'16:9 트렌디 배너 MJ 프롬프트',
    tabs:['메인 배너','변형 버전'],
-   p:[(ep,t)=>`EP.${ep} — ${t}: 브런치 상단 배너 미드저니 프롬프트를 작성해줘. 20대 초반이 좋아하는 트렌디하고 생동감 있는 스타일로, 라우드소싱 감성 참고해서 젊고 세련된 느낌으로. --ar 16:9 --style raw --v 6.1 --q 2 포함.`,
+   p:[(ep,t)=>`EP.${ep} — ${t}: 브런치 상단 배너 미드저니 프롬프트를 작성해줘. 20대 초반이 좋아하는 트렌디하고 생동감 있는 스타일로, 라우드소싱 감성 참고해서 젊고 세련된 느낌으로. 글의 핵심 감정 (독자 고통, 반전, 깨달음) 중 하나를 시각적으로 표현해줘. --ar 16:9 --style raw --v 6.1 --q 2 포함.`,
       (ep,t)=>`EP.${ep} — ${t}: 배너 변형 버전 2개를 추가로 작성해줘. 각각 다른 무드와 구도로. 트렌디하고 젊은 감성 유지, --ar 16:9 --style raw --v 6.1 --q 2 포함.`]},
   {ico:'📸',name:'섹션별 이미지',desc:'원고 각 섹션 삽입용 프롬프트',
    tabs:['섹션 이미지','삽입 가이드'],
@@ -679,20 +672,29 @@ document.getElementById('modal-ov').addEventListener('click',e=>{if(e.target===e
 
 renderAll();
 
-// ── 리서치 에이전트 ────────────────────────────────────
-let researchTypeIdx = 0;
+// ── 리서치 에이전트 (새 시리즈 추천) ────────────────────
+const SUGGEST_POOL = [
+  {t:'쿠팡에서 장바구니 담고 왜 결제를 못 하는가', h:'이탈률 70%의 설계 비밀', tag:'쇼핑'},
+  {t:'당신이 인스타를 끊지 못하는 건 의지력 문제가 아니다', h:'중독 설계의 3가지 장치', tag:'SNS'},
+  {t:'앱 온보딩 3초 안에 실패하는 패턴', h:'첫 화면이 전부다', tag:'UX'},
+  {t:'배달앱 주문 버튼이 빨간 이유', h:'색이 행동을 만드는 방식', tag:'UX'},
+  {t:'카카오톡 읽씹이 불안한 건 설계 때문이다', h:'읽음 표시가 만드는 사회적 압박', tag:'메신저'},
+  {t:'넷플릭스 다음 화가 자동으로 재생되는 이유', h:'선택을 없애는 설계', tag:'OTT'},
+  {t:'오늘의집이 인테리어를 충동구매하게 만드는 구조', h:'욕망을 설계하는 방법', tag:'쇼핑'},
+  {t:'당근마켓과 번개장터, 같은 중고거래가 다른 이유', h:'신뢰를 설계하는 방식', tag:'플랫폼'},
+  {t:'스타벅스 앱이 사이렌오더를 앞에 두는 이유', h:'습관을 만드는 UI 설계', tag:'F&B'},
+  {t:'무신사가 패션을 아는 척하게 만드는 설계', h:'전문성 착각의 UX', tag:'패션'},
+  {t:'카카오T 호출 화면의 긴장감은 설계다', h:'기다림을 견디게 만드는 방법', tag:'모빌리티'},
+  {t:'앱이 당신의 알림을 켜두게 만드는 방법', h:'슬롯머신과 같은 원리', tag:'UX'},
+  {t:'로그인 화면 하나로 이탈이 결정된다', h:'진입 장벽 설계의 심리학', tag:'UX'},
+  {t:'왜 어떤 앱은 처음부터 쉽고 어떤 앱은 어려운가', h:'온보딩 UX 비교 분석', tag:'UX'},
+  {t:'쿠팡이츠 도착 예정 화면의 심리학', h:'기다림을 참게 만드는 설계', tag:'배달'},
+];
+
+function shuffle(arr){ return arr.slice().sort(()=>Math.random()-.5); }
 
 function openResearchModal(){
-  const selEl = document.getElementById('research-ep-select');
-  selEl.innerHTML = TOPICS.map((t,i)=>{
-    const selected = (i===sel) ? 'selected' : '';
-    return '<option value="'+i+'" '+selected+'>EP.'+epn(i)+' \u2014 '+t.t+'</option>';
-  }).join('');
-  researchTypeIdx = 0;
-  document.querySelectorAll('#research-type-tabs .tab-chip').forEach((btn,i)=>{
-    btn.classList.toggle('on', i===0);
-  });
-  updateResearchPrompt();
+  renderSuggestions();
   document.getElementById('research-ov').classList.add('open');
 }
 
@@ -700,32 +702,36 @@ function closeResearch(){
   document.getElementById('research-ov').classList.remove('open');
 }
 
-function selectResearchType(idx, el){
-  researchTypeIdx = idx;
-  document.querySelectorAll('#research-type-tabs .tab-chip').forEach(btn=>btn.classList.remove('on'));
-  el.classList.add('on');
-  updateResearchPrompt();
+function renderSuggestions(){
+  const list = document.getElementById('suggest-list');
+  const picked = shuffle(SUGGEST_POOL).slice(0,5);
+  list.innerHTML = picked.map(s=>`
+    <div style="background:#fff;border:1px solid #e8e6e0;border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s"
+      onmouseover="this.style.borderColor='#111110'" onmouseout="this.style.borderColor='#e8e6e0'"
+      onclick="addSuggestEp('${s.t.replace(/'/g,"\\'")}','${s.h.replace(/'/g,"\\'")}')">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:#f5f4f0;color:#6b6b67">${s.tag}</span>
+        <span style="font-size:11px;color:#bbb">탭해서 추가 →</span>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:#111110;margin-bottom:3px;line-height:1.4">${s.t}</div>
+      <div style="font-size:12px;color:#6b6b67">${s.h}</div>
+    </div>
+  `).join('');
 }
 
-function updateResearchPrompt(){
-  const selEl = document.getElementById('research-ep-select');
-  const idx = parseInt(selEl.value)||0;
-  const t = TOPICS[idx];
-  if(!t) return;
-  const ep = epn(idx);
-  const p0 = 'EP.'+ep+' \u2014 '+t.t+' \uc8fc\uc81c\ub85c \ube0c\ub7f0\uce58 \uc6d0\uace0\ub97c \uc4f0\uae30 \uc804\uc5d0 \ub9ac\uc11c\uce58\ub97c \ud574\uc918. \uc694\uc998 \ube0c\ub7f0\uce58\uc5d0\uc11c \uc870\ud68c\uc218 \ub192\uc740 \uae00 \uc720\ud615, \ud074\ub9ad\uc728 \ub192\uc740 \uc81c\ubaa9 \ud328\ud134, \ub3c5\uc790 \ubc18\uc751\uc774 \uc88b\uc740 \ucf58\ud150\uce20 \ud615\uc2dd\uc744 \uc870\uc0ac\ud574\uc11c \uc774 \uc8fc\uc81c\uc5d0 \ub9de\ub294 \uc6d0\uace0 \ubc29\ud5a5\uc744 \uc81c\uc548\ud574\uc918.';
-  const p1 = 'EP.'+ep+' \u2014 '+t.t+': \uc774 \uc8fc\uc81c\uc640 \uad00\ub828\ud574\uc11c \ube0c\ub7f0\uce58 \ub3c5\uc790\ub4e4\uc774 \ub9ce\uc774 \uac80\uc0c9\ud558\ub294 \ud0a4\uc6cc\ub4dc, \uad00\ub828 \ud2b8\ub80c\ub4dc, \uacbd\uc7c1 \uae00 \ubd84\uc11d\uc744 \ud574\uc918. \uc5b4\ub5a4 \uac01\ub3c4\ub85c \uc4f0\uba74 \ucc28\ubcc4\ud654\ub420 \uc218 \uc788\ub294\uc9c0 \uc81c\uc548 \ud3ec\ud568.';
-  document.getElementById('research-prompt').textContent = researchTypeIdx===0 ? p0 : p1;
-  document.getElementById('btn-research-copy').textContent = '\ud83d\udccb \uba85\ub839\uc5b4 \ubcf5\uc0ac';
-}
+function refreshSuggestions(){ renderSuggestions(); }
 
-function copyResearchPrompt(){
-  const txt = document.getElementById('research-prompt').textContent;
-  navigator.clipboard.writeText(txt).then(()=>{
-    const b = document.getElementById('btn-research-copy');
-    b.textContent = '\u2713 \ubcf5\uc0ac\ub428';
-    setTimeout(()=>{ b.textContent = '\ud83d\udccb \uba85\ub839\uc5b4 \ubcf5\uc0ac'; }, 2000);
-  });
+function addSuggestEp(title, hint){
+  TOPICS.push({t:title, h:hint});
+  state.push({steps:0, outs:[false,false,false,false]});
+  save();
+  sel = TOPICS.length - 1;
+  renderEpList();
+  renderDet();
+  renderOuts();
+  renderArchive();
+  renderStats();
+  closeResearch();
 }
 
 document.getElementById('research-ov').addEventListener('click',e=>{
