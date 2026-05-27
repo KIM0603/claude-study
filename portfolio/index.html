@@ -613,11 +613,14 @@ section{position:relative;}
   max-width:1480px;margin:0 auto;
 }
 .feature-grid-cap{
-  display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;
+  display:grid;grid-template-columns:repeat(4,1fr) 1.15fr;
   gap:10px;
   max-width:1480px;margin:0 auto;
 }
-@media(max-width:1100px){
+@media(max-width:1280px){
+  .feature-grid-cap{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:860px){
   .feature-grid-cap{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:560px){
@@ -819,9 +822,19 @@ section{position:relative;}
 .cap-card .cap-ico svg{width:100%;height:100%;display:block;}
 .cap-card .cap-ttl{
   font-family:'Pretendard',sans-serif;font-weight:700;
-  font-size:var(--fs-h4);line-height:1.42;
+  font-size:var(--fs-h3);line-height:1.3;
   letter-spacing:-.02em;color:var(--txt-dark);
-  margin-top:clamp(28px,4vh,48px);
+  margin-top:16px;
+}
+.cap-card .cap-num{
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-caption);color:var(--accent);
+  letter-spacing:.04em;margin-top:auto;margin-bottom:4px;
+}
+.cap-card .cap-desc{
+  font-family:'Pretendard',sans-serif;
+  font-size:var(--fs-body-sm);line-height:1.7;
+  color:var(--txt-dim);margin-top:10px;
 }
 .cap-card .cap-plus{
   align-self:flex-start;margin-top:20px;
@@ -1230,59 +1243,76 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     </div>
   </section>
 
-  <!-- ===== 히어로 아래 : 카드 3개 + Who I am (Heritade 식) ===== -->
+  <!-- ===== 히어로 아래 : 카드 3개 + Who I am ===== -->
   <section class="feature-row">
     <div class="feature-grid-cap">
-      <!-- 카드 1 -->
-      <div class="cap-card sr">
+      <!-- 카드 1: Branding -->
+      <div class="cap-card sr" onclick="goFilter('brand')" style="cursor:pointer;">
         <div class="cap-ico">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 12 A20 20 0 0 1 14 52 Z" stroke="#1a1a1a" stroke-width="2.4"/>
-            <path d="M32 12 A20 20 0 0 1 32 52 Z" stroke="#1a1a1a" stroke-width="2.4"/>
+            <rect x="12" y="20" width="40" height="28" rx="4" stroke="#1a1a1a" stroke-width="2.4"/>
+            <path d="M12 30 L52 30" stroke="#1a1a1a" stroke-width="2.4"/>
+            <circle cx="22" cy="25" r="2" fill="#3b82f6"/>
           </svg>
         </div>
-        <!-- [[ 카드1 제목 ]] -->
-        <div class="cap-ttl">지속 가능한<br>프로젝트 기획과 설계</div>
-        <button class="cap-plus" onclick="go('work')">+</button>
+        <div class="cap-num">01</div>
+        <div class="cap-ttl">Branding &<br>상세페이지</div>
+        <div class="cap-desc">브랜드 무드 기획부터 상세페이지 디자인, 오프라인 홍보물까지 전 과정을 담당합니다.</div>
+        <button class="cap-plus">→</button>
       </div>
-      <!-- 카드 2 -->
-      <div class="cap-card sr">
+      <!-- 카드 2: UI·UX -->
+      <div class="cap-card sr" onclick="goFilter('uiux')" style="cursor:pointer;">
         <div class="cap-ico">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="26" cy="32" r="18" stroke="#1a1a1a" stroke-width="2.4"/>
-            <circle cx="38" cy="32" r="18" stroke="#1a1a1a" stroke-width="2.4"/>
-            <line x1="32" y1="15" x2="32" y2="49" stroke="#1a1a1a" stroke-width="2.4"/>
-            <line x1="22" y1="22" x2="42" y2="22" stroke="#1a1a1a" stroke-width="1.6"/>
-            <line x1="20" y1="32" x2="44" y2="32" stroke="#1a1a1a" stroke-width="1.6"/>
-            <line x1="22" y1="42" x2="42" y2="42" stroke="#1a1a1a" stroke-width="1.6"/>
+            <rect x="10" y="14" width="44" height="30" rx="4" stroke="#1a1a1a" stroke-width="2.4"/>
+            <path d="M22 44 L22 52" stroke="#1a1a1a" stroke-width="2.4"/>
+            <path d="M42 44 L42 52" stroke="#1a1a1a" stroke-width="2.4"/>
+            <path d="M16 52 L48 52" stroke="#1a1a1a" stroke-width="2.4"/>
+            <path d="M20 26 L28 22 L36 28 L44 20" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <!-- [[ 카드2 제목 ]] -->
-        <div class="cap-ttl">브랜드 디자인<br>웹사이트 디자인</div>
-        <button class="cap-plus" onclick="go('work')">+</button>
+        <div class="cap-num">02</div>
+        <div class="cap-ttl">UI·UX &<br>반응형 웹</div>
+        <div class="cap-desc">사용자 흐름을 먼저 설계하고, PC·모바일·태블릿 모두에서 일관된 경험을 만듭니다.</div>
+        <button class="cap-plus">→</button>
       </div>
-      <!-- 카드 3 -->
-      <div class="cap-card sr">
+      <!-- 카드 3: SNS -->
+      <div class="cap-card sr" onclick="goFilter('brand')" style="cursor:pointer;">
         <div class="cap-ico">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 20 L40 20 L48 30 L24 30 Z" stroke="#1a1a1a" stroke-width="2.4" stroke-linejoin="round"/>
-            <path d="M16 34 L40 34 L48 44 L24 44 Z" stroke="#1a1a1a" stroke-width="2.4" stroke-linejoin="round"/>
+            <rect x="14" y="14" width="36" height="36" rx="10" stroke="#1a1a1a" stroke-width="2.4"/>
+            <circle cx="32" cy="32" r="8" stroke="#1a1a1a" stroke-width="2.4"/>
+            <circle cx="43" cy="21" r="2.5" fill="#3b82f6"/>
           </svg>
         </div>
-        <!-- [[ 카드3 제목 ]] -->
-        <div class="cap-ttl">웹표준을 준수한<br>빈틈 없는 개발</div>
-        <button class="cap-plus" onclick="go('work')">+</button>
+        <div class="cap-num">03</div>
+        <div class="cap-ttl">SNS 콘텐츠<br>디자인</div>
+        <div class="cap-desc">인스타그램·페이스북 채널의 이벤트·프로모션 콘텐츠를 기획하고 제작합니다.</div>
+        <button class="cap-plus">→</button>
+      </div>
+      <!-- 카드 4: 오프라인 -->
+      <div class="cap-card sr" onclick="goFilter('brand')" style="cursor:pointer;">
+        <div class="cap-ico">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="22" width="36" height="26" rx="3" stroke="#1a1a1a" stroke-width="2.4"/>
+            <path d="M22 22 L22 16 L42 16 L42 22" stroke="#1a1a1a" stroke-width="2.4" stroke-linejoin="round"/>
+            <line x1="20" y1="32" x2="44" y2="32" stroke="#3b82f6" stroke-width="2"/>
+            <line x1="20" y1="39" x2="36" y2="39" stroke="#1a1a1a" stroke-width="1.6" stroke-dasharray="3 3"/>
+          </svg>
+        </div>
+        <div class="cap-num">04</div>
+        <div class="cap-ttl">오프라인<br>디자인물</div>
+        <div class="cap-desc">박람회·팝업·행사용 배너, 리플렛, 포스터 등 인쇄 홍보물을 기획하고 제작합니다.</div>
+        <button class="cap-plus">→</button>
       </div>
       <!-- 소개 카드 (Who I am) -->
       <div class="cap-intro sr">
         <div class="f-pill">Who I am</div>
         <div class="intro-body">
-          <!-- [[ 소개 문구 ]] -->
           <p>어떤 방법론에 한정짓지 않는 열린 시야로, 사용자가 원하는 결과를 디자인합니다.</p>
           <p>좋은 디자인은 잘 만든 화면과 명확한 흐름이 합쳐졌을 때 그 힘을 발휘합니다.</p>
           <p>웹사이트의 목적은 사용자를 모으고 신뢰를 쌓는 데 있습니다. 이를 위해 심미성과 사용성 모두에 초점을 둡니다.</p>
         </div>
-        <!-- [[ CTA 텍스트 / 이동 페이지 ]] -->
         <button class="f-cta" onclick="go('work')">
           <span class="plus">+</span>
           <span class="f-cta-txt">성과로 이어지는 프로젝트</span>
@@ -2059,6 +2089,17 @@ function go(name){
   });
   window.scrollTo({top:0,behavior:'instant'});
   setTimeout(initReveal,50);
+}
+function goFilter(cat){
+  go('work');
+  setTimeout(()=>{
+    // 필터 버튼 활성화
+    document.querySelectorAll('.work-filter button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.cat===cat||b.dataset.cat==='all'&&cat==='all');
+    });
+    const btn = document.querySelector(`.work-filter button[data-cat="${cat}"]`);
+    if(btn){ btn.click(); }
+  }, 100);
 }
 function toggleAcc(btn){
   const item=btn.closest('.acc-item');
