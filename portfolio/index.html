@@ -102,13 +102,13 @@ section{position:relative;}
 .hero{
   background:var(--bg);
   padding:96px clamp(18px,2.5vw,30px) 0;
-  min-height:100vh;
+  min-height:67vh;
 }
 .hero-shell{
   display:grid;grid-template-columns:1fr 1.04fr;
   gap:10px;
   max-width:1480px;margin:0 auto;
-  min-height:calc(100vh - 96px);
+  min-height:calc(67vh - 96px);
 }
 /* 왼쪽 텍스트 카드 */
 .hero-left{
@@ -611,9 +611,9 @@ section{position:relative;}
 /* 공통 흰 카드 */
 .fcard{
   background:#fff;border-radius:var(--radius-lg);
-  padding:clamp(28px,2.6vw,40px);
+  padding:clamp(24px,2.2vw,32px);
   display:flex;flex-direction:column;
-  min-height:clamp(380px,46vh,500px);
+  min-height:clamp(140px,16vh,180px);
 }
 /* 1~3번 : 라벨 + 제목 + (여백) + 거대 숫자 */
 .fcard .f-label{
@@ -726,11 +726,11 @@ section{position:relative;}
 .cap-headcard .head-left{display:flex;flex-direction:column;}
 /* 작은 툴 그리드 */
 .tool-grid-small{
-  display:flex;flex-wrap:wrap;gap:6px;
+  display:flex;flex-wrap:nowrap;gap:4px;
   margin-top:24px;
 }
 .tool-grid-small .tool-item{
-  width:52px;height:52px;border-radius:12px;
+  width:44px;height:44px;border-radius:10px;
   background:var(--paper-2);border:1px solid var(--line-dark);
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;transition:.3s var(--ease);flex-shrink:0;
@@ -742,7 +742,7 @@ section{position:relative;}
   display:flex;align-items:center;justify-content:center;
   background:repeating-linear-gradient(45deg,#e6e2da 0 8px,#eeebe4 8px 16px);
   color:#9a9286;font-family:'Manrope';font-weight:700;
-  font-size:.52rem;letter-spacing:.03em;text-align:center;
+  font-size:.48rem;letter-spacing:.02em;text-align:center;padding:2px;
 }
 .cap-headcard .head-left{display:flex;flex-direction:column;}
 .cap-headcard .f-pill{
@@ -913,8 +913,10 @@ section{position:relative;}
   position:relative;
   height:clamp(200px,26vh,300px);
   overflow:hidden;
-  border-left:1px solid var(--line-dark);
-  padding-left:clamp(20px,2.4vw,36px);
+  border-left:none;
+  padding-left:0;
+  margin-left:auto;
+  width:90%;
 }
 .credit-fade-top,.credit-fade-bottom{
   position:absolute;left:0;right:0;z-index:2;height:56px;pointer-events:none;
@@ -1129,33 +1131,9 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
         </div>
       </div>
 
-      <!-- 오른쪽 : 이미지 + 프로필 박스 -->
+      <!-- 오른쪽 : 이미지 -->
       <div class="hero-right hero-right-exp">
         <div class="ph"></div>
-        <!-- 프로필 인포 오버레이 -->
-        <div class="hero-exp-overlay">
-          <div class="hp-row" style="padding:8px 0;border-bottom:1px solid var(--line);">
-            <span class="hp-label" style="color:var(--txt-dim);">Name</span>
-            <span class="hp-val" style="color:var(--txt);">김유정 (만29세)</span>
-          </div>
-          <div class="hp-row" style="padding:8px 0;border-bottom:1px solid var(--line);">
-            <span class="hp-label" style="color:var(--txt-dim);">Education</span>
-            <span class="hp-val" style="color:var(--txt);">동안고등학교 졸업 / 백석대학교 졸업</span>
-          </div>
-          <div class="hp-row" style="padding:8px 0;border-bottom:1px solid var(--line);">
-            <span class="hp-label" style="color:var(--txt-dim);">License</span>
-            <span class="hp-val" style="color:var(--txt);">ACA Photoshop CC 2015 / ACA Illustrator CC 2015</span>
-          </div>
-          <div class="hp-row" style="padding:8px 0;">
-            <span class="hp-label" style="color:var(--txt-dim);">Skill</span>
-            <span class="hp-val hp-icons">
-              <span class="hp-icon" style="background:#FF9A00;">Ai</span>
-              <span class="hp-icon" style="background:#31A8FF;">Ps</span>
-              <span class="hp-icon" style="background:#FF61F6;">Xd</span>
-              <span class="hp-icon" style="background:#F24E1E;">Fg</span>
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   </section>
