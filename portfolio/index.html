@@ -242,45 +242,110 @@ section{position:relative;}
   .hero-right{aspect-ratio:4/3;min-height:0;}
 }
 
-/* HERO MASONRY */
-.hero-masonry{
+/* HERO CIRCULAR ORBIT */
+.hero-circular{
   position:absolute;inset:0;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;padding:6px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg-2);
   overflow:hidden;
-  background:var(--bg-3);
 }
-.hm-col{
-  display:flex;flex-direction:column;gap:6px;
+/* 중앙 텍스트 */
+.hc-center{
+  position:absolute;z-index:10;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  pointer-events:none;
 }
-.hm-col-offset{
-  margin-top:40px;
+.hc-label{
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:clamp(.7rem,1vw,.95rem);
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--txt-dark);
 }
-.hm-item{
-  border-radius:10px;overflow:hidden;flex-shrink:0;
-  height:120px;
-  background:var(--bg-3);
-  border:1px solid var(--card-border);
-  opacity:0;transform:translateY(16px) scale(.97);
-  transition:opacity .6s var(--ease), transform .6s var(--ease);
+.hc-year{
+  font-family:'Manrope',sans-serif;font-weight:500;
+  font-size:clamp(.6rem,.8vw,.78rem);
+  letter-spacing:.08em;color:var(--txt-dim);
 }
-.hm-item.hm-tall{ height:180px; }
-.hm-item.pop{
-  opacity:1;transform:translateY(0) scale(1);
+/* 궤도 공통 */
+.hc-orbit{
+  position:absolute;
+  border-radius:50%;
+  border:1px dashed var(--card-border);
+  animation:orbitSpin linear infinite;
 }
-.hm-item .hm-ph{
+/* 바깥 궤도 */
+.hc-orbit-1{
+  width:clamp(300px,52%, 480px);
+  aspect-ratio:1;
+  animation-duration:22s;
+}
+/* 안쪽 궤도 */
+.hc-orbit-2{
+  width:clamp(170px,30%,280px);
+  aspect-ratio:1;
+  animation-duration:16s;
+  animation-direction:reverse;
+}
+@keyframes orbitSpin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+/* 개별 아이템 — 궤도 위에 균등 배치 */
+.hc-item{
+  position:absolute;
+  /* 원의 중심 기준으로 이동 */
+  top:50%;left:50%;
+  /* 각도 = (index / total) * 360도 */
+  transform:
+    rotate(calc(var(--i) * var(--step)))
+    translateX(50%)
+    rotate(calc(var(--i) * var(--step) * -1));
+  /* 역회전으로 이미지는 항상 정방향 유지 */
+  animation:itemCounter linear infinite;
+}
+.hc-orbit-1{ --step:72deg; } /* 360/5 */
+.hc-orbit-2{ --step:120deg; } /* 360/3 */
+.hc-orbit-1 .hc-item{
+  animation-duration:22s;
+  margin-top:-36px;margin-left:-36px;
+}
+.hc-orbit-2 .hc-item{
+  animation-duration:16s;
+  animation-direction:reverse;
+  margin-top:-28px;margin-left:-28px;
+}
+@keyframes itemCounter{
+  from{transform:
+    rotate(calc(var(--i) * var(--step)))
+    translateX(50%)
+    rotate(0deg);}
+  to{transform:
+    rotate(calc(var(--i) * var(--step) + 360deg))
+    translateX(50%)
+    rotate(-360deg);}
+}
+/* 이미지 박스 */
+.hc-orbit-1 .hc-img{
+  width:72px;height:72px;
+  border-radius:10px;overflow:hidden;
+  border:2px solid #fff;
+  box-shadow:0 4px 16px rgba(0,0,0,.12);
+}
+.hc-orbit-2 .hc-img{
+  width:56px;height:56px;
+  border-radius:8px;overflow:hidden;
+  border:2px solid #fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.10);
+}
+.hc-ph{
   width:100%;height:100%;
-  background:repeating-linear-gradient(45deg,#ebebeb 0 10px,#f3f3f3 10px 20px);
+  background:repeating-linear-gradient(45deg,#e0e0e0 0 8px,#eee 8px 16px);
 }
-.hm-item img{
+.hc-img img{
   width:100%;height:100%;object-fit:cover;display:block;
 }
-/* 이미지 넣으면 그라디언트 오버레이 제거 */
-.hm-item img ~ .hm-ph{display:none;}
-
 @media(max-width:920px){
-  .hero-masonry{display:none;}
+  .hero-circular{display:none;}
 }
 
 /* HERO QUOTE */
@@ -600,7 +665,7 @@ section{position:relative;}
 .career-row .marker::before{
   content:"";width:10px;height:10px;border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 0 3px rgba(59,130,246,.18);
+  box-shadow:0 0 0 3px rgba(255,107,71,.18);
   z-index:2;
 }
 .career-row .marker::after{
@@ -612,7 +677,7 @@ section{position:relative;}
   display:inline-flex;align-items:center;gap:8px;
   margin-top:20px;align-self:flex-start;
   background:var(--accent);
-  border:none;color:var(--txt-dark);
+  border:none;color:#fff;
   font-family:'Pretendard',sans-serif;font-weight:600;
   font-size:var(--fs-body-sm);letter-spacing:-.01em;
   padding:10px 20px;border-radius:8px;
@@ -639,8 +704,8 @@ section{position:relative;}
 .career-row .c-body .c-tags span{
   font-family:'Pretendard',sans-serif;font-weight:500;
   font-size:var(--fs-label);color:var(--accent);
-  background:rgba(59,130,246,.15);
-  border:1px solid rgba(59,130,246,.3);
+  background:rgba(255,107,71,.10);
+  border:1px solid rgba(255,107,71,.25);
   padding:3px 10px;border-radius:6px;
 }
 @media(max-width:900px){
@@ -1261,7 +1326,7 @@ section{position:relative;}
   background:var(--accent);color:#fff;border:none;
   padding:16px 32px;border-radius:10px;transition:.2s var(--ease);}
 .contact-block .mail:hover{background:var(--accent-deep);transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(59,130,246,.32);}
+  box-shadow:0 8px 24px rgba(255,107,71,.32);}
 .contact-block .mail .c{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.7);}
 .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
 .contact-grid a{background:#fff;border:1px solid var(--card-border);
@@ -1361,21 +1426,25 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
       <!-- 오른쪽 : 이미지 -->
       <div class="hero-right hero-right-exp">
-        <div class="hero-masonry" id="heroMasonry">
-          <div class="hm-col">
-            <div class="hm-item"><div class="hm-ph"></div></div>
-            <div class="hm-item hm-tall"><div class="hm-ph"></div></div>
-            <div class="hm-item"><div class="hm-ph"></div></div>
+        <div class="hero-circular">
+          <!-- 중앙 텍스트 -->
+          <div class="hc-center">
+            <span class="hc-label">Portfolio</span>
+            <span class="hc-year">2022—2025</span>
           </div>
-          <div class="hm-col hm-col-offset">
-            <div class="hm-item hm-tall"><div class="hm-ph"></div></div>
-            <div class="hm-item"><div class="hm-ph"></div></div>
-            <div class="hm-item hm-tall"><div class="hm-ph"></div></div>
+          <!-- 원형 궤도 1 (바깥) -->
+          <div class="hc-orbit hc-orbit-1">
+            <div class="hc-item" style="--i:0"><div class="hc-img hc-ph"></div></div>
+            <div class="hc-item" style="--i:1"><div class="hc-img hc-ph"></div></div>
+            <div class="hc-item" style="--i:2"><div class="hc-img hc-ph"></div></div>
+            <div class="hc-item" style="--i:3"><div class="hc-img hc-ph"></div></div>
+            <div class="hc-item" style="--i:4"><div class="hc-img hc-ph"></div></div>
           </div>
-          <div class="hm-col">
-            <div class="hm-item"><div class="hm-ph"></div></div>
-            <div class="hm-item hm-tall"><div class="hm-ph"></div></div>
-            <div class="hm-item"><div class="hm-ph"></div></div>
+          <!-- 원형 궤도 2 (안쪽) -->
+          <div class="hc-orbit hc-orbit-2">
+            <div class="hc-item" style="--i:0"><div class="hc-img hc-ph"></div></div>
+            <div class="hc-item" style="--i:1"><div class="hc-img hc-ph"></div></div>
+            <div class="hc-item" style="--i:2"><div class="hc-img hc-ph"></div></div>
           </div>
         </div>
       </div>
