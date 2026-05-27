@@ -242,110 +242,66 @@ section{position:relative;}
   .hero-right{aspect-ratio:4/3;min-height:0;}
 }
 
-/* HERO CIRCULAR ORBIT */
-.hero-circular{
+/* HERO 3D FAN */
+.hero-fan{
   position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
+  gap:clamp(16px,4vw,60px);
   background:var(--bg-2);
+  perspective:900px;
   overflow:hidden;
 }
-/* 중앙 텍스트 */
-.hc-center{
-  position:absolute;z-index:10;
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  pointer-events:none;
+.hf-group{
+  position:relative;
+  width:clamp(100px,14vw,180px);
+  height:clamp(160px,28vh,340px);
+  transform-style:preserve-3d;
 }
-.hc-label{
-  font-family:'Manrope',sans-serif;font-weight:800;
-  font-size:clamp(.7rem,1vw,.95rem);
-  letter-spacing:.18em;text-transform:uppercase;
-  color:var(--txt-dark);
-}
-.hc-year{
-  font-family:'Manrope',sans-serif;font-weight:500;
-  font-size:clamp(.6rem,.8vw,.78rem);
-  letter-spacing:.08em;color:var(--txt-dim);
-}
-/* 궤도 공통 */
-.hc-orbit{
-  position:absolute;
-  border-radius:50%;
-  border:1px dashed var(--card-border);
-  animation:orbitSpin linear infinite;
-}
-/* 바깥 궤도 */
-.hc-orbit-1{
-  width:clamp(300px,52%, 480px);
-  aspect-ratio:1;
-  animation-duration:22s;
-}
-/* 안쪽 궤도 */
-.hc-orbit-2{
-  width:clamp(170px,30%,280px);
-  aspect-ratio:1;
-  animation-duration:16s;
-  animation-direction:reverse;
-}
-@keyframes orbitSpin{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
-/* 개별 아이템 — 궤도 위에 균등 배치 */
-.hc-item{
-  position:absolute;
-  /* 원의 중심 기준으로 이동 */
-  top:50%;left:50%;
-  /* 각도 = (index / total) * 360도 */
-  transform:
-    rotate(calc(var(--i) * var(--step)))
-    translateX(50%)
-    rotate(calc(var(--i) * var(--step) * -1));
-  /* 역회전으로 이미지는 항상 정방향 유지 */
-  animation:itemCounter linear infinite;
-}
-.hc-orbit-1{ --step:72deg; } /* 360/5 */
-.hc-orbit-2{ --step:120deg; } /* 360/3 */
-.hc-orbit-1 .hc-item{
-  animation-duration:22s;
-  margin-top:-36px;margin-left:-36px;
-}
-.hc-orbit-2 .hc-item{
-  animation-duration:16s;
-  animation-direction:reverse;
-  margin-top:-28px;margin-left:-28px;
-}
-@keyframes itemCounter{
-  from{transform:
-    rotate(calc(var(--i) * var(--step)))
-    translateX(50%)
-    rotate(0deg);}
-  to{transform:
-    rotate(calc(var(--i) * var(--step) + 360deg))
-    translateX(50%)
-    rotate(-360deg);}
-}
-/* 이미지 박스 */
-.hc-orbit-1 .hc-img{
-  width:72px;height:72px;
+.hf-card{
+  position:absolute;inset:0;
   border-radius:10px;overflow:hidden;
+  transform:
+    rotateY(var(--r))
+    translateX(var(--x));
+  transform-origin:bottom center;
+  box-shadow:0 8px 28px rgba(0,0,0,.13);
   border:2px solid #fff;
-  box-shadow:0 4px 16px rgba(0,0,0,.12);
+  transition:transform .4s var(--ease);
+  z-index:var(--z);
 }
-.hc-orbit-2 .hc-img{
-  width:56px;height:56px;
-  border-radius:8px;overflow:hidden;
-  border:2px solid #fff;
-  box-shadow:0 4px 12px rgba(0,0,0,.10);
-}
-.hc-ph{
+/* 호버 시 살짝 더 벌어짐 */
+.hf-group:hover .hf-card:nth-child(1){ transform:rotateY(-36deg) translateX(-80px); }
+.hf-group:hover .hf-card:nth-child(2){ transform:rotateY(-18deg) translateX(-40px); }
+.hf-group:hover .hf-card:nth-child(3){ transform:rotateY(0deg) translateX(0px); }
+.hf-group:hover .hf-card:nth-child(4){ transform:rotateY(18deg) translateX(40px); }
+.hf-group:hover .hf-card:nth-child(5){ transform:rotateY(36deg) translateX(80px); }
+
+.hf-ph{
   width:100%;height:100%;
-  background:repeating-linear-gradient(45deg,#e0e0e0 0 8px,#eee 8px 16px);
+  background:repeating-linear-gradient(45deg,#e0e0e0 0 10px,#ebebeb 10px 20px);
 }
-.hc-img img{
+.hf-card img{
   width:100%;height:100%;object-fit:cover;display:block;
 }
+/* 메인 카드 강조 */
+.hf-main{
+  box-shadow:0 12px 36px rgba(0,0,0,.18);
+}
+/* 오른쪽 그룹은 반대 방향 */
+.hf-right .hf-card{
+  transform:
+    rotateY(calc(var(--r) * -1))
+    translateX(calc(var(--x) * -1));
+  transform-origin:bottom center;
+}
+.hf-right:hover .hf-card:nth-child(1){ transform:rotateY(36deg) translateX(80px); }
+.hf-right:hover .hf-card:nth-child(2){ transform:rotateY(18deg) translateX(40px); }
+.hf-right:hover .hf-card:nth-child(3){ transform:rotateY(0deg) translateX(0px); }
+.hf-right:hover .hf-card:nth-child(4){ transform:rotateY(-18deg) translateX(-40px); }
+.hf-right:hover .hf-card:nth-child(5){ transform:rotateY(-36deg) translateX(-80px); }
+
 @media(max-width:920px){
-  .hero-circular{display:none;}
+  .hero-fan{display:none;}
 }
 
 /* HERO QUOTE */
@@ -1426,25 +1382,22 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
       <!-- 오른쪽 : 이미지 -->
       <div class="hero-right hero-right-exp">
-        <div class="hero-circular">
-          <!-- 중앙 텍스트 -->
-          <div class="hc-center">
-            <span class="hc-label">Portfolio</span>
-            <span class="hc-year">2022—2025</span>
+        <div class="hero-fan">
+          <!-- 왼쪽 팬 그룹 -->
+          <div class="hf-group hf-left">
+            <div class="hf-card" style="--r:-28deg;--x:-60px;--z:0"><div class="hf-ph"></div></div>
+            <div class="hf-card" style="--r:-14deg;--x:-30px;--z:1"><div class="hf-ph"></div></div>
+            <div class="hf-card hf-main" style="--r:0deg;--x:0px;--z:2"><div class="hf-ph"></div></div>
+            <div class="hf-card" style="--r:14deg;--x:30px;--z:1"><div class="hf-ph"></div></div>
+            <div class="hf-card" style="--r:28deg;--x:60px;--z:0"><div class="hf-ph"></div></div>
           </div>
-          <!-- 원형 궤도 1 (바깥) -->
-          <div class="hc-orbit hc-orbit-1">
-            <div class="hc-item" style="--i:0"><div class="hc-img hc-ph"></div></div>
-            <div class="hc-item" style="--i:1"><div class="hc-img hc-ph"></div></div>
-            <div class="hc-item" style="--i:2"><div class="hc-img hc-ph"></div></div>
-            <div class="hc-item" style="--i:3"><div class="hc-img hc-ph"></div></div>
-            <div class="hc-item" style="--i:4"><div class="hc-img hc-ph"></div></div>
-          </div>
-          <!-- 원형 궤도 2 (안쪽) -->
-          <div class="hc-orbit hc-orbit-2">
-            <div class="hc-item" style="--i:0"><div class="hc-img hc-ph"></div></div>
-            <div class="hc-item" style="--i:1"><div class="hc-img hc-ph"></div></div>
-            <div class="hc-item" style="--i:2"><div class="hc-img hc-ph"></div></div>
+          <!-- 오른쪽 팬 그룹 -->
+          <div class="hf-group hf-right">
+            <div class="hf-card" style="--r:-28deg;--x:-60px;--z:0"><div class="hf-ph"></div></div>
+            <div class="hf-card" style="--r:-14deg;--x:-30px;--z:1"><div class="hf-ph"></div></div>
+            <div class="hf-card hf-main" style="--r:0deg;--x:0px;--z:2"><div class="hf-ph"></div></div>
+            <div class="hf-card" style="--r:14deg;--x:30px;--z:1"><div class="hf-ph"></div></div>
+            <div class="hf-card" style="--r:28deg;--x:60px;--z:0"><div class="hf-ph"></div></div>
           </div>
         </div>
       </div>
