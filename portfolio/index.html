@@ -726,7 +726,7 @@ section{position:relative;}
 .cap-headcard .head-left{display:flex;flex-direction:column;}
 /* 작은 툴 그리드 */
 .tool-grid-small{
-  display:flex;flex-wrap:wrap;gap:10px;
+  display:flex;flex-wrap:wrap;gap:6px;
   margin-top:24px;
 }
 .tool-grid-small .tool-item{
@@ -928,9 +928,9 @@ section{position:relative;}
 .credit-track:hover{animation-play-state:paused;}
 .credit-track span{
   font-family:'Pretendard',sans-serif;
-  font-size:clamp(.8rem,1vw,.94rem);
+  font-size:clamp(1rem,1.3vw,1.18rem);
   font-weight:500;color:var(--txt-dark);
-  line-height:1;padding:9px 0;
+  line-height:1;padding:14px 0;
   border-bottom:1px solid var(--line-dark);
   white-space:nowrap;letter-spacing:-.01em;
   transition:color .2s;
@@ -1102,26 +1102,10 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
     <div class="hero-shell">
       <!-- 왼쪽 텍스트 카드 -->
       <div class="hero-left">
-        <!-- 인트로 인용문 -->
-        <div class="hero-quote">
-          <span class="hq-mark">"</span>
-          <p>브랜드와 사람 사이,<br>감정이 통하는 디자인을 만듭니다.</p>
-        </div>
         <h1>
-          <span class="row">
-            <i>We</i>
-            <!-- 단어 사이 컬러 로고 블록 -->
-            <span class="logo-chip">
-              <svg viewBox="0 0 60 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M4 4 L24 17 L4 30 Z" fill="#fff"/>
-                <path d="M26 4 L46 17 L26 30 Z" fill="#c9a273"/>
-                <path d="M48 4 L60 12 L60 22 L48 30 Z" fill="#7c5230"/>
-              </svg>
-            </span>
-            <i>design</i>
-          </span>
-          <span class="row"><i>development</i></span>
-          <span class="row"><i class="dim">your</i> <i>brand</i></span>
+          <span class="row"><i>브랜드와</i> <i>사람</i> <i>사이,</i></span>
+          <span class="row"><i>감정이</i> <i>통하는</i></span>
+          <span class="row"><i class="dim">디자인을</i> <i>만듭니다.</i></span>
         </h1>
 
         <!-- [[ 버튼 텍스트 / 클릭 시 이동 페이지 ]] -->
