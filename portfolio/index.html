@@ -717,9 +717,32 @@ section{position:relative;}
 .cap-headcard{
   background:#fff;border-radius:var(--radius);
   padding:clamp(32px,3.4vw,52px);
-  display:grid;grid-template-columns:1.25fr 1fr;
-  gap:clamp(24px,3vw,48px);align-items:center;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,3vw,48px);
+  align-items:center;
   margin-bottom:10px;
+}
+.cap-headcard .head-left{display:flex;flex-direction:column;}
+/* 작은 툴 그리드 */
+.tool-grid-small{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-top:24px;
+}
+.tool-grid-small .tool-item{
+  width:52px;height:52px;border-radius:12px;
+  background:var(--paper-2);border:1px solid var(--line-dark);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;transition:.3s var(--ease);flex-shrink:0;
+}
+.tool-grid-small .tool-item:hover{transform:translateY(-3px);}
+.tool-grid-small .tool-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.tool-grid-small .tool-item .ph{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#e6e2da 0 8px,#eeebe4 8px 16px);
+  color:#9a9286;font-family:'Manrope';font-weight:700;
+  font-size:.52rem;letter-spacing:.03em;text-align:center;
 }
 .cap-headcard .head-left{display:flex;flex-direction:column;}
 .cap-headcard .f-pill{
@@ -885,6 +908,43 @@ section{position:relative;}
 .work:hover .corner{opacity:1;transform:scale(1);}
 
 /* ABOUT */
+/* CREDIT ROLL */
+.credit-roll{
+  position:relative;
+  height:clamp(200px,26vh,300px);
+  overflow:hidden;
+  border-left:1px solid var(--line-dark);
+  padding-left:clamp(20px,2.4vw,36px);
+}
+.credit-fade-top,.credit-fade-bottom{
+  position:absolute;left:0;right:0;z-index:2;height:56px;pointer-events:none;
+}
+.credit-fade-top{top:0;background:linear-gradient(to bottom,#fff 0%,transparent 100%);}
+.credit-fade-bottom{bottom:0;background:linear-gradient(to top,#fff 0%,transparent 100%);}
+.credit-track{
+  display:flex;flex-direction:column;
+  animation:creditScroll 26s linear infinite;
+}
+.credit-track:hover{animation-play-state:paused;}
+.credit-track span{
+  font-family:'Pretendard',sans-serif;
+  font-size:clamp(.8rem,1vw,.94rem);
+  font-weight:500;color:var(--txt-dark);
+  line-height:1;padding:9px 0;
+  border-bottom:1px solid var(--line-dark);
+  white-space:nowrap;letter-spacing:-.01em;
+  transition:color .2s;
+}
+.credit-track span:hover{color:var(--accent);cursor:default;}
+@keyframes creditScroll{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-50%);}
+}
+@media(max-width:860px){
+  .cap-headcard{grid-template-columns:1fr !important;}
+  .credit-roll{border-left:none;border-top:1px solid var(--line-dark);padding-left:0;padding-top:20px;height:180px;}
+}
+
 .about-top{display:grid;grid-template-columns:.85fr 1.15fr;
   gap:clamp(28px,4vw,60px);align-items:stretch;}
 .portrait{border-radius:var(--radius);overflow:hidden;
@@ -931,7 +991,6 @@ section{position:relative;}
 .chips span:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
 
 /* WORK EXPERIENCE */
-.exp-section{margin-top:14px;}
 .exp-box{background:#fff;border:1px solid var(--line-dark);
   border-radius:var(--radius);padding:clamp(26px,3vw,40px);}
 .exp-box > h3{font-family:'Manrope';font-weight:800;font-size:1.05rem;
@@ -1046,7 +1105,7 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
         <!-- 인트로 인용문 -->
         <div class="hero-quote">
           <span class="hq-mark">"</span>
-          <p>사람의 감정과 브랜드의 대화를<br>설계하는 디자이너, 김유정입니다</p>
+          <p>브랜드와 사람 사이,<br>감정이 통하는 디자인을 만듭니다.</p>
         </div>
         <h1>
           <span class="row">
@@ -1082,47 +1141,35 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
             <a href="mailto:lucky771628@naver.com">lucky771628@naver.com</a>
           </div>
 
-          <!-- 프로필 인포 테이블 -->
-          <div class="hero-profile">
-            <div class="hp-row">
-              <span class="hp-label">Name</span>
-              <span class="hp-val">김유정 (만29세)</span>
-            </div>
-            <div class="hp-row">
-              <span class="hp-label">Education</span>
-              <span class="hp-val">동안고등학교 졸업 / 백석대학교 졸업</span>
-            </div>
-            <div class="hp-row">
-              <span class="hp-label">License</span>
-              <span class="hp-val">ACA Photoshop CC 2015 / ACA Illustrator CC 2015</span>
-            </div>
-            <div class="hp-row">
-              <span class="hp-label">Skill</span>
-              <span class="hp-val hp-icons">
-                <span class="hp-icon" style="background:#FF9A00;">Ai</span>
-                <span class="hp-icon" style="background:#31A8FF;">Ps</span>
-                <span class="hp-icon" style="background:#FF61F6;">Xd</span>
-                <span class="hp-icon" style="background:#F24E1E;">Fg</span>
-              </span>
-            </div>
-          </div>
+          <!-- 프로필 인포 테이블 (오른쪽 카드로 이동됨) -->
         </div>
       </div>
 
-      <!-- 오른쪽 : 이미지 + Experience 타임라인 -->
+      <!-- 오른쪽 : 이미지 + 프로필 박스 -->
       <div class="hero-right hero-right-exp">
         <div class="ph"></div>
-        <!-- Experience 타임라인 오버레이 -->
+        <!-- 프로필 인포 오버레이 -->
         <div class="hero-exp-overlay">
-          <div class="he-label">Experience</div>
-          <div class="he-list">
-            <div class="he-row"><span class="he-yr">2024</span><span class="he-txt">레이트코리아 근무 (1년)</span></div>
-            <div class="he-row"><span class="he-yr">2021</span><span class="he-txt">KH정보교육원 근무 (2년 6개월)</span></div>
-            <div class="he-row"><span class="he-yr">2021</span><span class="he-txt">제2회 한중일 국제 디자인 공유 네트워크 참여</span></div>
-            <div class="he-row"><span class="he-yr">2021</span><span class="he-txt">제6회 한중일 국제교류작품 참여</span></div>
-            <div class="he-row"><span class="he-yr">2021</span><span class="he-txt">창업아이디어경진대회 대상</span></div>
-            <div class="he-row"><span class="he-yr">2021</span><span class="he-txt">졸업준비위원회 활동</span></div>
-            <div class="he-row"><span class="he-yr">2020</span><span class="he-txt">무버먼한국 디자인 보조</span></div>
+          <div class="hp-row" style="padding:8px 0;border-bottom:1px solid var(--line);">
+            <span class="hp-label" style="color:var(--txt-dim);">Name</span>
+            <span class="hp-val" style="color:var(--txt);">김유정 (만29세)</span>
+          </div>
+          <div class="hp-row" style="padding:8px 0;border-bottom:1px solid var(--line);">
+            <span class="hp-label" style="color:var(--txt-dim);">Education</span>
+            <span class="hp-val" style="color:var(--txt);">동안고등학교 졸업 / 백석대학교 졸업</span>
+          </div>
+          <div class="hp-row" style="padding:8px 0;border-bottom:1px solid var(--line);">
+            <span class="hp-label" style="color:var(--txt-dim);">License</span>
+            <span class="hp-val" style="color:var(--txt);">ACA Photoshop CC 2015 / ACA Illustrator CC 2015</span>
+          </div>
+          <div class="hp-row" style="padding:8px 0;">
+            <span class="hp-label" style="color:var(--txt-dim);">Skill</span>
+            <span class="hp-val hp-icons">
+              <span class="hp-icon" style="background:#FF9A00;">Ai</span>
+              <span class="hp-icon" style="background:#31A8FF;">Ps</span>
+              <span class="hp-icon" style="background:#FF61F6;">Xd</span>
+              <span class="hp-icon" style="background:#F24E1E;">Fg</span>
+            </span>
           </div>
         </div>
       </div>
@@ -1253,20 +1300,58 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
       <div class="cap-headcard sr">
         <div class="head-left">
           <div class="f-pill">Capability</div>
-          <!-- [[ Capability 제목 ]] -->
           <h2>경험을 설계하는<br>확고한 업무 능력</h2>
+          <!-- 툴 아이콘: 텍스트 바로 아래 작게 배치 -->
+          <div class="tool-grid tool-grid-small">
+            <div class="tool-item"><div class="ph">Photoshop</div></div>
+            <div class="tool-item"><div class="ph">Illustrator</div></div>
+            <div class="tool-item"><div class="ph">Figma</div></div>
+            <div class="tool-item"><div class="ph">XD</div></div>
+            <div class="tool-item"><div class="ph">HTML</div></div>
+            <div class="tool-item"><div class="ph">CSS</div></div>
+            <div class="tool-item"><div class="ph">JavaScript</div></div>
+            <div class="tool-item"><div class="ph">After Effects</div></div>
+          </div>
         </div>
-        <!-- 사용 가능한 툴 아이콘 (임시 이미지) -->
-        <!-- [[ 툴 아이콘 ]] 각 .ph 를 <img src="아이콘경로" alt="툴이름">로 교체하세요 -->
-        <div class="tool-grid">
-          <div class="tool-item"><div class="ph">Photoshop</div></div>
-          <div class="tool-item"><div class="ph">Illustrator</div></div>
-          <div class="tool-item"><div class="ph">Figma</div></div>
-          <div class="tool-item"><div class="ph">XD</div></div>
-          <div class="tool-item"><div class="ph">HTML</div></div>
-          <div class="tool-item"><div class="ph">CSS</div></div>
-          <div class="tool-item"><div class="ph">JavaScript</div></div>
-          <div class="tool-item"><div class="ph">After Effects</div></div>
+        <!-- 크레딧 롤 -->
+        <div class="credit-roll">
+          <div class="credit-fade-top"></div>
+          <div class="credit-fade-bottom"></div>
+          <div class="credit-track">
+            <span>레이트코리아 데이노바 드라이기 상세페이지 리뉴얼</span>
+            <span>가전/뷰티 월별 프로모션 이벤트 디자인</span>
+            <span>카카오선물하기 트윙컬미니 세트 상세페이지 디자인</span>
+            <span>코엑스 박람회, 스타필드 팝업 오프라인 디자인물 제작</span>
+            <span>가구브랜드 신규 홈페이지 런칭</span>
+            <span>KH정보교육원 새단장 포스터 제작</span>
+            <span>KH정보교육원(통합) 반응형 웹사이트</span>
+            <span>아텐츠게임아카데미 강사구인 페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 + 유튜버 콜라보 이벤트</span>
+            <span>KH영상아카데미 상담페이지 리디자인</span>
+            <span>KH영상아카데미 상담용 리플렛 제작</span>
+            <span>KH영상아카데미 신규 웹사이트 제작</span>
+            <span>KH정보교육원 상담용 리플렛 리디자인</span>
+            <span>KH RAD 취업팀 페이지 리뉴얼</span>
+            <span>오프라인 디자인물 제작 (명함, 포스터, 리플렛 등)</span>
+            <!-- 무한 루프용 복제 -->
+            <span>레이트코리아 데이노바 드라이기 상세페이지 리뉴얼</span>
+            <span>가전/뷰티 월별 프로모션 이벤트 디자인</span>
+            <span>카카오선물하기 트윙컬미니 세트 상세페이지 디자인</span>
+            <span>코엑스 박람회, 스타필드 팝업 오프라인 디자인물 제작</span>
+            <span>가구브랜드 신규 홈페이지 런칭</span>
+            <span>KH정보교육원 새단장 포스터 제작</span>
+            <span>KH정보교육원(통합) 반응형 웹사이트</span>
+            <span>아텐츠게임아카데미 강사구인 페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 + 유튜버 콜라보 이벤트</span>
+            <span>KH영상아카데미 상담페이지 리디자인</span>
+            <span>KH영상아카데미 상담용 리플렛 제작</span>
+            <span>KH영상아카데미 신규 웹사이트 제작</span>
+            <span>KH정보교육원 상담용 리플렛 리디자인</span>
+            <span>KH RAD 취업팀 페이지 리뉴얼</span>
+            <span>오프라인 디자인물 제작 (명함, 포스터, 리플렛 등)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1537,7 +1622,7 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
         <div class="about-intro sr">
           <h2>안녕하세요,<br><span class="blue">김유정</span> 입니다</h2>
           <!-- [[ 자기소개 본문 ]] -->
-          <p>사용자 경험을 설계하는 <strong>UI/UX 웹 디자이너</strong>입니다.
+          <p>브랜드와 사람 사이, <strong>감정이 통하는 디자인</strong>을 만드는 UI/UX 웹 디자이너입니다.
             보기 좋은 화면을 넘어, 쓰기 편한 흐름을 만드는 일에 집중합니다.</p>
           <p>브랜드의 가치가 전달하는 신뢰 위에 감정의 온도를 더하는 디자인을 만들고 싶습니다. 결과보다 <strong>'느낌이 남는 브랜드'</strong>를 함께 만들 수 있는 사람이 되고 싶습니다.</p>
         </div>
