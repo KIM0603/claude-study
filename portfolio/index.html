@@ -613,14 +613,11 @@ section{position:relative;}
   max-width:1480px;margin:0 auto;
 }
 .feature-grid-cap{
-  display:grid;grid-template-columns:repeat(4,1fr) 1.15fr;
+  display:grid;grid-template-columns:repeat(4,1fr);
   gap:10px;
   max-width:1480px;margin:0 auto;
 }
 @media(max-width:1280px){
-  .feature-grid-cap{grid-template-columns:repeat(3,1fr);}
-}
-@media(max-width:860px){
   .feature-grid-cap{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:560px){
@@ -747,11 +744,13 @@ section{position:relative;}
 .cap-headcard .head-left{display:flex;flex-direction:column;}
 /* 툴 그리드 */
 .tool-grid-small{
-  display:flex;flex-wrap:nowrap;gap:4px;
+  display:flex;flex-wrap:nowrap !important;gap:4px;
   margin-top:24px;
+  justify-content:flex-start;
+  width:fit-content;max-width:100%;
 }
 .tool-grid-small .tool-item{
-  width:44px;height:44px;border-radius:8px;
+  width:64px;height:64px;border-radius:10px;
   background:var(--bg-3);border:1px solid var(--line);
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;transition:.2s var(--ease);flex-shrink:0;
@@ -762,8 +761,8 @@ section{position:relative;}
   width:100%;height:100%;
   display:flex;align-items:center;justify-content:center;
   background:repeating-linear-gradient(45deg,#e9ecef 0 8px,#f1f3f5 8px 16px);
-  color:#9ca3af;font-family:'Pretendard';font-weight:600;
-  font-size:var(--fs-label);letter-spacing:.01em;text-align:center;padding:2px;
+  color:#6b7280;font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-label);letter-spacing:.01em;text-align:center;padding:4px;
 }
 .cap-headcard .head-left{display:flex;flex-direction:column;}
 .cap-headcard .f-pill{
@@ -1304,19 +1303,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <div class="cap-ttl">오프라인<br>디자인물</div>
         <div class="cap-desc">박람회·팝업·행사용 배너, 리플렛, 포스터 등 인쇄 홍보물을 기획하고 제작합니다.</div>
         <button class="cap-plus">→</button>
-      </div>
-      <!-- 소개 카드 (Who I am) -->
-      <div class="cap-intro sr">
-        <div class="f-pill">Who I am</div>
-        <div class="intro-body">
-          <p>어떤 방법론에 한정짓지 않는 열린 시야로, 사용자가 원하는 결과를 디자인합니다.</p>
-          <p>좋은 디자인은 잘 만든 화면과 명확한 흐름이 합쳐졌을 때 그 힘을 발휘합니다.</p>
-          <p>웹사이트의 목적은 사용자를 모으고 신뢰를 쌓는 데 있습니다. 이를 위해 심미성과 사용성 모두에 초점을 둡니다.</p>
-        </div>
-        <button class="f-cta" onclick="go('work')">
-          <span class="plus">+</span>
-          <span class="f-cta-txt">성과로 이어지는 프로젝트</span>
-        </button>
       </div>
     </div>
   </section>
