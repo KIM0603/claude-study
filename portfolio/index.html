@@ -613,7 +613,7 @@ section{position:relative;}
   background:#fff;border-radius:var(--radius-lg);
   padding:clamp(24px,2.2vw,32px);
   display:flex;flex-direction:column;
-  min-height:clamp(140px,16vh,180px);
+  min-height:clamp(260px,30vh,340px);
 }
 /* 1~3번 : 라벨 + 제목 + (여백) + 거대 숫자 */
 .fcard .f-label{
@@ -906,6 +906,91 @@ section{position:relative;}
   display:flex;align-items:center;justify-content:center;font-size:1.1rem;
   opacity:0;transform:scale(.5);transition:.4s var(--ease);}
 .work:hover .corner{opacity:1;transform:scale(1);}
+
+/* ABOUT RESUME HEADER */
+.about-resume-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:48px;
+  padding-bottom:clamp(36px,5vh,60px);
+  border-bottom:1px solid var(--line-dark);
+  margin-bottom:clamp(32px,4vh,52px);
+}
+.arh-left{display:flex;flex-direction:column;flex:1;}
+.arh-name{
+  display:flex;align-items:baseline;gap:14px;
+  margin-bottom:6px;
+}
+.arh-name-ko{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:clamp(1.8rem,3.6vw,2.8rem);
+  color:var(--txt-dark);letter-spacing:-.03em;
+}
+.arh-name-en{
+  font-family:'Manrope',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,2vw,1.7rem);
+  color:var(--txt-dark);letter-spacing:-.02em;
+}
+.arh-title{
+  font-family:'Pretendard',sans-serif;font-weight:400;
+  font-size:clamp(.9rem,1.3vw,1.05rem);
+  color:#888;margin-bottom:14px;
+}
+.arh-divider{
+  width:44px;height:2px;background:var(--txt-dark);
+  margin-bottom:14px;
+}
+.arh-email{
+  font-family:'Manrope',sans-serif;font-weight:500;
+  font-size:.9rem;color:#555;text-decoration:none;
+  margin-bottom:28px;transition:color .2s;
+}
+.arh-email:hover{color:var(--accent);}
+.arh-intro{display:flex;flex-direction:column;gap:14px;}
+.arh-tagline{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:clamp(1.05rem,1.6vw,1.25rem);
+  color:var(--txt-dark);letter-spacing:-.02em;
+  margin-bottom:2px;
+}
+.arh-intro p{
+  font-family:'Pretendard',sans-serif;font-size:.92rem;
+  line-height:1.75;color:#555;
+}
+.arh-bullets{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.arh-bullet{
+  display:flex;gap:10px;align-items:flex-start;
+}
+.arh-ico{
+  color:var(--accent);font-size:.85rem;flex-shrink:0;margin-top:2px;
+}
+.arh-bullet span{
+  font-family:'Pretendard',sans-serif;font-size:.88rem;
+  line-height:1.65;color:#555;
+}
+.arh-stats{
+  display:flex;flex-wrap:wrap;gap:6px 16px;
+  margin-top:12px;padding-top:16px;
+  border-top:1px solid var(--line-dark);
+}
+.arh-stats span{
+  font-family:'Manrope',sans-serif;font-weight:600;
+  font-size:.8rem;color:#888;letter-spacing:.01em;
+}
+.arh-photo{
+  flex-shrink:0;
+  width:clamp(100px,11vw,130px);
+  height:clamp(128px,14vw,168px);
+  border-radius:6px;overflow:hidden;
+  background:var(--paper-2);border:1px solid var(--line-dark);
+}
+.arh-photo .ph{
+  width:100%;height:100%;
+  background:repeating-linear-gradient(45deg,#e6e2da 0 10px,#eeebe4 10px 20px);
+}
+@media(max-width:640px){
+  .about-resume-header{flex-direction:column-reverse;}
+  .arh-photo{width:80px;height:104px;}
+}
 
 /* ABOUT */
 /* CREDIT ROLL */
@@ -1578,15 +1663,46 @@ footer .ft:hover{background:var(--paper);color:var(--txt-dark);}
 <div class="page" id="page-about">
   <section class="sec-pad dark" style="padding-top:150px;">
     <div class="wrap">
-      <div class="eyebrow sr">About me</div>
-      <div class="about-top" style="margin-top:8px;">
-        <div class="portrait sr"><div class="ph"></div></div>
-        <div class="about-intro sr">
-          <h2>안녕하세요,<br><span class="blue">김유정</span> 입니다</h2>
-          <!-- [[ 자기소개 본문 ]] -->
-          <p>브랜드와 사람 사이, <strong>감정이 통하는 디자인</strong>을 만드는 UI/UX 웹 디자이너입니다.
-            보기 좋은 화면을 넘어, 쓰기 편한 흐름을 만드는 일에 집중합니다.</p>
-          <p>브랜드의 가치가 전달하는 신뢰 위에 감정의 온도를 더하는 디자인을 만들고 싶습니다. 결과보다 <strong>'느낌이 남는 브랜드'</strong>를 함께 만들 수 있는 사람이 되고 싶습니다.</p>
+      <!-- 이력서 스타일 상단 헤더 -->
+      <div class="about-resume-header sr">
+        <div class="arh-left">
+          <div class="arh-name">
+            <span class="arh-name-ko">김유정</span>
+            <span class="arh-name-en">Kim Yu Jung</span>
+          </div>
+          <div class="arh-title">Web Designer · UI/UX</div>
+          <div class="arh-divider"></div>
+          <a href="mailto:lucky771628@naver.com" class="arh-email">lucky771628@naver.com</a>
+
+          <div class="arh-intro">
+            <p class="arh-tagline">브랜드와 사람 사이, 감정이 통하는 디자인을 만듭니다.</p>
+            <p>레이트코리아에서 가전/뷰티 브랜드 홈페이지 기획·리뉴얼, 아텐츠게임아카데미에서<br>
+            KH정보교육원 반응형 웹사이트 등 다양한 디지털 경험을 설계해왔습니다.</p>
+
+            <div class="arh-bullets">
+              <div class="arh-bullet">
+                <span class="arh-ico">✦</span>
+                <span><strong>[업무 경험]</strong> 브랜드 홈페이지 기획부터 상세페이지·이벤트 디자인까지 전 과정을 주도한 경험이 있어요</span>
+              </div>
+              <div class="arh-bullet">
+                <span class="arh-ico">✦</span>
+                <span><strong>[강점]</strong> 사용자 감성에 맞는 비주얼을 기획하고, AI 툴을 활용해 빠르게 고품질 결과물을 만들어요</span>
+              </div>
+              <div class="arh-bullet">
+                <span class="arh-ico">✦</span>
+                <span><strong>[업무 포용력]</strong> 온라인·오프라인 디자인 모두 담당하며 다양한 컨셉의 디자인물을 제작할 수 있어요</span>
+              </div>
+            </div>
+
+            <div class="arh-stats">
+              <span>총 경력 3년 6개월+</span>
+              <span>브랜드 3곳 홈페이지 기획·디자인 경험</span>
+              <span>디자인 100% · 기획 100%</span>
+            </div>
+          </div>
+        </div>
+        <div class="arh-photo">
+          <div class="ph"></div>
         </div>
       </div>
     </div>
