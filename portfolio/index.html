@@ -1268,134 +1268,103 @@ section{position:relative;}
   .exp-header{grid-template-columns:1fr;gap:4px;}
 }
 
-/* PROJECT DETAIL — 소이정 스타일 */
+/* PROJECT DETAIL — Behance 센터 스크롤 스타일 */
 .proj-overlay{
   position:fixed;inset:0;z-index:990;
   background:#fff;
   overflow-y:auto;
-  overflow-x:hidden;
   opacity:0;visibility:hidden;
   transition:opacity .35s var(--ease),visibility .35s;
 }
 .proj-overlay.open{opacity:1;visibility:visible;}
 
 .proj-inner{
-  max-width:100%;
+  max-width:1500px;
   margin:0 auto;
+  padding:0 0 80px;
 }
 
 /* 상단 닫기 바 */
 .proj-close{
-  position:sticky;top:0;z-index:100;
-  width:100%;display:flex;align-items:center;gap:8px;
-  padding:14px 40px;
-  background:rgba(255,255,255,.95);
-  border:none;border-bottom:1px solid var(--card-border);
+  position:sticky;
+  top:0;z-index:10;
+  width:100%;
+  display:flex;align-items:center;gap:8px;
+  padding:14px 32px;
+  background:#fff;
+  border:none;
+  border-bottom:1px solid var(--card-border);
   cursor:pointer;
   font-family:'Pretendard';font-size:var(--fs-body-sm);
   font-weight:600;color:var(--txt-dim);
-  transition:.2s;text-align:left;
-  backdrop-filter:blur(8px);
+  transition:.2s;
+  text-align:left;
 }
 .proj-close:hover{color:var(--accent);}
-.proj-close::before{content:"←";margin-right:6px;color:var(--accent);}
+.proj-close::before{content:"←";margin-right:4px;color:var(--accent);}
 
-/* 히어로 */
-.pj-hero{position:relative;}
-.pj-hero>img{width:100%;height:auto;display:block;filter:none;}
-.pj-hero-info{
-  max-width:900px;margin:0 auto;
-  padding:60px 40px;
-}
-.pj-kw{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
-.pj-kw span{
-  font-family:'Manrope';font-weight:700;font-size:var(--fs-label);
-  color:var(--txt-dim);letter-spacing:.02em;
-}
-.pj-h1{
-  font-family:'Pretendard';font-weight:800;
-  font-size:clamp(2rem,4vw,3.2rem);
-  line-height:1.2;letter-spacing:-.03em;
-  color:var(--txt-dark);margin-bottom:32px;
-}
-.pj-meta{
-  display:flex;flex-wrap:wrap;gap:8px 48px;
-  padding:24px 0;
-  border-top:1px solid var(--card-border);
+/* 프로젝트 헤더 정보 */
+.proj-header{
+  padding:40px 32px 32px;
   border-bottom:1px solid var(--card-border);
-  margin-bottom:28px;
+  margin-bottom:0;
 }
-.pj-meta div{display:flex;flex-direction:column;gap:4px;}
-.pj-meta em{
-  font-style:normal;font-family:'Manrope';font-weight:700;
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.proj-tags span{
+  font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-label);
+  padding:4px 12px;border-radius:6px;
+  background:var(--warm);border:1px solid var(--warm-deep);
+  color:var(--accent);
+}
+.proj-title{
+  font-family:'Pretendard';font-weight:800;
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  line-height:1.2;letter-spacing:-.03em;
+  color:var(--txt-dark);margin-bottom:24px;
+}
+.proj-meta-row{
+  display:flex;flex-wrap:wrap;
+  gap:12px 48px;
+  padding-top:20px;
+  border-top:1px solid var(--card-border);
+}
+.proj-meta-item{display:flex;flex-direction:column;gap:3px;}
+.pm-label{
+  font-family:'Manrope';font-weight:700;
   font-size:var(--fs-label);color:var(--accent);
-  letter-spacing:.06em;text-transform:uppercase;
+  letter-spacing:.04em;text-transform:uppercase;
 }
-.pj-meta span{
+.pm-val{
   font-family:'Pretendard';font-size:var(--fs-body-sm);
   color:var(--txt-dark);font-weight:500;
 }
-.pj-summary{
-  font-size:var(--fs-body);line-height:1.85;color:var(--txt-dim);
+.proj-desc{
+  font-size:var(--fs-body);line-height:1.8;
+  color:var(--txt-dim);
+  margin-top:20px;
+  max-width:800px;
 }
 
-/* 섹션 (텍스트 + 이미지) */
-.pj-section{
-  max-width:900px;margin:0 auto;
-  padding:80px 40px 0;
+/* 이미지 세로 스크롤 갤러리 */
+.proj-gallery{
+  display:flex;flex-direction:column;
+  gap:0;
 }
-.pj-sec-txt{margin-bottom:32px;}
-.pj-sec-num{
-  display:inline-block;
-  font-family:'Manrope';font-weight:800;font-size:var(--fs-label);
-  color:var(--accent);letter-spacing:.08em;
-  margin-bottom:12px;
-}
-.pj-sec-h2{
-  font-family:'Pretendard';font-weight:800;
-  font-size:clamp(1.4rem,2.5vw,2rem);
-  letter-spacing:-.03em;color:var(--txt-dark);
-  margin-bottom:16px;
-}
-.pj-sec-txt p{
-  font-size:var(--fs-body);line-height:1.85;color:var(--txt-dim);
-  max-width:680px;
-}
-.pj-section>img{
-  width:100%;height:auto;display:block;
+.proj-gallery img{
+  width:100%;
+  height:auto;
+  display:block;
+  image-rendering:auto;
+  -webkit-filter:none;
   filter:none;
-  border-radius:var(--radius);
-  border:1px solid var(--card-border);
+  /* 선명하게 */
+  image-rendering:-webkit-optimize-contrast;
 }
 
-/* 풀와이드 이미지 */
-.pj-full{
-  margin-top:80px;
-}
-.pj-full img{
-  width:100%;height:auto;display:block;
-  filter:none;
-}
-
-/* 하단 목록 버튼 */
-.pj-footer{
-  max-width:900px;margin:0 auto;
-  padding:80px 40px;
-  border-top:1px solid var(--card-border);
-  margin-top:80px;
-}
-.pj-back-btn{
-  background:none;border:1px solid var(--card-border);
-  font-family:'Pretendard';font-weight:600;
-  font-size:var(--fs-body-sm);color:var(--txt-dim);
-  padding:12px 28px;border-radius:8px;cursor:pointer;
-  transition:.2s;
-}
-.pj-back-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
-
-/* 이전 스타일 초기화 */
-.pg-main,.pg-thumbs,.proj-header,.proj-tags,
-.proj-title,.proj-meta-row,.proj-desc,.proj-gallery{display:none;}
+/* 썸네일 제거 (세로 스크롤이므로 불필요) */
+.pg-thumbs{display:none;}
+.pg-main{display:none;}
 
 /* CONTACT */
 .contact-block{background:#fff;border:1px solid var(--card-border);
@@ -2293,123 +2262,38 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 <!-- ============ PROJECT DETAIL: KH정보교육원 ============ -->
 <div class="proj-overlay" id="proj-kh" onclick="handleOverlayClick(event)">
   <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
 
-    <!-- 상단 닫기 -->
-    <button class="proj-close" onclick="closeProject()">목록보기</button>
-
-    <!-- 히어로 섹션 -->
-    <div class="pj-hero">
-      <img src="img_kh_01.jpg" alt="KH정보교육원">
-      <div class="pj-hero-info">
-        <div class="pj-kw">
-          <span>#UI/UX</span><span>#Branding</span><span>#Responsive Web Design</span><span>#PC</span><span>#Mobile</span><span>#Tablet</span>
-        </div>
-        <h1 class="pj-h1">KH정보교육원(통합)<br>반응형 웹사이트</h1>
-        <div class="pj-meta">
-          <div><em>DATE</em><span>2024.01</span></div>
-          <div><em>기여</em><span>기획 100% · UX/UI 100%</span></div>
-          <div><em>팀</em><span>디자이너 1명 · 퍼블리서 1명 · 백엔드 개발자 1명</span></div>
-          <div><em>툴</em><span>Figma · Photoshop · Illustrator</span></div>
-        </div>
-        <p class="pj-summary">KH정보교육원의 브랜드 가치와 독특한 매력을 효과적으로 전달하기 위해 풍부한 콘텐츠로 구성하였습니다. PC·Mobile·Tablet 반응형으로 노출되는 디자인 작업 및 QA를 진행하고, 디자인 시스템을 구축해 리소스 효율을 높였습니다.</p>
+    <!-- 프로젝트 헤더 정보 -->
+    <div class="proj-header">
+      <div class="proj-tags">
+        <span>UI/UX</span><span>Branding</span><span>Responsive Web Design</span>
       </div>
-    </div>
-
-    <!-- 섹션 01 -->
-    <div class="pj-section">
-      <div class="pj-sec-txt">
-        <span class="pj-sec-num">01</span>
-        <h2 class="pj-sec-h2">Colors &amp; Typography</h2>
-        <p>KH의 브랜드 가치와 독특한 매력을 효과적으로 전달하기 위해, 풍부한 콘텐츠로 구성하였습니다. 정체성을 유지하며, 사용자들이 필요할 내용을 담았습니다.</p>
+      <h2 class="proj-title">KH정보교육원(통합) 반응형 웹사이트</h2>
+      <div class="proj-meta-row">
+        <div class="proj-meta-item"><span class="pm-label">기간</span><span class="pm-val">2024.01</span></div>
+        <div class="proj-meta-item"><span class="pm-label">작업기여</span><span class="pm-val">기획 100% · UX/UI 100%</span></div>
+        <div class="proj-meta-item"><span class="pm-label">팀</span><span class="pm-val">디자이너 1명 · 퍼블리서 1명 · 백엔드 개발자 1명</span></div>
+        <div class="proj-meta-item"><span class="pm-label">사용 툴</span><span class="pm-val">Figma · Photoshop · Illustrator</span></div>
       </div>
-      <img src="img_kh_02.jpg" alt="Colors Typography">
+      <p class="proj-desc">KH정보교육원의 브랜드 가치와 독특한 매력을 효과적으로 전달하기 위해 풍부한 콘텐츠로 구성하였습니다. PC·Mobile·Tablet 반응형으로 노출되는 디자인 작업 및 QA를 진행하고, 디자인 시스템을 구축해 리소스 효율을 높였습니다.</p>
     </div>
 
-    <!-- 섹션 02 -->
-    <div class="pj-section">
-      <div class="pj-sec-txt">
-        <span class="pj-sec-num">02</span>
-        <h2 class="pj-sec-h2">Project Goal</h2>
-        <p>KH는 국비/일반 교육과정을 통해 IT수강만 아니라 게임/영상 과정까지 하나로 통합한 교육 사이트입니다. 디자인과 시스템을 새롭게 개선하여 매력적인 UI/UX로 최상의 교육 경험을 제공합니다.</p>
-      </div>
-      <img src="img_kh_03.jpg" alt="Project Goal">
+    <!-- 이미지 세로 갤러리 -->
+    <div class="proj-gallery">
+      <img src="img_kh_01.jpg" alt="01">
+      <img src="img_kh_02.jpg" alt="02">
+      <img src="img_kh_03.jpg" alt="03">
+      <img src="img_kh_04.jpg" alt="04">
+      <img src="img_kh_05.jpg" alt="05">
+      <img src="img_kh_06.jpg" alt="06">
+      <img src="img_kh_07.jpg" alt="07">
+      <img src="img_kh_08.jpg" alt="08">
+      <img src="img_kh_09.jpg" alt="09">
+      <img src="img_kh_10.jpg" alt="10">
+      <img src="img_kh_11.jpg" alt="11">
+      <img src="img_kh_12.jpg" alt="12">
     </div>
-
-    <!-- 섹션 03 -->
-    <div class="pj-section">
-      <div class="pj-sec-txt">
-        <span class="pj-sec-num">03</span>
-        <h2 class="pj-sec-h2">Concept · Design System</h2>
-        <p>접근성의 효율을 최대한 높여 반응형에 최적화된 인터페이스를 제작하였습니다. 명확한 정보성, 상호작용적인 경험, 카드형태의 일관성을 3가지 핵심 가치로 설계했습니다.</p>
-      </div>
-      <img src="img_kh_04.jpg" alt="Design System">
-    </div>
-
-    <!-- 풀와이드 이미지 -->
-    <div class="pj-full">
-      <img src="img_kh_05.jpg" alt="반응형 웹사이트">
-    </div>
-
-    <!-- 섹션 04 -->
-    <div class="pj-section">
-      <div class="pj-sec-txt">
-        <span class="pj-sec-num">04</span>
-        <h2 class="pj-sec-h2">PC · Tablet · Mobile</h2>
-        <p>모든 기기에서 손쉽게 접근하고 사용할 수 있도록 최적화된 웹사이트. 넓어진 화면에서도 최적화된 반응형 웹사이트로 12 columns-16 Gutter 결과적으로 1190px 너비의 레이아웃에 작업했습니다.</p>
-      </div>
-      <img src="img_kh_06.jpg" alt="멀티 디바이스">
-    </div>
-
-    <!-- 풀와이드 이미지 -->
-    <div class="pj-full">
-      <img src="img_kh_07.jpg" alt="모바일 상세">
-    </div>
-
-    <!-- 섹션 05 -->
-    <div class="pj-section">
-      <div class="pj-sec-txt">
-        <span class="pj-sec-num">05</span>
-        <h2 class="pj-sec-h2">Mobile UX</h2>
-        <p>모든 기기에서 손쉽게 접근하고 사용할 수 있도록 최적화된 웹사이트입니다. 수료생들의 수강 후기를 한눈에 확인 가능하며, 일정 확인 및 개강 준비를 위한 UX를 설계했습니다.</p>
-      </div>
-      <img src="img_kh_08.jpg" alt="모바일 UX">
-    </div>
-
-    <!-- 풀와이드 이미지 -->
-    <div class="pj-full">
-      <img src="img_kh_09.jpg" alt="PC 상세">
-    </div>
-
-    <!-- 섹션 06 -->
-    <div class="pj-section">
-      <div class="pj-sec-txt">
-        <span class="pj-sec-num">06</span>
-        <h2 class="pj-sec-h2">상담 신청 · 일정 관리</h2>
-        <p>5분이면 상담 신청 완료! 정보입력 과정을 최소화하여 빠르게 상담 신청을 완료할 수 있습니다. 개강일정 확인과 수강 예약을 한눈에 볼 수 있도록 UX를 최적화했습니다.</p>
-      </div>
-      <img src="img_kh_10.jpg" alt="상담 신청">
-    </div>
-
-    <!-- 섹션 07 -->
-    <div class="pj-section">
-      <div class="pj-sec-txt">
-        <span class="pj-sec-num">07</span>
-        <h2 class="pj-sec-h2">Result</h2>
-        <p>홈페이지 운영을 더 효율적으로 만들기 위해 사용자 편의성과 운영의 효율성을 중시하여 디자인 시스템을 체계적으로 구축하였습니다. 모듈 시스템을 기반으로 화면들을 구성하여 자유롭게 콘텐츠를 생성하며, 동시에 일관된 톤과 스타일을 유지하였습니다.</p>
-      </div>
-      <img src="img_kh_11.jpg" alt="Result">
-    </div>
-
-    <!-- 마지막 풀와이드 -->
-    <div class="pj-full">
-      <img src="img_kh_12.jpg" alt="KH정보교육원 최종">
-    </div>
-
-    <!-- 목록으로 -->
-    <div class="pj-footer">
-      <button class="pj-back-btn" onclick="closeProject()">← 목록보기</button>
-    </div>
-
   </div>
 </div>
 
