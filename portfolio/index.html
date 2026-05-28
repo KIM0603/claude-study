@@ -648,7 +648,7 @@ section{position:relative;}
   margin-bottom:5px;
 }
 .career-row .c-body h4{
-  font-size:var(--fs-body-lg);font-weight:700;color:var(--txt-dark);
+  font-size:var(--fs-body-lg);font-weight:600;color:var(--txt-dark);
   letter-spacing:-.01em;margin-bottom:4px;
 }
 .career-row .c-body .c-role{
@@ -1428,6 +1428,44 @@ footer .ft{background:none;border:1px solid var(--card-border);color:var(--txt-d
   padding:9px 16px;border-radius:8px;transition:.2s var(--ease);}
 footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
 
+/* COMPANY LOGOS */
+.company-logos{
+  margin-top:auto;padding-top:clamp(24px,3vh,40px);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,2vw,20px);
+}
+.co-logo{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:clamp(16px,2vw,24px) 12px;
+  border-radius:var(--radius);
+  border:1px solid var(--card-border);
+  background:#fff;
+  transition:.2s var(--ease);
+}
+.co-logo:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.co-img-wrap{
+  width:80px;height:80px;border-radius:10px;
+  overflow:hidden;
+  background:var(--bg-3);
+  border:1px solid var(--card-border);
+  display:flex;align-items:center;justify-content:center;
+}
+.co-img-wrap img{width:100%;height:100%;object-fit:contain;padding:8px;}
+.co-ph{
+  font-family:'Manrope',sans-serif;font-weight:700;
+  font-size:0.7rem;letter-spacing:.08em;color:#bbb;text-align:center;
+}
+.co-name{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-caption);color:var(--txt-dark);
+  text-align:center;letter-spacing:-.01em;
+}
+.co-period{
+  font-family:'Manrope',sans-serif;font-weight:500;
+  font-size:var(--fs-label);color:var(--txt-dim);
+  text-align:center;
+}
+
 /* SCROLL REVEAL */
 .sr{opacity:0;transform:translateY(34px);
   transition:opacity .85s var(--ease),transform .85s var(--ease);
@@ -1775,26 +1813,44 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     <div class="partner-grid">
       <!-- 왼쪽 : 텍스트 + 로고 -->
       <div class="partner-left sr">
-        <div class="f-pill">Hosting &amp; Partner</div>
-        <!-- [[ 파트너 섹션 제목 ]] -->
-        <h2>함께 작업해온 서비스들</h2>
+        <div class="f-pill">Experience &amp; Career</div>
+        <h2>경험이 시작된<br>공간들</h2>
         <div class="p-body">
-          <!-- [[ 소개 본문 ]] -->
-          <p>다양한 호스팅·플랫폼 환경에서 작업해왔으며, 클라이언트의 환경에 맞춰 가장 알맞은 방식으로 제작을 진행합니다.</p>
-          <p>제작물에 사용되는 모든 콘텐츠는 직접 제작하거나 정식 라이선스를 확보해, 저작권으로부터 안전한 결과물을 만듭니다.</p>
+          <p>총 3곳의 회사에서 UI/UX·브랜딩·반응형 웹 등 다양한 디자인 업무를 담당하며 실무 역량을 쌓아왔습니다.</p>
+          <p>각 회사에서의 경험이 지금의 디자인 방향성과 작업 방식의 기반이 되었습니다.</p>
         </div>
-        <!-- 파트너/사용 서비스 로고 (텍스트 기반) -->
-        <!-- [[ 로고 텍스트 ]] 본인이 쓰거나 협업한 서비스명으로 바꾸세요 -->
-        <div class="partner-logos">
-          <div class="lg">Figma</div>
-          <div class="lg">Notion</div>
-          <div class="lg">Adobe</div>
-          <div class="lg">GitHub</div>
-          <div class="lg">Webflow</div>
-          <div class="lg">Framer</div>
-          <div class="lg">Cafe24</div>
-          <div class="lg">Imweb</div>
-          <div class="lg">Wix</div>
+        <!-- 회사 로고 그리드 — co-img-wrap 안의 co-ph를 <img src="로고파일" alt="회사명">으로 교체하세요 -->
+        <div class="company-logos">
+          <div class="co-logo">
+            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
+            <div class="co-name">레이트코리아</div>
+            <div class="co-period">2024.09 — 2025.09</div>
+          </div>
+          <div class="co-logo">
+            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
+            <div class="co-name">아텐츠게임아카데미</div>
+            <div class="co-period">2021.12 — 2024.08</div>
+          </div>
+          <div class="co-logo">
+            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
+            <div class="co-name">KH정보교육원</div>
+            <div class="co-period">2021.12 — 2024.08</div>
+          </div>
+          <div class="co-logo">
+            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
+            <div class="co-name">무버먼한국</div>
+            <div class="co-period">2020.01 — 2020.07</div>
+          </div>
+          <div class="co-logo">
+            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
+            <div class="co-name">휴렙</div>
+            <div class="co-period"></div>
+          </div>
+          <div class="co-logo">
+            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
+            <div class="co-name">아이엠브릿지</div>
+            <div class="co-period"></div>
+          </div>
         </div>
       </div>
 
