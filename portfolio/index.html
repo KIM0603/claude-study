@@ -731,7 +731,7 @@ section{position:relative;}
   content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);
 }
 .fcard .f-body p{
-  font-size:var(--fs-body-sm);line-height:1.7;color:var(--txt-dim);
+  font-size:var(--fs-body-sm);line-height:1.6;color:var(--txt-dim);
   margin-bottom:12px;
 }
 .fcard .f-body p:last-child{margin-bottom:0;}
@@ -789,7 +789,7 @@ section{position:relative;}
   color:#fff;transform:rotate(135deg);}
 .acc-body{max-height:0;overflow:hidden;transition:max-height .5s var(--ease);}
 .acc-body .inner{padding:0 6px 28px 68px;font-size:var(--fs-body-sm);
-  line-height:1.8;color:var(--txt-dim);}
+  line-height:1.6;color:var(--txt-dim);}
 
 /* CAPABILITY */
 .cap-sec{
@@ -899,7 +899,7 @@ section{position:relative;}
 }
 .cap-card .cap-desc{
   font-family:'Pretendard',sans-serif;
-  font-size:var(--fs-body-sm);line-height:1.7;
+  font-size:var(--fs-body-sm);line-height:1.6;
   color:var(--txt-dim);margin-top:10px;
 }
 .cap-card .cap-plus{
@@ -931,7 +931,7 @@ section{position:relative;}
 }
 .cap-intro .intro-body{flex:1;}
 .cap-intro .intro-body p{
-  font-size:var(--fs-body-sm);line-height:1.7;color:var(--txt-dim);margin-bottom:12px;
+  font-size:var(--fs-body-sm);line-height:1.6;color:var(--txt-dim);margin-bottom:12px;
 }
 .cap-intro .intro-body p:last-child{margin-bottom:0;}
 .cap-intro .f-cta{margin-top:18px;}
@@ -1036,7 +1036,7 @@ section{position:relative;}
 }
 .arh-intro p{
   font-family:'Pretendard',sans-serif;font-size:var(--fs-body-sm);
-  line-height:1.75;color:#555;
+  line-height:1.6;color:#555;
 }
 .arh-bullets{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
 .arh-bullet{
@@ -1130,7 +1130,7 @@ section{position:relative;}
   font-size:var(--fs-h1);line-height:1.1;
   letter-spacing:-.03em;margin-bottom:22px;color:var(--paper);}
 .about-intro h2 .blue{color:var(--accent);}
-.about-intro p{font-size:var(--fs-body);line-height:1.85;color:var(--txt-dim);margin-bottom:16px;}
+.about-intro p{font-size:var(--fs-body);line-height:1.6;color:var(--txt-dim);margin-bottom:16px;}
 .about-intro p strong{color:var(--txt);font-weight:600;}
 
 .info-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -1233,7 +1233,7 @@ section{position:relative;}
 .exp-task-group ul li{
   font-family:'Pretendard';
   font-size:var(--fs-body);
-  line-height:1.75;
+  line-height:1.6;
   color:var(--txt-dim);
   padding-left:16px;
   position:relative;
@@ -1261,7 +1261,7 @@ section{position:relative;}
 .exp-task-group .task-title{font-family:'Pretendard';font-weight:700;
   font-size:var(--fs-body-sm);color:var(--txt-dark);margin-bottom:5px;}
 .exp-task-group ul{padding-left:0;list-style:none;}
-.exp-task-group ul li{font-size:var(--fs-caption);line-height:1.7;
+.exp-task-group ul li{font-size:var(--fs-caption);line-height:1.6;
   color:var(--txt-dim);padding:2px 0 2px 12px;position:relative;}
 .exp-task-group ul li::before{content:"–";position:absolute;left:0;color:var(--accent);}
 @media(max-width:640px){
@@ -1271,7 +1271,7 @@ section{position:relative;}
 /* PROJECT DETAIL — 소이정 스타일 */
 .proj-overlay{
   position:fixed;inset:0;z-index:990;
-  background:rgba(0,0,0,.45);
+  background:rgba(0,0,0,.75);
   overflow-y:auto;overflow-x:hidden;
   opacity:0;visibility:hidden;
   transition:opacity .35s var(--ease),visibility .35s;
@@ -1284,7 +1284,7 @@ section{position:relative;}
   background:#fff;
   cursor:default;
   min-height:100vh;
-  box-shadow:0 0 80px rgba(0,0,0,.3);
+  box-shadow:0 0 80px rgba(0,0,0,.5);
 }
 
 /* 닫기 바 */
@@ -1310,35 +1310,32 @@ section{position:relative;}
 
 /* 텍스트 정보 영역 */
 .pj-info{
-  padding:48px 48px 40px;
-  border-bottom:2px solid var(--txt-dark);
+  padding:80px 48px 64px;
 }
 .pj-h1{
   font-family:'Pretendard';font-weight:800;
-  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-size:clamp(1.5rem,2.8vw,2.2rem);
   line-height:1.2;letter-spacing:-.04em;
   color:var(--txt-dark);
-  margin-bottom:36px;
+  margin-bottom:48px;
 }
 
-/* 키워드/날짜 테이블 */
+/* 키워드/날짜 테이블 — 라인 없이 */
 .pj-meta-table{
   display:flex;flex-direction:column;
   gap:0;
-  margin-bottom:32px;
+  margin-bottom:48px;
 }
 .pj-meta-row2{
   display:grid;
   grid-template-columns:110px 1fr;
   gap:16px;
-  padding:12px 0;
-  border-top:1px solid var(--card-border);
+  padding:4px 0;
 }
-.pj-meta-row2:last-child{border-bottom:1px solid var(--card-border);}
 .pj-mt-label{
   font-family:'Pretendard';font-weight:800;
   font-size:var(--fs-body-sm);color:var(--txt-dark);
-  letter-spacing:-.01em;
+  letter-spacing:-.01em;line-height:1.6;
 }
 .pj-mt-val{
   font-family:'Pretendard';font-size:var(--fs-body-sm);
@@ -1347,25 +1344,24 @@ section{position:relative;}
 
 /* 설명 */
 .pj-summary{
-  font-size:var(--fs-body);line-height:1.9;
-  color:var(--txt-dim);margin-top:28px;
+  font-size:var(--fs-body-sm);line-height:1.6;
+  color:var(--txt-dim);
 }
 
 /* 이미지 갤러리 — 텍스트 없이 세로 나열 */
 .pj-images{
   display:flex;flex-direction:column;
   gap:0;
+  border-top:1px solid var(--card-border);
 }
 .pj-images img{
   width:100%;height:auto;display:block;
   filter:none;
-  border-top:1px solid var(--card-border);
 }
 
 /* 하단 버튼 */
 .pj-footer{
   padding:48px;
-  border-top:1px solid var(--card-border);
 }
 .pj-back-btn{
   background:none;border:1px solid var(--card-border);
@@ -1857,7 +1853,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <h1 class="headline sr" style="font-size:clamp(2.6rem,8vw,6.4rem);text-transform:uppercase;">
         Selected<br><span class="o">projects</span>
       </h1>
-      <p class="sr" style="margin-top:24px;max-width:480px;color:var(--txt-dim);line-height:1.8;">
+      <p class="sr" style="margin-top:24px;max-width:480px;color:var(--txt-dim);line-height:1.6;">
         <!-- [[ Work 소개 문구 ]] -->
         UI/UX·웹디자인·클론코딩 작업을 모았습니다. 각 카드는 추후 실제 프로젝트 링크와 이미지로 연결하세요.
       </p>
@@ -2330,11 +2326,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <img src="img_kh_10.jpg" alt="">
       <img src="img_kh_11.jpg" alt="">
       <img src="img_kh_12.jpg" alt="">
-    </div>
-
-    <!-- 하단 버튼 -->
-    <div class="pj-footer">
-      <button class="pj-back-btn" onclick="closeProject()">← 목록보기</button>
     </div>
 
   </div>
