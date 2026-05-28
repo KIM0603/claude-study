@@ -1433,39 +1433,23 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 .company-logos{
   margin-top:auto;padding-top:clamp(24px,3vh,40px);
   display:grid;grid-template-columns:repeat(3,1fr);
-  gap:clamp(12px,2vw,20px);
+  gap:clamp(8px,1.5vw,14px);
 }
 .co-logo{
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  padding:clamp(16px,2vw,24px) 12px;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(14px,1.8vw,22px) 10px;
   border-radius:var(--radius);
-  border:1px solid var(--card-border);
-  background:#fff;
+  background:transparent;
   transition:.2s var(--ease);
 }
-.co-logo:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
-.co-img-wrap{
-  width:80px;height:80px;border-radius:10px;
-  overflow:hidden;
-  background:var(--bg-3);
-  border:1px solid var(--card-border);
-  display:flex;align-items:center;justify-content:center;
-}
-.co-img-wrap img{width:100%;height:100%;object-fit:contain;padding:8px;}
-.co-ph{
-  font-family:'Manrope',sans-serif;font-weight:700;
-  font-size:0.7rem;letter-spacing:.08em;color:#bbb;text-align:center;
-}
+.co-logo:hover{transform:translateY(-3px);}
 .co-name{
-  font-family:'Pretendard',sans-serif;font-weight:700;
-  font-size:var(--fs-caption);color:var(--txt-dark);
-  text-align:center;letter-spacing:-.01em;
+  font-family:'Pretendard',sans-serif;font-weight:800;
+  font-size:clamp(1.4rem,2.8vw,2.2rem);color:var(--txt-dark);
+  text-align:center;letter-spacing:-.02em;word-break:keep-all;
+  transition:.2s var(--ease);
 }
-.co-period{
-  font-family:'Manrope',sans-serif;font-weight:500;
-  font-size:var(--fs-label);color:var(--txt-dim);
-  text-align:center;
-}
+.co-logo:hover .co-name{color:var(--accent);}
 
 /* SCROLL REVEAL */
 .sr{opacity:0;transform:translateY(34px);
@@ -1807,38 +1791,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <p>총 3곳의 회사에서 UI/UX·브랜딩·반응형 웹 등 다양한 디자인 업무를 담당하며 실무 역량을 쌓아왔습니다.</p>
           <p>각 회사에서의 경험이 지금의 디자인 방향성과 작업 방식의 기반이 되었습니다.</p>
         </div>
-        <!-- 회사 로고 그리드 — co-img-wrap 안의 co-ph를 <img src="로고파일" alt="회사명">으로 교체하세요 -->
+        <!-- 회사명 텍스트 그리드 -->
         <div class="company-logos">
-          <div class="co-logo">
-            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
-            <div class="co-name">레이트코리아</div>
-            <div class="co-period">2024.09 — 2025.09</div>
-          </div>
-          <div class="co-logo">
-            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
-            <div class="co-name">아텐츠게임아카데미</div>
-            <div class="co-period">2021.12 — 2024.08</div>
-          </div>
-          <div class="co-logo">
-            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
-            <div class="co-name">KH정보교육원</div>
-            <div class="co-period">2021.12 — 2024.08</div>
-          </div>
-          <div class="co-logo">
-            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
-            <div class="co-name">무버먼한국</div>
-            <div class="co-period">2020.01 — 2020.07</div>
-          </div>
-          <div class="co-logo">
-            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
-            <div class="co-name">휴렙</div>
-            <div class="co-period"></div>
-          </div>
-          <div class="co-logo">
-            <div class="co-img-wrap"><div class="co-ph">LOGO</div></div>
-            <div class="co-name">아이엠브릿지</div>
-            <div class="co-period"></div>
-          </div>
+          <div class="co-logo"><div class="co-name">레이트코리아</div></div>
+          <div class="co-logo"><div class="co-name">아텐츠게임아카데미</div></div>
+          <div class="co-logo"><div class="co-name">KH정보교육원</div></div>
+          <div class="co-logo"><div class="co-name">무버먼한국</div></div>
+          <div class="co-logo"><div class="co-name">휴렙</div></div>
+          <div class="co-logo"><div class="co-name">아이엠브릿지</div></div>
         </div>
       </div>
 
@@ -1953,8 +1913,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
         </div>
         <!-- 프로젝트 4: 아텐츠게임아카데미 교육과정 리뉴얼 -->
-        <div class="work sr" data-cat="uiux">
-          <div class="ph"></div><div class="corner">↗</div>
+        <div class="work sr" data-cat="uiux" onclick="openProject('atents')" style="cursor:pointer;">
+          <img src="KakaoTalk_Photo_2026-05-28-23-21-37_001.jpeg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
+          <div class="corner">↗</div>
           <div class="meta">
             <span class="tag">UI/UX · Web Design</span>
             <h3>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h3>
@@ -2382,6 +2343,47 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <img src="img_kh_10.jpg" alt="">
       <img src="img_kh_11.jpg" alt="">
       <img src="img_kh_12.jpg" alt="">
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 아텐츠게임아카데미 ============ -->
+<div class="proj-overlay" id="proj-atents" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+
+    <div class="pj-hero">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-37_001.jpeg" alt="아텐츠게임아카데미">
+    </div>
+
+    <div class="pj-info">
+      <h2 class="pj-h1">아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h2>
+
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2"><div class="pj-mt-label">카테고리</div><div class="pj-mt-val">UI/UX · Web Design · Branding</div></div>
+        <div class="pj-meta-row2"><div class="pj-mt-label">기간</div><div class="pj-mt-val">2023.03 — 2023.11</div></div>
+        <div class="pj-meta-row2"><div class="pj-mt-label">기여도</div><div class="pj-mt-val">기획 100% / UX·UI 100%</div></div>
+        <div class="pj-meta-row2"><div class="pj-mt-label">팀 구성</div><div class="pj-mt-val">디자이너 1명 · 퍼블리셔 1명 · 백엔드 개발자 1명</div></div>
+        <div class="pj-meta-row2"><div class="pj-mt-label">툴</div><div class="pj-mt-val">Figma · Photoshop · Illustrator</div></div>
+      </div>
+
+      <p class="pj-summary">게임 교육 전문기관 아텐츠게임아카데미의 교육과정 홈페이지 전면 리뉴얼 프로젝트입니다. 복잡했던 기존 교육과정 정보를 사용자가 빠르게 습득할 수 있도록 재구성하고, 게임 브랜드 아이덴티티에 맞는 강렬한 비주얼을 구현했습니다.</p>
+    </div>
+
+    <div class="pj-images">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_002.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_003.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_004.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_005.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_006.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_007.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_008.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_009.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_010.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_011.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-40_012.jpeg" alt="">
     </div>
 
   </div>
