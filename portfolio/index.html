@@ -1268,6 +1268,76 @@ section{position:relative;}
   .exp-header{grid-template-columns:1fr;gap:4px;}
 }
 
+/* PROJECT OVERLAY */
+.proj-overlay{
+  position:fixed;inset:0;z-index:990;
+  background:rgba(0,0,0,.92);
+  backdrop-filter:blur(8px);
+  overflow-y:auto;
+  opacity:0;visibility:hidden;
+  transition:opacity .4s var(--ease),visibility .4s;
+}
+.proj-overlay.open{opacity:1;visibility:visible;}
+.proj-inner{
+  max-width:1100px;margin:0 auto;
+  padding:clamp(40px,8vh,100px) clamp(20px,4vw,60px);
+  position:relative;
+}
+.proj-close{
+  position:fixed;top:24px;right:24px;z-index:995;
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:1.2rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:.2s var(--ease);
+}
+.proj-close:hover{background:var(--accent);border-color:var(--accent);}
+.proj-header{margin-bottom:48px;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.proj-tags span{
+  font-family:'Pretendard';font-weight:600;font-size:var(--fs-label);
+  padding:5px 14px;border-radius:6px;
+  background:rgba(255,107,71,.15);border:1px solid rgba(255,107,71,.3);
+  color:var(--accent);
+}
+.proj-title{
+  font-family:'Pretendard';font-weight:800;
+  font-size:clamp(1.8rem,4vw,3.2rem);
+  line-height:1.2;letter-spacing:-.03em;
+  color:#fff;margin-bottom:28px;
+}
+.proj-meta-row{
+  display:flex;flex-wrap:wrap;gap:12px 36px;
+  padding:20px 0;border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(255,255,255,.1);
+  margin-bottom:24px;
+}
+.proj-meta-item{display:flex;flex-direction:column;gap:4px;}
+.pm-label{font-family:'Manrope';font-weight:700;font-size:var(--fs-label);color:var(--accent);}
+.pm-val{font-family:'Pretendard';font-size:var(--fs-body-sm);color:rgba(255,255,255,.75);}
+.proj-desc{font-size:var(--fs-body);line-height:1.8;color:rgba(255,255,255,.6);max-width:720px;}
+/* 갤러리 */
+.proj-gallery{}
+.pg-main{
+  width:100%;aspect-ratio:16/9;
+  border-radius:var(--radius-lg);overflow:hidden;
+  margin-bottom:12px;background:#111;
+  border:1px solid rgba(255,255,255,.1);
+}
+.pg-main img{width:100%;height:100%;object-fit:cover;display:block;}
+.pg-thumbs{
+  display:flex;gap:8px;overflow-x:auto;
+  padding-bottom:4px;
+}
+.pg-thumbs img{
+  width:100px;height:68px;
+  border-radius:8px;object-fit:cover;flex-shrink:0;
+  border:2px solid rgba(255,255,255,.15);
+  cursor:pointer;transition:.2s var(--ease);opacity:.6;
+}
+.pg-thumbs img:hover{opacity:1;}
+.pg-thumbs img.active{border-color:var(--accent);opacity:1;}
+
 /* CONTACT */
 .contact-block{background:#fff;border:1px solid var(--card-border);
   border-radius:var(--radius-lg);padding:clamp(40px,7vw,90px);text-align:center;
@@ -1308,8 +1378,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
 /* SCROLL REVEAL */
 .sr{opacity:0;transform:translateY(34px);
-  transition:opacity .85s var(--ease),transform .85s var(--ease);}
-.sr.in{opacity:1;transform:translateY(0);}
+  transition:opacity .85s var(--ease),transform .85s var(--ease);
+  pointer-events:none;}
+.sr.in{opacity:1;transform:translateY(0);pointer-events:auto;}
 
 /* RESPONSIVE */
 @media(max-width:980px){
@@ -1777,8 +1848,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
         </div>
         <!-- 프로젝트 3: KH정보교육원 반응형 웹사이트 -->
-        <div class="work sr" data-cat="uiux">
-          <div class="ph"></div><div class="corner">↗</div>
+        <div class="work sr" data-cat="uiux" onclick="openProject('kh')" style="cursor:pointer;">
+          <img src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
+          <div class="corner">↗</div>
           <div class="meta">
             <span class="tag">UI/UX · Responsive Web</span>
             <h3>KH정보교육원(통합) 반응형 웹사이트</h3>
@@ -2159,6 +2231,49 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   </section>
 </div>
 
+<!-- ============ PROJECT DETAIL: KH정보교육원 ============ -->
+<div class="proj-overlay" id="proj-kh">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">✕</button>
+    <!-- 헤더 -->
+    <div class="proj-header">
+      <div class="proj-info">
+        <div class="proj-tags">
+          <span>UI/UX</span><span>Branding</span><span>Responsive Web Design</span>
+        </div>
+        <h2 class="proj-title">KH정보교육원(통합)<br>반응형 웹사이트</h2>
+        <div class="proj-meta-row">
+          <div class="proj-meta-item"><span class="pm-label">기간</span><span class="pm-val">2024.01</span></div>
+          <div class="proj-meta-item"><span class="pm-label">기여</span><span class="pm-val">기획 100% · UX/UI 100%</span></div>
+          <div class="proj-meta-item"><span class="pm-label">팀</span><span class="pm-val">디자이너 1명 · 퍼블리서 1명 · 백엔드 개발자 1명</span></div>
+          <div class="proj-meta-item"><span class="pm-label">툴</span><span class="pm-val">Figma · Photoshop · Illustrator</span></div>
+        </div>
+        <p class="proj-desc">KH정보교육원의 브랜드 가치와 독특한 매력을 효과적으로 전달하기 위해 풍부한 콘텐츠로 구성하였습니다. PC·Mobile·Tablet 반응형으로 노출되는 디자인 작업 및 QA를 진행하고, 디자인 시스템을 구축해 리소스 효율을 높였습니다.</p>
+      </div>
+    </div>
+    <!-- 이미지 갤러리 -->
+    <div class="proj-gallery">
+      <div class="pg-main">
+        <img src="img_kh_01.jpg" alt="KH정보교육원 01" id="pgMainImg">
+      </div>
+      <div class="pg-thumbs" id="pgThumbs">
+        <img src="img_kh_01.jpg" alt="" class="active" onclick="pgSelect(this)">
+        <img src="img_kh_02.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_03.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_04.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_05.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_06.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_07.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_08.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_09.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_10.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_11.jpg" alt="" onclick="pgSelect(this)">
+        <img src="img_kh_12.jpg" alt="" onclick="pgSelect(this)">
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ CONTACT ============ -->
 <div class="page" id="page-contact">
   <section class="sec-pad dark" style="padding-top:150px;min-height:100vh;">
@@ -2205,9 +2320,33 @@ function go(name){
     b.classList.toggle('active', b.dataset.nav===name);
   });
   window.scrollTo({top:0,behavior:'instant'});
-  setTimeout(initReveal,50);
+  setTimeout(()=>{
+    initReveal();
+    // work 페이지 카드 강제 노출 (클릭 가능하도록)
+    if(name==='work'){
+      document.querySelectorAll('#page-work .sr').forEach(el=>el.classList.add('in'));
+    }
+  }, 60);
   if(name==='home') initMasonry();
 }
+
+function openProject(id){
+  const el = document.getElementById('proj-'+id);
+  if(!el) return;
+  el.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeProject(){
+  document.querySelectorAll('.proj-overlay').forEach(el=>el.classList.remove('open'));
+  document.body.style.overflow='';
+}
+function pgSelect(img){
+  document.getElementById('pgMainImg').src = img.src;
+  document.querySelectorAll('.pg-thumbs img').forEach(t=>t.classList.remove('active'));
+  img.classList.add('active');
+}
+// ESC 키로 닫기
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeProject(); });
 
 function initMasonry(){
   const items = document.querySelectorAll('.hm-item');
