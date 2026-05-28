@@ -236,6 +236,7 @@ section{position:relative;}
 }
 .hero-right .ph::after{content:"[[ HERO IMAGE / VIDEO ]]";}
 .hero-right img{width:100%;height:100%;object-fit:cover;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
 @media(max-width:920px){
   .hero{padding-top:88px;}
   .hero-shell{grid-template-columns:1fr;min-height:auto;}
@@ -1541,26 +1542,13 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
       </div>
 
-      <!-- 오른쪽 : 이미지 -->
+      <!-- 오른쪽 : 영상 -->
       <div class="hero-right hero-right-exp">
-        <div class="hero-fan">
-          <!-- 왼쪽 팬 그룹 -->
-          <div class="hf-group hf-left">
-            <div class="hf-card" style="--r:-28deg;--x:-60px;--z:0"><div class="hf-ph"></div></div>
-            <div class="hf-card" style="--r:-14deg;--x:-30px;--z:1"><div class="hf-ph"></div></div>
-            <div class="hf-card hf-main" style="--r:0deg;--x:0px;--z:2"><div class="hf-ph"></div></div>
-            <div class="hf-card" style="--r:14deg;--x:30px;--z:1"><div class="hf-ph"></div></div>
-            <div class="hf-card" style="--r:28deg;--x:60px;--z:0"><div class="hf-ph"></div></div>
-          </div>
-          <!-- 오른쪽 팬 그룹 -->
-          <div class="hf-group hf-right">
-            <div class="hf-card" style="--r:-28deg;--x:-60px;--z:0"><div class="hf-ph"></div></div>
-            <div class="hf-card" style="--r:-14deg;--x:-30px;--z:1"><div class="hf-ph"></div></div>
-            <div class="hf-card hf-main" style="--r:0deg;--x:0px;--z:2"><div class="hf-ph"></div></div>
-            <div class="hf-card" style="--r:14deg;--x:30px;--z:1"><div class="hf-ph"></div></div>
-            <div class="hf-card" style="--r:28deg;--x:60px;--z:0"><div class="hf-ph"></div></div>
-          </div>
-        </div>
+        <video
+          class="hero-video"
+          src="u2642383152__URL_Close-up_3D_render_of_a_playful_keyboard_in__57bc1b76-e8ea-4055-a33e-9e693c48adf4_0.mp4"
+          autoplay loop muted playsinline
+        ></video>
       </div>
     </div>
   </section>
