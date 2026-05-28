@@ -1268,75 +1268,118 @@ section{position:relative;}
   .exp-header{grid-template-columns:1fr;gap:4px;}
 }
 
-/* PROJECT OVERLAY */
+/* PROJECT DETAIL — Behance 스타일 사이드 패널 */
 .proj-overlay{
   position:fixed;inset:0;z-index:990;
-  background:rgba(0,0,0,.92);
-  backdrop-filter:blur(8px);
-  overflow-y:auto;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(4px);
   opacity:0;visibility:hidden;
   transition:opacity .4s var(--ease),visibility .4s;
 }
 .proj-overlay.open{opacity:1;visibility:visible;}
+
 .proj-inner{
-  max-width:1100px;margin:0 auto;
-  padding:clamp(40px,8vh,100px) clamp(20px,4vw,60px);
-  position:relative;
+  position:absolute;
+  top:0;right:0;bottom:0;
+  width:min(780px, 100vw);
+  background:#fff;
+  overflow-y:auto;
+  transform:translateX(100%);
+  transition:transform .5s var(--ease);
+  box-shadow:-8px 0 40px rgba(0,0,0,.18);
 }
+.proj-overlay.open .proj-inner{transform:translateX(0);}
+
 .proj-close{
-  position:fixed;top:24px;right:24px;z-index:995;
-  width:48px;height:48px;border-radius:50%;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
-  color:#fff;font-size:1.2rem;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:.2s var(--ease);
+  position:sticky;
+  top:0;z-index:10;
+  width:100%;
+  display:flex;align-items:center;gap:10px;
+  padding:16px 24px;
+  background:#fff;
+  border-bottom:1px solid var(--card-border);
+  cursor:pointer;
+  border:none;
+  font-family:'Pretendard';font-size:var(--fs-body-sm);
+  font-weight:600;color:var(--txt-dim);
+  transition:.2s;
 }
-.proj-close:hover{background:var(--accent);border-color:var(--accent);}
-.proj-header{margin-bottom:48px;}
-.proj-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.proj-close:hover{color:var(--txt-dark);}
+.proj-close::before{
+  content:"←";font-size:1.1rem;color:var(--accent);
+}
+
+/* 메인 이미지 — 꽉 차게 */
+.pg-main{
+  width:100%;
+  background:#f1f3f5;
+  overflow:hidden;
+  border-bottom:1px solid var(--card-border);
+}
+.pg-main img{
+  width:100%;height:auto;
+  display:block;
+  object-fit:contain;
+}
+
+/* 썸네일 */
+.pg-thumbs{
+  display:flex;gap:6px;
+  padding:12px 24px;
+  overflow-x:auto;
+  border-bottom:1px solid var(--card-border);
+  background:#fafafa;
+}
+.pg-thumbs img{
+  width:80px;height:54px;
+  border-radius:6px;object-fit:cover;flex-shrink:0;
+  border:2px solid transparent;
+  cursor:pointer;transition:.2s;opacity:.65;
+}
+.pg-thumbs img:hover{opacity:1;}
+.pg-thumbs img.active{border-color:var(--accent);opacity:1;}
+
+/* 프로젝트 정보 */
+.proj-header{padding:28px 28px 0;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
 .proj-tags span{
   font-family:'Pretendard';font-weight:600;font-size:var(--fs-label);
-  padding:5px 14px;border-radius:6px;
-  background:rgba(255,107,71,.15);border:1px solid rgba(255,107,71,.3);
+  padding:4px 12px;border-radius:6px;
+  background:var(--warm);border:1px solid var(--warm-deep);
   color:var(--accent);
 }
 .proj-title{
   font-family:'Pretendard';font-weight:800;
-  font-size:clamp(1.8rem,4vw,3.2rem);
-  line-height:1.2;letter-spacing:-.03em;
-  color:#fff;margin-bottom:28px;
+  font-size:clamp(1.4rem,3vw,2rem);
+  line-height:1.25;letter-spacing:-.03em;
+  color:var(--txt-dark);margin-bottom:20px;
 }
 .proj-meta-row{
-  display:flex;flex-wrap:wrap;gap:12px 36px;
-  padding:20px 0;border-top:1px solid rgba(255,255,255,.1);
-  border-bottom:1px solid rgba(255,255,255,.1);
-  margin-bottom:24px;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:12px 24px;
+  padding:20px 0;
+  border-top:1px solid var(--card-border);
+  border-bottom:1px solid var(--card-border);
+  margin-bottom:20px;
 }
 .proj-meta-item{display:flex;flex-direction:column;gap:4px;}
-.pm-label{font-family:'Manrope';font-weight:700;font-size:var(--fs-label);color:var(--accent);}
-.pm-val{font-family:'Pretendard';font-size:var(--fs-body-sm);color:rgba(255,255,255,.75);}
-.proj-desc{font-size:var(--fs-body);line-height:1.8;color:rgba(255,255,255,.6);max-width:720px;}
-/* 갤러리 */
-.proj-gallery{}
-.pg-main{
-  width:100%;aspect-ratio:16/9;
-  border-radius:var(--radius-lg);overflow:hidden;
-  margin-bottom:12px;background:#111;
-  border:1px solid rgba(255,255,255,.1);
+.pm-label{
+  font-family:'Manrope';font-weight:700;
+  font-size:var(--fs-label);color:var(--accent);
+  letter-spacing:.04em;text-transform:uppercase;
 }
-.pg-main img{width:100%;height:100%;object-fit:cover;display:block;}
-.pg-thumbs{
-  display:flex;gap:8px;overflow-x:auto;
-  padding-bottom:4px;
+.pm-val{
+  font-family:'Pretendard';font-size:var(--fs-body-sm);
+  color:var(--txt-dark);font-weight:500;
 }
-.pg-thumbs img{
-  width:100px;height:68px;
-  border-radius:8px;object-fit:cover;flex-shrink:0;
-  border:2px solid rgba(255,255,255,.15);
-  cursor:pointer;transition:.2s var(--ease);opacity:.6;
+.proj-desc{
+  font-size:var(--fs-body);line-height:1.8;
+  color:var(--txt-dim);padding-bottom:40px;
 }
-.pg-thumbs img:hover{opacity:1;}
-.pg-thumbs img.active{border-color:var(--accent);opacity:1;}
+
+/* 배경 클릭 닫기 */
+.proj-overlay{cursor:pointer;}
+.proj-inner{cursor:default;}
 
 /* CONTACT */
 .contact-block{background:#fff;border:1px solid var(--card-border);
@@ -2232,44 +2275,38 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 </div>
 
 <!-- ============ PROJECT DETAIL: KH정보교육원 ============ -->
-<div class="proj-overlay" id="proj-kh">
+<div class="proj-overlay" id="proj-kh" onclick="handleOverlayClick(event)">
   <div class="proj-inner">
-    <button class="proj-close" onclick="closeProject()">✕</button>
-    <!-- 헤더 -->
-    <div class="proj-header">
-      <div class="proj-info">
-        <div class="proj-tags">
-          <span>UI/UX</span><span>Branding</span><span>Responsive Web Design</span>
-        </div>
-        <h2 class="proj-title">KH정보교육원(통합)<br>반응형 웹사이트</h2>
-        <div class="proj-meta-row">
-          <div class="proj-meta-item"><span class="pm-label">기간</span><span class="pm-val">2024.01</span></div>
-          <div class="proj-meta-item"><span class="pm-label">기여</span><span class="pm-val">기획 100% · UX/UI 100%</span></div>
-          <div class="proj-meta-item"><span class="pm-label">팀</span><span class="pm-val">디자이너 1명 · 퍼블리서 1명 · 백엔드 개발자 1명</span></div>
-          <div class="proj-meta-item"><span class="pm-label">툴</span><span class="pm-val">Figma · Photoshop · Illustrator</span></div>
-        </div>
-        <p class="proj-desc">KH정보교육원의 브랜드 가치와 독특한 매력을 효과적으로 전달하기 위해 풍부한 콘텐츠로 구성하였습니다. PC·Mobile·Tablet 반응형으로 노출되는 디자인 작업 및 QA를 진행하고, 디자인 시스템을 구축해 리소스 효율을 높였습니다.</p>
-      </div>
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pg-main">
+      <img src="img_kh_01.jpg" alt="KH정보교육원" id="pgMainImg">
     </div>
-    <!-- 이미지 갤러리 -->
-    <div class="proj-gallery">
-      <div class="pg-main">
-        <img src="img_kh_01.jpg" alt="KH정보교육원 01" id="pgMainImg">
+    <div class="pg-thumbs" id="pgThumbs">
+      <img src="img_kh_01.jpg" alt="" class="active" onclick="pgSelect(this)">
+      <img src="img_kh_02.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_03.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_04.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_05.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_06.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_07.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_08.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_09.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_10.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_11.jpg" alt="" onclick="pgSelect(this)">
+      <img src="img_kh_12.jpg" alt="" onclick="pgSelect(this)">
+    </div>
+    <div class="proj-header">
+      <div class="proj-tags">
+        <span>UI/UX</span><span>Branding</span><span>Responsive Web Design</span>
       </div>
-      <div class="pg-thumbs" id="pgThumbs">
-        <img src="img_kh_01.jpg" alt="" class="active" onclick="pgSelect(this)">
-        <img src="img_kh_02.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_03.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_04.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_05.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_06.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_07.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_08.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_09.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_10.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_11.jpg" alt="" onclick="pgSelect(this)">
-        <img src="img_kh_12.jpg" alt="" onclick="pgSelect(this)">
+      <h2 class="proj-title">KH정보교육원(통합)<br>반응형 웹사이트</h2>
+      <div class="proj-meta-row">
+        <div class="proj-meta-item"><span class="pm-label">기간</span><span class="pm-val">2024.01</span></div>
+        <div class="proj-meta-item"><span class="pm-label">작업기여</span><span class="pm-val">기획 100% · UX/UI 100%</span></div>
+        <div class="proj-meta-item"><span class="pm-label">팀</span><span class="pm-val">디자이너 1명 · 퍼블리서 1명 · 백엔드 개발자 1명</span></div>
+        <div class="proj-meta-item"><span class="pm-label">사용 툴</span><span class="pm-val">Figma · Photoshop · Illustrator</span></div>
       </div>
+      <p class="proj-desc">KH정보교육원의 브랜드 가치와 독특한 매력을 효과적으로 전달하기 위해 풍부한 콘텐츠로 구성하였습니다. PC·Mobile·Tablet 반응형으로 노출되는 디자인 작업 및 QA를 진행하고, 디자인 시스템을 구축해 리소스 효율을 높였습니다.</p>
     </div>
   </div>
 </div>
@@ -2340,12 +2377,14 @@ function closeProject(){
   document.querySelectorAll('.proj-overlay').forEach(el=>el.classList.remove('open'));
   document.body.style.overflow='';
 }
+function handleOverlayClick(e){
+  if(e.target === e.currentTarget) closeProject();
+}
 function pgSelect(img){
   document.getElementById('pgMainImg').src = img.src;
   document.querySelectorAll('.pg-thumbs img').forEach(t=>t.classList.remove('active'));
   img.classList.add('active');
 }
-// ESC 키로 닫기
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeProject(); });
 
 function initMasonry(){
