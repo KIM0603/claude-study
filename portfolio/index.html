@@ -1318,6 +1318,18 @@ section{position:relative;}
   line-height:1.2;letter-spacing:-.04em;
   color:var(--txt-dark);
   margin-bottom:48px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.pj-site-link{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:8px;
+  border:1.5px solid var(--card-border);
+  color:var(--txt-dim);flex-shrink:0;
+  transition:.2s var(--ease);
+  text-decoration:none;
+}
+.pj-site-link:hover{
+  background:var(--accent);border-color:var(--accent);color:#fff;
 }
 
 /* 키워드/날짜 테이블 — 라인 없이 */
@@ -2285,7 +2297,11 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
     <!-- 텍스트 정보 -->
     <div class="pj-info">
-      <h1 class="pj-h1">KH정보교육원(통합) 반응형 웹사이트</h1>
+      <h2 class="pj-h1">KH정보교육원(통합) 반응형 웹사이트
+        <a href="https://www.kh.ac.kr" target="_blank" rel="noopener" class="pj-site-link" title="사이트 바로가기">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </h2>
 
       <div class="pj-meta-table">
         <div class="pj-meta-row2">
@@ -2303,10 +2319,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <div class="pj-meta-row2">
           <span class="pj-mt-label">팀</span>
           <span class="pj-mt-val">디자이너 1명 · 퍼블리서 1명 · 백엔드 개발자 1명</span>
-        </div>
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">사용 툴</span>
-          <span class="pj-mt-val">Figma · Photoshop · Illustrator</span>
         </div>
       </div>
 
