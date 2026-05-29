@@ -1443,34 +1443,49 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
 /* COMPANY LOGOS */
 .company-logos{
-  margin-top:auto;padding-top:clamp(24px,3vh,40px);
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:clamp(8px,1.5vw,14px);
+  margin-top:auto;
+  padding-top:clamp(24px,3vh,40px);
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:clamp(8px,1.2vw,12px);
+  box-sizing:border-box;
 }
 .co-logo{
   display:flex;align-items:center;justify-content:center;
-  padding:clamp(14px,1.8vw,22px) 10px;
+  padding:clamp(12px,1.6vw,20px) 8px;
   border-radius:var(--radius);
   background:transparent;
   transition:.2s var(--ease);
+  min-width:0;
 }
 .co-logo:hover{transform:translateY(-3px);}
 .co-name{
   font-family:'Pretendard',sans-serif;font-weight:800;
-  font-size:clamp(1.4rem,2.8vw,2.2rem);color:var(--txt-dark);
+  font-size:clamp(1rem,1.6vw,1.5rem);color:var(--txt-dark);
   text-align:center;letter-spacing:-.02em;word-break:keep-all;
   transition:.2s var(--ease);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
 .co-logo:hover .co-name{color:var(--accent);}
 .co-group{
-  grid-column: span 2;
-  display:flex;
-  gap:clamp(8px,1.5vw,14px);
-  border:1.5px dashed #DDDDDD;
+  grid-column:span 2;
+  display:flex;align-items:center;
+  gap:0;
+  border:1px dashed #DDDDDD;
   border-radius:14px;
-  padding:6px;
+  padding:6px 10px;
+  box-sizing:border-box;
 }
-.co-group .co-logo{flex:1;}
+.co-group .co-logo{flex:1;min-width:0;}
+.co-group-label{
+  flex-shrink:0;
+  font-family:'Pretendard',sans-serif;
+  font-size:0.65rem;font-weight:500;
+  color:#AAAAAA;
+  white-space:nowrap;
+  padding:0 10px;
+  letter-spacing:.02em;
+}
 
 /* SCROLL REVEAL */
 .sr{opacity:0;transform:translateY(34px);
@@ -1814,16 +1829,21 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <!-- 회사명 텍스트 그리드 -->
         <div class="company-logos">
-          <div class="co-logo"><div class="co-name">레이트코리아</div></div>
+          <!-- Row 1: 아이엠브릿지 ↔ 휴렙 -->
           <div class="co-group">
-            <div class="co-logo"><div class="co-name">아텐츠게임아카데미</div></div>
-            <div class="co-logo"><div class="co-name">KH정보교육원</div></div>
-          </div>
-          <div class="co-logo"><div class="co-name">무버먼한국</div></div>
-          <div class="co-group">
-            <div class="co-logo"><div class="co-name">휴렙</div></div>
             <div class="co-logo"><div class="co-name">아이엠브릿지</div></div>
+            <div class="co-group-label">도중 법인변경</div>
+            <div class="co-logo"><div class="co-name">휴렙</div></div>
           </div>
+          <!-- Row 2: KH정보교육원 ↔ 아텐츠게임아카데미 -->
+          <div class="co-group">
+            <div class="co-logo"><div class="co-name">KH정보교육원</div></div>
+            <div class="co-group-label">도중 법인변경</div>
+            <div class="co-logo"><div class="co-name">아텐츠게임아카데미</div></div>
+          </div>
+          <!-- Row 3: 레이트코리아 + 무버먼한국 -->
+          <div class="co-logo"><div class="co-name">레이트코리아</div></div>
+          <div class="co-logo"><div class="co-name">무버먼한국</div></div>
         </div>
       </div>
 
