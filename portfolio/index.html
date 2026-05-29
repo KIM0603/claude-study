@@ -655,6 +655,18 @@ section{position:relative;}
 .career-row .c-body .c-role{
   font-size:var(--fs-body-sm);color:var(--txt-dim);line-height:1.55;
 }
+.c-name-change{
+  display:inline-block;
+  margin-left:8px;
+  font-size:0.68rem;font-weight:600;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  border-radius:20px;
+  padding:1px 8px;
+  vertical-align:middle;
+  opacity:.8;
+  letter-spacing:.01em;
+}
 .career-row .c-body .c-tags{
   display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;
 }
@@ -1450,6 +1462,15 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   transition:.2s var(--ease);
 }
 .co-logo:hover .co-name{color:var(--accent);}
+.co-group{
+  grid-column: span 2;
+  display:flex;
+  gap:clamp(8px,1.5vw,14px);
+  border:1.5px dashed #DDDDDD;
+  border-radius:14px;
+  padding:6px;
+}
+.co-group .co-logo{flex:1;}
 
 /* SCROLL REVEAL */
 .sr{opacity:0;transform:translateY(34px);
@@ -1794,11 +1815,15 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <!-- 회사명 텍스트 그리드 -->
         <div class="company-logos">
           <div class="co-logo"><div class="co-name">레이트코리아</div></div>
-          <div class="co-logo"><div class="co-name">아텐츠게임아카데미</div></div>
-          <div class="co-logo"><div class="co-name">KH정보교육원</div></div>
+          <div class="co-group">
+            <div class="co-logo"><div class="co-name">아텐츠게임아카데미</div></div>
+            <div class="co-logo"><div class="co-name">KH정보교육원</div></div>
+          </div>
           <div class="co-logo"><div class="co-name">무버먼한국</div></div>
-          <div class="co-logo"><div class="co-name">휴렙</div></div>
-          <div class="co-logo"><div class="co-name">아이엠브릿지</div></div>
+          <div class="co-group">
+            <div class="co-logo"><div class="co-name">휴렙</div></div>
+            <div class="co-logo"><div class="co-name">아이엠브릿지</div></div>
+          </div>
         </div>
       </div>
 
@@ -1810,13 +1835,23 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <span class="yr">2020 — Present</span>
         </div>
         <div class="career-tl">
-          <!-- 항목 1 (최신) -->
+          <!-- 항목 0 (최신) -->
+          <div class="career-row">
+            <div class="marker"></div>
+            <div class="c-body">
+              <div class="c-date">2025.09 — 2026.09</div>
+              <h4>아이엠브릿지 · 사원 웹디자이너</h4>
+              <p class="c-role">병원/한의원 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
+              <div class="c-tags"><span>상세페이지</span><span>프로모션</span></div>
+            </div>
+          </div>
+          <!-- 항목 1 -->
           <div class="career-row">
             <div class="marker"></div>
             <div class="c-body">
               <div class="c-date">2024.09 — 2025.09</div>
               <h4>레이트코리아 · 대리 웹디자이너</h4>
-              <p class="c-role">가전/뷰티 브랜드 홈페이지 기획·리뉴얼, 월별 프로모션 이벤트 운영, 가구브랜드 신규 런칭 등 전반적인 디자인 업무를 담당했습니다.</p>
+              <p class="c-role">가전/뷰티 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
               <div class="c-tags"><span>Branding</span><span>상세페이지</span><span>프로모션</span></div>
             </div>
           </div>
@@ -1825,8 +1860,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
             <div class="marker"></div>
             <div class="c-body">
               <div class="c-date">2021.12 — 2024.08</div>
-              <h4>아텐츠게임아카데미 · 주임 컨텐츠개발팀</h4>
-              <p class="c-role">KH정보교육원 통합 반응형 웹사이트, KH영상아카데미 신규 홈페이지 기획/디자인, 디자인 시스템 구축, 오프라인 홍보물 제작을 담당했습니다.</p>
+              <h4>아텐츠게임아카데미 · 주임 컨텐츠개발팀
+                <span class="c-name-change">구. KH정보교육원</span>
+              </h4>
+              <p class="c-role">반응형 웹사이트 기획·디자인, 디자인 시스템 구축</p>
               <div class="c-tags"><span>UI/UX</span><span>반응형 웹</span><span>디자인 시스템</span></div>
             </div>
           </div>
@@ -1836,7 +1873,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
             <div class="c-body">
               <div class="c-date">2020.01 — 2020.07</div>
               <h4>무버먼한국 · 디자인 보조</h4>
-              <p class="c-role">SNS 채널 이벤트/프로모션 디자인, 와디즈 캠핑의자 상세페이지 기획 및 디자인 서브 업무를 담당했습니다.</p>
+              <p class="c-role">SNS 이벤트·프로모션 디자인 및 상세페이지 서브 업무</p>
               <div class="c-tags"><span>SNS 디자인</span><span>상세페이지</span></div>
             </div>
           </div>
