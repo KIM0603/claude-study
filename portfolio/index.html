@@ -979,26 +979,25 @@ section{position:relative;}
 }
 .work.is-hidden{display:none;}
 .work{position:relative;border-radius:var(--radius);overflow:hidden;
-  background:var(--bg-3);border:1px solid var(--card-border);
+  background:#fff;border:1px solid var(--card-border);
   transition:.3s var(--ease);
   box-shadow:var(--shadow-sm);}
-.work:has(.ph){aspect-ratio:16/11;}
 .work img{display:block;width:100%;height:auto;}
 .work:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
-.work .ph{position:absolute;inset:0;
+.work .ph{position:relative;width:100%;aspect-ratio:16/11;
   display:flex;align-items:center;justify-content:center;
   background:repeating-linear-gradient(45deg,#e9ecef 0 16px,#f1f3f5 16px 32px);
   color:#adb5bd;font-family:'Pretendard';font-weight:600;
   font-size:var(--fs-caption);letter-spacing:.06em;}
 .work .ph::after{content:"[[ PROJECT IMAGE ]]";}
-.work .meta{position:absolute;left:0;right:0;bottom:0;z-index:2;
-  padding:22px;background:linear-gradient(transparent,rgba(0,0,0,.75));}
+.work .meta{position:static;z-index:2;
+  padding:18px 20px 20px;background:#fff;}
 .work .meta .tag{display:inline-block;font-family:'Pretendard';font-weight:600;
-  font-size:var(--fs-label);letter-spacing:.02em;color:#fff;
-  background:rgba(20,20,20,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  font-size:var(--fs-label);letter-spacing:.02em;color:#1a1a1a;
+  background:#f1efe8;
   padding:4px 10px;border-radius:6px;margin-bottom:10px;}
 .work .meta h3{font-family:'Pretendard';font-weight:700;font-size:var(--fs-h3);
-  color:#fff;letter-spacing:-.02em;}
+  color:#1a1a1a;letter-spacing:-.02em;}
 .work .corner{position:absolute;top:14px;right:14px;z-index:2;
   width:38px;height:38px;border-radius:8px;
   background:#fff;color:var(--txt-dark);
@@ -1558,6 +1557,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   .contact-grid{grid-template-columns:1fr;}
   .tl-row{grid-template-columns:1fr;gap:3px;}
   .acc-head .ttl{font-size:1.3rem;}
+  .work .meta{padding:16px;}
+  .work .meta h3{font-size:1.15rem;}
+  .work .meta .tag{font-size:0.78rem;padding:3px 8px;margin-bottom:8px;}
 }
 </style>
 </head>
@@ -1997,14 +1999,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <div class="meta">
             <span class="tag">UI/UX · Web Design</span>
             <h3>미올한의원 메인 페이지</h3>
-          </div>
-        </div>
-        <!-- 프로젝트 1: 레이트코리아 상세페이지 -->
-        <div class="work sr" data-cat="landing" onclick="openProject('latekr')" style="cursor:pointer;">
-          <div class="ph"></div><div class="corner">↗</div>
-          <div class="meta">
-            <span class="tag">Branding · Landing page</span>
-            <h3>레이트코리아 가전/뷰티 상세페이지 리뉴얼</h3>
           </div>
         </div>
         <!-- 프로젝트 1-2: 미올한의원 바디라인 상세페이지 -->
@@ -3130,33 +3124,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <img src="twincurl_08.jpg" alt="">
       <img src="twincurl_09.jpg" alt="">
     </div>
-  </div>
-</div>
-
-<!-- ============ PROJECT DETAIL: 레이트코리아 ============ -->
-<div class="proj-overlay" id="proj-latekr" onclick="handleOverlayClick(event)">
-  <div class="proj-inner">
-    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
-    <div class="pj-hero"></div>
-    <div class="pj-info">
-      <h2 class="pj-h1">레이트코리아 가전/뷰티 상세페이지 리뉴얼</h2>
-      <div class="pj-meta-table">
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Branding #상세페이지 #프로모션 #Landing Page</span>
-        </div>
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">2024.09 — 2025.09</span>
-        </div>
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">기여</span>
-          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
-        </div>
-      </div>
-      <p class="pj-summary">가전/뷰티 브랜드 홈페이지 기획·리뉴얼, 월별 프로모션 이벤트 운영, 가구브랜드 신규 런칭 등 전반적인 디자인 업무를 담당했습니다.</p>
-    </div>
-    <div class="pj-images"></div>
   </div>
 </div>
 
