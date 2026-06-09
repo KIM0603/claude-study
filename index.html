@@ -2,741 +2,3309 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>스크린으로 읽는 UX — 에이전트 대시보드</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Portfolio ｜ UI/UX Designer</title>
+<meta name="description" content="UI/UX Web Designer Portfolio">
+
+<!-- ================================================================
+     ★ 채워넣을 곳 ★  코드 안에서 [[ ... ]] 부분을 본인 정보로 바꾸세요.
+     에디터에서 Ctrl+F → "[[" 검색하면 모든 위치를 찾을 수 있어요.
+================================================================= -->
+
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif;background:#f5f4f0;color:#111110;font-size:14px;line-height:1.6}
-.topbar{background:#fff;border-bottom:1px solid #e8e6e0;padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.logo{font-weight:600;font-size:15px}.logo em{font-style:italic;color:#6b6b67}
-.topright{display:flex;gap:8px;align-items:center}
-.stat-text{font-size:12px;color:#6b6b67}
-.btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;border:1px solid #e8e6e0;background:#fff;color:#3d3d3a;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
-.btn:hover{background:#f5f4f0;border-color:#b4b2a9}
-.btn-dark{background:#111110;color:#fff;border-color:#111110}.btn-dark:hover{background:#1c1c1a}
-.btn-dark:disabled,.btn:disabled{opacity:.4;cursor:not-allowed}
-.btn-sm{font-size:11px;padding:4px 9px;border-radius:6px}
-.layout{display:grid;grid-template-columns:300px 1fr;gap:16px;padding:16px 20px;max-width:1200px;margin:0 auto}
-.left-panel{display:flex;flex-direction:column;gap:14px;position:sticky;top:68px;max-height:calc(100vh - 84px);overflow-y:auto}
-.card{background:#fff;border:1px solid #e8e6e0;border-radius:14px;overflow:hidden}
-.card-head{padding:14px 16px;border-bottom:1px solid #e8e6e0;display:flex;align-items:center;justify-content:space-between}
-.card-head-left{display:flex;align-items:center;gap:7px}
-.card-title{font-size:13px;font-weight:600;color:#111110}
-.card-sub{font-size:11px;color:#6b6b67;margin-top:1px}
-.card-actions{display:flex;gap:5px;align-items:center}
-.ep-scroll{overflow-y:auto;max-height:300px}
-.ep-item{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;border-bottom:1px solid #e8e6e0;transition:all .12s;border-left:3px solid transparent;position:relative}
-.ep-item:last-child{border-bottom:none}
-.ep-item:hover{background:#f5f4f0}
-.ep-item.active{background:#f0f0ef;border-left-color:#111110}
-.ep-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.ep-info{flex:1;min-width:0}
-.ep-num{font-size:10px;font-weight:500;color:#6b6b67;margin-bottom:1px;letter-spacing:.04em}
-.ep-title-txt{font-size:12px;font-weight:500;color:#111110;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ep-hook-txt{font-size:10px;color:#6b6b67;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ep-prog-wrap{margin-top:5px;height:2px;background:#e8e6e0;border-radius:2px;overflow:hidden}
-.ep-prog-fill{height:100%;background:#111110;border-radius:2px;transition:width .5s}
-.ep-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;flex-shrink:0}
-.ep-del{position:absolute;right:40px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:5px;border:1px solid #e8e6e0;background:#fff;cursor:pointer;font-size:11px;display:none;align-items:center;justify-content:center;color:#6b6b67;font-family:'DM Sans',sans-serif}
-.ep-item:hover .ep-del{display:flex}
-.ep-del:hover{background:#fee2e2;border-color:#fca5a5;color:#991b1b}
-.add-row{padding:10px 14px;border-top:1px solid #e8e6e0;display:flex;gap:6px}
-.add-input{flex:1;padding:7px 10px;border:1px solid #e8e6e0;border-radius:8px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;color:#111110;transition:border-color .15s}
-.add-input:focus{border-color:#111110}
-.planner-stats{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid #e8e6e0}
-.pstat{padding:12px 8px;text-align:center;border-right:1px solid #e8e6e0}
-.pstat:last-child{border-right:none}
-.pstat-num{font-size:22px;font-weight:600;color:#111110;line-height:1;margin-bottom:3px}
-.pstat-lbl{font-size:10px;color:#6b6b67;font-weight:500}
-.upload-section{padding:10px 14px 8px;border-bottom:1px solid #e8e6e0}
-.upload-lbl{font-size:11px;font-weight:500;color:#6b6b67;margin-bottom:8px;letter-spacing:.05em;text-transform:uppercase}
-.upload-row{display:flex;align-items:center;gap:8px;padding:3px 0}
-.upcount-btn{width:20px;height:20px;border-radius:5px;border:1px solid #e8e6e0;background:#fff;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;color:#6b6b67;font-family:'DM Sans',sans-serif;flex-shrink:0}
-.upcount-btn:hover{background:#f0f0ef}
-.todo-list{display:flex;flex-direction:column}
-.todo-item{display:flex;align-items:center;gap:8px;padding:8px 14px;transition:background .12s;border-bottom:1px solid #e8e6e0}
-.todo-item:last-child{border-bottom:none}
-.todo-item:hover{background:#f9f8f6}
-.todo-check{width:18px;height:18px;border-radius:5px;border:1.5px solid #b4b2a9;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s;cursor:pointer;font-family:'DM Sans',sans-serif}
-.todo-check.done{background:#111110;border-color:#111110;color:#fff}
-.todo-text{flex:1;font-size:12px;font-weight:500;color:#111110;line-height:1.35}
-.todo-text.done{color:#b4b2a9;text-decoration:line-through}
-.todo-tag{font-size:10px;font-weight:500;padding:2px 6px;border-radius:20px;flex-shrink:0}
-.todo-date{font-size:10px;color:#b4b2a9;flex-shrink:0}
-.del-btn{width:20px;height:20px;border-radius:4px;border:none;background:none;cursor:pointer;font-size:11px;color:#b4b2a9;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;flex-shrink:0}
-.del-btn:hover{color:#991b1b}
-.right-col{display:flex;flex-direction:column;gap:14px}
-.det-head{padding:16px 20px;border-bottom:1px solid #e8e6e0;display:flex;align-items:center;gap:12px}
-.det-info{flex:1;min-width:0}
-.det-epnum{font-size:11px;font-weight:500;color:#6b6b67;margin-bottom:2px}
-.det-title{font-size:16px;font-weight:600;color:#111110;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.det-hook{font-size:12px;color:#6b6b67;margin-top:2px}
-.det-actions{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
-.det-status{font-size:11px;color:#6b6b67}
-.out-row{display:flex;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid #e8e6e0;transition:background .12s}
-.out-row:last-child{border-bottom:none}
-.out-row.ready{cursor:pointer}.out-row.ready:hover{background:#f5f4f0}
-.out-ico-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:background .15s}
-.out-name{font-size:13px;font-weight:600;color:#111110;margin-bottom:2px}
-.out-desc{font-size:11px;color:#6b6b67}
-.out-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.tab-chip{font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;border:1px solid #e8e6e0;background:#fff;cursor:pointer;color:#3d3d3a;transition:all .12s;white-space:nowrap;font-family:'DM Sans',sans-serif}
-.tab-chip:hover{background:#111110;color:#fff;border-color:#111110}
-.archive-head{padding:14px 20px;border-bottom:1px solid #e8e6e0;display:flex;align-items:center;justify-content:space-between}
-.tbl-head{display:grid;grid-template-columns:28px 1fr 50px 50px 50px 50px 44px;align-items:center;padding:8px 16px;border-bottom:1px solid #e8e6e0;background:#f9f8f6}
-.tbl-col{font-size:11px;font-weight:500;color:#6b6b67;text-align:center}
-.tbl-col.left{text-align:left}
-.arc-row-wrap{border-bottom:1px solid #e8e6e0}.arc-row-wrap:last-child{border-bottom:none}
-.arc-row{display:grid;grid-template-columns:28px 1fr 50px 50px 50px 50px 44px;align-items:center;padding:10px 16px;cursor:pointer;transition:background .12s}
-.arc-row:hover{background:#f9f8f6}
-.arc-arrow{font-size:10px;color:#b4b2a9;transition:transform .2s;text-align:center}
-.arc-arrow.open{transform:rotate(90deg)}
-.arc-ep-info{display:flex;align-items:center;gap:8px;min-width:0}
-.arc-expand{background:#fafaf9;border-top:1px solid #e8e6e0}
-.arc-expand-bar{padding:10px 20px 8px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e8e6e0}
-.arc-out-row{display:flex;align-items:center;gap:12px;padding:10px 20px 10px 44px;border-bottom:1px solid #e8e6e0;cursor:pointer;transition:background .12s}
-.arc-out-row:last-child{border-bottom:none}.arc-out-row:hover{background:#f0f0ef}
-.arc-out-ico{width:30px;height:30px;border-radius:8px;background:#111110;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:32px 20px;overflow-y:auto}
-.overlay.open{display:flex}
-.modal{background:#fff;border-radius:18px;width:100%;max-width:720px;margin:auto;box-shadow:0 40px 80px rgba(0,0,0,.25);overflow:hidden}
-.modal-head{padding:22px 26px 0}
-.modal-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
-.modal-left{display:flex;align-items:center;gap:12px}
-.modal-ico-w{width:44px;height:44px;border-radius:12px;background:#f0f0ef;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.close-btn{width:32px;height:32px;border-radius:50%;border:1px solid #e8e6e0;background:#fff;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:#6b6b67;flex-shrink:0;font-family:'DM Sans',sans-serif}
-.modal-tabs-row{display:flex;border-bottom:1px solid #e8e6e0;flex-wrap:wrap}
-.mtab{font-size:13px;font-weight:500;padding:10px 16px;cursor:pointer;border:none;background:none;color:#6b6b67;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
-.mtab:hover{color:#111110}.mtab.on{color:#111110;border-bottom-color:#111110}
-.modal-body{padding:24px 26px}
-.prompt-box{background:#111110;border-radius:10px;padding:16px 18px;margin-bottom:8px}
-.prompt-lbl{font-size:10px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
-.prompt-txt{font-size:12px;color:rgba(255,255,255,.8);line-height:1.65;word-break:break-all;white-space:pre-wrap}
-.modal-foot{padding:14px 26px;border-top:1px solid #e8e6e0;display:flex;align-items:center;justify-content:space-between}
-.refresh-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid #e8e6e0;border-radius:10px;cursor:pointer;transition:all .15s}
-.refresh-item:hover{border-color:#b4b2a9;background:#fafafa}
-.refresh-item.sel{border-color:#111110;background:#f5f4f0}
-.rcheck{width:20px;height:20px;border-radius:5px;border:1.5px solid #b4b2a9;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s}
-.refresh-item.sel .rcheck{background:#111110;border-color:#111110;color:#fff}
-@keyframes spin{to{transform:rotate(360deg)}}
-.spin{animation:spin .8s linear infinite;display:inline-block}
-@media(max-width:960px){.layout{grid-template-columns:1fr}.left-panel{position:static;max-height:none}}
+:root{
+  /* ── 색상 시스템 ── */
+  --bg:#ffffff;
+  --bg-2:#f8f9fa;
+  --bg-3:#f1f3f5;
+  --paper:#ffffff;
+  --paper-2:#f8f9fa;
+
+  --txt:#1a1a1a;
+  --txt-dim:#6b7280;
+  --txt-dark:#111111;
+  --txt-dark-dim:#9ca3af;
+
+  --line:rgba(0,0,0,.08);
+  --line-dark:rgba(0,0,0,.10);
+
+  /* 포인트: 차콜 + 코랄/오렌지 */
+  --accent:#ff6b47;
+  --accent-deep:#e85530;
+  --warm:#fff3f0;
+  --warm-deep:#ffd9d0;
+  --card-border:#e0e0e0;
+
+  --radius:12px;
+  --radius-lg:16px;
+  --ease:cubic-bezier(.19,1,.22,1);
+  --maxw:1320px;
+
+  /* 그림자 (서핏 카드 스타일) */
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);
+
+  /* ── 서핏 타이포그래피 스케일 ── */
+  --fs-display: clamp(3.2rem, 6.5vw, 5.4rem);   /* 히어로 대형 */
+  --fs-h1:      clamp(2.6rem, 5vw,   4rem);      /* 페이지 제목 */
+  --fs-h2:      clamp(2rem,   3.4vw, 2.8rem);    /* 섹션 제목 */
+  --fs-h3:      clamp(1.5rem, 2.2vw, 2rem);      /* 카드 제목 */
+  --fs-h4:      1.375rem;                         /* 서브 카드 제목 (22px) */
+  --fs-body-lg: 1.1875rem;                        /* 본문 크게 (19px) */
+  --fs-body:    1.125rem;                         /* 본문 기본 (18px) */
+  --fs-body-sm: 1.0625rem;                        /* 보조 본문 (17px) */
+  --fs-caption: 1rem;                             /* 캡션/태그 (16px) */
+  --fs-label:   0.9375rem;                        /* 레이블/배지 (15px) */
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Pretendard','Manrope',-apple-system,sans-serif;
+  background:var(--bg);color:var(--txt);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.01em;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--accent);color:#fff;}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .7s var(--ease),visibility .7s;}
+#loader.done{opacity:0;visibility:hidden;}
+#loader .lt{font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:clamp(1.4rem,4vw,2.4rem);letter-spacing:.42em;text-indent:.42em;
+  color:var(--txt-dark);opacity:0;animation:ldIn .8s var(--ease) .15s forwards;}
+@keyframes ldIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+#loader .lb{position:absolute;left:0;bottom:0;height:2px;width:0;
+  background:var(--accent);animation:ldBar 1.6s var(--ease) forwards;}
+@keyframes ldBar{to{width:100%;}}
+
+/* NAV — 블랙 배경 */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(18px,4vw,52px);
+  background:rgba(17,17,17,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.08);}
+nav .logo{font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-h4);letter-spacing:.12em;color:#fff;}
+nav .menu{display:flex;align-items:center;gap:4px;}
+nav .menu button{background:none;border:none;color:rgba(255,255,255,.55);
+  font-size:var(--fs-body-sm);font-weight:600;letter-spacing:.01em;
+  padding:8px 16px;border-radius:8px;transition:.2s var(--ease);}
+nav .menu button:hover{color:#fff;background:rgba(255,255,255,.08);}
+nav .menu button.active{background:#fff;color:#111;}
+nav .cta{margin-left:8px;background:var(--accent);color:#fff;border:none;
+  font-size:var(--fs-caption);font-weight:700;padding:10px 20px;border-radius:8px;
+  transition:.2s var(--ease);}
+nav .cta:hover{background:var(--accent-deep);transform:translateY(-1px);}
+
+/* PAGE SYSTEM */
+.page{display:none;}
+.page.active{display:block;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,52px);}
+section{position:relative;}
+.sec-pad{padding:clamp(70px,11vh,150px) 0;}
+.dark{background:var(--bg-2);color:var(--txt);}
+.light{background:var(--bg-3);color:var(--txt-dark);}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-caption);letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 14px;border-radius:6px;margin-bottom:28px;
+  background:var(--warm);color:var(--accent);border:1px solid var(--warm-deep);}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);}
+
+.headline{font-family:'Pretendard',sans-serif;font-weight:800;
+  font-size:var(--fs-display);line-height:1.04;letter-spacing:-.03em;}
+.headline .o{-webkit-text-stroke:1.4px currentColor;color:transparent;}
+.headline .blue{color:var(--accent);}
+
+/* HERO */
+.hero{
+  background:var(--bg-2);
+  padding:96px clamp(18px,2.5vw,30px) 0;
+  min-height:67vh;
+}
+.hero-shell{
+  display:grid;grid-template-columns:1fr 1.04fr;
+  gap:10px;
+  max-width:1480px;margin:0 auto;
+  min-height:calc(67vh - 96px);
+}
+/* 왼쪽 텍스트 카드 */
+.hero-left{
+  background:#fff;border-radius:var(--radius-lg);
+  padding:clamp(34px,4.4vw,68px);
+  display:flex;flex-direction:column;
+  position:relative;
+  box-shadow:var(--shadow-sm);
+  border:1px solid var(--card-border);
+}
+.hero-left h1{
+  font-family:'Pretendard',sans-serif;font-weight:800;
+  font-size:var(--fs-display);
+  line-height:.98;letter-spacing:-.04em;
+  color:var(--txt-dark);
+}
+.hero-left h1 .row{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:.12em .26em;overflow:hidden;
+}
+.hero-left h1 .row i{
+  display:inline-block;font-style:normal;
+  transform:translateY(108%);
+  animation:rowUp 1s var(--ease) forwards;
+}
+.hero-left h1 .row:nth-child(1) i{animation-delay:.45s;}
+.hero-left h1 .row:nth-child(2) i{animation-delay:.57s;}
+.hero-left h1 .row:nth-child(3) i{animation-delay:.69s;}
+@keyframes rowUp{to{transform:translateY(0);}}
+.hero-left h1 .dim{color:#d1d5db;}
+/* 버튼 */
+.hero-btn{
+  align-self:flex-start;
+  margin-top:clamp(30px,4vh,52px);
+  background:var(--accent);color:#fff;border:none;
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-body);letter-spacing:-.01em;
+  padding:17px 30px;border-radius:14px;
+  transition:.35s var(--ease);
+  opacity:0;animation:fadeUp 1s var(--ease) .95s forwards;
+}
+.hero-btn:hover{background:var(--warm-deep);transform:translateY(-3px);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+/* 카드 하단 © + 설명 */
+.hero-foot{
+  display:flex;flex-direction:column;gap:22px;
+  margin-top:auto;padding-top:clamp(34px,6vh,70px);
+  opacity:0;animation:fadeUp 1s var(--ease) 1.1s forwards;
+}
+.hero-foot .foot-top{
+  display:flex;flex-wrap:wrap;gap:10px 36px;align-items:flex-end;
+}
+.hero-foot .yr{
+  font-family:'Manrope',sans-serif;font-weight:600;
+  font-size:var(--fs-body-sm);color:var(--txt-dim);letter-spacing:.01em;
+}
+.hero-foot .desc{
+  max-width:300px;font-size:var(--fs-body-sm);line-height:1.65;
+  color:var(--txt-dark);font-weight:500;
+}
+.hero-foot .desc span{color:var(--accent);font-weight:600;}
+/* 연락처 칩 */
+.contact-chips{
+  display:flex;flex-wrap:wrap;gap:8px;
+  padding-top:16px;border-top:1px solid var(--line);
+}
+.contact-chips a,.contact-chips span{
+  font-family:'Pretendard',sans-serif;font-weight:500;
+  font-size:var(--fs-body-sm);letter-spacing:-.01em;
+  padding:8px 16px;border-radius:8px;
+  border:1px solid var(--card-border);
+  color:var(--txt-dim);
+  transition:.2s var(--ease);
+}
+.contact-chips a:hover{
+  background:var(--accent);color:#fff;border-color:var(--accent);
+}
+.contact-chips .chip-name{
+  background:var(--accent);border-color:var(--accent);
+  color:#fff;font-weight:700;
+}
+/* 오른쪽 이미지 카드 */
+.hero-right{
+  border-radius:var(--radius-lg);overflow:hidden;
+  background:var(--bg-3);position:relative;min-height:340px;
+  border:1px solid var(--card-border);
+  box-shadow:var(--shadow-sm);
+}
+.hero-right .ph{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#e9ecef 0 22px,#f1f3f5 22px 44px);
+  color:#adb5bd;font-family:'Manrope';font-weight:700;
+  font-size:var(--fs-caption);letter-spacing:.1em;text-align:center;padding:20px;
+}
+.hero-right .ph::after{content:"[[ HERO IMAGE / VIDEO ]]";}
+.hero-right img{width:100%;height:100%;object-fit:cover;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+@media(max-width:920px){
+  .hero{padding-top:88px;}
+  .hero-shell{grid-template-columns:1fr;min-height:auto;}
+  .hero-right{aspect-ratio:4/3;min-height:0;}
+}
+
+/* HERO 3D FAN */
+.hero-fan{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(16px,4vw,60px);
+  background:var(--bg-2);
+  perspective:900px;
+  overflow:hidden;
+}
+.hf-group{
+  position:relative;
+  width:clamp(100px,14vw,180px);
+  height:clamp(160px,28vh,340px);
+  transform-style:preserve-3d;
+}
+.hf-card{
+  position:absolute;inset:0;
+  border-radius:10px;overflow:hidden;
+  transform:
+    rotateY(var(--r))
+    translateX(var(--x));
+  transform-origin:bottom center;
+  box-shadow:0 8px 28px rgba(0,0,0,.13);
+  border:2px solid #fff;
+  transition:transform .4s var(--ease);
+  z-index:var(--z);
+}
+/* 호버 시 살짝 더 벌어짐 */
+.hf-group:hover .hf-card:nth-child(1){ transform:rotateY(-36deg) translateX(-80px); }
+.hf-group:hover .hf-card:nth-child(2){ transform:rotateY(-18deg) translateX(-40px); }
+.hf-group:hover .hf-card:nth-child(3){ transform:rotateY(0deg) translateX(0px); }
+.hf-group:hover .hf-card:nth-child(4){ transform:rotateY(18deg) translateX(40px); }
+.hf-group:hover .hf-card:nth-child(5){ transform:rotateY(36deg) translateX(80px); }
+
+.hf-ph{
+  width:100%;height:100%;
+  background:repeating-linear-gradient(45deg,#e0e0e0 0 10px,#ebebeb 10px 20px);
+}
+.hf-card img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+/* 메인 카드 강조 */
+.hf-main{
+  box-shadow:0 12px 36px rgba(0,0,0,.18);
+}
+/* 오른쪽 그룹은 반대 방향 */
+.hf-right .hf-card{
+  transform:
+    rotateY(calc(var(--r) * -1))
+    translateX(calc(var(--x) * -1));
+  transform-origin:bottom center;
+}
+.hf-right:hover .hf-card:nth-child(1){ transform:rotateY(36deg) translateX(80px); }
+.hf-right:hover .hf-card:nth-child(2){ transform:rotateY(18deg) translateX(40px); }
+.hf-right:hover .hf-card:nth-child(3){ transform:rotateY(0deg) translateX(0px); }
+.hf-right:hover .hf-card:nth-child(4){ transform:rotateY(-18deg) translateX(-40px); }
+.hf-right:hover .hf-card:nth-child(5){ transform:rotateY(-36deg) translateX(-80px); }
+
+@media(max-width:920px){
+  .hero-fan{display:none;}
+}
+
+/* HERO QUOTE */
+.hero-quote{
+  margin-bottom:clamp(18px,3vh,32px);
+}
+.hq-mark{
+  display:block;
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-h1);
+  color:var(--accent);line-height:1;
+  margin-bottom:4px;
+  opacity:0;animation:fadeUp 1s var(--ease) .4s forwards;
+}
+.hero-quote p{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h4);
+  line-height:1.55;letter-spacing:-.02em;
+  color:var(--txt-dark);
+  opacity:0;animation:fadeUp 1s var(--ease) .5s forwards;
+}
+
+/* HERO PROFILE INFO */
+.hero-profile{
+  margin-top:20px;padding-top:20px;
+  border-top:1px solid var(--line-dark);
+  display:flex;flex-direction:column;gap:10px;
+}
+.hp-row{
+  display:grid;grid-template-columns:90px 1fr;gap:12px;
+  align-items:center;
+}
+.hp-label{
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-caption);letter-spacing:.04em;color:var(--txt-dark);
+}
+.hp-val{
+  font-family:'Pretendard',sans-serif;font-weight:500;
+  font-size:var(--fs-body-sm);color:#5c5c58;
+}
+.hp-icons{display:flex;gap:8px;align-items:center;}
+.hp-icon{
+  width:34px;height:34px;border-radius:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-label);color:#fff;letter-spacing:.01em;
+  flex-shrink:0;
+}
+
+/* HERO RIGHT EXPERIENCE OVERLAY */
+.hero-right-exp{display:flex;flex-direction:column;}
+.hero-right-exp .ph{flex:1;position:relative;min-height:200px;}
+.hero-exp-overlay{
+  position:relative;
+  background:rgba(10,8,6,.88);
+  backdrop-filter:blur(10px);
+  padding:clamp(18px,2.4vw,30px) clamp(20px,2.6vw,36px);
+  border-top:1px solid var(--line);
+}
+.he-label{
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-caption);letter-spacing:.1em;
+  color:var(--accent);margin-bottom:14px;
+  text-transform:uppercase;
+}
+.he-list{display:flex;flex-direction:column;}
+.he-row{
+  display:grid;grid-template-columns:44px 1fr;gap:14px;
+  align-items:baseline;
+  padding:9px 0;
+  border-bottom:1px solid var(--line);
+}
+.he-row:last-child{border-bottom:none;padding-bottom:0;}
+.he-yr{
+  font-family:'Manrope',sans-serif;font-weight:700;
+  font-size:var(--fs-caption);color:var(--accent);
+}
+.he-txt{
+  font-family:'Pretendard',sans-serif;font-size:var(--fs-body-sm);
+  font-weight:500;color:var(--txt);line-height:1.5;
+}
+@media(max-width:920px){
+  .hero-exp-overlay{display:none;}
+  .hero-profile{display:none;}
+}
+
+/* PROJECT ROLLER  ─ Heritade 식 : 다크 배경 + 둥근 이미지 카드 가로 롤링 */
+.roller{
+  background:var(--bg-2);
+  padding:clamp(60px,9vh,120px) 0 clamp(64px,10vh,130px);
+  overflow:hidden;
+}
+.roller .roller-head{
+  max-width:var(--maxw);margin:0 auto;
+  padding:0 clamp(18px,4vw,52px) clamp(36px,5vh,60px);
+}
+.roller .roller-head .f-label{
+  font-family:'Manrope',sans-serif;font-weight:500;
+  font-size:var(--fs-body);color:var(--txt-dim);margin-bottom:18px;
+}
+.roller .roller-head h2{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h2);
+  line-height:1.32;letter-spacing:-.03em;color:var(--txt-dark);
+}
+/* 트랙 : 무한 롤링 */
+.roller-viewport{width:100%;overflow:hidden;}
+.roller-track{
+  display:flex;gap:10px;width:max-content;
+  animation:slideRoll 44s linear infinite;
+}
+.roller-track:hover{animation-play-state:paused;}
+@keyframes slideRoll{to{transform:translateX(-50%);}}
+/* 개별 이미지 카드 */
+.roll-card{
+  width:clamp(340px,40vw,580px);
+  aspect-ratio:3/2;
+  border-radius:var(--radius);
+  overflow:hidden;flex-shrink:0;
+  background:#222;position:relative;
+  cursor:pointer;
+  transition:transform .45s var(--ease);
+  border:1px solid rgba(255,255,255,.06);
+}
+.roll-card:hover{transform:translateY(-8px);}
+.roll-card img{width:100%;height:100%;object-fit:cover;}
+.roll-card .ph{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#1c1c1c 0 18px,#222 18px 36px);
+  color:#444;font-family:'Manrope';font-weight:700;
+  font-size:var(--fs-caption);letter-spacing:.08em;text-align:center;padding:14px;
+}
+.roll-card .cap{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:20px;
+  background:linear-gradient(transparent,rgba(0,0,0,.92));
+  opacity:0;transform:translateY(12px);
+  transition:.4s var(--ease);
+}
+.roll-card:hover .cap{opacity:1;transform:translateY(0);}
+.roll-card .cap .t{
+  font-family:'Manrope';font-weight:700;font-size:var(--fs-label);
+  letter-spacing:.04em;color:var(--txt-dark);
+  background:var(--accent);display:inline-block;
+  padding:4px 11px;border-radius:6px;margin-bottom:8px;
+}
+.roll-card .cap h4{
+  font-family:'Pretendard';font-weight:700;font-size:var(--fs-h4);
+  color:#fff;letter-spacing:-.02em;
+}
+@media(max-width:600px){
+  .roll-card{width:74vw;}
+}
+
+/* SHOWCASE */
+.showcase{
+  background:#fff;
+  padding:clamp(50px,7vh,90px) 0 clamp(30px,5vh,60px);
+  overflow:hidden;
+}
+.showcase-viewport{overflow:hidden;}
+.showcase-track{
+  display:flex;gap:10px;
+  padding:0 clamp(18px,2.5vw,30px);
+  transition:transform .6s var(--ease);
+}
+.sc-card{
+  flex:0 0 clamp(300px,40vw,560px);
+  background:#fff;border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;
+  min-height:clamp(440px,58vh,620px);
+  border:1px solid var(--card-border);
+  box-shadow:var(--shadow-sm);
+}
+.sc-card .sc-thumb{
+  width:100%;aspect-ratio:16/10;
+  background:var(--bg-3);position:relative;overflow:hidden;flex-shrink:0;
+  border-bottom:1px solid var(--card-border);
+}
+.sc-card .sc-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.sc-card .sc-thumb .ph{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#e9ecef 0 18px,#f1f3f5 18px 36px);
+  color:#adb5bd;font-family:'Manrope';font-weight:700;
+  font-size:var(--fs-caption);letter-spacing:.1em;text-align:center;padding:16px;
+}
+.sc-card .sc-body{
+  padding:clamp(24px,2.4vw,36px);
+  display:flex;flex-direction:column;flex:1;
+  background:#fff;
+}
+.sc-card .sc-label{
+  font-family:'Manrope',sans-serif;font-weight:600;
+  font-size:var(--fs-body-sm);color:var(--txt-dim);margin-bottom:12px;
+}
+.sc-card .sc-title{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h3);line-height:1.34;
+  letter-spacing:-.03em;color:var(--txt-dark);
+  margin-bottom:18px;
+}
+.sc-card .sc-desc p{
+  font-size:var(--fs-body-sm);line-height:1.66;color:var(--txt-dim);margin-bottom:12px;
+}
+.sc-card .sc-desc p:last-child{margin-bottom:0;}
+.sc-nav{
+  display:flex;gap:10px;
+  padding:10px clamp(18px,2.5vw,30px) 0;
+}
+.sc-nav button{
+  width:clamp(56px,7vw,86px);height:clamp(48px,5.5vw,66px);
+  background:#fff;
+  border:1px solid var(--card-border);
+  border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:.2s var(--ease);
+  color:var(--txt-dark);
+}
+.sc-nav button:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.sc-nav button svg{width:24px;height:24px;}
+.sc-nav button:disabled{opacity:.3;cursor:default;}
+.sc-nav button:disabled:hover{background:#fff;border-color:var(--card-border);color:var(--txt-dark);}
+@media(max-width:600px){
+  .sc-card{flex-basis:84vw;min-height:0;}
+}
+
+/* PARTNER  ─ Career 섹션 */
+.partner-sec{
+  background:var(--bg-2);
+  padding:22px clamp(18px,2.5vw,30px) clamp(60px,9vh,120px);
+}
+.partner-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  max-width:1480px;margin:0 auto;
+}
+/* 왼쪽 흰 카드 */
+.partner-left{
+  background:#fff;border-radius:var(--radius-lg);
+  padding:clamp(32px,3.6vw,56px);
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-md);
+}
+.partner-left .f-pill{
+  align-self:flex-start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-caption);color:var(--accent);
+  background:var(--warm);border:1px solid var(--warm-deep);
+  padding:5px 12px;border-radius:6px;margin-bottom:24px;
+}
+.partner-left .f-pill::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);
+}
+.partner-left h2{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h2);
+  line-height:1.32;letter-spacing:-.03em;
+  color:var(--txt-dark);margin-bottom:22px;
+}
+.partner-left .p-body p{
+  font-size:var(--fs-body);line-height:1.68;color:#5c5c58;margin-bottom:14px;
+}
+.partner-left .p-body p:last-child{margin-bottom:0;}
+/* 파트너 로고 그리드 */
+.partner-logos{
+  margin-top:auto;padding-top:clamp(24px,3vh,40px);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,2.4vw,30px) 10px;
+}
+.partner-logos .lg{
+  display:flex;align-items:center;
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-h3);
+  letter-spacing:-.03em;color:var(--txt-dark);
+  transition:.3s var(--ease);
+}
+.partner-logos .lg:hover{color:var(--accent);}
+/* 오른쪽 도트 패턴 카드 */
+.partner-right{
+  border-radius:var(--radius);overflow:hidden;
+  background:#fff;border:1px solid var(--card-border);
+  position:relative;min-height:clamp(280px,30vh,380px);
+  padding:clamp(28px,2.8vw,44px);
+  display:flex;flex-direction:column;
+}
+.partner-right .career-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  flex-wrap:wrap;gap:8px;
+  padding-bottom:20px;margin-bottom:8px;
+  border-bottom:1px solid var(--card-border);
+}
+.partner-right .career-head h3{
+  font-family:'Pretendard',sans-serif;font-weight:800;
+  font-size:var(--fs-h4);letter-spacing:-.01em;color:var(--txt-dark);
+}
+.partner-right .career-head .yr{
+  font-family:'Manrope',sans-serif;font-weight:600;
+  font-size:var(--fs-caption);color:var(--txt-dim);
+}
+/* 타임라인 */
+.career-tl{
+  display:flex;flex-direction:column;
+  margin-top:6px;
+}
+.career-row{
+  display:grid;grid-template-columns:18px 1fr;
+  gap:16px;
+  padding:16px 0;
+  position:relative;
+}
+.career-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.08);}
+.career-row .marker{
+  position:relative;display:flex;justify-content:center;padding-top:4px;
+}
+.career-row .marker::before{
+  content:"";width:10px;height:10px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 3px rgba(255,107,71,.18);
+  z-index:2;
+}
+.career-row .marker::after{
+  content:"";position:absolute;top:14px;bottom:-20px;
+  width:1.5px;background:var(--line-dark);
+}
+.career-row:last-child .marker::after{display:none;}
+.career-more-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:20px;align-self:flex-start;
+  background:var(--accent);
+  border:none;color:#fff;
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-body-sm);letter-spacing:-.01em;
+  padding:10px 20px;border-radius:8px;
+  cursor:pointer;transition:.2s var(--ease);
+}
+.career-more-btn:hover{background:var(--accent-deep);transform:translateY(-1px);}
+.career-more-btn svg{transition:transform .2s var(--ease);}
+.career-more-btn:hover svg{transform:translateX(4px);}
+.career-row .c-body .c-date{
+  font-family:'Manrope',sans-serif;font-weight:700;
+  font-size:var(--fs-caption);letter-spacing:.02em;color:var(--txt-dark);
+  margin-bottom:5px;
+}
+.career-row .c-body h4{
+  font-size:var(--fs-body-lg);font-weight:600;color:var(--txt-dark);
+  letter-spacing:-.01em;margin-bottom:4px;
+}
+.career-row .c-body .c-role{
+  font-size:var(--fs-body-sm);color:var(--txt-dim);line-height:1.55;
+}
+.c-name-change{
+  display:inline-block;
+  margin-left:8px;
+  font-size:0.68rem;font-weight:600;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  border-radius:20px;
+  padding:1px 8px;
+  vertical-align:middle;
+  opacity:.8;
+  letter-spacing:.01em;
+}
+.career-row .c-body .c-tags{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;
+}
+.career-row .c-body .c-tags span{
+  font-family:'Pretendard',sans-serif;font-weight:500;
+  font-size:var(--fs-label);color:var(--accent);
+  background:rgba(255,107,71,.10);
+  border:1px solid rgba(255,107,71,.25);
+  padding:3px 10px;border-radius:6px;
+}
+@media(max-width:900px){
+  .partner-grid{grid-template-columns:1fr;}
+  .partner-right{min-height:0;}
+}
+
+/* FEATURE ROW */
+.feature-row{
+  background:var(--bg-2);
+  padding:10px clamp(18px,2.5vw,30px) clamp(60px,9vh,120px);
+}
+.feature-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  max-width:1480px;margin:0 auto;
+}
+.feature-grid-cap{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  max-width:1480px;margin:0 auto;
+}
+@media(max-width:1280px){
+  .feature-grid-cap{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:560px){
+  .feature-grid-cap{grid-template-columns:1fr;}
+}
+/* 서핏 스타일 카드 */
+.fcard{
+  background:#fff;border-radius:var(--radius-lg);
+  padding:clamp(24px,2.2vw,32px);
+  display:flex;flex-direction:column;
+  min-height:clamp(260px,30vh,340px);
+  border:1px solid var(--card-border);
+  box-shadow:var(--shadow-sm);
+  transition:.2s var(--ease);
+}
+.fcard:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+/* 1~3번 : 라벨 + 제목 + (여백) + 거대 숫자 */
+.fcard .f-label{
+  font-family:'Manrope',sans-serif;font-weight:500;
+  font-size:var(--fs-body);color:#b0b0ac;letter-spacing:-.01em;
+  margin-bottom:14px;
+}
+.fcard .f-title{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h3);line-height:1.32;
+  letter-spacing:-.03em;color:var(--txt-dark);
+}
+.fcard .f-num{
+  margin-top:auto;
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:clamp(3rem,5vw,5rem);line-height:1;
+  letter-spacing:-.05em;color:var(--accent);
+}
+.fcard.f-text{justify-content:flex-start;}
+.fcard .f-pill{
+  align-self:flex-start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-caption);color:var(--accent);
+  background:var(--warm);border:1px solid var(--warm-deep);
+  padding:5px 12px;border-radius:6px;margin-bottom:18px;
+}
+.fcard .f-pill::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);
+}
+.fcard .f-body p{
+  font-size:var(--fs-body-sm);line-height:1.6;color:var(--txt-dim);
+  margin-bottom:12px;
+}
+.fcard .f-body p:last-child{margin-bottom:0;}
+/* CTA 바 — 서핏 블루 */
+.f-cta{
+  margin-top:14px;
+  background:var(--accent);border-radius:var(--radius);border:none;
+  width:100%;
+  display:flex;align-items:center;gap:18px;
+  padding:16px 20px;
+  transition:.2s var(--ease);
+}
+.f-cta:hover{background:var(--accent-deep);}
+.f-cta .plus{
+  width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;font-weight:400;color:#fff;flex-shrink:0;
+  transition:transform .4s var(--ease);
+}
+.f-cta:hover .plus{transform:rotate(90deg);}
+.f-cta .f-cta-txt{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-body);color:#fff;letter-spacing:-.02em;
+  text-align:right;flex:1;
+}
+.fcard.f-text{min-height:0;}
+.feature-grid .f-col4{display:flex;flex-direction:column;}
+.feature-grid .f-col4 .fcard.f-text{flex:1;}
+
+@media(max-width:1100px){
+  .feature-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .feature-grid{grid-template-columns:1fr;}
+  .fcard{min-height:0;}
+  .fcard .f-num{margin-top:36px;}
+}
+
+/* ACCORDION */
+.acc{border-top:1px solid var(--line-dark);}
+.acc-item{border-bottom:1px solid var(--line-dark);}
+.acc-head{width:100%;background:none;border:none;text-align:left;
+  display:flex;align-items:center;gap:24px;padding:24px 6px;
+  transition:padding .3s var(--ease);}
+.acc-head:hover{padding-left:16px;}
+.acc-head .idx{font-family:'Manrope',sans-serif;font-weight:700;
+  font-size:var(--fs-body-sm);color:var(--accent);min-width:38px;}
+.acc-head .ttl{flex:1;font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h2);letter-spacing:-.03em;color:var(--txt-dark);}
+.acc-head .plus{width:40px;height:40px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;font-weight:400;transition:.3s var(--ease);flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--card-border);color:var(--txt-dark);}
+.acc-item.open .plus{background:var(--accent);border-color:var(--accent);
+  color:#fff;transform:rotate(135deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .5s var(--ease);}
+.acc-body .inner{padding:0 6px 28px 68px;font-size:var(--fs-body-sm);
+  line-height:1.6;color:var(--txt-dim);}
+
+/* CAPABILITY */
+.cap-sec{
+  background:var(--bg-2);
+  padding:22px clamp(18px,2.5vw,30px) clamp(60px,9vh,120px);
+}
+.cap-inner{max-width:1480px;margin:0 auto;}
+.cap-headcard{
+  background:#fff;border-radius:var(--radius);
+  padding:clamp(32px,3.4vw,52px);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,3vw,48px);
+  align-items:center;
+  margin-bottom:10px;
+  border:1px solid var(--card-border);
+  box-shadow:var(--shadow-sm);
+}
+.cap-headcard .head-left{display:flex;flex-direction:column;}
+/* 툴 그리드 */
+.tool-grid-small{
+  display:flex;flex-wrap:nowrap !important;gap:4px;
+  margin-top:24px;
+  justify-content:flex-start;
+  width:fit-content;max-width:100%;
+}
+.tool-grid-small .tool-item{
+  width:64px;height:64px;border-radius:10px;
+  background:var(--bg-3);border:1px solid var(--card-border);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;transition:.2s var(--ease);flex-shrink:0;
+}
+.tool-grid-small .tool-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.tool-grid-small .tool-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.tool-grid-small .tool-item .ph{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#e9ecef 0 8px,#f1f3f5 8px 16px);
+  color:#6b7280;font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-label);letter-spacing:.01em;text-align:center;padding:4px;
+}
+.cap-headcard .head-left{display:flex;flex-direction:column;}
+.cap-headcard .f-pill{
+  align-self:flex-start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-caption);color:var(--accent);
+  background:var(--warm);border:1px solid var(--warm-deep);
+  padding:8px 16px;border-radius:40px;margin-bottom:24px;
+}
+.cap-headcard .f-pill::before{
+  content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);
+}
+.cap-headcard h2{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h2);
+  line-height:1.34;letter-spacing:-.03em;color:var(--txt-dark);
+}
+/* 사용 가능한 툴 아이콘 그리드 */
+.tool-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+}
+.tool-item{
+  aspect-ratio:1;border-radius:16px;
+  background:var(--paper-2);border:1px solid var(--card-border);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  transition:.3s var(--ease);
+}
+.tool-item:hover{transform:translateY(-4px);}
+.tool-item img{width:100%;height:100%;object-fit:cover;display:block;}
+.tool-item .ph{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#e6e2da 0 10px,#eeebe4 10px 20px);
+  color:#9a9286;font-family:'Manrope';font-weight:700;
+  font-size:var(--fs-label);letter-spacing:.04em;text-align:center;
+}
+/* 하단 : 3카드 + 소개 카드 */
+.cap-row{
+  display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;
+  gap:10px;
+}
+.cap-card{
+  background:#fff;border-radius:var(--radius);
+  padding:clamp(24px,2vw,34px);
+  display:flex;flex-direction:column;
+  min-height:clamp(360px,44vh,440px);
+  transition:transform .3s var(--ease);
+  border:1px solid var(--card-border);box-shadow:var(--shadow-sm);
+}
+.cap-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.cap-card .cap-ico{
+  width:56px;height:56px;margin-bottom:auto;
+}
+.cap-card .cap-ico svg{width:100%;height:100%;display:block;}
+.cap-card .cap-ttl{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-h3);line-height:1.3;
+  letter-spacing:-.02em;color:var(--txt-dark);
+  margin-top:16px;
+}
+.cap-card .cap-num{
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-caption);color:var(--accent);
+  letter-spacing:.04em;margin-top:auto;margin-bottom:4px;
+}
+.cap-card .cap-desc{
+  font-family:'Pretendard',sans-serif;
+  font-size:var(--fs-body-sm);line-height:1.6;
+  color:var(--txt-dim);margin-top:10px;
+}
+.cap-card .cap-plus{
+  align-self:flex-start;margin-top:20px;
+  width:44px;height:44px;border-radius:8px;
+  background:var(--warm);border:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;color:var(--accent);cursor:pointer;
+  transition:transform .3s var(--ease);
+}
+.cap-card:hover .cap-plus{transform:rotate(90deg);}
+/* Who I am 카드 */
+.cap-intro{
+  background:#fff;border-radius:var(--radius);
+  padding:clamp(24px,2.4vw,36px);
+  display:flex;flex-direction:column;
+  border:1px solid var(--card-border);box-shadow:var(--shadow-sm);
+}
+.cap-intro .f-pill{
+  align-self:flex-start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-caption);color:var(--accent);
+  background:var(--warm);border:1px solid var(--warm-deep);
+  padding:5px 12px;border-radius:6px;margin-bottom:18px;
+}
+.cap-intro .f-pill::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);
+}
+.cap-intro .intro-body{flex:1;}
+.cap-intro .intro-body p{
+  font-size:var(--fs-body-sm);line-height:1.6;color:var(--txt-dim);margin-bottom:12px;
+}
+.cap-intro .intro-body p:last-child{margin-bottom:0;}
+.cap-intro .f-cta{margin-top:18px;}
+@media(max-width:1100px){
+  .cap-headcard{grid-template-columns:1fr;}
+  .cap-row{grid-template-columns:repeat(2,1fr);}
+  .cap-card{min-height:0;}
+  .cap-card .cap-ttl{margin-top:40px;}
+}
+@media(max-width:560px){
+  .cap-row{grid-template-columns:1fr;}
+}
+
+/* WORK */
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.work-filter{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:clamp(24px,4vh,40px);
+}
+.work-filter button{
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-caption);letter-spacing:-.01em;
+  padding:8px 18px;border-radius:8px;
+  background:#fff;border:1px solid var(--card-border);
+  color:var(--txt-dim);cursor:pointer;
+  transition:.2s var(--ease);
+}
+.work-filter button:hover{color:var(--accent);border-color:var(--accent);}
+.work-filter button.active{
+  background:var(--accent);border-color:var(--accent);color:var(--txt-dark);
+}
+.work.is-hidden{display:none;}
+.work{position:relative;border-radius:var(--radius);overflow:hidden;
+  background:var(--bg-3);border:1px solid var(--card-border);
+  aspect-ratio:16/11;transition:.3s var(--ease);
+  box-shadow:var(--shadow-sm);}
+.work:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.work .ph{position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#e9ecef 0 16px,#f1f3f5 16px 32px);
+  color:#adb5bd;font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-caption);letter-spacing:.06em;}
+.work .ph::after{content:"[[ PROJECT IMAGE ]]";}
+.work .meta{position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:22px;background:linear-gradient(transparent,rgba(0,0,0,.75));}
+.work .meta .tag{display:inline-block;font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-label);letter-spacing:.02em;color:var(--txt-dark);
+  background:var(--accent);padding:4px 10px;border-radius:6px;margin-bottom:10px;}
+.work .meta h3{font-family:'Pretendard';font-weight:700;font-size:var(--fs-h3);
+  color:#fff;letter-spacing:-.02em;}
+.work .corner{position:absolute;top:14px;right:14px;z-index:2;
+  width:38px;height:38px;border-radius:8px;
+  background:#fff;color:var(--txt-dark);
+  display:flex;align-items:center;justify-content:center;font-size:var(--fs-body);
+  opacity:0;transform:scale(.5);transition:.3s var(--ease);}
+.work:hover .corner{opacity:1;transform:scale(1);}
+
+/* ABOUT RESUME HEADER */
+.about-resume-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:48px;
+  padding-bottom:clamp(36px,5vh,60px);
+  border-bottom:1px solid #E0E0E0;
+  margin-bottom:clamp(32px,4vh,52px);
+}
+.arh-left{display:flex;flex-direction:column;flex:1;}
+.arh-name{
+  display:flex;align-items:baseline;gap:14px;
+  margin-bottom:8px;
+}
+.arh-name-ko{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:clamp(2rem,3.5vw,2.8rem);
+  color:#111;letter-spacing:-.03em;
+}
+.arh-name-en{
+  font-family:'Manrope',sans-serif;font-weight:600;
+  font-size:clamp(1.2rem,2vw,1.6rem);
+  color:#111;letter-spacing:-.02em;
+}
+.arh-title{
+  font-family:'Pretendard',sans-serif;font-weight:400;
+  font-size:clamp(0.95rem,1.2vw,1.05rem);
+  color:#666;margin-bottom:16px;
+}
+.arh-divider{
+  width:44px;height:2px;background:#111;
+  margin-bottom:16px;
+}
+.arh-email{
+  font-family:'Manrope',sans-serif;font-weight:500;
+  font-size:clamp(0.9rem,1.1vw,1rem);color:#333;text-decoration:none;
+  margin-bottom:30px;transition:color .2s;
+}
+.arh-email:hover{color:var(--accent);}
+.arh-email-row{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:28px;
+}
+.arh-career-badge{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:clamp(0.85rem,1vw,0.95rem);
+  color:#111;
+  background:#F3F3F3;
+  border:1px solid #E0E0E0;
+  border-radius:8px;
+  padding:6px 14px;
+  white-space:nowrap;
+}
+.arh-career-badge em{
+  font-style:normal;font-weight:400;color:#888;margin-left:4px;
+}
+.arh-intro{display:flex;flex-direction:column;gap:2px;}
+.arh-tagline{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:22px;
+  color:#111;letter-spacing:-.02em;
+  margin-bottom:2px;
+}
+.arh-intro p{
+  font-family:'Pretendard',sans-serif;font-size:clamp(1rem,1.3vw,1.15rem);
+  line-height:1.6;color:#333;
+}
+.arh-bullets{display:flex;flex-direction:column;gap:2px;margin-top:2px;}
+.arh-bullet{
+  display:flex;gap:10px;align-items:flex-start;
+}
+.arh-ico{
+  color:var(--accent);font-size:clamp(1rem,1.3vw,1.15rem);flex-shrink:0;margin-top:2px;
+}
+.arh-bullet span{
+  font-family:'Pretendard',sans-serif;font-size:clamp(1rem,1.3vw,1.15rem);
+  line-height:1.6;color:#333;
+}
+.arh-bullet{
+  display:flex;gap:10px;align-items:flex-start;
+}
+.arh-ico{
+  color:var(--accent);font-size:clamp(1rem,1.3vw,1.15rem);flex-shrink:0;margin-top:2px;
+}
+.arh-bullet span{
+  font-family:'Pretendard',sans-serif;font-size:clamp(1rem,1.3vw,1.15rem);
+  line-height:1.8;color:#333;
+}
+.arh-stats{
+  display:flex;flex-wrap:wrap;gap:12px;
+  margin-top:24px;padding-top:24px;
+  border-top:1px solid #E0E0E0;
+}
+.arh-stat-box{
+  flex:1;min-width:120px;
+  display:flex;flex-direction:column;gap:4px;
+  padding:16px 20px;
+  border:1px solid #E0E0E0;
+  border-radius:12px;
+  background:#FAFAFA;
+}
+.arh-stat-val{
+  font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:clamp(1.4rem,2vw,1.8rem);
+  color:#111;letter-spacing:-.02em;
+}
+.arh-stat-label{
+  font-family:'Pretendard',sans-serif;font-weight:500;
+  font-size:clamp(0.8rem,1vw,0.9rem);
+  color:#888;
+}
+.arh-photo{
+  flex-shrink:0;
+  width:clamp(100px,11vw,130px);
+  height:clamp(128px,14vw,168px);
+  border-radius:6px;overflow:hidden;
+  background:#F0EDE8;border:1px solid #DDD;
+}
+.arh-photo .ph{
+  width:100%;height:100%;
+  background:repeating-linear-gradient(45deg,#e6e2da 0 10px,#eeebe4 10px 20px);
+}
+@media(max-width:640px){
+  .about-resume-header{flex-direction:column-reverse;}
+  .arh-photo{width:80px;height:104px;}
+}
+
+/* ABOUT */
+/* CREDIT ROLL */
+.credit-roll{
+  position:relative;
+  height:clamp(200px,26vh,300px);
+  overflow:hidden;
+  border-left:none;
+  padding-left:0;
+  margin-left:auto;
+  width:90%;
+}
+.credit-fade-top,.credit-fade-bottom{
+  position:absolute;left:0;right:0;z-index:2;height:56px;pointer-events:none;
+}
+.credit-fade-top{top:0;background:linear-gradient(to bottom,#fff 0%,transparent 100%);}
+.credit-fade-bottom{bottom:0;background:linear-gradient(to top,#fff 0%,transparent 100%);}
+.credit-track{
+  display:flex;flex-direction:column;
+  animation:creditScroll 26s linear infinite;
+}
+.credit-track:hover{animation-play-state:paused;}
+.credit-track span{
+  font-family:'Pretendard',sans-serif;
+  font-size:clamp(1.05rem,1.4vw,1.25rem);
+  font-weight:500;color:var(--txt-dark);
+  line-height:1;padding:14px 0;
+  border-bottom:1px solid var(--line-dark);
+  white-space:nowrap;letter-spacing:-.01em;
+  transition:color .2s;
+}
+.credit-track span:hover{color:var(--accent);cursor:default;}
+@keyframes creditScroll{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-50%);}
+}
+@media(max-width:860px){
+  .cap-headcard{grid-template-columns:1fr !important;}
+  .credit-roll{border-left:none;border-top:1px solid var(--line-dark);padding-left:0;padding-top:20px;height:180px;}
+}
+
+.about-top{display:grid;grid-template-columns:.85fr 1.15fr;
+  gap:clamp(28px,4vw,60px);align-items:stretch;}
+.portrait{border-radius:var(--radius);overflow:hidden;
+  background:var(--bg-2);border:1px solid var(--card-border);
+  aspect-ratio:4/5;position:relative;}
+.portrait .ph{position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#1a1a1a 0 16px,#202020 16px 32px);
+  color:#555;font-family:'Manrope';font-weight:700;
+  font-size:var(--fs-caption);letter-spacing:.1em;}
+.portrait .ph::after{content:"[[ YOUR PHOTO ]]";}
+.about-intro{display:flex;flex-direction:column;justify-content:center;}
+.about-intro h2{font-family:'Manrope',sans-serif;font-weight:800;
+  font-size:var(--fs-h1);line-height:1.1;
+  letter-spacing:-.03em;margin-bottom:22px;color:var(--paper);}
+.about-intro h2 .blue{color:var(--accent);}
+.about-intro p{font-size:var(--fs-body);line-height:1.6;color:var(--txt-dim);margin-bottom:16px;}
+.about-intro p strong{color:var(--txt);font-weight:600;}
+
+#page-about *{line-height:1.6;}
+.info-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.info-box{background:#fff;border:1px solid var(--card-border);
+  border-radius:var(--radius);padding:clamp(24px,3vw,36px);
+  box-shadow:var(--shadow-sm);}
+.info-box > h3{font-family:'Pretendard';font-weight:700;font-size:var(--fs-body);
+  letter-spacing:-.01em;margin-bottom:20px;padding-bottom:14px;
+  border-bottom:1px solid var(--line);color:var(--txt-dark);}
+.tl-row{display:grid;grid-template-columns:118px 1fr;gap:16px;
+  padding:8px 0;border-bottom:1px solid var(--line);}
+.tl-row:last-child{border-bottom:none;padding-bottom:0;}
+.tl-row .d{font-family:'Manrope';font-weight:700;font-size:var(--fs-caption);color:var(--accent);}
+.tl-row .b h4{font-size:var(--fs-body-sm);font-weight:600;margin-bottom:3px;color:var(--txt-dark);}
+.tl-row .b p{font-size:var(--fs-caption);color:var(--txt-dim);}
+.skill{margin-bottom:16px;}
+.skill:last-child{margin-bottom:0;}
+.skill .top{display:flex;justify-content:space-between;margin-bottom:7px;
+  font-family:'Pretendard';font-weight:600;font-size:var(--fs-body-sm);color:var(--txt-dark);}
+.skill .top .p{color:var(--accent);}
+.skill .bar{height:5px;background:var(--bg-3);border-radius:4px;overflow:hidden;}
+.skill .bar i{display:block;height:100%;width:0;border-radius:4px;
+  background:var(--accent);transition:width 1.2s var(--ease);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chips span{font-size:var(--fs-caption);font-weight:500;padding:7px 14px;
+  border-radius:8px;border:1px solid var(--card-border);background:#fff;
+  color:var(--txt-dim);transition:.2s var(--ease);}
+.chips span:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* WORK EXPERIENCE — 화이트 타이포 스타일 */
+.exp-section{margin-top:14px;}
+.exp-box{
+  background:#fff;border:1px solid var(--card-border);
+  border-radius:var(--radius);padding:clamp(28px,3.5vw,48px);
+  box-shadow:var(--shadow-sm);
+}
+.exp-box > h3{
+  font-family:'Pretendard';font-weight:700;
+  font-size:var(--fs-h4);letter-spacing:-.02em;
+  color:var(--txt-dark);
+  margin-bottom:0px;padding-bottom:20px;
+  border-bottom:2px solid var(--txt-dark);
+}
+.exp-item{
+  padding:26px 0;
+  border-bottom:1px solid var(--line);
+}
+.exp-item:last-child{border-bottom:none;padding-bottom:0;}
+
+/* 헤더: 날짜 + 회사명 2열 */
+.exp-header{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:24px;
+  margin-bottom:0px;
+  align-items:baseline;
+}
+.exp-header .exp-date{
+  font-family:'Manrope';font-weight:700;
+  font-size:var(--fs-caption);
+  color:var(--accent);
+  line-height:1.6;
+}
+.exp-header .exp-meta .exp-company{
+  font-family:'Pretendard';font-weight:800;
+  font-size:var(--fs-h3);
+  color:var(--txt-dark);
+  letter-spacing:-.03em;
+  margin-bottom:4px;
+}
+.exp-header .exp-meta .exp-role{
+  font-family:'Pretendard';font-weight:500;
+  font-size:var(--fs-body-sm);
+  color:var(--accent);
+}
+
+/* 업무 그룹 */
+.exp-tasks{
+  padding-left:204px;  /* 날짜 열 너비에 맞춤 */
+}
+.exp-task-group{
+  margin-bottom:24px;
+  padding-bottom:24px;
+  border-bottom:1px dashed var(--line);
+}
+.exp-task-group:last-child{
+  margin-bottom:0;padding-bottom:0;border-bottom:none;
+}
+.exp-task-group .task-title{
+  font-family:'Pretendard';font-weight:500;
+  font-size:var(--fs-body-lg);
+  color:var(--txt-dark);
+  letter-spacing:-.02em;
+  margin-bottom:12px;
+}
+.exp-task-group ul{
+  padding-left:0;list-style:none;
+  display:flex;flex-direction:column;gap:8px;
+}
+.exp-task-group ul li{
+  font-family:'Pretendard';
+  font-size:var(--fs-body);
+  line-height:1.6;
+  color:var(--txt-dim);
+  padding-left:16px;
+  position:relative;
+}
+.exp-task-group ul li::before{
+  content:"–";
+  position:absolute;left:0;
+  color:var(--accent);font-weight:700;
+}
+
+@media(max-width:700px){
+  .exp-header{grid-template-columns:1fr;}
+  .exp-tasks{padding-left:0;}
+}
+.exp-header .exp-meta{}
+.exp-header .exp-meta .exp-company{font-family:'Pretendard';font-weight:700;
+  font-size:var(--fs-body-lg);color:var(--txt-dark);margin-bottom:3px;}
+.exp-header .exp-meta .exp-role{font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-body-sm);color:var(--txt-dark);}
+.exp-header .exp-date{font-family:'Manrope';font-weight:700;font-size:var(--fs-caption);
+  color:var(--txt-dark);padding-top:3px;}
+.exp-tasks{}
+.exp-task-group{margin-bottom:12px;}
+.exp-task-group:last-child{margin-bottom:0;}
+.exp-task-group .task-title{font-family:'Pretendard';font-weight:500;
+  font-size:var(--fs-body-sm);color:var(--txt-dark);margin-bottom:5px;}
+.exp-task-group ul{padding-left:0;list-style:none;}
+.exp-task-group ul li{font-size:var(--fs-caption);line-height:1.6;
+  color:var(--txt-dim);padding-left:12px;position:relative;}
+.exp-task-group ul li::before{content:"–";position:absolute;left:0;color:var(--accent);}
+@media(max-width:640px){
+  .exp-header{grid-template-columns:1fr;gap:4px;}
+}
+
+/* PROJECT DETAIL — 소이정 스타일 */
+.proj-overlay{
+  position:fixed;inset:0;z-index:990;
+  background:rgba(0,0,0,.55);
+  overflow-y:auto;overflow-x:hidden;
+  opacity:0;visibility:hidden;
+  transition:opacity .35s var(--ease),visibility .35s;
+  cursor:pointer;
+}
+.proj-overlay.open{opacity:1;visibility:visible;}
+.proj-inner{
+  max-width:1040px;
+  margin:0 auto;
+  background:#fff;
+  cursor:default;
+  min-height:100vh;
+  box-shadow:0 0 80px rgba(0,0,0,.3);
+}
+
+/* 닫기 바 */
+.proj-close{
+  position:sticky;top:0;z-index:100;
+  width:100%;display:flex;align-items:center;gap:8px;
+  padding:14px 48px;
+  background:rgba(255,255,255,.96);
+  border:none;border-bottom:1px solid #EBEBEB;
+  cursor:pointer;
+  font-family:'Pretendard';font-size:var(--fs-body-sm);
+  font-weight:600;color:#888;
+  transition:.2s;text-align:left;
+  backdrop-filter:blur(8px);
+}
+.proj-close:hover{color:var(--accent);}
+.proj-close::before{content:"←";margin-right:6px;color:var(--accent);}
+
+/* 대표 이미지 */
+.pj-hero img{
+  width:100%;height:auto;display:block;
+}
+
+/* 텍스트 정보 영역 */
+.pj-info{
+  padding:64px 64px 0;
+}
+.pj-h1{
+  font-family:'Pretendard';font-weight:800;
+  font-size:clamp(1.8rem,3.2vw,2.8rem);
+  line-height:1.2;letter-spacing:-.04em;
+  color:#111;
+  margin-bottom:48px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.pj-site-link{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:10px;
+  border:1.5px solid #DDD;
+  color:#888;flex-shrink:0;
+  transition:.2s var(--ease);
+  text-decoration:none;font-size:1rem;
+}
+.pj-site-link:hover{
+  background:var(--accent);border-color:var(--accent);color:#fff;
+}
+
+/* 키워드/날짜 테이블 */
+.pj-meta-table{
+  display:flex;flex-direction:column;
+  gap:0;
+  margin-bottom:32px;
+}
+.pj-meta-row2{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:24px;
+  padding:2px 0;
+  align-items:baseline;
+}
+.pj-mt-label{
+  font-family:'Pretendard';font-weight:800;
+  font-size:clamp(0.85rem,1vw,0.95rem);color:#111;
+  letter-spacing:.02em;
+}
+.pj-mt-val{
+  font-family:'Pretendard';font-size:clamp(0.9rem,1.1vw,1rem);
+  color:#444;line-height:1.6;
+}
+
+/* 설명 */
+.pj-summary{
+  font-family:'Pretendard';
+  font-size:clamp(1rem,1.3vw,1.1rem);
+  line-height:1.5;
+  color:#222;font-weight:400;
+  padding-bottom:64px;
+}
+
+/* 이미지 갤러리 */
+.pj-images{
+  display:flex;flex-direction:column;
+  gap:0;
+  border-top:1px solid #EBEBEB;
+}
+.pj-images img{
+  width:100%;height:auto;display:block;
+}
+
+/* 하단 버튼 */
+.pj-footer{
+  padding:48px;
+}
+.pj-back-btn{
+  background:none;border:1px solid #DDD;
+  font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-body-sm);color:#888;
+  padding:12px 28px;border-radius:8px;cursor:pointer;
+  transition:.2s;
+}
+.pj-back-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* 이전 스타일 초기화 */
+.pg-main,.pg-thumbs,.proj-header,.proj-tags,
+.proj-title,.proj-meta-row,.proj-desc,.proj-gallery,
+.pj-hero-info,.pj-section,.pj-full,.pj-kw,.pj-meta{display:none;}
+
+
+/* CONTACT */
+.contact-block{background:#fff;border:1px solid var(--card-border);
+  border-radius:var(--radius-lg);padding:clamp(40px,7vw,90px);text-align:center;
+  box-shadow:var(--shadow-sm);}
+.contact-block h2{font-family:'Pretendard',sans-serif;font-weight:800;
+  font-size:clamp(2rem,6vw,5rem);line-height:1.06;
+  letter-spacing:-.04em;color:var(--txt-dark);}
+.contact-block h2 .o{-webkit-text-stroke:1.4px var(--txt-dark);color:transparent;}
+.contact-block .mail{display:inline-flex;align-items:center;gap:10px;
+  margin-top:36px;font-family:'Pretendard';font-weight:700;
+  font-size:clamp(.9rem,1.8vw,1.15rem);
+  background:var(--accent);color:#fff;border:none;
+  padding:16px 32px;border-radius:10px;transition:.2s var(--ease);}
+.contact-block .mail:hover{background:var(--accent-deep);transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(255,107,71,.32);}
+.contact-block .mail .c{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.7);}
+.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
+.contact-grid a{background:#fff;border:1px solid var(--card-border);
+  border-radius:var(--radius);padding:24px 20px;transition:.2s var(--ease);
+  box-shadow:var(--shadow-sm);}
+.contact-grid a:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.contact-grid .l{font-family:'Pretendard';font-weight:700;font-size:var(--fs-label);
+  letter-spacing:.04em;color:var(--accent);margin-bottom:10px;}
+.contact-grid .v{font-size:var(--fs-body-sm);font-weight:500;color:var(--txt-dark);word-break:break-all;}
+
+/* FOOTER */
+footer{background:#fff;border-top:1px solid var(--line);
+  padding:36px clamp(18px,4vw,52px);
+  display:flex;flex-wrap:wrap;gap:14px;
+  justify-content:space-between;align-items:center;}
+footer .fl{font-family:'Manrope';font-weight:800;
+  font-size:var(--fs-body);letter-spacing:.12em;color:var(--txt-dark);}
+footer .fc{font-size:var(--fs-caption);color:var(--txt-dim);}
+footer .ft{background:none;border:1px solid var(--card-border);color:var(--txt-dim);
+  font-family:'Pretendard';font-weight:600;font-size:var(--fs-caption);
+  padding:9px 16px;border-radius:8px;transition:.2s var(--ease);}
+footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* COMPANY LOGOS */
+.company-logos{
+  margin-top:auto;
+  padding-top:clamp(24px,3vh,40px);
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:clamp(8px,1.2vw,12px);
+  box-sizing:border-box;
+}
+.co-logo{
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(12px,1.6vw,20px) 8px;
+  border-radius:var(--radius);
+  background:transparent;
+  transition:.2s var(--ease);
+  min-width:0;
+}
+.co-logo:hover{transform:translateY(-3px);}
+.co-name{
+  font-family:'Pretendard',sans-serif;font-weight:800;
+  font-size:clamp(1rem,1.6vw,1.5rem);color:var(--txt-dark);
+  text-align:center;letter-spacing:-.02em;word-break:keep-all;
+  transition:.2s var(--ease);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.co-logo:hover .co-name{color:var(--accent);}
+.co-group{
+  grid-column:span 2;
+  display:flex;align-items:center;
+  gap:0;
+  border:1px dashed #DDDDDD;
+  border-radius:14px;
+  padding:6px 10px;
+  box-sizing:border-box;
+}
+.co-group .co-logo{flex:1;min-width:0;}
+.co-group-label{
+  flex-shrink:0;
+  font-family:'Pretendard',sans-serif;
+  font-size:0.65rem;font-weight:500;
+  color:#AAAAAA;
+  white-space:nowrap;
+  padding:0 10px;
+  letter-spacing:.02em;
+}
+
+/* SCROLL REVEAL */
+.sr{opacity:0;transform:translateY(34px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease);
+  pointer-events:none;}
+.sr.in{opacity:1;transform:translateY(0);pointer-events:auto;}
+
+/* RESPONSIVE */
+@media(max-width:980px){
+  .statbar{grid-template-columns:1fr;}
+  .card-grid{grid-template-columns:1fr;}
+  .work-grid{grid-template-columns:1fr;}
+  .about-top{grid-template-columns:1fr;}
+  .info-2{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:560px){
+  nav .menu button{padding:8px 10px;font-size:var(--fs-caption);}
+  nav .cta{display:none;}
+  .contact-grid{grid-template-columns:1fr;}
+  .tl-row{grid-template-columns:1fr;gap:3px;}
+  .acc-head .ttl{font-size:1.3rem;}
+}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <div class="logo">스크린으로 읽는 <em>UX</em></div>
-  <div class="topright">
-    <span class="stat-text" id="stat-text">0 / 10 완성</span>
-    <button class="btn btn-dark" id="btn-run" onclick="runPipeline()">▶ 파이프라인 실행</button>
-  </div>
-</div>
-<div class="layout">
-  <div class="left-panel">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-head-left">
-          <span>📚</span>
-          <div><div class="card-title">시리즈 목록</div><div class="card-sub">EP를 선택해서 실행하세요</div></div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-sm btn-dark" onclick="showAddEp()">＋ 추가</button>
-        </div>
-      </div>
-      <div style="padding:10px 14px;border-bottom:1px solid #e8e6e0">
-        <button class="btn btn-sm" style="width:100%;justify-content:center;gap:6px" onclick="openResearchModal()">🔍 리서치 에이전트 — 원고 방향 잡기</button>
-      </div>
-      <div class="ep-scroll" id="ep-list"></div>
-      <div class="add-row" id="add-ep-row" style="display:none">
-        <input class="add-input" id="add-ep-input" placeholder="EP 제목 입력" onkeydown="if(event.key==='Enter')addEp()">
-        <button class="btn btn-sm btn-dark" onclick="addEp()">추가</button>
-        <button class="btn btn-sm" onclick="hideAddEp()">취소</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-head">
-        <div class="card-head-left">
-          <span>📋</span>
-          <div><div class="card-title">콘텐츠 플래너</div><div class="card-sub">업로드 현황 & 할 일</div></div>
-        </div>
-        <button class="btn btn-sm" onclick="showAddTodo()">＋ 할 일</button>
-      </div>
-      <div class="planner-stats">
-        <div class="pstat"><div class="pstat-num" id="ps-done">0</div><div class="pstat-lbl">완성 EP</div></div>
-        <div class="pstat"><div class="pstat-num" id="ps-upload">0</div><div class="pstat-lbl">업로드</div></div>
-        <div class="pstat"><div class="pstat-num" id="ps-outs">0</div><div class="pstat-lbl">산출물</div></div>
-      </div>
-      <div class="upload-section">
-        <div class="upload-lbl">📤 플랫폼별 업로드</div>
-        <div id="upload-tracker"></div>
-      </div>
-      <div id="todo-list"></div>
-      <div class="add-row" id="add-todo-row" style="display:none">
-        <input class="add-input" id="add-todo-input" placeholder="할 일 입력" onkeydown="if(event.key==='Enter')addTodo()">
-        <button class="btn btn-sm btn-dark" onclick="addTodo()">추가</button>
-        <button class="btn btn-sm" onclick="hideAddTodo()">취소</button>
-      </div>
-    </div>
-  </div>
-  <div class="right-col">
-    <div class="card">
-      <div class="det-head">
-        <div id="det-dot" style="width:10px;height:10px;border-radius:50%;flex-shrink:0"></div>
-        <div class="det-info">
-          <div class="det-epnum" id="det-epnum">EP.01</div>
-          <div class="det-title" id="det-title"></div>
-          <div class="det-hook" id="det-hook"></div>
-        </div>
-        <div class="det-actions">
-          <button class="btn btn-sm btn-dark" id="btn-ep-run" onclick="runPipeline()">▶ 이 EP 실행</button>
-          <div class="det-status" id="det-status">파이프라인 대기 중</div>
-        </div>
-      </div>
-      <div id="out-list"></div>
-    </div>
-    <div class="card">
-      <div class="archive-head">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span>🗂</span>
-          <div>
-            <div style="font-size:13px;font-weight:600;color:#111110">콘텐츠 아카이브</div>
-            <div style="font-size:11px;color:#6b6b67">완성된 EP의 모든 산출물</div>
-          </div>
-        </div>
-        <div style="font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px;background:#d8f3dc;color:#2d6a4f" id="archive-badge">0편 완성</div>
-      </div>
-      <div class="tbl-head">
-        <div></div>
-        <div class="tbl-col left">에피소드</div>
-        <div class="tbl-col">📄</div><div class="tbl-col">🎨</div><div class="tbl-col">📸</div>
-        <div class="tbl-col">📊</div><div class="tbl-col"></div>
-      </div>
-      <div id="archive-body"></div>
-    </div>
-  </div>
+
+<div id="loader">
+  <div class="lt">PORTFOLIO</div>
+  <div class="lb"></div>
 </div>
 
-<!-- 산출물 팝업 -->
-<div class="overlay" id="modal-ov">
-  <div class="modal">
-    <div class="modal-head">
-      <div class="modal-top">
-        <div class="modal-left">
-          <div class="modal-ico-w" id="m-ico">📄</div>
-          <div>
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-              <div id="m-dot" style="width:7px;height:7px;border-radius:50%"></div>
-              <span style="font-size:11px;font-weight:500;color:#6b6b67" id="m-ep-text"></span>
+<nav>
+  <!-- [[ 로고 텍스트 ]] -->
+  <a class="logo" href="#" onclick="go('home');return false;">PORTFOLIO</a>
+  <div class="menu">
+    <button data-nav="home" class="active" onclick="go('home')">Home</button>
+    <button data-nav="work" onclick="go('work')">Work</button>
+    <button data-nav="about" onclick="go('about')">About</button>
+    <button class="cta" onclick="go('contact')">제작 문의하기</button>
+  </div>
+</nav>
+
+<!-- ============ HOME ============ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-shell">
+      <!-- 왼쪽 텍스트 카드 -->
+      <div class="hero-left">
+        <h1 style="font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.15;letter-spacing:-.03em;font-weight:800;">
+          <span class="row"><i>브랜드와 사람 사이,</i></span>
+          <span class="row"><i>감정이 통하는</i></span>
+          <span class="row"><i class="dim">디자인을</i> <i>만듭니다.</i></span>
+        </h1>
+
+        <!-- [[ 버튼 텍스트 / 클릭 시 이동 페이지 ]] -->
+        <button class="hero-btn" onclick="go('about')">포트폴리오 알아보기</button>
+
+        <div class="hero-foot">
+          <div class="foot-top">
+            <div class="yr">© 2023—2026</div>
+            <div class="desc">
+              경험을 설계하는 <span>UI/UX 웹 디자이너,</span> 김유정.
             </div>
-            <div style="font-size:20px;font-weight:700;color:#111110;line-height:1.2" id="m-title"></div>
+          </div>
+          <div class="contact-chips">
+            <span class="chip-name">김유정</span>
+            <span>서울시 강동구</span>
+            <a href="tel:01041569889">010-4156-9889</a>
+            <a href="mailto:lucky771628@naver.com">lucky771628@naver.com</a>
+          </div>
+
+          <!-- 프로필 인포 테이블 (오른쪽 카드로 이동됨) -->
+        </div>
+      </div>
+
+      <!-- 오른쪽 : 영상 -->
+      <div class="hero-right hero-right-exp">
+        <video
+          class="hero-video"
+          src="u2642383152__URL_Close-up_3D_render_of_a_playful_keyboard_in__57bc1b76-e8ea-4055-a33e-9e693c48adf4_0.mp4"
+          autoplay loop muted playsinline
+        ></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 히어로 아래 : 카드 3개 + Who I am ===== -->
+  <section class="feature-row">
+    <div class="feature-grid-cap">
+      <!-- 카드 1: UI·UX & 브랜딩 (통합) -->
+      <div class="cap-card sr" onclick="goFilter('uiux')" style="cursor:pointer;">
+        <div class="cap-num">01</div>
+        <div class="cap-ttl">UI·UX &<br>브랜딩 디자인</div>
+        <div class="cap-desc">브랜드 무드 기획부터 상세페이지·홍보물 제작까지, 사용자 흐름을 먼저 설계해 PC·모바일·태블릿 모든 환경에서 일관된 경험을 만듭니다.</div>
+        <button class="cap-plus">→</button>
+      </div>
+      <!-- 카드 2: SNS -->
+      <div class="cap-card sr" onclick="goFilter('brand')" style="cursor:pointer;">
+        <div class="cap-num">02</div>
+        <div class="cap-ttl">SNS 콘텐츠<br>디자인</div>
+        <div class="cap-desc">인스타그램·페이스북 채널의 이벤트·프로모션 콘텐츠를 기획하고 제작합니다.</div>
+        <button class="cap-plus">→</button>
+      </div>
+      <!-- 카드 3: 오프라인 -->
+      <div class="cap-card sr" onclick="goFilter('brand')" style="cursor:pointer;">
+        <div class="cap-num">03</div>
+        <div class="cap-ttl">오프라인<br>디자인물</div>
+        <div class="cap-desc">박람회·팝업·행사용 배너, 리플렛, 포스터 등 인쇄 홍보물을 기획하고 제작합니다.</div>
+        <button class="cap-plus">→</button>
+      </div>
+      <!-- 카드 4: AI Creative Works (신규) -->
+      <div class="cap-card sr" onclick="goFilter('ai')" style="cursor:pointer;">
+        <div class="cap-num">04</div>
+        <div class="cap-ttl">AI Creative<br>Works</div>
+        <div class="cap-desc">Midjourney·ChatGPT·Runway 등 AI 툴을 활용해 이미지, 영상, 카피까지 직접 제작합니다. AI로 완성한 작업물을 확인해보세요.</div>
+        <button class="cap-plus">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 프로젝트 이미지 롤링 (Heritade 식) ===== -->
+  <section class="roller">
+    <div class="roller-head">
+      <div class="f-label">Completed projects</div>
+      <!-- [[ 롤링 섹션 제목 ]] -->
+      <h2>
+        함께한 프로젝트들입니다.<br>
+        믿을 수 있는 디자인 파트너가 되어드릴게요!
+      </h2>
+    </div>
+    <div class="roller-viewport">
+      <!-- 9개 카드를 2번 반복 = 무한 롤링용. 실제로는 앞 9개만 채우면 됩니다 -->
+      <!-- [[ 프로젝트 이미지 ]] 각 카드의 .ph 를 <img src="경로" alt="">로 교체하세요 -->
+      <div class="roller-track">
+        <!-- ── 1세트 (9개) ── -->
+        <div class="roll-card"><div class="ph">[[ PROJECT 01 ]]</div>
+          <div class="cap"><span class="t">UI / UX</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 02 ]]</div>
+          <div class="cap"><span class="t">Web Design</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 03 ]]</div>
+          <div class="cap"><span class="t">Branding</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 04 ]]</div>
+          <div class="cap"><span class="t">UI / UX</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 05 ]]</div>
+          <div class="cap"><span class="t">Clone</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 06 ]]</div>
+          <div class="cap"><span class="t">Web Design</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 07 ]]</div>
+          <div class="cap"><span class="t">UI / UX</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 08 ]]</div>
+          <div class="cap"><span class="t">Branding</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card"><div class="ph">[[ PROJECT 09 ]]</div>
+          <div class="cap"><span class="t">Web Design</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <!-- ── 2세트 (위와 동일하게 복제 · 무한 롤링용, 수정 시 1세트와 똑같이) ── -->
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 01 ]]</div>
+          <div class="cap"><span class="t">UI / UX</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 02 ]]</div>
+          <div class="cap"><span class="t">Web Design</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 03 ]]</div>
+          <div class="cap"><span class="t">Branding</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 04 ]]</div>
+          <div class="cap"><span class="t">UI / UX</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 05 ]]</div>
+          <div class="cap"><span class="t">Clone</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 06 ]]</div>
+          <div class="cap"><span class="t">Web Design</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 07 ]]</div>
+          <div class="cap"><span class="t">UI / UX</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 08 ]]</div>
+          <div class="cap"><span class="t">Branding</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+        <div class="roll-card" aria-hidden="true"><div class="ph">[[ PROJECT 09 ]]</div>
+          <div class="cap"><span class="t">Web Design</span><h4>[[ 프로젝트명 ]]</h4></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Capability (Heritade 식) ===== -->
+  <section class="cap-sec">
+    <div class="cap-inner">
+      <!-- 제목 카드 + 툴 아이콘 -->
+      <div class="cap-headcard sr">
+        <div class="head-left">
+          <div class="f-pill">Capability</div>
+          <h2>경험을 설계하는<br>확고한 업무 능력</h2>
+          <!-- 툴 아이콘: 텍스트 바로 아래 작게 배치 -->
+          <div class="tool-grid tool-grid-small">
+            <div class="tool-item"><div class="ph">Photoshop</div></div>
+            <div class="tool-item"><div class="ph">Illustrator</div></div>
+            <div class="tool-item"><div class="ph">Figma</div></div>
+            <div class="tool-item"><div class="ph">XD</div></div>
+            <div class="tool-item"><div class="ph">HTML</div></div>
+            <div class="tool-item"><div class="ph">CSS</div></div>
+            <div class="tool-item"><div class="ph">JavaScript</div></div>
+            <div class="tool-item"><div class="ph">After Effects</div></div>
           </div>
         </div>
-        <button class="close-btn" onclick="closeModal()">✕</button>
+        <!-- 크레딧 롤 -->
+        <div class="credit-roll">
+          <div class="credit-fade-top"></div>
+          <div class="credit-fade-bottom"></div>
+          <div class="credit-track">
+            <span>레이트코리아 데이노바 드라이기 상세페이지 리뉴얼</span>
+            <span>가전/뷰티 월별 프로모션 이벤트 디자인</span>
+            <span>카카오선물하기 트윙컬미니 세트 상세페이지 디자인</span>
+            <span>코엑스 박람회, 스타필드 팝업 오프라인 디자인물 제작</span>
+            <span>가구브랜드 신규 홈페이지 런칭</span>
+            <span>KH정보교육원 새단장 포스터 제작</span>
+            <span>KH정보교육원(통합) 반응형 웹사이트</span>
+            <span>아텐츠게임아카데미 강사구인 페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 + 유튜버 콜라보 이벤트</span>
+            <span>KH영상아카데미 상담페이지 리디자인</span>
+            <span>KH영상아카데미 상담용 리플렛 제작</span>
+            <span>KH영상아카데미 신규 웹사이트 제작</span>
+            <span>KH정보교육원 상담용 리플렛 리디자인</span>
+            <span>KH RAD 취업팀 페이지 리뉴얼</span>
+            <span>오프라인 디자인물 제작 (명함, 포스터, 리플렛 등)</span>
+            <!-- 무한 루프용 복제 -->
+            <span>레이트코리아 데이노바 드라이기 상세페이지 리뉴얼</span>
+            <span>가전/뷰티 월별 프로모션 이벤트 디자인</span>
+            <span>카카오선물하기 트윙컬미니 세트 상세페이지 디자인</span>
+            <span>코엑스 박람회, 스타필드 팝업 오프라인 디자인물 제작</span>
+            <span>가구브랜드 신규 홈페이지 런칭</span>
+            <span>KH정보교육원 새단장 포스터 제작</span>
+            <span>KH정보교육원(통합) 반응형 웹사이트</span>
+            <span>아텐츠게임아카데미 강사구인 페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</span>
+            <span>아텐츠게임아카데미 + 유튜버 콜라보 이벤트</span>
+            <span>KH영상아카데미 상담페이지 리디자인</span>
+            <span>KH영상아카데미 상담용 리플렛 제작</span>
+            <span>KH영상아카데미 신규 웹사이트 제작</span>
+            <span>KH정보교육원 상담용 리플렛 리디자인</span>
+            <span>KH RAD 취업팀 페이지 리뉴얼</span>
+            <span>오프라인 디자인물 제작 (명함, 포스터, 리플렛 등)</span>
+          </div>
+        </div>
       </div>
-      <div class="modal-tabs-row" id="m-tabs"></div>
     </div>
-    <div class="modal-body">
-      <div style="background:#f5f4f0;border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#6b6b67;line-height:1.6">
-        <strong style="color:#111110;font-weight:600">📋 사용 방법</strong><br>
-        아래 명령어를 복사해서 <strong style="color:#111110;font-weight:600">Claude 채팅창</strong>에 붙여넣으세요.
-      </div>
-      <div class="prompt-box">
-        <div class="prompt-lbl">Claude에게 붙여넣을 명령어</div>
-        <div class="prompt-txt" id="m-prompt"></div>
+  </section>
+
+  <!-- ===== 웹사이트 제작 사례 슬라이더 (Heritade 식) ===== -->
+  <section class="showcase">
+    <div class="showcase-viewport">
+      <div class="showcase-track" id="scTrack">
+
+        <!-- 사례 카드 0 (기존 인트로 → 일반 카드로 통일) -->
+        <!-- [[ 제작 사례 ]] sc-thumb 의 .ph 를 <img src="썸네일경로" alt="">로 교체 -->
+        <div class="sc-card">
+          <div class="sc-thumb"><div class="ph">[[ THUMBNAIL 01 ]]</div></div>
+          <div class="sc-body">
+            <div class="sc-label">Web Design</div>
+            <!-- [[ 제목 ]] -->
+            <div class="sc-title">[[ 프로젝트 제목을<br>입력하세요 ]]</div>
+            <div class="sc-desc">
+              <!-- [[ 설명 ]] -->
+              <p>이 프로젝트에서 맡은 역할과 작업 범위를 적어주세요. 어떤 문제를 어떻게 풀었는지 간략히 설명합니다.</p>
+              <p>사용한 도구나 디자인 포인트, 결과를 함께 적으면 더 좋습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 사례 카드 1 -->
+        <!-- [[ 제작 사례 ]] sc-thumb 의 .ph 를 <img src="썸네일경로" alt="">로 교체 -->
+        <div class="sc-card">
+          <div class="sc-thumb"><div class="ph">[[ THUMBNAIL 02 ]]</div></div>
+          <div class="sc-body">
+            <div class="sc-label">Web Design</div>
+            <!-- [[ 제목 ]] -->
+            <div class="sc-title">[[ 프로젝트 제목을<br>입력하세요 ]]</div>
+            <div class="sc-desc">
+              <!-- [[ 설명 ]] -->
+              <p>이 프로젝트에서 맡은 역할과 작업 범위를 적어주세요. 어떤 문제를 어떻게 풀었는지 간략히 설명합니다.</p>
+              <p>사용한 도구나 디자인 포인트, 결과를 함께 적으면 더 좋습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 사례 카드 2 -->
+        <div class="sc-card">
+          <div class="sc-thumb"><div class="ph">[[ THUMBNAIL 03 ]]</div></div>
+          <div class="sc-body">
+            <div class="sc-label">UI / UX</div>
+            <div class="sc-title">[[ 프로젝트 제목을<br>입력하세요 ]]</div>
+            <div class="sc-desc">
+              <p>이 프로젝트에서 맡은 역할과 작업 범위를 적어주세요. 어떤 문제를 어떻게 풀었는지 간략히 설명합니다.</p>
+              <p>사용한 도구나 디자인 포인트, 결과를 함께 적으면 더 좋습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 사례 카드 3 -->
+        <div class="sc-card">
+          <div class="sc-thumb"><div class="ph">[[ THUMBNAIL 04 ]]</div></div>
+          <div class="sc-body">
+            <div class="sc-label">Branding</div>
+            <div class="sc-title">[[ 프로젝트 제목을<br>입력하세요 ]]</div>
+            <div class="sc-desc">
+              <p>이 프로젝트에서 맡은 역할과 작업 범위를 적어주세요. 어떤 문제를 어떻게 풀었는지 간략히 설명합니다.</p>
+              <p>사용한 도구나 디자인 포인트, 결과를 함께 적으면 더 좋습니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 사례 카드 4 -->
+        <div class="sc-card">
+          <div class="sc-thumb"><div class="ph">[[ THUMBNAIL 05 ]]</div></div>
+          <div class="sc-body">
+            <div class="sc-label">Clone Coding</div>
+            <div class="sc-title">[[ 프로젝트 제목을<br>입력하세요 ]]</div>
+            <div class="sc-desc">
+              <p>이 프로젝트에서 맡은 역할과 작업 범위를 적어주세요. 어떤 문제를 어떻게 풀었는지 간략히 설명합니다.</p>
+              <p>사용한 도구나 디자인 포인트, 결과를 함께 적으면 더 좋습니다.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-    <div class="modal-foot">
-      <div style="font-size:12px;color:#6b6b67">명령어 복사 후 Claude 채팅에 붙여넣으세요</div>
-      <div style="display:flex;gap:8px">
-        <button class="btn" id="btn-copy" onclick="copyPrompt()">📋 명령어 복사</button>
-        <button class="btn btn-dark" onclick="closeModal()">닫기</button>
+    <!-- 화살표 네비 -->
+    <div class="sc-nav">
+      <button id="scPrev" aria-label="이전">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button id="scNext" aria-label="다음">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== Hosting & Partner (Heritade 식) ===== -->
+  <section class="partner-sec">
+    <div class="partner-grid">
+      <!-- 왼쪽 : 텍스트 + 로고 -->
+      <div class="partner-left sr">
+        <div class="f-pill">Experience &amp; Career</div>
+        <h2>경험이 시작된<br>공간들</h2>
+        <div class="p-body">
+          <p>총 3곳의 회사에서 UI/UX·브랜딩·반응형 웹 등 다양한 디자인 업무를 담당하며 실무 역량을 쌓아왔습니다.</p>
+          <p>각 회사에서의 경험이 지금의 디자인 방향성과 작업 방식의 기반이 되었습니다.</p>
+        </div>
+        <!-- 회사명 텍스트 그리드 -->
+        <div class="company-logos">
+          <!-- Row 1: 아이엠브릿지 ↔ 휴렙 -->
+          <div class="co-group">
+            <div class="co-logo"><div class="co-name">아이엠브릿지</div></div>
+            <div class="co-group-label">도중 법인변경</div>
+            <div class="co-logo"><div class="co-name">휴렙</div></div>
+          </div>
+          <!-- Row 2: KH정보교육원 ↔ 아텐츠게임아카데미 -->
+          <div class="co-group">
+            <div class="co-logo"><div class="co-name">KH정보교육원</div></div>
+            <div class="co-group-label">도중 법인변경</div>
+            <div class="co-logo"><div class="co-name">아텐츠게임아카데미</div></div>
+          </div>
+          <!-- Row 3: 레이트코리아 + 무버먼한국 -->
+          <div class="co-logo"><div class="co-name">레이트코리아</div></div>
+          <div class="co-logo"><div class="co-name">무버먼한국</div></div>
+        </div>
       </div>
+
+      <!-- 오른쪽 : 경력 타임라인 -->
+      <!-- [[ 경력 정보 ]] 아래 날짜·직무·내용·태그를 본인 이력으로 바꾸세요. 항목은 .career-row 를 복사/삭제해 조절 -->
+      <div class="partner-right sr">
+        <div class="career-head">
+          <h3>Career</h3>
+          <span class="yr">2020 — Present</span>
+        </div>
+        <div class="career-tl">
+          <!-- 항목 0 (최신) -->
+          <div class="career-row">
+            <div class="marker"></div>
+            <div class="c-body">
+              <div class="c-date">2025.09 — 2026.09</div>
+              <h4>아이엠브릿지 · 사원 웹디자이너</h4>
+              <p class="c-role">병원/한의원 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
+              <div class="c-tags"><span>상세페이지</span><span>프로모션</span></div>
+            </div>
+          </div>
+          <!-- 항목 1 -->
+          <div class="career-row">
+            <div class="marker"></div>
+            <div class="c-body">
+              <div class="c-date">2024.09 — 2025.09</div>
+              <h4>레이트코리아 · 대리 웹디자이너</h4>
+              <p class="c-role">가전/뷰티 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
+              <div class="c-tags"><span>Branding</span><span>상세페이지</span><span>프로모션</span></div>
+            </div>
+          </div>
+          <!-- 항목 2 -->
+          <div class="career-row">
+            <div class="marker"></div>
+            <div class="c-body">
+              <div class="c-date">2021.12 — 2024.08</div>
+              <h4>아텐츠게임아카데미 · 주임 컨텐츠개발팀
+                <span class="c-name-change">구. KH정보교육원</span>
+              </h4>
+              <p class="c-role">반응형 웹사이트 기획·디자인, 디자인 시스템 구축</p>
+              <div class="c-tags"><span>UI/UX</span><span>반응형 웹</span><span>디자인 시스템</span></div>
+            </div>
+          </div>
+          <!-- 항목 3 -->
+          <div class="career-row">
+            <div class="marker"></div>
+            <div class="c-body">
+              <div class="c-date">2020.01 — 2020.07</div>
+              <h4>무버먼한국 · 디자인 보조</h4>
+              <p class="c-role">SNS 이벤트·프로모션 디자인 및 상세페이지 서브 업무</p>
+              <div class="c-tags"><span>SNS 디자인</span><span>상세페이지</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- 자세히 보러가기 버튼 -->
+        <button class="career-more-btn" onclick="go('about')">
+          자세히 보러가기
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="3" y1="10" x2="17" y2="10"/><polyline points="11 4 17 10 11 16"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-pad dark">
+    <div class="wrap" style="text-align:center;">
+      <div class="eyebrow sr">Let's talk</div>
+      <h2 class="headline sr" style="margin-bottom:34px;">함께 만들어볼까요?</h2>
+      <button class="sr" onclick="go('contact')" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:var(--fs-body);padding:18px 38px;border-radius:50px;">
+        제작 문의하기 →
+      </button>
+    </div>
+  </section>
+</div>
+
+<!-- ============ WORK ============ -->
+<div class="page" id="page-work">
+  <section style="padding-top:150px;padding-bottom:0;background:#fff;">
+    <div class="wrap">
+      <div class="eyebrow sr">2023 — 2026</div>
+      <h1 class="headline sr" style="font-size:clamp(2.6rem,8vw,6.4rem);text-transform:uppercase;color:#111;">
+        WORK
+      </h1>
+    </div>
+  </section>
+  <section class="sec-pad" style="background:#fff;">
+    <div class="wrap">
+      <!-- 카테고리 필터 탭 -->
+      <div class="work-filter sr" id="workFilter">
+        <button class="active" data-cat="all">All</button>
+        <button data-cat="uiweb">UI / UX · WEB</button>
+        <button data-cat="landing">LANDING</button>
+        <button data-cat="graphic">GRAPHIC</button>
+        <button data-cat="ai">AI Creative</button>
+      </div>
+
+      <div class="work-grid" id="workGrid">
+        <!-- 프로젝트 0: 미올한의원 메인 페이지 -->
+        <div class="work sr" data-cat="uiweb" onclick="openProject('miol')" style="cursor:pointer;">
+          <img src="miol_01.jpg" alt="미올한의원 메인 페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">UI/UX · Web Design</span>
+            <h3>미올한의원 메인 페이지</h3>
+          </div>
+        </div>
+        <!-- 프로젝트 1: 레이트코리아 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('latekr')" style="cursor:pointer;">
+          <div class="ph"></div><div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Branding · Landing page</span>
+            <h3>레이트코리아 가전/뷰티 상세페이지 리뉴얼</h3>
+          </div>
+        </div>
+        <!-- 프로젝트 1-2: 미올한의원 바디라인 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('miolbody')" style="cursor:pointer;">
+          <img src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>미올한의원 바디라인 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 미올한의원 튼살치료 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('miolstretch')" style="cursor:pointer;">
+          <img src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>미올한의원 튼살치료 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 미올한의원 다이어트셔플먼트 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('mioldiet')" style="cursor:pointer;">
+          <img src="mioldiet_01.jpg" alt="미올한의원 다이어트셔플먼트 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>미올한의원 다이어트셔플먼트 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 미올한의원 스킨부스터 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('miolskin')" style="cursor:pointer;">
+          <img src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>미올한의원 스킨부스터 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 미올한의원 핑크환 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('miolpink')" style="cursor:pointer;">
+          <img src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>미올한의원 핑크환 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 미올한의원 안면마비 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('miolface')" style="cursor:pointer;">
+          <img src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>미올한의원 안면마비 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 데이노바 상세페이지 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('daynova')" style="cursor:pointer;">
+          <img src="daynova_01.jpg" alt="데이노바 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>데이노바 상세페이지</h3>
+          </div>
+        </div>
+        <!-- TWINCURL 카카오선물하기 -->
+        <div class="work sr" data-cat="landing" onclick="openProject('twincurl')" style="cursor:pointer;">
+          <img src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Landing Page · 상세페이지</span>
+            <h3>TWINCURL 카카오선물하기</h3>
+          </div>
+        </div>
+        <!-- 프로젝트 2: 니케하임 가구 브랜드 런칭 -->
+        <div class="work sr" data-cat="ai" onclick="openProject('nikeheim')" style="cursor:pointer;">
+          <img src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">AI Creative · Branding</span>
+            <h3>니케하임 가구 브랜드 런칭</h3>
+          </div>
+        </div>
+        <!-- 니케하임 가구 베네 상세페이지 -->
+        <div class="work sr" data-cat="ai" onclick="openProject('nikebene')" style="cursor:pointer;">
+          <img src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">AI Creative · 상세페이지</span>
+            <h3>니케하임 가구 베네 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 니케하임 가구 어페로 상세페이지 -->
+        <div class="work sr" data-cat="ai" onclick="openProject('nikeapero')" style="cursor:pointer;">
+          <img src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">AI Creative · 상세페이지</span>
+            <h3>니케하임 가구 어페로 상세페이지</h3>
+          </div>
+        </div>
+        <!-- 프로젝트 3: KH정보교육원 반응형 웹사이트 -->
+        <div class="work sr" data-cat="uiweb" onclick="openProject('kh')" style="cursor:pointer;">
+          <img src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">UI/UX · Responsive Web</span>
+            <h3>KH정보교육원(통합) 반응형 웹사이트</h3>
+          </div>
+        </div>
+        <!-- 프로젝트 4: 아텐츠게임아카데미 교육과정 리뉴얼 -->
+        <div class="work sr" data-cat="uiweb" onclick="openProject('atents')" style="cursor:pointer;">
+          <img src="KakaoTalk_Photo_2026-05-28-23-21-37_001.jpeg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">UI/UX · Web Design</span>
+            <h3>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h3>
+          </div>
+        </div>
+        <!-- 프로젝트 5: 배너/상세페이지 -->
+        <div class="work sr" data-cat="graphic" onclick="openProject('banner')" style="cursor:pointer;">
+          <div class="ph"></div><div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Graphic · Branding</span>
+            <h3>배너 / 상세페이지 디자인 제작</h3>
+          </div>
+        </div>
+        <!-- 프로젝트 6: 오프라인 디자인물 -->
+        <div class="work sr" data-cat="graphic" onclick="openProject('offline')" style="cursor:pointer;">
+          <div class="ph"></div><div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Graphic · Poster / Reflet</span>
+            <h3>포스터 / 리플렛 오프라인 디자인물 제작</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div class="page" id="page-about">
+  <section class="sec-pad" style="padding-top:150px;background:#fff;">
+    <div class="wrap">
+      <!-- 이력서 스타일 상단 헤더 -->
+      <div class="about-resume-header sr">
+        <div class="arh-left">
+          <div class="arh-name">
+            <span class="arh-name-ko">김유정</span>
+            <span class="arh-name-en">Web Designer</span>
+          </div>
+          <div class="arh-title" style="display:none;">Web Designer · UI/UX</div>
+          <div class="arh-email-row">
+            <span class="arh-career-badge">4년 6개월+ <em>총경력</em></span>
+          </div>
+
+          <div class="arh-intro">
+            <p class="arh-tagline">브랜드와 사람 사이, 감정이 통하는 디자인을 만듭니다.</p>
+            <p>레이트코리아에서 가전/뷰티 브랜드 홈페이지 기획·리뉴얼, 아텐츠게임아카데미에서<br>
+            KH정보교육원 반응형 웹사이트 등 다양한 디지털 경험을 설계해왔습니다.</p>
+
+            <div class="arh-bullets">
+              <div class="arh-bullet">
+                <span class="arh-ico">✦</span>
+                <span><strong>[업무 경험]</strong> 브랜드 홈페이지 기획부터 상세페이지·이벤트 디자인까지 전 과정을 주도한 경험이 있어요</span>
+              </div>
+              <div class="arh-bullet">
+                <span class="arh-ico">✦</span>
+                <span><strong>[강점]</strong> 사용자 감성에 맞는 비주얼을 기획하고, AI 툴을 활용해 빠르게 고품질 결과물을 만들어요</span>
+              </div>
+              <div class="arh-bullet">
+                <span class="arh-ico">✦</span>
+                <span><strong>[업무 포용력]</strong> 온라인·오프라인 디자인 모두 담당하며 다양한 컨셉의 디자인물을 제작할 수 있어요</span>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="arh-photo">
+          <div class="ph"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec-pad dark" style="padding-top:0;">
+    <div class="wrap">
+      <div class="info-2">
+        <div class="info-box sr">
+          <h3>Education</h3>
+          <!-- [[ 학력 정보 ]] -->
+          <div class="tl-row"><div class="d">2023.01 — 06</div>
+            <div class="b"><h4>UI/UX 반응형 웹디자인 과정 수료</h4><p>UI/UX 반응형 웹디자인 과정</p></div></div>
+          <div class="tl-row"><div class="d">2016 — 2020</div>
+            <div class="b"><h4>백석대학교</h4><p>학사 졸업</p></div></div>
+          <div class="tl-row"><div class="d">2013 — 2016</div>
+            <div class="b"><h4>동안고등학교</h4><p>고등학교 졸업</p></div></div>
+        </div>
+        <div class="info-box sr">
+          <h3>Skills</h3>
+          <!-- [[ 스킬 / 숙련도 ]] data-pct 로 막대 길이 조절 -->
+          <div class="skill"><div class="top"><span>Figma</span><span class="p">90%</span></div><div class="bar"><i data-pct="90"></i></div></div>
+          <div class="skill"><div class="top"><span>Photoshop</span><span class="p">85%</span></div><div class="bar"><i data-pct="85"></i></div></div>
+          <div class="skill"><div class="top"><span>Illustrator</span><span class="p">80%</span></div><div class="bar"><i data-pct="80"></i></div></div>
+          <div class="skill"><div class="top"><span>HTML / CSS</span><span class="p">85%</span></div><div class="bar"><i data-pct="85"></i></div></div>
+          <div class="skill"><div class="top"><span>JavaScript</span><span class="p">65%</span></div><div class="bar"><i data-pct="65"></i></div></div>
+        </div>
+      </div>
+      <div class="info-box sr" style="margin-top:14px;">
+        <h3>License & Certification</h3>
+        <div class="chips">
+          <!-- [[ 자격증 목록 ]] -->
+          <span>GTQ 포토샵</span>
+          <span>ITQ 한글·파워포인트·엑셀</span>
+          <span>COS (Coding Specialist)</span>
+          <span>워드프로세서</span>
+          <span>웹디자인기능사</span>
+          <span>컴퓨터그래픽스운용기능사</span>
+          <span>[[ 추가 자격증 ]]</span>
+        </div>
+      </div>
+
+      <!-- 업무경험 -->
+      <div class="exp-section sr">
+        <div class="exp-box">
+          <h3>업무경험</h3>
+
+          <!-- 레이트코리아 -->
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2024.09 — 2025.09<br><span style="font-size:var(--fs-caption);color:var(--txt-dark-dim);font-weight:500;">(1년)</span></div>
+              <div class="exp-meta">
+                <div class="exp-company">레이트코리아</div>
+                <div class="exp-role">대리 · 웹디자이너</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">레이트코리아(가전/뷰티) 홈페이지 기획 &amp; 디자인</div>
+                <ul>
+                  <li>브랜드 홈페이지 리뉴얼하여 밝고 젊은 무드 전환</li>
+                  <li>전체 비주얼 이미지 교체 및 브랜드 콘텐츠 디자인 진행</li>
+                  <li>월별 프로모션 이벤트 운영 진행(설머·추석·블랙프라이데이 등 다양한 이벤트 진행)</li>
+                  <li>일부 제품 상세페이지 리뉴얼 진행</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">가구브랜드 홈페이지 신규 런칭</div>
+                <ul>
+                  <li>브랜드 무드 및 콘셉트 기획부터 촬영이미지 보정, 누끼 작업, AI배경 합성</li>
+                  <li>상세페이지 문구 기획 및 작성, 메인 배너 이벤트 아이디어 제안과 디자인</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">홍보 콘텐츠 디자인 담당</div>
+                <ul>
+                  <li>브랜드 인지도 향상을 위한 브랜드 활동 기획 및 운영</li>
+                  <li>브랜드 콘텐츠 기획 (영상/비주얼 등)</li>
+                  <li>브랜드 인지도 향상을 위한 브랜드 상시 이벤트 기획 및 디자인</li>
+                  <li>앱 내 프로모션, 이벤트 기획/실행 시즌별 이벤트 제작</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">온·오프라인 홍보물 기획 및 제작 진행</div>
+                <ul>
+                  <li>박람회·팝업 등 오프라인 행사 운영 위한 홍보물(배너·리플렛·포스터 등) 기획 및 디자인 진행</li>
+                  <li>온라인 채널과 맞춘 브랜드 방향으로 홍보물 제작</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 아텐츠게임아카데미 -->
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2021.12 — 2024.08<br><span style="font-size:var(--fs-caption);color:var(--txt-dark-dim);font-weight:500;">(2년 6개월)</span></div>
+              <div class="exp-meta">
+                <div class="exp-company">아텐츠게임아카데미</div>
+                <div class="exp-role">주임 · 컨텐츠개발팀</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">KH정보교육원(통합) 홈페이지 기획 &amp; 디자인</div>
+                <ul>
+                  <li>Mobile/Tablet과 Web에서 반응형으로 노출되는 디자인 작업 및 QA 진행</li>
+                  <li>디자인 리소스 절약을 위한 디자인 시스템 구축</li>
+                  <li>서비스 유지 보수, 관리를 위한 개발 대응 및 디자인</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">KH영상아카데미 신규 홈페이지 기획/디자인</div>
+                <ul>
+                  <li>서비스 전체 UI/UX 설계와 모든 페이지 디자인</li>
+                  <li>디자인 QA 및 기능 QA</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">아텐츠게임아카데미 '교육과정' 페이지 리뉴얼 및 운영</div>
+                <ul>
+                  <li>교육과정 페이지 기획, Wireframe제작 및 유지보수</li>
+                  <li>도출된 해결 방안을 토대로 UI/UX 화면 설계</li>
+                  <li>디자인 QA 및 기능 QA</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">아텐츠게임아카데미 취업팀 RAD 프로세스 개선</div>
+                <ul>
+                  <li>취업팀의 니즈를 반영한 RAD 리뉴얼, 기획 및 UX/UI 디자인</li>
+                  <li>디자인 QA 및 기능 QA</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">홍보 콘텐츠 디자인 담당</div>
+                <ul>
+                  <li>모집 활성화를 위한 미디어 마케팅, 콘텐츠 기획 및 상시 이벤트 운영</li>
+                  <li>온라인/오프라인 디자인 담당, 다양한 컨셉의 디자인물 제작</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- 무버먼한국 -->
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2020.01 — 2020.07<br><span style="font-size:var(--fs-caption);color:var(--txt-dark-dim);font-weight:500;">(6개월)</span></div>
+              <div class="exp-meta">
+                <div class="exp-company">무버먼한국</div>
+                <div class="exp-role">디자인 보조</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">SNS(인스타, 페이스북) 채널, 서비스 운영 이벤트/프로모션 디자인</div>
+                <ul>
+                  <li>콘텐츠 기획 및 상시 이벤트 운영</li>
+                  <li>SNS 온라인 데이터 분석/전략</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <div class="task-title">와디즈 제품(캠핑의자) 디자인 서브 보조</div>
+                <ul>
+                  <li>상품 기획 참여, 컨셉 및 촬영 보조</li>
+                  <li>상세페이지 기획 및 디자인</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 수상 및 활동 -->
+      <div class="exp-section sr" style="margin-top:14px;">
+        <div class="exp-box">
+          <h3>수상 및 활동</h3>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2021.01 — 2021.12</div>
+              <div class="exp-meta">
+                <div class="exp-company">졸업준비위원회 활동</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">졸업전시 전반적인 기획/진행</div>
+                <ul>
+                  <li>졸업컨셉/공간동선, 포토존, 책자·리플렛, 홍보영상 제작, SNS 운영</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2021.12</div>
+              <div class="exp-meta">
+                <div class="exp-company">제2회 한중일 국제 디자인 공유 네트워크</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">아이링 | 초보 아빠의 육아를 돕는 서비스 (졸업작품)</div>
+                <ul>
+                  <li>졸업작품(UX/UI)으로 참여</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2021.12</div>
+              <div class="exp-meta">
+                <div class="exp-company">제2회 한중일 국제교류작품전</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">아이링 | 초보 아빠의 육아를 돕는 서비스 (졸업작품)</div>
+                <ul>
+                  <li>졸업작품(UX/UI)으로 참여</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2020.07 — 2021.12</div>
+              <div class="exp-meta">
+                <div class="exp-company">창업동아리 활동</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">창업아이디어 경진대회 대상</div>
+                <ul>
+                  <li>사업아이디어 기획, 프로토타입, 홍보, 예비창업패키지 제출</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2018.07 — 2020.12</div>
+              <div class="exp-meta">
+                <div class="exp-company">SET 제품 소모임 활동</div>
+              </div>
+            </div>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <div class="task-title">디자인 공모전 참여 (K-Design Award)</div>
+                <ul>
+                  <li>제품 아이디어 기획, 3D 모델링 고도화 작업 후 제출</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 수료 및 자격증 -->
+      <div class="exp-section sr" style="margin-top:14px;">
+        <div class="exp-box">
+          <h3>수료 및 자격증</h3>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2017.06 취득</div>
+              <div class="exp-meta">
+                <div class="exp-company">ACA Photoshop CC 2015</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2018.04 취득</div>
+              <div class="exp-meta">
+                <div class="exp-company">ACA Illustrator CC 2015</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-item">
+            <div class="exp-header">
+              <div class="exp-date">2019.05 수료</div>
+              <div class="exp-meta">
+                <div class="exp-company">컨셉진 에디터 스쿨</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PROJECT DETAIL: KH정보교육원 ============ -->
+<div class="proj-overlay" id="proj-kh" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+
+    <!-- 상단 닫기 -->
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+
+    <!-- 대표 이미지 -->
+    <div class="pj-hero">
+      <img src="img_kh_01.jpg" alt="KH정보교육원">
+    </div>
+
+    <!-- 텍스트 정보 -->
+    <div class="pj-info">
+      <h2 class="pj-h1">KH정보교육원(통합) 반응형 웹사이트
+        <a href="https://www.kh.ac.kr" target="_blank" rel="noopener" class="pj-site-link" title="사이트 바로가기">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </h2>
+
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#UI/UX #Branding #Responsive Web Design #PC #Mobile #Tablet #디자인시스템</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">2024.01</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · UX/UI 100%</span>
+        </div>
+      </div>
+
+      <p class="pj-summary">KH정보교육원의 브랜드 가치와 독특한 매력을 효과적으로 전달하기 위해 풍부한 콘텐츠로 구성하였습니다. PC·Mobile·Tablet 반응형으로 노출되는 디자인 작업 및 QA를 진행하고, 디자인 시스템을 구축해 리소스 효율을 높였습니다.</p>
+    </div>
+
+    <!-- 이미지 갤러리 (텍스트 없이 나열) -->
+    <div class="pj-images">
+      <img src="img_kh_02.jpg" alt="">
+      <img src="img_kh_03.jpg" alt="">
+      <img src="img_kh_04.jpg" alt="">
+      <img src="img_kh_05.jpg" alt="">
+      <img src="img_kh_06.jpg" alt="">
+      <img src="img_kh_07.jpg" alt="">
+      <img src="img_kh_08.jpg" alt="">
+      <img src="img_kh_09.jpg" alt="">
+      <img src="img_kh_10.jpg" alt="">
+      <img src="img_kh_11.jpg" alt="">
+      <img src="img_kh_12.jpg" alt="">
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 아텐츠게임아카데미 ============ -->
+<div class="proj-overlay" id="proj-atents" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+
+    <div class="pj-hero">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-37_001.jpeg" alt="아텐츠게임아카데미">
+    </div>
+
+    <div class="pj-info">
+      <h2 class="pj-h1">아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h2>
+
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#UI/UX #Branding #Web Design #반응형 #디자인시스템</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">2023.03 — 2023.11</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · UX/UI 100%</span>
+        </div>
+      </div>
+
+      <p class="pj-summary">게임 교육 전문기관 아텐츠게임아카데미의 교육과정 홈페이지 전면 리뉴얼 프로젝트입니다. 복잡했던 기존 교육과정 정보를 사용자가 빠르게 습득할 수 있도록 재구성하고, 게임 브랜드 아이덴티티에 맞는 강렬한 비주얼을 구현했습니다.</p>
+    </div>
+
+    <div class="pj-images">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_002.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_003.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_004.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_005.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_006.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_007.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_008.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_009.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_010.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_011.jpeg" alt="">
+      <img src="KakaoTalk_Photo_2026-05-28-23-21-40_012.jpeg" alt="">
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 레이트코리아 ============ -->
+<!-- ============ PROJECT DETAIL: 미올한의원 ============ -->
+<div class="proj-overlay" id="proj-miol" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="miol_01.jpg" alt="미올한의원 메인 페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 메인 페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#UI/UX #Web Design #한의원 #브랜드 #메인페이지 #리뉴얼</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. 어떤 문제를 어떻게 풀었는지, 사용한 도구나 디자인 포인트, 결과를 함께 적으면 좋습니다. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="miol_02.jpg" alt="">
+      <img src="miol_03.jpg" alt="">
+      <img src="miol_04.jpg" alt="">
+      <img src="miol_05.jpg" alt="">
+      <img src="miol_06.jpg" alt="">
+      <img src="miol_07.jpg" alt="">
+      <img src="miol_08.jpg" alt="">
+      <img src="miol_09.jpg" alt="">
+      <img src="miol_10.jpg" alt="">
     </div>
   </div>
 </div>
 
-<!-- 리서치 에이전트 팝업 -->
-<div class="overlay" id="research-ov">
-  <div class="modal" style="max-width:600px">
-    <div class="modal-head">
-      <div class="modal-top">
-        <div class="modal-left">
-          <div class="modal-ico-w">✨</div>
-          <div>
-            <div style="font-size:18px;font-weight:700;color:#111110">새 시리즈 주제 추천</div>
-            <div style="font-size:12px;color:#6b6b67;margin-top:3px">요즘 트렌드 기반으로 5개 추천해드릴게요</div>
-          </div>
+<!-- ============ PROJECT DETAIL: 미올한의원 튼살치료 ============ -->
+<div class="proj-overlay" id="proj-miolstretch" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 튼살치료 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #튼살치료 #브랜딩</span>
         </div>
-        <button class="close-btn" onclick="closeResearch()">✕</button>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
       </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
     </div>
-    <div class="modal-body">
-      <div style="background:#f5f4f0;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#6b6b67;line-height:1.6">
-        원하는 주제를 선택하면 EP로 바로 추가돼요. 추가 후 산출물 탭에서 원고를 뽑으세요.
-      </div>
-      <div id="suggest-list" style="display:flex;flex-direction:column;gap:8px"></div>
-    </div>
-    <div class="modal-foot">
-      <button class="btn" onclick="refreshSuggestions()">🔄 다시 추천</button>
-      <button class="btn btn-dark" onclick="closeResearch()">닫기</button>
+    <div class="pj-images">
+      <img src="miolstretch_02.jpg" alt="">
+      <img src="miolstretch_03.jpg" alt="">
+      <img src="miolstretch_04.jpg" alt="">
+      <img src="miolstretch_05.jpg" alt="">
+      <img src="miolstretch_06.jpg" alt="">
+      <img src="miolstretch_07.jpg" alt="">
     </div>
   </div>
 </div>
+
+<!-- ============ PROJECT DETAIL: 미올한의원 다이어트셔플먼트 ============ -->
+<div class="proj-overlay" id="proj-mioldiet" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="mioldiet_01.jpg" alt="미올한의원 다이어트셔플먼트 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 다이어트셔플먼트 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #다이어트 #브랜딩</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="mioldiet_02.jpg" alt="">
+      <img src="mioldiet_03.jpg" alt="">
+      <img src="mioldiet_04.jpg" alt="">
+      <img src="mioldiet_05.jpg" alt="">
+      <img src="mioldiet_06.jpg" alt="">
+      <img src="mioldiet_07.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 미올한의원 스킨부스터 ============ -->
+<div class="proj-overlay" id="proj-miolskin" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 스킨부스터 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #스킨부스터 #브랜딩</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="miolskin_02.jpg" alt="">
+      <img src="miolskin_03.jpg" alt="">
+      <img src="miolskin_04.jpg" alt="">
+      <img src="miolskin_05.jpg" alt="">
+      <img src="miolskin_06.jpg" alt="">
+      <img src="miolskin_07.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 미올한의원 핑크환 ============ -->
+<div class="proj-overlay" id="proj-miolpink" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 핑크환 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #핑크환 #브랜딩</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="miolpink_02.jpg" alt="">
+      <img src="miolpink_03.jpg" alt="">
+      <img src="miolpink_04.jpg" alt="">
+      <img src="miolpink_05.jpg" alt="">
+      <img src="miolpink_06.jpg" alt="">
+      <img src="miolpink_07.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 미올한의원 안면마비 ============ -->
+<div class="proj-overlay" id="proj-miolface" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 안면마비 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #안면마비 #브랜딩</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="miolface_02.jpg" alt="">
+      <img src="miolface_03.jpg" alt="">
+      <img src="miolface_04.jpg" alt="">
+      <img src="miolface_05.jpg" alt="">
+      <img src="miolface_06.jpg" alt="">
+      <img src="miolface_07.jpg" alt="">
+      <img src="miolface_08.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 미올한의원 바디라인 ============ -->
+<div class="proj-overlay" id="proj-miolbody" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 바디라인 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #바디라인 #브랜딩</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. 어떤 문제를 어떻게 풀었는지, 사용한 도구나 디자인 포인트, 결과를 함께 적으면 좋습니다. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="miolbody_02.jpg" alt="">
+      <img src="miolbody_03.jpg" alt="">
+      <img src="miolbody_04.jpg" alt="">
+      <img src="miolbody_05.jpg" alt="">
+      <img src="miolbody_06.jpg" alt="">
+      <img src="miolbody_07.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 데이노바 ============ -->
+<div class="proj-overlay" id="proj-daynova" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="daynova_01.jpg" alt="데이노바 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">데이노바 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #가전 #뷰티 #브랜딩</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="daynova_02.jpg" alt="">
+      <img src="daynova_03.jpg" alt="">
+      <img src="daynova_04.jpg" alt="">
+      <img src="daynova_05.jpg" alt="">
+      <img src="daynova_06.jpg" alt="">
+      <img src="daynova_07.jpg" alt="">
+      <img src="daynova_08.jpg" alt="">
+      <img src="daynova_09.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: TWINCURL 카카오선물하기 ============ -->
+<div class="proj-overlay" id="proj-twincurl" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">TWINCURL 카카오선물하기</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Landing Page #상세페이지 #카카오선물하기 #뷰티 #브랜딩</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="twincurl_02.jpg" alt="">
+      <img src="twincurl_03.jpg" alt="">
+      <img src="twincurl_04.jpg" alt="">
+      <img src="twincurl_05.jpg" alt="">
+      <img src="twincurl_06.jpg" alt="">
+      <img src="twincurl_07.jpg" alt="">
+      <img src="twincurl_08.jpg" alt="">
+      <img src="twincurl_09.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 레이트코리아 ============ -->
+<div class="proj-overlay" id="proj-latekr" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero"></div>
+    <div class="pj-info">
+      <h2 class="pj-h1">레이트코리아 가전/뷰티 상세페이지 리뉴얼</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Branding #상세페이지 #프로모션 #Landing Page</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">2024.09 — 2025.09</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">가전/뷰티 브랜드 홈페이지 기획·리뉴얼, 월별 프로모션 이벤트 운영, 가구브랜드 신규 런칭 등 전반적인 디자인 업무를 담당했습니다.</p>
+    </div>
+    <div class="pj-images"></div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 니케하임 가구 브랜드 런칭 ============ -->
+<div class="proj-overlay" id="proj-nikeheim" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">니케하임 가구 브랜드 런칭</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#AI Creative #Branding #가구 #신규런칭 #누끼+AI배경</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="nikeheim_02.jpg" alt="">
+      <img src="nikeheim_03.jpg" alt="">
+      <img src="nikeheim_04.jpg" alt="">
+      <img src="nikeheim_05.jpg" alt="">
+      <img src="nikeheim_06.jpg" alt="">
+      <img src="nikeheim_07.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 니케하임 가구 베네 상세페이지 ============ -->
+<div class="proj-overlay" id="proj-nikebene" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">니케하임 가구 베네 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="nikebene_02.jpg" alt="">
+      <img src="nikebene_03.jpg" alt="">
+      <img src="nikebene_04.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 니케하임 가구 어페로 상세페이지 ============ -->
+<div class="proj-overlay" id="proj-nikeapero" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">니케하임 가구 어페로 상세페이지</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="nikeapero_02.jpg" alt="">
+      <img src="nikeapero_03.jpg" alt="">
+      <img src="nikeapero_04.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 배너/상세페이지 ============ -->
+<div class="proj-overlay" id="proj-banner" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero"></div>
+    <div class="pj-info">
+      <h2 class="pj-h1">배너 / 상세페이지 디자인 제작</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Graphic #Branding #Online #배너 #상세페이지</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">2021.12 — 2024.08</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">1인 작업 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">메인 텍스트와 연관된 비주얼 요소, 설명이 레이아웃 안에서 어우러지도록 짜임새 있게 디자인했습니다.</p>
+    </div>
+    <div class="pj-images"></div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 오프라인 디자인물 ============ -->
+<div class="proj-overlay" id="proj-offline" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero"></div>
+    <div class="pj-info">
+      <h2 class="pj-h1">포스터 / 리플렛 오프라인 디자인물 제작</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Graphic #Poster #Leaflet #오프라인 #인쇄물</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">2021.12 — 2024.08</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">1인 작업 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">박람회·팝업·행사용 배너, 리플렛, 포스터 등 인쇄 홍보물을 기획하고 제작했습니다.</p>
+    </div>
+    <div class="pj-images"></div>
+  </div>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<div class="page" id="page-contact">
+  <section class="sec-pad dark" style="padding-top:150px;min-height:100vh;">
+    <div class="wrap">
+      <div class="contact-block sr">
+        <div class="eyebrow" style="background:#0e0e0e;">Get in touch</div>
+        <h2>Let's<br><span class="o">work</span> together</h2>
+        <!-- [[ 이메일 ]] -->
+        <a class="mail" href="mailto:lucky771628@naver.com">
+          <span class="c"></span> lucky771628@naver.com
+        </a>
+      </div>
+      <div class="contact-grid">
+        <!-- [[ 연락처 정보 ]] -->
+        <a href="tel:01041569889" class="sr">
+          <div class="l">Phone</div><div class="v">010-4156-9889</div>
+        </a>
+        <a href="mailto:lucky771628@naver.com" class="sr">
+          <div class="l">Email</div><div class="v">lucky771628@naver.com</div>
+        </a>
+        <a href="#" class="sr">
+          <div class="l">Location</div><div class="v">서울시 강동구 천호대로 1077</div>
+        </a>
+        <a href="#" class="sr">
+          <div class="l">Birth</div><div class="v">1997.10.17 (만 29세)</div>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="fl">PORTFOLIO</div>
+  <!-- [[ 이름 ]] -->
+  <div class="fc">© 2025 Kim Yu Jung. All Rights Reserved.</div>
+  <button class="ft" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
+</footer>
 
 <script>
-// ── 기본 주제 풀 ─────────────────────────────────────
-const DEFAULT_TOPICS=[
-  {t:'토스가 버튼을 항상 아래에 두는 이유',h:'"엄지 존" 설계의 비밀'},
-  {t:'당근마켓 채팅창이 단순한 이유',h:'기능을 빼는 것도 설계다'},
-  {t:'카카오뱅크 이체 화면의 심리학',h:'불안을 없애는 UI 설계'},
-  {t:'배달의민족 주문 버튼이 빨간 이유',h:'색이 행동을 만드는 방식'},
-  {t:'유튜브 홈 피드는 왜 끝이 없나',h:'무한스크롤의 중독 설계'},
-  {t:'쿠팡 리뷰가 신뢰받는 구조',h:'사회적 증거 설계법'},
-  {t:'라인 메시지 읽음 표시의 압박',h:'UX가 만드는 사회적 불안'},
-  {t:'네이버 검색창이 항상 첫 화면인 이유',h:'진입점 설계의 비밀'},
-  {t:'인스타 좋아요가 숨겨진 날',h:'지표를 없애면 뭐가 달라질까'},
-  {t:'앱 온보딩이 3초 안에 실패하는 패턴',h:'첫 화면이 전부다'},
-];
-const TOPIC_POOL=[
-  {t:'카카오페이 결제 화면이 3초인 이유',h:'속도가 신뢰를 만든다'},
-  {t:'무신사 상품 페이지의 구매 심리학',h:'스크롤을 멈추게 만드는 설계'},
-  {t:'애플 설정 앱이 복잡한 이유',h:'단순함의 역설'},
-  {t:'지그재그 추천 알고리즘 UX 해부',h:'취향을 학습하는 화면'},
-  {t:'당근마켓 동네 인증이 번거로운 이유',h:'마찰이 신뢰를 만드는 방법'},
-  {t:'스타벅스 앱이 사이렌오더를 앞에 두는 이유',h:'습관을 설계하는 진입점'},
-  {t:'29CM 에디토리얼 UI의 비밀',h:'콘텐츠처럼 보이는 쇼핑'},
-  {t:'토스증권 초보 투자자 UX 전략',h:'무서움을 없애는 설계'},
-  {t:'배달앱 리뷰 사진이 상단에 있는 이유',h:'사회적 증거의 시각화'},
-  {t:'네이버 지도 vs 카카오맵 첫 화면 차이',h:'같은 기능, 다른 철학'},
-  {t:'오늘의집 3D 배치 기능의 심리학',h:'상상을 현실처럼 만드는 UI'},
-  {t:'쏘카 예약 화면이 단순한 이유',h:'결정 피로를 없애는 설계'},
-  {t:'카카오뱅크 26주 적금의 UX 비밀',h:'게이미피케이션과 금융의 결합'},
-  {t:'번개장터가 당근마켓과 다른 UX 전략',h:'타깃이 다르면 화면도 다르다'},
-  {t:'클립 앱 숏폼 UI가 틱톡과 다른 점',h:'국내 맞춤 UX 전략'},
-  {t:'컬리 새벽배송 UX가 신뢰받는 이유',h:'불안을 없애는 물류 설계'},
-  {t:'삼성 One UI가 애플과 다른 이유',h:'안드로이드 UX의 철학'},
-  {t:'카카오T 호출 화면의 긴장 설계',h:'기다림을 견디게 만드는 UI'},
-  {t:'쿠팡이츠 도착 예정 화면의 심리학',h:'불확실성을 관리하는 방법'},
-  {t:'네이버페이 결제 흐름이 매끄러운 이유',h:'마찰 없는 전환 설계'},
-];
-const COLORS=['#cc3333','#cc9900','#0055cc','#226622','#664499','#cc5500','#226666','#886622','#993356','#444444','#336699','#669933','#993366','#cc6600','#006666'];
-const gc=i=>COLORS[i%COLORS.length];
-const UNLOCK=[null,null,0,null,[1,2],3];
-const DELAYS=[900,2200,1900,1700,2300,1300];
-const epn=i=>String(i+1).padStart(2,'0');
-
-// ── 산출물 정의 (비주얼 에이전트 추가) ─────────────────
-const OUTS=[
-  {ico:'📄',name:'브런치 원고',desc:'에디터+페르소나 검수 완료본',
-   tabs:['원고 전문','에디터 검수'],
-   p:[(ep,t)=>{
-     const styles=[
-       {name:'질문형', guide:'독자에게 계속 질문을 던지며 끌고 가는 방식. 왜? 라는 질문으로 시작해서 독자 스스로 답을 찾게 만들어.'},
-       {name:'스토리형', guide:'한 장면에서 시작해서 경험 -> 발견 -> 인사이트 순서로 전개. 독자가 나의 이야기를 따라가다 인사이트를 얻게 만들어.'},
-       {name:'분석형', guide:'데이터와 근거 중심으로 설명. 구체적인 수치나 사례를 제시하며 논리적으로 전개. 표나 비교 구조 활용해도 좋아.'},
-       {name:'비교형', guide:'두 가지를 나란히 놓고 차이를 뜯어보는 방식. 같은 점과 다른 점을 명확하게 대비시켜서 독자가 직관적으로 이해하게 만들어.'},
-       {name:'고백형', guide:'나도 몰랐던 사실 형식으로 시작. 나도 당하고 있었다는 반전 구조. 공감에서 시작해서 깨달음으로 끝나는 흐름.'},
-     ];
-     const style=styles[(parseInt(ep)-1)%styles.length];
-     return `EP.${ep} — ${t}: 브런치 원고 전문을 작성해줘.\n\n[원고 스타일: ${style.name}]\n${style.guide}\n\n리서치 에이전트가 조사한 내용을 바탕으로 아래 스타일 가이드를 반드시 적용해서 작성해줘.
-
-[우디 스타일 글쓰기 가이드]
-1. 제목: 독자의 고통 포인트를 정확히 찌르는 감정형으로 ("왜 ~을 못 하는가", "~이 아니다, 설계다")
-2. 첫 문단: 독자가 직접 경험했을 법한 순간으로 바로 시작. 이론 설명 금지.
-3. 숫자/데이터: 첫 3문단 안에 신뢰를 높이는 수치 1개 이상 삽입 (예: "이탈률 70%", "출시 20일 만에 30만 좌")
-4. 반전 구조: "이건 당신 문제가 아니다. 설계다" 형식의 반전을 글 중반에 한 번 이상 넣기
-5. 행동 유도: 마지막 직전 문단에 "지금 앱을 열어보자" 형식의 구체적 행동 제안
-6. 클로징: "이거 아는 사람이 다르게 봐요. 저장해두세요." + 다음 편 예고로 마무리
-7. 분량: 내용의 깊이에 맞게 자유롭게. 짧아도 되고 길어도 됨.
-
-위 가이드를 지키면서 브런치 독자가 중간에 이탈하지 않고 끝까지 읽고 저장 버튼을 누르게 만드는 글을 써줘.`;
-   },
-      (ep,t)=>`EP.${ep} — ${t}: 브런치 원고 에디터 검수를 해줘.\n\n[검수 기준 — 우디 스타일]\n1. 제목이 독자 고통을 찌르는가 (감정형인가)\n2. 첫 문단에 독자 경험이 바로 나오는가\n3. 숫자/데이터가 첫 3문단 안에 있는가\n4. 반전 구조 (설계다, 의지력 문제가 아니다)가 있는가\n5. 행동 유도 문장이 마지막 직전에 있는가\n\n각 항목별로 점수 매기고, 약한 부분 수정 제안 달아줘. 그리고 최종본도 바로 작성해줘.`]},
-  {ico:'🎨',name:'배너 이미지',desc:'16:9 트렌디 배너 MJ 프롬프트',
-   tabs:['메인 배너','변형 버전'],
-   p:[(ep,t)=>`EP.${ep} — ${t}: 브런치 상단 배너 미드저니 프롬프트를 작성해줘. 20대 초반이 좋아하는 트렌디하고 생동감 있는 스타일로, 라우드소싱 감성 참고해서 젊고 세련된 느낌으로. 글의 핵심 감정 (독자 고통, 반전, 깨달음) 중 하나를 시각적으로 표현해줘. --ar 16:9 --style raw --v 6.1 --q 2 포함.`,
-      (ep,t)=>`EP.${ep} — ${t}: 배너 변형 버전 2개를 추가로 작성해줘. 각각 다른 무드와 구도로. 트렌디하고 젊은 감성 유지, --ar 16:9 --style raw --v 6.1 --q 2 포함.`]},
-  {ico:'📸',name:'섹션별 이미지',desc:'원고 각 섹션 삽입용 프롬프트',
-   tabs:['섹션 이미지','삽입 가이드'],
-   p:[(ep,t)=>`EP.${ep} — ${t}: 브런치 원고의 각 섹션에 삽입할 이미지 미드저니 프롬프트를 섹션별로 작성해줘. 각 섹션 내용을 시각적으로 설명하는 이미지, 트렌디하고 젊은 감성, --ar 1:1 --style raw --v 6.1 --q 2 포함.`,
-      (ep,t)=>`EP.${ep} — ${t}: 각 섹션 이미지를 브런치에 어떤 위치에 넣으면 좋을지 삽입 가이드를 작성해줘. 이미지 앞뒤 문단, 캡션 문구, 독자 몰입도 높이는 배치 방법 포함.`]},
-  {ico:'📊',name:'품질 리포트',desc:'훅강도·저장율·개선방향',
-   tabs:['품질 분석','다음 EP 제안'],
-   p:[(ep,t)=>`EP.${ep} — ${t}: 품질 리포트. 훅 강도 점수, 예상 저장율, 강한/약한 씬, 바이럴 가능성 포함해서 작성해줘.`,
-      (ep,t)=>`EP.${ep} — ${t}: 분석 기반 다음 EP 기획 방향 제안. 훅 카피 3가지, 타겟 페르소나 포함.`]},
-];
-
-// ── localStorage 키// ── localStorage 키 ───────────────────────────────────
-const LS = {
-  TOPICS: 'ux_topics',
-  STATE:  'ux_state',
-  SEL:    'ux_sel',
-  UPLOADS:'ux_uploads',
-  TODOS:  'ux_todos',
-  TODOID: 'ux_todoid',
-  EXPANDED:'ux_expanded',
-};
-
-function lsGet(key, fallback) {
-  try { const v=localStorage.getItem(key); return v!==null?JSON.parse(v):fallback; }
-  catch(e){ return fallback; }
-}
-function lsSet(key, val) {
-  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e){}
-}
-
-// ── 데이터 초기화 (localStorage 우선) ─────────────────
-let TOPICS = lsGet(LS.TOPICS, DEFAULT_TOPICS);
-let sel    = lsGet(LS.SEL, 0);
-if(sel >= TOPICS.length) sel = 0;
-
-const defaultState = TOPICS.map(()=>({steps:0,outs:[false,false,false,false]}));
-let state = lsGet(LS.STATE, defaultState);
-// 토픽 수와 state 수 맞추기
-while(state.length < TOPICS.length) state.push({steps:0,outs:[false,false,false,false]});
-state = state.slice(0, TOPICS.length);
-
-const defaultUploads = {instagram:0,brunch:0,youtube:0};
-let uploads = lsGet(LS.UPLOADS, defaultUploads);
-
-const defaultTodos = [
-  {id:1,text:'EP.01 브런치 발행',done:false,tag:'브런치',date:'오늘'},
-  {id:2,text:'EP.01 릴스 업로드',done:false,tag:'인스타',date:'오늘'},
-  {id:3,text:'EP.02 원고 에디터 검수',done:false,tag:'작업',date:'내일'},
-];
-let todos  = lsGet(LS.TODOS, defaultTodos);
-let tid    = lsGet(LS.TODOID, 4);
-
-let expanded = lsGet(LS.EXPANDED, {});
-let running  = false;
-let curModal = {ei:0,oi:0,ti:0};
-let refreshSel = new Set();
-let _suggestions = [];
-
-// ── 저장 헬퍼 ────────────────────────────────────────
-function save() {
-  lsSet(LS.TOPICS,   TOPICS);
-  lsSet(LS.STATE,    state);
-  lsSet(LS.SEL,      sel);
-  lsSet(LS.UPLOADS,  uploads);
-  lsSet(LS.TODOS,    todos);
-  lsSet(LS.TODOID,   tid);
-  lsSet(LS.EXPANDED, expanded);
-}
-
-// ── 렌더 함수들 ───────────────────────────────────────
-function renderEpList(){
-  document.getElementById('ep-list').innerHTML=TOPICS.map((tp,i)=>{
-    const es=state[i]||{steps:0,outs:[]};
-    const pct=Math.round(es.steps/8*100);
-    const bg=es.steps===8?'#d8f3dc':es.steps>0?'#fef3c7':'#e8e6e0';
-    const fc=es.steps===8?'#2d6a4f':es.steps>0?'#92400e':'#6b6b67';
-    return `<div class="ep-item${i===sel?' active':''}" onclick="selEp(${i})">
-      <div class="ep-dot" style="background:${gc(i)}"></div>
-      <div class="ep-info">
-        <div class="ep-num">EP.${epn(i)}</div>
-        <div class="ep-title-txt">${tp.t}</div>
-        <div class="ep-hook-txt">${tp.h}</div>
-        ${es.steps>0?`<div class="ep-prog-wrap"><div class="ep-prog-fill" style="width:${pct}%"></div></div>`:''}
-      </div>
-      <div class="ep-badge" style="background:${bg};color:${fc}">${es.steps===8?'완성':es.steps>0?`${es.steps}/8`:'대기'}</div>
-      <div class="ep-del" onclick="event.stopPropagation();delEp(${i})">✕</div>
-    </div>`;
-  }).join('');
-}
-
-function renderDet(){
-  if(!TOPICS[sel]) return;
-  const tp=TOPICS[sel], s=state[sel]||{steps:0};
-  document.getElementById('det-dot').style.background=gc(sel);
-  document.getElementById('det-epnum').textContent=`EP.${epn(sel)}`;
-  document.getElementById('det-title').textContent=tp.t;
-  document.getElementById('det-hook').textContent=tp.h;
-  document.getElementById('det-status').textContent=
-    s.steps===0?'파이프라인 대기 중':s.steps===8?'✓ 8단계 완료':`${s.steps}/8단계 진행중`;
-}
-
-function renderOuts(){
-  const s=state[sel]||{outs:[]};
-  document.getElementById('out-list').innerHTML=OUTS.map((o,i)=>{
-    const done=!!(s.outs&&s.outs[i]);
-    const tabs=done?o.tabs.map((tab,ti)=>`<button class="tab-chip" onclick="event.stopPropagation();openM(${sel},${i},${ti})">${tab}</button>`).join(''):'';
-    return `<div class="out-row${done?' ready':''}" ${done?`onclick="openM(${sel},${i},0)"`:''} onmouseenter="${done?`this.style.background='#f5f4f0'`:''}" onmouseleave="this.style.background=''">
-      <div class="out-ico-wrap" style="background:${done?'#111110':'#f0f0ef'}"><span style="filter:${done?'none':'grayscale(1)'};opacity:${done?1:.4}">${o.ico}</span></div>
-      <div style="flex:1;min-width:0"><div class="out-name">${o.name}</div><div class="out-desc">${o.desc}</div></div>
-      <div class="out-right">${tabs}<div style="font-size:11px;font-weight:500;color:${done?'#2d6a4f':'#b4b2a9'}">${done?'✓':'● 대기'}</div></div>
-    </div>`;
-  }).join('');
-}
-
-function renderArchive(){
-  const done=state.map((e,i)=>(e&&e.steps===8)?i:-1).filter(i=>i>=0);
-  document.getElementById('archive-badge').textContent=`${done.length}편 완성`;
-  const body=document.getElementById('archive-body');
-  if(!done.length){
-    body.innerHTML=`<div style="padding:32px 20px;text-align:center"><div style="font-size:24px;opacity:.3;margin-bottom:8px">📭</div><div style="font-size:13px;color:#b4b2a9">아직 완성된 EP가 없어요</div><div style="font-size:11px;color:#b4b2a9;margin-top:4px">파이프라인을 실행하면 여기에 쌓여요</div></div>`;
-    return;
-  }
-  body.innerHTML=done.map(i=>{
-    const tp=TOPICS[i], isOpen=!!(expanded[i]);
-    const icoRow=OUTS.map((_,oi)=>`<div class="tbl-col" style="opacity:${state[i]&&state[i].outs&&state[i].outs[oi]?1:.15}">${OUTS[oi].ico}</div>`).join('');
-    const exp=isOpen?`<div class="arc-expand">
-      <div class="arc-expand-bar">
-        <div style="width:6px;height:6px;border-radius:50%;background:${gc(i)}"></div>
-        <span style="font-size:12px;font-weight:600;color:#111110">EP.${epn(i)} — ${tp.t}</span>
-        <span style="font-size:11px;color:#6b6b67">/ ${tp.h}</span>
-      </div>
-      ${OUTS.map((o,oi)=>`<div class="arc-out-row" onclick="openM(${i},${oi},0)">
-        <div class="arc-out-ico">${o.ico}</div>
-        <div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:#111110;margin-bottom:1px">${o.name}</div><div style="font-size:11px;color:#6b6b67">${o.desc}</div></div>
-        <div style="display:flex;gap:5px;flex-shrink:0">${o.tabs.map((tab,ti)=>`<button class="tab-chip" onclick="event.stopPropagation();openM(${i},${oi},${ti})">${tab}</button>`).join('')}</div>
-      </div>`).join('')}
-    </div>`:'';
-    return `<div class="arc-row-wrap">
-      <div class="arc-row" onclick="toggleArc(${i})">
-        <div class="arc-arrow${isOpen?' open':''}">▶</div>
-        <div class="arc-ep-info">
-          <div style="width:7px;height:7px;border-radius:50%;background:${gc(i)};flex-shrink:0"></div>
-          <div style="min-width:0"><div style="font-size:10px;color:#b4b2a9">EP.${epn(i)}</div><div style="font-size:13px;font-weight:500;color:#111110;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${tp.t}</div></div>
-        </div>
-        ${icoRow}
-        <div style="text-align:right"><span style="font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;background:#d8f3dc;color:#2d6a4f">완성</span></div>
-      </div>${exp}
-    </div>`;
-  }).join('');
-}
-
-function renderStats(){
-  const d=state.filter(e=>e&&e.steps===8).length;
-  const o=state.reduce((a,e)=>a+(e&&e.outs?e.outs.filter(Boolean).length:0),0);
-  const u=Object.values(uploads).reduce((a,b)=>a+b,0);
-  document.getElementById('stat-text').textContent=`${d} / ${TOPICS.length} 완성`;
-  document.getElementById('ps-done').textContent=d;
-  document.getElementById('ps-upload').textContent=u;
-  document.getElementById('ps-outs').textContent=o;
-}
-
-function renderUpload(){
-  const platforms=[{k:'instagram',l:'Instagram',i:'📸'},{k:'brunch',l:'Brunch',i:'✍'},{k:'youtube',l:'YouTube',i:'▶'}];
-  document.getElementById('upload-tracker').innerHTML=platforms.map(p=>`
-    <div class="upload-row">
-      <span style="font-size:12px">${p.i}</span>
-      <span style="font-size:12px;color:#3d3d3a;flex:1">${p.l}</span>
-      <div style="display:flex;align-items:center;gap:6px">
-        <button class="upcount-btn" onclick="chUp('${p.k}',-1)">−</button>
-        <span style="font-size:13px;font-weight:600;color:#111110;min-width:16px;text-align:center">${uploads[p.k]||0}</span>
-        <button class="upcount-btn" onclick="chUp('${p.k}',1)">＋</button>
-      </div>
-    </div>`).join('');
-}
-
-function renderTodos(){
-  const list=document.getElementById('todo-list');
-  if(!todos.length){
-    list.innerHTML=`<div style="padding:14px;text-align:center;font-size:12px;color:#b4b2a9">할 일을 추가해보세요</div>`;
-    return;
-  }
-  const tc={브런치:'#fef3c7|#92400e',인스타:'#dbeafe|#1e3a5f',유튜브:'#fee2e2|#991b1b',작업:'#e8e6e0|#6b6b67'};
-  list.innerHTML=todos.map(t=>{
-    const [bg,fc]=(tc[t.tag]||'#e8e6e0|#6b6b67').split('|');
-    return `<div class="todo-item">
-      <div class="todo-check${t.done?' done':''}" onclick="togTodo(${t.id})">${t.done?'✓':''}</div>
-      <div class="todo-text${t.done?' done':''}">${t.text}</div>
-      ${t.tag?`<div class="todo-tag" style="background:${bg};color:${fc}">${t.tag}</div>`:''}
-      ${t.date?`<div class="todo-date">${t.date}</div>`:''}
-      <button class="del-btn" onclick="delTodo(${t.id})">✕</button>
-    </div>`;
-  }).join('');
-}
-
-function renderAll(){renderEpList();renderDet();renderOuts();renderArchive();renderStats();renderUpload();renderTodos();}
-
-// ── 인터랙션 ──────────────────────────────────────────
-function selEp(i){sel=i;save();renderEpList();renderDet();renderOuts();}
-
-function delEp(i){
-  if(!confirm(`"${TOPICS[i].t}" 삭제할까요?`)) return;
-  TOPICS.splice(i,1); state.splice(i,1);
-  if(sel>=TOPICS.length) sel=Math.max(0,TOPICS.length-1);
-  save(); renderAll();
-}
-
-function showAddEp(){document.getElementById('add-ep-row').style.display='flex';document.getElementById('add-ep-input').focus();}
-function hideAddEp(){document.getElementById('add-ep-row').style.display='none';document.getElementById('add-ep-input').value='';}
-function addEp(){
-  const v=document.getElementById('add-ep-input').value.trim(); if(!v) return;
-  TOPICS.push({t:v,h:'새 EP'}); state.push({steps:0,outs:[false,false,false,false]});
-  sel=TOPICS.length-1; hideAddEp(); save(); renderAll();
-}
-
-function toggleArc(i){expanded[i]=!expanded[i];save();renderArchive();}
-
-function chUp(k,d){uploads[k]=Math.max(0,(uploads[k]||0)+d);save();renderUpload();renderStats();}
-
-function showAddTodo(){document.getElementById('add-todo-row').style.display='flex';document.getElementById('add-todo-input').focus();}
-function hideAddTodo(){document.getElementById('add-todo-row').style.display='none';document.getElementById('add-todo-input').value='';}
-function addTodo(){
-  const v=document.getElementById('add-todo-input').value.trim(); if(!v) return;
-  todos.push({id:tid++,text:v,done:false,tag:'작업',date:''});
-  hideAddTodo(); save(); renderTodos();
-}
-function togTodo(id){const t=todos.find(x=>x.id===id);if(t){t.done=!t.done;save();renderTodos();}}
-function delTodo(id){todos=todos.filter(x=>x.id!==id);save();renderTodos();}
-
-// ── 파이프라인 ────────────────────────────────────────
-function runPipeline(){
-  if(running||!TOPICS[sel]) return;
-  running=true;
-  document.getElementById('btn-run').disabled=true;
-  document.getElementById('btn-ep-run').disabled=true;
-  state[sel]={steps:0,outs:[false,false,false,false]};
-  save(); renderDet(); renderOuts(); renderEpList();
-  let step=0;
-  function tick(){
-    step++; state[sel].steps=step;
-    const u=UNLOCK[step];
-    if(u!==null&&u!==undefined){Array.isArray(u)?u.forEach(o=>{state[sel].outs[o]=true;}):state[sel].outs[u]=true;}
-    if(step===6) state[sel].outs=[true,true,true,true];
-    save(); renderDet(); renderOuts(); renderEpList(); renderArchive(); renderStats();
-    if(step<6) setTimeout(tick,DELAYS[step]);
-    else{running=false;document.getElementById('btn-run').disabled=false;document.getElementById('btn-ep-run').disabled=false;}
-  }
-  setTimeout(tick,DELAYS[0]);
-}
-
-// ── 팝업 ─────────────────────────────────────────────
-function openM(ei,oi,ti){
-  if(!TOPICS[ei]) return;
-  curModal={ei,oi,ti};
-  const o=OUTS[oi],tp=TOPICS[ei],ep=epn(ei);
-  document.getElementById('m-ico').textContent=o.ico;
-  document.getElementById('m-dot').style.background=gc(ei);
-  document.getElementById('m-ep-text').textContent=`EP.${ep} — ${tp.t}`;
-  document.getElementById('m-title').textContent=o.name;
-  document.getElementById('m-prompt').textContent=o.p[ti](ep,tp.t);
-  document.getElementById('m-tabs').innerHTML=o.tabs.map((tab,i)=>
-    `<button class="mtab${i===ti?' on':''}" onclick="switchTab(${i})">${tab}</button>`).join('');
-  document.getElementById('btn-copy').textContent='📋 명령어 복사';
-  document.getElementById('modal-ov').classList.add('open');
-}
-function switchTab(ti){openM(curModal.ei,curModal.oi,ti);}
-function closeModal(){document.getElementById('modal-ov').classList.remove('open');}
-function copyPrompt(){
-  navigator.clipboard.writeText(document.getElementById('m-prompt').textContent).then(()=>{
-    const b=document.getElementById('btn-copy'); b.textContent='✓ 복사됨';
-    setTimeout(()=>{b.textContent='📋 명령어 복사';},2000);
+function go(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('nav .menu button[data-nav]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.nav===name);
   });
-}
-
-// ── 새 주제 추천 ──────────────────────────────────────
-function refreshTopics(){
-  const btn=document.getElementById('btn-refresh'),ico=document.getElementById('refresh-ico');
-  btn.disabled=true; ico.innerHTML='<span class="spin">🔄</span>';
+  window.scrollTo({top:0,behavior:'instant'});
   setTimeout(()=>{
-    btn.disabled=false; ico.textContent='🔄';
-    const existing=new Set(TOPICS.map(t=>t.t));
-    const pool=TOPIC_POOL.filter(t=>!existing.has(t.t));
-    const src=pool.length>=5?pool:TOPIC_POOL;
-    _suggestions=src.sort(()=>Math.random()-.5).slice(0,5);
-    refreshSel=new Set();
-    document.getElementById('refresh-list').innerHTML=_suggestions.map((s,i)=>`
-      <div class="refresh-item" id="ri-${i}" onclick="togRefresh(${i})">
-        <div class="rcheck" id="rc-${i}"></div>
-        <div><div style="font-size:13px;font-weight:500;color:#111110;margin-bottom:2px">${s.t}</div><div style="font-size:11px;color:#6b6b67">${s.h}</div></div>
-      </div>`).join('');
-    document.getElementById('btn-add-sel').style.display='none';
-    document.getElementById('refresh-status').textContent='주제를 선택하세요';
-    document.getElementById('refresh-ov').classList.add('open');
-  },800);
+    initReveal();
+    // work 페이지 카드 강제 노출 (클릭 가능하도록)
+    if(name==='work'){
+      document.querySelectorAll('#page-work .sr').forEach(el=>el.classList.add('in'));
+    }
+  }, 60);
+  if(name==='home') initMasonry();
 }
-function togRefresh(i){
-  const item=document.getElementById(`ri-${i}`),chk=document.getElementById(`rc-${i}`);
-  if(refreshSel.has(i)){refreshSel.delete(i);item.classList.remove('sel');chk.textContent='';}
-  else{refreshSel.add(i);item.classList.add('sel');chk.textContent='✓';}
-  const btn=document.getElementById('btn-add-sel');
-  btn.style.display=refreshSel.size?'inline-flex':'none';
-  btn.textContent=`${refreshSel.size}개 추가`;
-  document.getElementById('refresh-status').textContent=refreshSel.size?`${refreshSel.size}개 선택됨`:'주제를 선택하세요';
+
+function openProject(id){
+  const el = document.getElementById('proj-'+id);
+  if(!el) return;
+  el.classList.add('open');
+  document.body.style.overflow='hidden';
 }
-function addSelected(){
-  refreshSel.forEach(i=>{
-    if(_suggestions[i]){TOPICS.push(_suggestions[i]);state.push({steps:0,outs:[false,false,false,false]});}
+function closeProject(){
+  document.querySelectorAll('.proj-overlay').forEach(el=>el.classList.remove('open'));
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target === e.currentTarget) closeProject();
+}
+function pgSelect(img){
+  document.getElementById('pgMainImg').src = img.src;
+  document.querySelectorAll('.pg-thumbs img').forEach(t=>t.classList.remove('active'));
+  img.classList.add('active');
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeProject(); });
+
+function initMasonry(){
+  const items = document.querySelectorAll('.hm-item');
+  items.forEach((el,i)=>{
+    el.classList.remove('pop');
+    setTimeout(()=>el.classList.add('pop'), 200 + i*100);
   });
-  closeRefresh(); save(); renderAll();
 }
-function closeRefresh(){document.getElementById('refresh-ov').classList.remove('open');refreshSel=new Set();}
-
-document.getElementById('modal-ov').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
-// refresh-ov removed
-
-renderAll();
-
-// ── 리서치 에이전트 (새 시리즈 추천) ────────────────────
-const SUGGEST_POOL = [
-  {t:'쿠팡에서 장바구니 담고 왜 결제를 못 하는가', h:'이탈률 70%의 설계 비밀', tag:'쇼핑'},
-  {t:'당신이 인스타를 끊지 못하는 건 의지력 문제가 아니다', h:'중독 설계의 3가지 장치', tag:'SNS'},
-  {t:'앱 온보딩 3초 안에 실패하는 패턴', h:'첫 화면이 전부다', tag:'UX'},
-  {t:'배달앱 주문 버튼이 빨간 이유', h:'색이 행동을 만드는 방식', tag:'UX'},
-  {t:'카카오톡 읽씹이 불안한 건 설계 때문이다', h:'읽음 표시가 만드는 사회적 압박', tag:'메신저'},
-  {t:'넷플릭스 다음 화가 자동으로 재생되는 이유', h:'선택을 없애는 설계', tag:'OTT'},
-  {t:'오늘의집이 인테리어를 충동구매하게 만드는 구조', h:'욕망을 설계하는 방법', tag:'쇼핑'},
-  {t:'당근마켓과 번개장터, 같은 중고거래가 다른 이유', h:'신뢰를 설계하는 방식', tag:'플랫폼'},
-  {t:'스타벅스 앱이 사이렌오더를 앞에 두는 이유', h:'습관을 만드는 UI 설계', tag:'F&B'},
-  {t:'무신사가 패션을 아는 척하게 만드는 설계', h:'전문성 착각의 UX', tag:'패션'},
-  {t:'카카오T 호출 화면의 긴장감은 설계다', h:'기다림을 견디게 만드는 방법', tag:'모빌리티'},
-  {t:'앱이 당신의 알림을 켜두게 만드는 방법', h:'슬롯머신과 같은 원리', tag:'UX'},
-  {t:'로그인 화면 하나로 이탈이 결정된다', h:'진입 장벽 설계의 심리학', tag:'UX'},
-  {t:'왜 어떤 앱은 처음부터 쉽고 어떤 앱은 어려운가', h:'온보딩 UX 비교 분석', tag:'UX'},
-  {t:'쿠팡이츠 도착 예정 화면의 심리학', h:'기다림을 참게 만드는 설계', tag:'배달'},
-];
-
-function shuffle(arr){ return arr.slice().sort(()=>Math.random()-.5); }
-
-function openResearchModal(){
-  renderSuggestions();
-  document.getElementById('research-ov').classList.add('open');
+function goFilter(cat){
+  go('work');
+  setTimeout(()=>{
+    // 필터 버튼 활성화
+    document.querySelectorAll('.work-filter button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.cat===cat||b.dataset.cat==='all'&&cat==='all');
+    });
+    const btn = document.querySelector(`.work-filter button[data-cat="${cat}"]`);
+    if(btn){ btn.click(); }
+  }, 100);
 }
-
-function closeResearch(){
-  document.getElementById('research-ov').classList.remove('open');
+function toggleAcc(btn){
+  const item=btn.closest('.acc-item');
+  const body=item.querySelector('.acc-body');
+  const open=item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item').forEach(it=>{
+    it.classList.remove('open');
+    it.querySelector('.acc-body').style.maxHeight=null;
+  });
+  if(!open){
+    item.classList.add('open');
+    body.style.maxHeight=body.scrollHeight+'px';
+  }
 }
-
-function renderSuggestions(){
-  const list = document.getElementById('suggest-list');
-  const picked = shuffle(SUGGEST_POOL).slice(0,5);
-  list.innerHTML = picked.map(s=>`
-    <div style="background:#fff;border:1px solid #e8e6e0;border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s"
-      onmouseover="this.style.borderColor='#111110'" onmouseout="this.style.borderColor='#e8e6e0'"
-      onclick="addSuggestEp('${s.t.replace(/'/g,"\\'")}','${s.h.replace(/'/g,"\\'")}')">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-        <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:#f5f4f0;color:#6b6b67">${s.tag}</span>
-        <span style="font-size:11px;color:#bbb">탭해서 추가 →</span>
-      </div>
-      <div style="font-size:14px;font-weight:700;color:#111110;margin-bottom:3px;line-height:1.4">${s.t}</div>
-      <div style="font-size:12px;color:#6b6b67">${s.h}</div>
-    </div>
-  `).join('');
+let srObs;
+function initReveal(){
+  const items=document.querySelectorAll('.page.active .sr:not(.in)');
+  if(srObs) srObs.disconnect();
+  srObs=new IntersectionObserver(es=>{
+    es.forEach((e,i)=>{
+      if(e.isIntersecting){
+        const el=e.target;
+        setTimeout(()=>{
+          el.classList.add('in');
+          el.querySelectorAll('[data-count]').forEach(n=>countUp(n));
+          el.querySelectorAll('.bar i[data-pct]').forEach(b=>{b.style.width=b.dataset.pct+'%';});
+        },(i%3)*90);
+        srObs.unobserve(el);
+      }
+    });
+  },{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  items.forEach(el=>srObs.observe(el));
 }
-
-function refreshSuggestions(){ renderSuggestions(); }
-
-function addSuggestEp(title, hint){
-  TOPICS.push({t:title, h:hint});
-  state.push({steps:0, outs:[false,false,false,false]});
-  save();
-  sel = TOPICS.length - 1;
-  renderEpList();
-  renderDet();
-  renderOuts();
-  renderArchive();
-  renderStats();
-  closeResearch();
+function countUp(el){
+  if(el.dataset.done) return;
+  el.dataset.done=1;
+  const t=+el.dataset.count;
+  const isYear=t>1900;
+  let cur=isYear?t-30:0;
+  const step=Math.max(1,Math.ceil((t-cur)/45));
+  const tick=()=>{
+    cur+=step;
+    if(cur>=t){el.textContent=isYear?t:t+'+';return;}
+    el.textContent=cur;
+    requestAnimationFrame(tick);
+  };
+  tick();
 }
-
-document.getElementById('research-ov').addEventListener('click',e=>{
-  if(e.target===e.currentTarget) closeResearch();
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('done');
+    initReveal();
+    initMasonry();
+  },1700);
 });
+document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
+
+/* ---------- WORK 카테고리 필터 ---------- */
+(function(){
+  const filter=document.getElementById('workFilter');
+  const grid=document.getElementById('workGrid');
+  if(!filter||!grid) return;
+  const cards=[...grid.querySelectorAll('.work')];
+  // 탭 클릭 → 필터링
+  filter.addEventListener('click',e=>{
+    const btn=e.target.closest('button');
+    if(!btn) return;
+    filter.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat=btn.dataset.cat;
+    grid.style.opacity='0';
+    setTimeout(()=>{
+      cards.forEach(c=>{
+        const show=cat==='all'||c.dataset.cat===cat;
+        c.classList.toggle('is-hidden',!show);
+      });
+      grid.style.opacity='1';
+    },200);
+  });
+})();
+
+
+/* ---------- SHOWCASE 슬라이더 ---------- */
+(function(){
+  const track=document.getElementById('scTrack');
+  const prev=document.getElementById('scPrev');
+  const next=document.getElementById('scNext');
+  if(!track||!prev||!next) return;
+  let pos=0;
+  const step=()=>{
+    const card=track.querySelector('.sc-card');
+    if(!card) return 320;
+    return card.getBoundingClientRect().width+10; // 카드폭 + gap
+  };
+  const maxPos=()=>Math.max(0,track.scrollWidth-track.parentElement.clientWidth);
+  const apply=()=>{
+    pos=Math.min(Math.max(0,pos),maxPos());
+    track.style.transform=`translateX(${-pos}px)`;
+    prev.disabled=pos<=0;
+    next.disabled=pos>=maxPos()-1;
+  };
+  next.addEventListener('click',()=>{pos+=step();apply();});
+  prev.addEventListener('click',()=>{pos-=step();apply();});
+  window.addEventListener('resize',apply);
+  apply();
+})();
+
+
 </script>
 </body>
 </html>
