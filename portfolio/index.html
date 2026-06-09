@@ -994,8 +994,9 @@ section{position:relative;}
 .work .meta{position:absolute;left:0;right:0;bottom:0;z-index:2;
   padding:22px;background:linear-gradient(transparent,rgba(0,0,0,.75));}
 .work .meta .tag{display:inline-block;font-family:'Pretendard';font-weight:600;
-  font-size:var(--fs-label);letter-spacing:.02em;color:var(--txt-dark);
-  background:var(--accent);padding:4px 10px;border-radius:6px;margin-bottom:10px;}
+  font-size:var(--fs-label);letter-spacing:.02em;color:#fff;
+  background:rgba(20,20,20,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  padding:4px 10px;border-radius:6px;margin-bottom:10px;}
 .work .meta h3{font-family:'Pretendard';font-weight:700;font-size:var(--fs-h3);
   color:#fff;letter-spacing:-.02em;}
 .work .corner{position:absolute;top:14px;right:14px;z-index:2;
@@ -2143,11 +2144,20 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <!-- 프로젝트 4: 아텐츠게임아카데미 교육과정 리뉴얼 -->
         <div class="work sr" data-cat="uiweb" onclick="openProject('atents')" style="cursor:pointer;">
-          <img src="KakaoTalk_Photo_2026-05-28-23-21-37_001.jpeg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
+          <img src="atents_01.jpg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
           <div class="corner">↗</div>
           <div class="meta">
             <span class="tag">UI/UX · Web Design</span>
             <h3>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h3>
+          </div>
+        </div>
+        <!-- KH정보교육원 신규 홈페이지 구축 -->
+        <div class="work sr" data-cat="uiweb" onclick="openProject('khsite')" style="cursor:pointer;">
+          <img src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">UI/UX · Web Design</span>
+            <h3>KH정보교육원 신규 홈페이지 구축</h3>
           </div>
         </div>
         <!-- 프로젝트 5: 배너/상세페이지 -->
@@ -2191,6 +2201,15 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <div class="meta">
             <span class="tag">Graphic · 이벤트</span>
             <h3>미올 맘카페 전지점 이벤트</h3>
+          </div>
+        </div>
+        <!-- KH 포스터/리플렛 제작 -->
+        <div class="work sr" data-cat="graphic" onclick="openProject('khposter')" style="cursor:pointer;">
+          <img src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">Graphic · Poster / Leaflet</span>
+            <h3>KH 포스터/리플렛 제작</h3>
           </div>
         </div>
       </div>
@@ -2592,8 +2611,44 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <img src="img_kh_10.jpg" alt="">
       <img src="img_kh_11.jpg" alt="">
       <img src="img_kh_12.jpg" alt="">
+      <img src="img_kh_13.jpg" alt="">
     </div>
 
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: KH정보교육원 신규 홈페이지 구축 ============ -->
+<div class="proj-overlay" id="proj-khsite" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">KH정보교육원 신규 홈페이지 구축</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#UI/UX #Web Design #홈페이지구축 #신규</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="khsite_02.jpg" alt="">
+      <img src="khsite_03.jpg" alt="">
+      <img src="khsite_04.jpg" alt="">
+      <img src="khsite_05.jpg" alt="">
+      <img src="khsite_06.jpg" alt="">
+    </div>
   </div>
 </div>
 
@@ -2604,7 +2659,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
 
     <div class="pj-hero">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-37_001.jpeg" alt="아텐츠게임아카데미">
+      <img src="atents_01.jpg" alt="아텐츠게임아카데미">
     </div>
 
     <div class="pj-info">
@@ -2629,17 +2684,16 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     </div>
 
     <div class="pj-images">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_002.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_003.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_004.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_005.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-38_006.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_007.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_008.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_009.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_010.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-39_011.jpeg" alt="">
-      <img src="KakaoTalk_Photo_2026-05-28-23-21-40_012.jpeg" alt="">
+      <img src="atents_02.jpg" alt="">
+      <img src="atents_03.jpg" alt="">
+      <img src="atents_04.jpg" alt="">
+      <img src="atents_05.jpg" alt="">
+      <img src="atents_06.jpg" alt="">
+      <img src="atents_07.jpg" alt="">
+      <img src="atents_08.jpg" alt="">
+      <img src="atents_09.jpg" alt="">
+      <img src="atents_10.jpg" alt="">
+      <img src="atents_11.jpg" alt="">
     </div>
 
   </div>
@@ -3238,6 +3292,40 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <img src="miolglobal_03.jpg" alt="">
       <img src="miolglobal_04.jpg" alt="">
       <img src="miolglobal_05.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: KH 포스터/리플렛 제작 ============ -->
+<div class="proj-overlay" id="proj-khposter" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">KH 포스터/리플렛 제작</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#Graphic #Poster #Leaflet #인쇄물</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="khposter_02.jpg" alt="">
+      <img src="khposter_03.jpg" alt="">
+      <img src="khposter_04.jpg" alt="">
+      <img src="khposter_05.jpg" alt="">
     </div>
   </div>
 </div>
