@@ -477,7 +477,7 @@ section{position:relative;}
   scroll-snap-align:start;
   background:#fff;border-radius:var(--radius);
   overflow:hidden;display:flex;flex-direction:column;
-  min-height:clamp(440px,58vh,620px);
+  min-height:0;
   border:1px solid var(--card-border);
   box-shadow:var(--shadow-sm);
 }
@@ -495,19 +495,19 @@ section{position:relative;}
   font-size:var(--fs-caption);letter-spacing:.1em;text-align:center;padding:16px;
 }
 .sc-card .sc-body{
-  padding:clamp(24px,2.4vw,36px);
-  display:flex;flex-direction:column;flex:1;
+  padding:clamp(22px,2.4vw,34px);
+  display:flex;flex-direction:column;flex:0 0 auto;
   background:#fff;
 }
 .sc-card .sc-label{
   font-family:'Manrope',sans-serif;font-weight:600;
-  font-size:var(--fs-body-sm);color:var(--txt-dim);margin-bottom:12px;
+  font-size:var(--fs-body-sm);color:var(--txt-dim);margin-bottom:0;
 }
 .sc-card .sc-title{
   font-family:'Pretendard',sans-serif;font-weight:700;
   font-size:var(--fs-h3);line-height:1.34;
   letter-spacing:-.03em;color:var(--txt-dark);
-  margin-bottom:18px;
+  margin-bottom:8px;
 }
 .sc-card .sc-desc p{
   font-size:var(--fs-body-sm);line-height:1.66;color:var(--txt-dim);margin-bottom:12px;
@@ -532,8 +532,9 @@ section{position:relative;}
 .sc-nav button:disabled:hover{background:#fff;border-color:var(--card-border);color:var(--txt-dark);}
 @media(max-width:600px){
   .sc-card{flex-basis:84vw;min-height:0;}
-  .sc-card .sc-title{font-size:1.25rem;line-height:1.3;margin-bottom:14px;}
-  .sc-card .sc-label{font-size:0.85rem;margin-bottom:8px;}
+  .sc-card .sc-title{font-size:1.25rem;line-height:1.3;margin-bottom:6px;}
+  .sc-card .sc-label{font-size:0.85rem;margin-bottom:0;}
+  .career-row .c-body .c-role{font-size:var(--fs-label);}
 }
 
 /* PARTNER  ─ Career 섹션 */
@@ -985,7 +986,7 @@ section{position:relative;}
   .cap-card .cap-num{margin-top:0;}
   .cap-card .cap-ttl{margin-top:10px;font-size:1.2rem;white-space:nowrap;}
   .cap-card .cap-ttl br{display:none;}
-  .cap-card .cap-desc{margin-top:10px;}
+  .cap-card .cap-desc{margin-top:10px;font-size:var(--fs-caption);}
 }
 
 /* WORK */
@@ -1198,6 +1199,7 @@ section{position:relative;}
 @media(max-width:860px){
   .cap-headcard{grid-template-columns:1fr !important;}
   .credit-roll{border-left:none;border-top:1px solid var(--line-dark);padding-left:0;padding-top:20px;height:180px;}
+  .credit-track span{font-size:0.95rem;padding:11px 0;}
 }
 
 .about-top{display:grid;grid-template-columns:.85fr 1.15fr;
@@ -1634,9 +1636,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <span class="row"><i class="dim">디자인을</i> <i>만듭니다.</i></span>
         </h1>
 
-        <!-- [[ 버튼 텍스트 / 클릭 시 이동 페이지 ]] -->
-        <button class="hero-btn" onclick="go('about')">포트폴리오 알아보기</button>
-
         <div class="hero-foot">
           <div class="foot-top">
             <div class="yr">© 2023—2026</div>
@@ -1762,14 +1761,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <h2>경험을 설계하는<br>확고한 업무 능력</h2>
           <!-- 툴 아이콘: 텍스트 바로 아래 작게 배치 -->
           <div class="tool-grid tool-grid-small">
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop"><span class="tool-name">Photoshop</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg" alt="Illustrator"><span class="tool-name">Illustrator</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma"><span class="tool-name">Figma</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/xd/xd-original.svg" alt="XD"><span class="tool-name">XD</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML"><span class="tool-name">HTML</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS"><span class="tool-name">CSS</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"><span class="tool-name">JavaScript</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg" alt="After Effects"><span class="tool-name">After Effects</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/photoshop/photoshop-original.svg" alt="Photoshop"><span class="tool-name">Photoshop</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/illustrator/illustrator-original.svg" alt="Illustrator"><span class="tool-name">Illustrator</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/figma/figma-original.svg" alt="Figma"><span class="tool-name">Figma</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/xd/xd-original.svg" alt="XD"><span class="tool-name">XD</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/html5/html5-original.svg" alt="HTML"><span class="tool-name">HTML</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/css3/css3-original.svg" alt="CSS"><span class="tool-name">CSS</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/javascript/javascript-original.svg" alt="JavaScript"><span class="tool-name">JavaScript</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/aftereffects/aftereffects-original.svg" alt="After Effects"><span class="tool-name">After Effects</span></div>
           </div>
         </div>
         <!-- 크레딧 롤 -->
@@ -3596,7 +3595,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   if(st){
     st.innerHTML=data.map(d=>`<div class="sc-card" onclick="openProject('${d.id}')" style="cursor:pointer;">`
       +`<div class="sc-thumb">`+(d.src?`<img src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)+`</div>`
-      +`<div class="sc-body"><div class="sc-label">${d.tag}</div><div class="sc-title">${d.title}</div></div>`
+      +`<div class="sc-body"><div class="sc-title">${d.title}</div><div class="sc-label">${d.tag}</div></div>`
       +`</div>`).join('');
   }
 })();
