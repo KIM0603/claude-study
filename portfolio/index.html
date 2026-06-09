@@ -1432,6 +1432,18 @@ section{position:relative;}
 .pj-images img{
   width:100%;height:auto;display:block;
 }
+@media(max-width:640px){
+  .proj-inner{width:100%;}
+  .proj-close{padding:13px 20px;}
+  .pj-hero img{}
+  .pj-info{padding:28px 20px 0;}
+  .pj-h1{font-size:1.5rem;line-height:1.25;margin-bottom:24px;letter-spacing:-.03em;}
+  .pj-meta-table{margin-bottom:22px;}
+  .pj-meta-row2{grid-template-columns:64px 1fr;gap:12px;}
+  .pj-mt-label{font-size:0.82rem;}
+  .pj-mt-val{font-size:0.92rem;line-height:1.5;}
+  .pj-summary{font-size:0.98rem;padding-bottom:40px;}
+}
 
 /* 하단 버튼 */
 .pj-footer{
@@ -2152,22 +2164,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <div class="meta">
             <span class="tag">UI/UX · Web Design</span>
             <h3>KH정보교육원 신규 홈페이지 구축</h3>
-          </div>
-        </div>
-        <!-- 프로젝트 5: 배너/상세페이지 -->
-        <div class="work sr" data-cat="graphic" onclick="openProject('banner')" style="cursor:pointer;">
-          <div class="ph"></div><div class="corner">↗</div>
-          <div class="meta">
-            <span class="tag">Graphic · Branding</span>
-            <h3>배너 / 상세페이지 디자인 제작</h3>
-          </div>
-        </div>
-        <!-- 프로젝트 6: 오프라인 디자인물 -->
-        <div class="work sr" data-cat="graphic" onclick="openProject('offline')" style="cursor:pointer;">
-          <div class="ph"></div><div class="corner">↗</div>
-          <div class="meta">
-            <span class="tag">Graphic · Poster / Reflet</span>
-            <h3>포스터 / 리플렛 오프라인 디자인물 제작</h3>
           </div>
         </div>
         <!-- 레이트 가전뷰티 메타소재 -->
@@ -3368,60 +3364,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   </div>
 </div>
 
-<!-- ============ PROJECT DETAIL: 배너/상세페이지 ============ -->
-<div class="proj-overlay" id="proj-banner" onclick="handleOverlayClick(event)">
-  <div class="proj-inner">
-    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
-    <div class="pj-hero"></div>
-    <div class="pj-info">
-      <h2 class="pj-h1">배너 / 상세페이지 디자인 제작</h2>
-      <div class="pj-meta-table">
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Graphic #Branding #Online #배너 #상세페이지</span>
-        </div>
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">2021.12 — 2024.08</span>
-        </div>
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">기여</span>
-          <span class="pj-mt-val">1인 작업 100%</span>
-        </div>
-      </div>
-      <p class="pj-summary">메인 텍스트와 연관된 비주얼 요소, 설명이 레이아웃 안에서 어우러지도록 짜임새 있게 디자인했습니다.</p>
-    </div>
-    <div class="pj-images"></div>
-  </div>
-</div>
-
-<!-- ============ PROJECT DETAIL: 오프라인 디자인물 ============ -->
-<div class="proj-overlay" id="proj-offline" onclick="handleOverlayClick(event)">
-  <div class="proj-inner">
-    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
-    <div class="pj-hero"></div>
-    <div class="pj-info">
-      <h2 class="pj-h1">포스터 / 리플렛 오프라인 디자인물 제작</h2>
-      <div class="pj-meta-table">
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Graphic #Poster #Leaflet #오프라인 #인쇄물</span>
-        </div>
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">2021.12 — 2024.08</span>
-        </div>
-        <div class="pj-meta-row2">
-          <span class="pj-mt-label">기여</span>
-          <span class="pj-mt-val">1인 작업 100%</span>
-        </div>
-      </div>
-      <p class="pj-summary">박람회·팝업·행사용 배너, 리플렛, 포스터 등 인쇄 홍보물을 기획하고 제작했습니다.</p>
-    </div>
-    <div class="pj-images"></div>
-  </div>
-</div>
-
 <!-- ============ CONTACT ============ -->
 <div class="page" id="page-contact">
   <section class="sec-pad dark" style="padding-top:150px;min-height:100vh;">
@@ -3594,6 +3536,44 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
       grid.style.opacity='1';
     },200);
   });
+})();
+
+
+/* ---------- HOME ↔ WORK 자동 연동 ---------- */
+(function(){
+  const grid=document.getElementById('workGrid');
+  if(!grid) return;
+  const data=[...grid.querySelectorAll('.work')].map(c=>{
+    const m=(c.getAttribute('onclick')||'').match(/openProject\('([^']+)'\)/);
+    const img=c.querySelector('img');
+    return {
+      id:m?m[1]:'',
+      src:img?img.getAttribute('src'):'',
+      alt:img?(img.getAttribute('alt')||''):'',
+      tag:(c.querySelector('.tag')||{}).textContent||'',
+      title:(c.querySelector('h3')||{}).textContent||''
+    };
+  }).filter(d=>d.id);
+  if(!data.length) return;
+
+  // 1) 자동 롤링 띠
+  const rt=document.querySelector('.roller-track');
+  if(rt){
+    const make=(d,hide)=>`<div class="roll-card"${hide?' aria-hidden="true"':''} onclick="openProject('${d.id}')">`
+      +(d.src?`<img src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)
+      +`<div class="cap"><span class="t">${d.tag}</span><h4>${d.title}</h4></div></div>`;
+    rt.innerHTML=data.map(d=>make(d,false)).join('')+data.map(d=>make(d,true)).join('');
+    rt.style.animationDuration=Math.max(30,data.length*2.6)+'s';
+  }
+
+  // 2) 사례 슬라이더
+  const st=document.getElementById('scTrack');
+  if(st){
+    st.innerHTML=data.map(d=>`<div class="sc-card" onclick="openProject('${d.id}')" style="cursor:pointer;">`
+      +`<div class="sc-thumb">`+(d.src?`<img src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)+`</div>`
+      +`<div class="sc-body"><div class="sc-label">${d.tag}</div><div class="sc-title">${d.title}</div></div>`
+      +`</div>`).join('');
+  }
 })();
 
 
