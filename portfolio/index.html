@@ -1979,15 +1979,24 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <!-- 카테고리 필터 탭 -->
       <div class="work-filter sr" id="workFilter">
         <button class="active" data-cat="all">All</button>
-        <button data-cat="uiux">UI / UX</button>
-        <button data-cat="web">Web Design</button>
-        <button data-cat="brand">Branding</button>
-        <button data-cat="clone">Clone</button>
+        <button data-cat="uiweb">UI / UX · WEB</button>
+        <button data-cat="landing">LANDING</button>
+        <button data-cat="graphic">GRAPHIC</button>
+        <button data-cat="ai">AI Creative</button>
       </div>
 
       <div class="work-grid" id="workGrid">
+        <!-- 프로젝트 0: 미올한의원 메인 페이지 리뉴얼 -->
+        <div class="work sr" data-cat="uiweb" onclick="openProject('miol')" style="cursor:pointer;">
+          <img src="miol_01.jpg" alt="미올한의원 메인 페이지 리뉴얼">
+          <div class="corner">↗</div>
+          <div class="meta">
+            <span class="tag">UI/UX · Web Design</span>
+            <h3>미올한의원 메인 페이지 리뉴얼</h3>
+          </div>
+        </div>
         <!-- 프로젝트 1: 레이트코리아 상세페이지 -->
-        <div class="work sr" data-cat="brand" onclick="openProject('latekr')" style="cursor:pointer;">
+        <div class="work sr" data-cat="landing" onclick="openProject('latekr')" style="cursor:pointer;">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta">
             <span class="tag">Branding · Landing page</span>
@@ -1995,7 +2004,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
         </div>
         <!-- 프로젝트 2: 니케하임 가구브랜드 -->
-        <div class="work sr" data-cat="web" onclick="openProject('nikeheim')" style="cursor:pointer;">
+        <div class="work sr" data-cat="ai" onclick="openProject('nikeheim')" style="cursor:pointer;">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta">
             <span class="tag">Branding · Landing Page</span>
@@ -2003,7 +2012,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
         </div>
         <!-- 프로젝트 3: KH정보교육원 반응형 웹사이트 -->
-        <div class="work sr" data-cat="uiux" onclick="openProject('kh')" style="cursor:pointer;">
+        <div class="work sr" data-cat="uiweb" onclick="openProject('kh')" style="cursor:pointer;">
           <img src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
           <div class="corner">↗</div>
           <div class="meta">
@@ -2012,7 +2021,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
         </div>
         <!-- 프로젝트 4: 아텐츠게임아카데미 교육과정 리뉴얼 -->
-        <div class="work sr" data-cat="uiux" onclick="openProject('atents')" style="cursor:pointer;">
+        <div class="work sr" data-cat="uiweb" onclick="openProject('atents')" style="cursor:pointer;">
           <img src="KakaoTalk_Photo_2026-05-28-23-21-37_001.jpeg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
           <div class="corner">↗</div>
           <div class="meta">
@@ -2021,7 +2030,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
         </div>
         <!-- 프로젝트 5: 배너/상세페이지 -->
-        <div class="work sr" data-cat="brand" onclick="openProject('banner')" style="cursor:pointer;">
+        <div class="work sr" data-cat="graphic" onclick="openProject('banner')" style="cursor:pointer;">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta">
             <span class="tag">Graphic · Branding</span>
@@ -2029,7 +2038,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
         </div>
         <!-- 프로젝트 6: 오프라인 디자인물 -->
-        <div class="work sr" data-cat="brand" onclick="openProject('offline')" style="cursor:pointer;">
+        <div class="work sr" data-cat="graphic" onclick="openProject('offline')" style="cursor:pointer;">
           <div class="ph"></div><div class="corner">↗</div>
           <div class="meta">
             <span class="tag">Graphic · Poster / Reflet</span>
@@ -2489,6 +2498,44 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 </div>
 
 <!-- ============ PROJECT DETAIL: 레이트코리아 ============ -->
+<!-- ============ PROJECT DETAIL: 미올한의원 ============ -->
+<div class="proj-overlay" id="proj-miol" onclick="handleOverlayClick(event)">
+  <div class="proj-inner">
+    <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
+    <div class="pj-hero">
+      <img src="miol_01.jpg" alt="미올한의원 메인 페이지 리뉴얼">
+    </div>
+    <div class="pj-info">
+      <h2 class="pj-h1">미올한의원 메인 페이지 리뉴얼</h2>
+      <div class="pj-meta-table">
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">KEYWORD</span>
+          <span class="pj-mt-val">#UI/UX #Web Design #한의원 #브랜드 #메인페이지 #리뉴얼</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">DATE</span>
+          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+        </div>
+        <div class="pj-meta-row2">
+          <span class="pj-mt-label">기여</span>
+          <span class="pj-mt-val">기획 100% · 디자인 100%</span>
+        </div>
+      </div>
+      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. 어떤 문제를 어떻게 풀었는지, 사용한 도구나 디자인 포인트, 결과를 함께 적으면 좋습니다. ]]</p>
+    </div>
+    <div class="pj-images">
+      <img src="miol_02.jpg" alt="">
+      <img src="miol_03.jpg" alt="">
+      <img src="miol_04.jpg" alt="">
+      <img src="miol_05.jpg" alt="">
+      <img src="miol_06.jpg" alt="">
+      <img src="miol_07.jpg" alt="">
+      <img src="miol_08.jpg" alt="">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROJECT DETAIL: 레이트코리아 ============ -->
 <div class="proj-overlay" id="proj-latekr" onclick="handleOverlayClick(event)">
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
@@ -2752,14 +2799,6 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   const grid=document.getElementById('workGrid');
   if(!filter||!grid) return;
   const cards=[...grid.querySelectorAll('.work')];
-  // 각 탭 버튼에 개수 표시
-  filter.querySelectorAll('button').forEach(btn=>{
-    const cat=btn.dataset.cat;
-    const n=cat==='all'?cards.length:cards.filter(c=>c.dataset.cat===cat).length;
-    const cnt=document.createElement('span');
-    cnt.className='cnt';cnt.textContent=n;
-    btn.appendChild(cnt);
-  });
   // 탭 클릭 → 필터링
   filter.addEventListener('click',e=>{
     const btn=e.target.closest('button');
