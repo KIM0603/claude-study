@@ -465,14 +465,16 @@ section{position:relative;}
   padding:clamp(50px,7vh,90px) 0 clamp(30px,5vh,60px);
   overflow:hidden;
 }
-.showcase-viewport{overflow:hidden;}
+.showcase-viewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none;}
+.showcase-viewport::-webkit-scrollbar{display:none;}
 .showcase-track{
   display:flex;gap:10px;
   padding:0 clamp(18px,2.5vw,30px);
-  transition:transform .6s var(--ease);
 }
 .sc-card{
   flex:0 0 clamp(300px,40vw,560px);
+  scroll-snap-align:start;
   background:#fff;border-radius:var(--radius);
   overflow:hidden;display:flex;flex-direction:column;
   min-height:clamp(440px,58vh,620px);
@@ -530,6 +532,8 @@ section{position:relative;}
 .sc-nav button:disabled:hover{background:#fff;border-color:var(--card-border);color:var(--txt-dark);}
 @media(max-width:600px){
   .sc-card{flex-basis:84vw;min-height:0;}
+  .sc-card .sc-title{font-size:1.25rem;line-height:1.3;margin-bottom:14px;}
+  .sc-card .sc-label{font-size:0.85rem;margin-bottom:8px;}
 }
 
 /* PARTNER  ─ Career 섹션 */
@@ -681,6 +685,9 @@ section{position:relative;}
 @media(max-width:900px){
   .partner-grid{grid-template-columns:1fr;}
   .partner-right{min-height:0;}
+  .partner-left h2 br{display:none;}
+  .partner-left h2{letter-spacing:-.055em;white-space:nowrap;margin-top:2px;}
+  .partner-left .p-body p{font-size:1.0625rem;}
 }
 
 /* FEATURE ROW */
@@ -882,6 +889,22 @@ section{position:relative;}
   color:#9a9286;font-family:'Manrope';font-weight:700;
   font-size:var(--fs-label);letter-spacing:.04em;text-align:center;
 }
+/* Capability 툴 아이콘(아이콘 + 라벨) */
+.tool-grid.tool-grid-small{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  width:auto;max-width:100%;flex-wrap:wrap;
+}
+.tool-grid.tool-grid-small .tool-item{
+  width:auto;height:auto;aspect-ratio:1;
+  flex-direction:column;gap:7px;padding:12px 6px;background:#fff;
+}
+.tool-grid.tool-grid-small .tool-item img{
+  width:auto;height:42%;max-height:44px;max-width:62%;object-fit:contain;
+}
+.tool-grid.tool-grid-small .tool-item .tool-name{
+  font-family:'Pretendard';font-weight:600;font-size:0.72rem;
+  color:var(--txt-dim);text-align:center;line-height:1.2;
+}
 /* 하단 : 3카드 + 소개 카드 */
 .cap-row{
   display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;
@@ -952,11 +975,17 @@ section{position:relative;}
 @media(max-width:1100px){
   .cap-headcard{grid-template-columns:1fr;}
   .cap-row{grid-template-columns:repeat(2,1fr);}
-  .cap-card{min-height:0;}
-  .cap-card .cap-ttl{margin-top:40px;}
+  .cap-card{min-height:0;padding:24px;}
+  .cap-card .cap-num{margin-top:0;}
+  .cap-card .cap-ttl{margin-top:14px;}
 }
 @media(max-width:560px){
   .cap-row{grid-template-columns:1fr;}
+  .cap-card{padding:22px;min-height:0;}
+  .cap-card .cap-num{margin-top:0;}
+  .cap-card .cap-ttl{margin-top:10px;font-size:1.2rem;white-space:nowrap;}
+  .cap-card .cap-ttl br{display:none;}
+  .cap-card .cap-desc{margin-top:10px;}
 }
 
 /* WORK */
@@ -1641,32 +1670,28 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <section class="feature-row">
     <div class="feature-grid-cap">
       <!-- 카드 1: UI·UX & 브랜딩 (통합) -->
-      <div class="cap-card sr" onclick="goFilter('uiux')" style="cursor:pointer;">
+      <div class="cap-card sr">
         <div class="cap-num">01</div>
-        <div class="cap-ttl">UI·UX &<br>브랜딩 디자인</div>
+        <div class="cap-ttl">UI·UX & <br>브랜딩 디자인</div>
         <div class="cap-desc">브랜드 무드 기획부터 상세페이지·홍보물 제작까지, 사용자 흐름을 먼저 설계해 PC·모바일·태블릿 모든 환경에서 일관된 경험을 만듭니다.</div>
-        <button class="cap-plus">→</button>
       </div>
       <!-- 카드 2: SNS -->
-      <div class="cap-card sr" onclick="goFilter('brand')" style="cursor:pointer;">
+      <div class="cap-card sr">
         <div class="cap-num">02</div>
-        <div class="cap-ttl">SNS 콘텐츠<br>디자인</div>
+        <div class="cap-ttl">SNS 콘텐츠 <br>디자인</div>
         <div class="cap-desc">인스타그램·페이스북 채널의 이벤트·프로모션 콘텐츠를 기획하고 제작합니다.</div>
-        <button class="cap-plus">→</button>
       </div>
       <!-- 카드 3: 오프라인 -->
-      <div class="cap-card sr" onclick="goFilter('brand')" style="cursor:pointer;">
+      <div class="cap-card sr">
         <div class="cap-num">03</div>
-        <div class="cap-ttl">오프라인<br>디자인물</div>
+        <div class="cap-ttl">오프라인 <br>디자인물</div>
         <div class="cap-desc">박람회·팝업·행사용 배너, 리플렛, 포스터 등 인쇄 홍보물을 기획하고 제작합니다.</div>
-        <button class="cap-plus">→</button>
       </div>
       <!-- 카드 4: AI Creative Works (신규) -->
-      <div class="cap-card sr" onclick="goFilter('ai')" style="cursor:pointer;">
+      <div class="cap-card sr">
         <div class="cap-num">04</div>
-        <div class="cap-ttl">AI Creative<br>Works</div>
+        <div class="cap-ttl">AI Creative <br>Works</div>
         <div class="cap-desc">Midjourney·ChatGPT·Runway 등 AI 툴을 활용해 이미지, 영상, 카피까지 직접 제작합니다. AI로 완성한 작업물을 확인해보세요.</div>
-        <button class="cap-plus">→</button>
       </div>
     </div>
   </section>
@@ -1737,14 +1762,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <h2>경험을 설계하는<br>확고한 업무 능력</h2>
           <!-- 툴 아이콘: 텍스트 바로 아래 작게 배치 -->
           <div class="tool-grid tool-grid-small">
-            <div class="tool-item"><div class="ph">Photoshop</div></div>
-            <div class="tool-item"><div class="ph">Illustrator</div></div>
-            <div class="tool-item"><div class="ph">Figma</div></div>
-            <div class="tool-item"><div class="ph">XD</div></div>
-            <div class="tool-item"><div class="ph">HTML</div></div>
-            <div class="tool-item"><div class="ph">CSS</div></div>
-            <div class="tool-item"><div class="ph">JavaScript</div></div>
-            <div class="tool-item"><div class="ph">After Effects</div></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" alt="Photoshop"><span class="tool-name">Photoshop</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg" alt="Illustrator"><span class="tool-name">Illustrator</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma"><span class="tool-name">Figma</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/xd/xd-original.svg" alt="XD"><span class="tool-name">XD</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML"><span class="tool-name">HTML</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS"><span class="tool-name">CSS</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"><span class="tool-name">JavaScript</span></div>
+            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg" alt="After Effects"><span class="tool-name">After Effects</span></div>
           </div>
         </div>
         <!-- 크레딧 롤 -->
@@ -1886,7 +1911,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <!-- 왼쪽 : 텍스트 + 로고 -->
       <div class="partner-left sr">
         <div class="f-pill">Experience &amp; Career</div>
-        <h2>경험이 시작된<br>공간들</h2>
+        <h2>경험이 시작된 <br>공간들</h2>
         <div class="p-body">
           <p>총 3곳의 회사에서 UI/UX·브랜딩·반응형 웹 등 다양한 디자인 업무를 담당하며 실무 역량을 쌓아왔습니다.</p>
           <p>각 회사에서의 경험이 지금의 디자인 방향성과 작업 방식의 기반이 되었습니다.</p>
@@ -3577,29 +3602,28 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
 })();
 
 
-/* ---------- SHOWCASE 슬라이더 ---------- */
+/* ---------- SHOWCASE 슬라이더 (스와이프 + 버튼) ---------- */
 (function(){
   const track=document.getElementById('scTrack');
   const prev=document.getElementById('scPrev');
   const next=document.getElementById('scNext');
-  if(!track||!prev||!next) return;
-  let pos=0;
+  if(!track) return;
+  const vp=track.parentElement; // .showcase-viewport (가로 스크롤)
   const step=()=>{
     const card=track.querySelector('.sc-card');
-    if(!card) return 320;
-    return card.getBoundingClientRect().width+10; // 카드폭 + gap
+    return card?card.getBoundingClientRect().width+10:320;
   };
-  const maxPos=()=>Math.max(0,track.scrollWidth-track.parentElement.clientWidth);
-  const apply=()=>{
-    pos=Math.min(Math.max(0,pos),maxPos());
-    track.style.transform=`translateX(${-pos}px)`;
-    prev.disabled=pos<=0;
-    next.disabled=pos>=maxPos()-1;
+  const sync=()=>{
+    if(!prev||!next) return;
+    const max=vp.scrollWidth-vp.clientWidth;
+    prev.disabled=vp.scrollLeft<=2;
+    next.disabled=vp.scrollLeft>=max-2;
   };
-  next.addEventListener('click',()=>{pos+=step();apply();});
-  prev.addEventListener('click',()=>{pos-=step();apply();});
-  window.addEventListener('resize',apply);
-  apply();
+  if(next) next.addEventListener('click',()=>vp.scrollBy({left:step(),behavior:'smooth'}));
+  if(prev) prev.addEventListener('click',()=>vp.scrollBy({left:-step(),behavior:'smooth'}));
+  vp.addEventListener('scroll',sync,{passive:true});
+  window.addEventListener('resize',sync);
+  sync();
 })();
 
 
