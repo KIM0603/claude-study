@@ -1340,13 +1340,15 @@ select.ipt{cursor:pointer}
             <div><div class="card-title">지출</div><div class="card-sub" id="bg-tbl-sub">월별 카테고리 지출 — 사람을 선택하면 셀을 직접 입력할 수 있어요</div></div>
           </div>
           <div class="card-actions">
-            <button class="btn btn-sm" onclick="Budget.prevYear()" title="이전 연도">
-              <svg viewBox="0 0 24 24" class="ico14"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <div class="bg-year" id="bg-year">2026년</div>
-            <button class="btn btn-sm" onclick="Budget.nextYear()" title="다음 연도">
-              <svg viewBox="0 0 24 24" class="ico14"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
+            <div id="bg-year-nav" style="display:flex;align-items:center;gap:4px">
+              <button class="btn btn-sm" onclick="Budget.prevYear()" title="이전 연도">
+                <svg viewBox="0 0 24 24" class="ico14"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="bg-year" id="bg-year">2026년</div>
+              <button class="btn btn-sm" onclick="Budget.nextYear()" title="다음 연도">
+                <svg viewBox="0 0 24 24" class="ico14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
             <div class="seg" id="bg-view-toggle" style="margin-left:8px">
               <button class="seg-btn" data-vm="year" onclick="Budget.setViewMode('year')">연간</button>
               <button class="seg-btn on" data-vm="month" onclick="Budget.setViewMode('month')">월 비교</button>
@@ -2165,6 +2167,9 @@ const Budget = (()=>{
       const cmpWrap  = document.getElementById('bg-compare-view');
       if(yearWrap) yearWrap.style.display = (viewMode==='year') ? '' : 'none';
       if(cmpWrap)  cmpWrap.style.display  = (viewMode==='month') ? '' : 'none';
+      // 월 비교 모드에서는 연도 네비게이션 숨김 (월 드롭다운으로 선택)
+      const yearNav = document.getElementById('bg-year-nav');
+      if(yearNav) yearNav.style.display = (viewMode==='year') ? 'flex' : 'none';
       document.querySelectorAll('#bg-view-toggle .seg-btn').forEach(b=>{
         b.classList.toggle('on', b.dataset.vm===viewMode);
       });
