@@ -533,6 +533,15 @@ select.ipt{cursor:pointer}
   border-radius:3px; overflow:hidden;
 }
 .ppl-card-bar > span{display:block;height:100%;border-radius:3px}
+/* 부부 가계부 — 수입/지출/잔액 카드 */
+.ppl-card-row-num.inc{color:#2d6a4f}
+.ppl-card-row-num.pos{color:#1b5e3f}
+.ppl-card-row-num.neg{color:#b3261e}
+.ppl-card-bal{margin-top:6px;padding-top:10px;border-top:1px dashed var(--line)}
+.ppl-card-bal .ppl-card-row-lbl{font-weight:700;color:var(--ink-2,var(--ink))}
+.ppl-card-bal .ppl-card-row-num{font-size:19px;font-weight:700}
+.ppl-card-couple{background:linear-gradient(135deg,#fff7ed,#f0f9f4);border:1px solid #e6e0d6}
+.ppl-card-couple .ppl-card-name{font-weight:700}
 
 /* edit modal fields */
 .ppl-edit-field{
@@ -1325,6 +1334,27 @@ select.ipt{cursor:pointer}
         <div class="bg-tbl-wrap" id="bg-tbl-wrap"></div>
       </div>
 
+      <!-- ── 카테고리별 지출 비율 (도넛) ── -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-mark">🍩</div>
+            <div><div class="card-title">카테고리별 지출 비율</div><div class="card-sub" id="bg-donut-sub">선택한 월의 지출 구성</div></div>
+          </div>
+          <div class="card-actions">
+            <select id="bg-donut-month" onchange="Budget.renderDonut()" class="btn btn-sm" style="cursor:pointer">
+              <option value="2025-01">1월</option><option value="2025-02">2월</option>
+              <option value="2025-03">3월</option><option value="2025-04">4월</option>
+              <option value="2025-05">5월</option><option value="2025-06">6월</option>
+              <option value="2025-07">7월</option><option value="2025-08">8월</option>
+              <option value="2025-09">9월</option><option value="2025-10">10월</option>
+              <option value="2025-11">11월</option><option value="2025-12">12월</option>
+            </select>
+          </div>
+        </div>
+        <div id="bg-donut" style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:center;padding:10px 0"></div>
+      </div>
+
       <div class="card">
         <div class="card-head">
           <div class="card-head-left">
@@ -1803,8 +1833,8 @@ const Budget = (()=>{
   //  · 사용자가 화면에서 직접 고친 셀은 그 값이 우선됩니다 (방식 B)
   //  · ym 형식: "2025-06"  /  pid: 사람 id(0,1..)  /  값: 금액(원)
   // ══════════════════════════════════════════════════════
-  const SEED_AMOUNTS = {"2025-05": {"0": {"k1": 6467300, "k2": 33920, "k3": 182600, "k4": 70000, "k10": 60000, "k9": 55000, "k8": 301620, "k11": 231690, "k12": 366205, "k13": 1000000, "k22": 30000, "k23": 1195224, "k24": 73150}}, "2025-06": {"0": {"k1": 529143, "k2": 39830, "k3": 22740, "k4": 70000, "k5": 182600, "k6": 36300, "k7": 166034, "k8": 301620, "k9": 55000, "k11": 231690, "k12": 867116, "k14": 291143, "k15": 37295, "k16": 390, "k17": 18150, "k18": 11000, "k20": 400000, "k21": 280000, "k23": 1311674, "k24": 829566}}};
-  const SEED_INVEST  = {"2025-05": {"0": {"iv1": 600000, "iv2": 1000000, "iv3": 1000000}}, "2025-06": {"0": {"iv1": 600000, "iv2": 500000, "iv3": 400000}}};
+  const SEED_AMOUNTS = {"2025-05": {"0": {"k1": 6467300, "k2": 33920, "k3": 182600, "k4": 70000, "k10": 60000, "k9": 55000, "k8": 301620, "k11": 231690, "k12": 366205, "k13": 1000000, "k22": 30000, "k23": 1195224, "k24": 73150}}, "2025-06": {"0": {"k2": 39830, "k3": 22740, "k4": 70000, "k5": 182600, "k6": 36300, "k7": 166034, "k8": 301620, "k9": 55000, "k11": 231690, "k12": 867116, "k14": 291143, "k15": 37295, "k16": 390, "k17": 18150, "k18": 11000, "k20": 400000, "k21": 280000, "k23": 1311674, "k24": 829566}}};
+  const SEED_INVEST  = {};
   // 사용자가 직접 만진 셀 기록 (이 셀은 시드로 덮어쓰지 않음)
   const KEY_AMT_TOUCHED = 'workspace.budget.amounts.touched';
   const KEY_INV_TOUCHED = 'workspace.budget.invest.touched';
@@ -1889,7 +1919,8 @@ const Budget = (()=>{
   }
 
   let people = LS.get(KEY_PPL, [
-    {id:0, name:'본인', color:'#cc5500'},
+    {id:0, name:'사람1', color:'#cc5500'},
+    {id:1, name:'사람2', color:'#0055cc'},
   ]);
   let sections = (function(){
     const storedVer = LS.get(KEY_SEC_VER, 0);
@@ -1996,6 +2027,39 @@ const Budget = (()=>{
     sections.forEach(s=>{ if(!s.noExpense || s.key!=='s0') return; s.items.forEach(it=>{ t += getCellAmount(ymStr, it.key); }); });
     return t;
   }
+
+  // ── 사람별 수입/지출 정밀 계산 (수입 s0 / 카드값 s5는 지출 합계 제외) ──
+  function _cellFor(ymStr, pid, key){
+    const m = amounts[ymStr]; if(!m) return 0;
+    return ((m[pid]||{})[key]||0);
+  }
+  function incomeKeys(){ // 수입 섹션 항목 키
+    const sec = sections.find(s=>s.key==='s0');
+    return sec ? sec.items.map(i=>i.key) : [];
+  }
+  function expenseKeys(){ // noExpense 아닌 섹션 항목 키
+    const ks=[];
+    sections.forEach(s=>{ if(s.noExpense) return; s.items.forEach(i=>ks.push(i.key)); });
+    return ks;
+  }
+  function personIncome(ymStr, pid){
+    return incomeKeys().reduce((t,k)=> t + _cellFor(ymStr,pid,k), 0);
+  }
+  function personExpense(ymStr, pid){
+    return expenseKeys().reduce((t,k)=> t + _cellFor(ymStr,pid,k), 0);
+  }
+  function personBalance(ymStr, pid){
+    return personIncome(ymStr,pid) - personExpense(ymStr,pid);
+  }
+  function coupleIncome(ymStr){ return people.reduce((t,p)=>t+personIncome(ymStr,p.id),0); }
+  function coupleExpense(ymStr){ return people.reduce((t,p)=>t+personExpense(ymStr,p.id),0); }
+  function coupleBalance(ymStr){ return coupleIncome(ymStr) - coupleExpense(ymStr); }
+  function curYm(){ return fmt.ym(new Date()); }
+  // 데이터가 있는 최신 달(없으면 현재 달) — 상단 카드는 이 달 기준
+  function latestDataYm(){
+    const yms = Object.keys(amounts).filter(k=>k.startsWith(year+'-')).sort();
+    return yms.length ? yms[yms.length-1] : curYm();
+  }
   function getItemYearTotal(key){
     let t = 0;
     for(let i=0;i<12;i++) t += getCellAmount(ym(year,i), key);
@@ -2045,6 +2109,9 @@ const Budget = (()=>{
         sel.value = '2025-06';
       }
       loadMemo();
+      const dsel = document.getElementById('bg-donut-month');
+      if(dsel && !dsel.dataset.inited){ dsel.dataset.inited='1'; dsel.value = latestDataYm(); }
+      renderDonut();
     })();
     document.getElementById('bg-year').textContent = `${year}년`;
     document.getElementById('bg-tbl-sub').textContent = (filter==='all')
@@ -2078,31 +2145,65 @@ const Budget = (()=>{
   function renderPersonCards(){
     const el = document.getElementById('ppl-cards');
     if(!el) return;
-    const totalAll = getAllMonthTotalCurrent();
-    el.innerHTML = people.map(p=>{
-      const my = getPersonMonthTotal(p.id);
-      const share = totalAll>0 ? Math.round(my/totalAll*100) : 0;
+    const ymStr = latestDataYm();
+    const monthLabel = (parseInt(ymStr.split('-')[1],10)) + '월';
+
+    // 사람별 카드: 월급 → 지출 → 남은 금액
+    const personCards = people.map(p=>{
+      const inc = personIncome(ymStr, p.id);
+      const exp = personExpense(ymStr, p.id);
+      const bal = inc - exp;
+      const balCls = bal>=0 ? 'pos' : 'neg';
       return `<div class="ppl-card" style="--p-color:${p.color}">
         <div class="ppl-card-head">
           <div class="ppl-card-name">
             <span class="ppl-tab-dot" style="background:${p.color}"></span>
             <span>${escapeHtml(p.name)}</span>
           </div>
-          <div class="ppl-card-share">이번 달 ${share}%</div>
+          <div class="ppl-card-share">${monthLabel}</div>
         </div>
         <div class="ppl-card-rows">
           <div class="ppl-card-row">
-            <span class="ppl-card-row-lbl">이번 달 지출</span>
-            <span class="ppl-card-row-num out">${fmt.won(my)}원</span>
+            <span class="ppl-card-row-lbl">월급 (수입)</span>
+            <span class="ppl-card-row-num inc">+${fmt.won(inc)}원</span>
           </div>
           <div class="ppl-card-row">
-            <span class="ppl-card-row-lbl">올해 누계</span>
-            <span class="ppl-card-row-num">${fmt.won(getPersonYearTotal(p.id))}원</span>
+            <span class="ppl-card-row-lbl">지출</span>
+            <span class="ppl-card-row-num out">-${fmt.won(exp)}원</span>
+          </div>
+          <div class="ppl-card-row ppl-card-bal">
+            <span class="ppl-card-row-lbl">남은 금액</span>
+            <span class="ppl-card-row-num ${balCls}">${fmt.won(bal)}원</span>
           </div>
         </div>
-        <div class="ppl-card-bar"><span style="width:${share}%;background:${p.color}"></span></div>
       </div>`;
     }).join('');
+
+    // 부부 합산 카드
+    const cInc = coupleIncome(ymStr), cExp = coupleExpense(ymStr), cBal = cInc - cExp;
+    const cBalCls = cBal>=0 ? 'pos' : 'neg';
+    const coupleCard = `<div class="ppl-card ppl-card-couple">
+      <div class="ppl-card-head">
+        <div class="ppl-card-name"><span>👫 부부 합산</span></div>
+        <div class="ppl-card-share">${monthLabel}</div>
+      </div>
+      <div class="ppl-card-rows">
+        <div class="ppl-card-row">
+          <span class="ppl-card-row-lbl">총수입</span>
+          <span class="ppl-card-row-num inc">+${fmt.won(cInc)}원</span>
+        </div>
+        <div class="ppl-card-row">
+          <span class="ppl-card-row-lbl">총지출</span>
+          <span class="ppl-card-row-num out">-${fmt.won(cExp)}원</span>
+        </div>
+        <div class="ppl-card-row ppl-card-bal">
+          <span class="ppl-card-row-lbl">남은 금액</span>
+          <span class="ppl-card-row-num ${cBalCls}">${fmt.won(cBal)}원</span>
+        </div>
+      </div>
+    </div>`;
+
+    el.innerHTML = personCards + coupleCard;
   }
 
   function getPersonYearTotal(pid){
@@ -2749,9 +2850,64 @@ const Budget = (()=>{
     LS.set(KEY_MEMO, userMemos);
   }
 
+  // ── 카테고리별 지출 비율 도넛 ──
+  const DONUT_COLORS = ['#e07a3f','#3f7ae0','#3fae6a','#a86fd6','#d6a23f','#d65f7a','#5fb6d6','#8a8f3f'];
+  function curDonutMonth(){
+    const sel = document.getElementById('bg-donut-month');
+    return sel ? sel.value : latestDataYm();
+  }
+  function renderDonut(){
+    const host = document.getElementById('bg-donut');
+    if(!host) return;
+    const ymStr = curDonutMonth();
+    // 지출 섹션별 합계 (수입/카드값 제외)
+    const segs = [];
+    sections.forEach((sec, idx)=>{
+      if(sec.noExpense) return;
+      let sum = 0;
+      sec.items.forEach(it=>{ people.forEach(p=>{ sum += _cellFor(ymStr, p.id, it.key); }); });
+      if(sum>0) segs.push({label:sec.label, value:sum, color:DONUT_COLORS[segs.length % DONUT_COLORS.length]});
+    });
+    const total = segs.reduce((a,s)=>a+s.value,0);
+    if(total===0){
+      host.innerHTML = '<div style="color:var(--ink-3);font-size:13px;padding:30px">이 달은 지출 데이터가 없어요</div>';
+      return;
+    }
+    // SVG donut
+    const R=80, r=50, C=110, circ=2*Math.PI*R;
+    let acc=0;
+    const ring = segs.map(sg=>{
+      const frac = sg.value/total;
+      const dash = frac*circ;
+      const seg = `<circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="${sg.color}" stroke-width="${R-r}" 
+        stroke-dasharray="${dash} ${circ-dash}" stroke-dashoffset="${-acc}" transform="rotate(-90 ${C} ${C})"></circle>`;
+      acc += dash;
+      return seg;
+    }).join('');
+    const svg = `<svg width="220" height="220" viewBox="0 0 220 220">
+      ${ring}
+      <text x="${C}" y="${C-6}" text-anchor="middle" style="font-size:12px;fill:var(--ink-3)">총 지출</text>
+      <text x="${C}" y="${C+16}" text-anchor="middle" style="font-size:18px;font-weight:700;fill:var(--ink)">${fmt.won(total)}</text>
+    </svg>`;
+    // legend
+    const legend = `<div style="display:flex;flex-direction:column;gap:8px;min-width:200px">` +
+      segs.map(sg=>{
+        const pct = Math.round(sg.value/total*100);
+        return `<div style="display:flex;align-items:center;gap:8px;font-size:13px">
+          <span style="width:12px;height:12px;border-radius:3px;background:${sg.color};flex:none"></span>
+          <span style="flex:1;color:var(--ink)">${escapeHtml(sg.label)}</span>
+          <span style="color:var(--ink-3);font-variant-numeric:tabular-nums">${pct}%</span>
+          <span style="font-weight:600;font-variant-numeric:tabular-nums;min-width:90px;text-align:right">${fmt.won(sg.value)}원</span>
+        </div>`;
+      }).join('') + `</div>`;
+    host.innerHTML = svg + legend;
+    const sub = document.getElementById('bg-donut-sub');
+    if(sub) sub.textContent = (parseInt(ymStr.split('-')[1],10))+'월 지출 구성';
+  }
+
   return {
     init, render, filter:setFilter,
-    loadMemo, saveMemo,
+    loadMemo, saveMemo, renderDonut,
     prevYear, nextYear,
     startAmt, commitAmt, startRatio, commitRatio, _cancel, _cellKey,
     startLabel, commitLabel, startSection, commitSection,
