@@ -1341,6 +1341,27 @@ select.ipt{cursor:pointer}
         <div class="bg-inv-chart" id="bg-inv-chart"></div>
         <div class="bg-tbl-wrap" id="bg-inv-tbl-wrap"></div>
       </div>
+
+      <!-- ── 월별 메모 / 특이사항 ── -->
+      <div class="card" style="margin-top:18px">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-ico">📝</div>
+            <div><div class="card-title">메모 / 특이사항</div><div class="card-sub" id="bg-memo-sub">선택한 월의 비고·결제예정·특이사항을 기록하세요</div></div>
+          </div>
+          <div class="card-actions">
+            <select id="bg-memo-month" onchange="Budget.loadMemo()" class="btn btn-sm" style="cursor:pointer">
+              <option value="2025-01">1월</option><option value="2025-02">2월</option>
+              <option value="2025-03">3월</option><option value="2025-04">4월</option>
+              <option value="2025-05">5월</option><option value="2025-06">6월</option>
+              <option value="2025-07">7월</option><option value="2025-08">8월</option>
+              <option value="2025-09">9월</option><option value="2025-10">10월</option>
+              <option value="2025-11">11월</option><option value="2025-12">12월</option>
+            </select>
+          </div>
+        </div>
+        <textarea id="bg-memo-text" oninput="Budget.saveMemo()" placeholder="예) 가스비: 4월 미납분 합산 / 관리비: ARS 인증 필요해 카드결제 대체 ..." style="width:100%;min-height:140px;border:1px solid var(--line);border-radius:10px;padding:14px;font:14px/1.7 inherit;background:var(--bg-soft,#fafaf7);color:var(--ink);resize:vertical;box-sizing:border-box"></textarea>
+      </div>
     </section>
 
     <!-- ─── SCHEDULE ─── -->
@@ -1782,14 +1803,16 @@ const Budget = (()=>{
   //  · 사용자가 화면에서 직접 고친 셀은 그 값이 우선됩니다 (방식 B)
   //  · ym 형식: "2025-06"  /  pid: 사람 id(0,1..)  /  값: 금액(원)
   // ══════════════════════════════════════════════════════
-  const SEED_AMOUNTS = {"2025-06": {"0": {"k1": 39830, "k2": 22740, "k3": 70000, "k4": 182600, "k5": 36300, "k6": 166034, "k7": 301620, "k8": 55000, "k9": 231690, "k10": 867116, "k11": 291143, "k12": 37295, "k13": 390, "k14": 18150, "k15": 11000, "k17": 400000, "k18": 280000, "k19": 1311674, "k20": 829566}}};
-  const SEED_INVEST  = {"2025-06": {"0": {"iv1": 600000, "iv2": 500000, "iv3": 400000}}};
+  const SEED_AMOUNTS = {"2025-05": {"0": {"k1": 6467300, "k2": 33920, "k3": 182600, "k4": 70000, "k10": 60000, "k9": 55000, "k8": 301620, "k11": 231690, "k12": 366205, "k13": 1000000, "k22": 30000, "k23": 1195224, "k24": 73150}}, "2025-06": {"0": {"k1": 529143, "k2": 39830, "k3": 22740, "k4": 70000, "k5": 182600, "k6": 36300, "k7": 166034, "k8": 301620, "k9": 55000, "k11": 231690, "k12": 867116, "k14": 291143, "k15": 37295, "k16": 390, "k17": 18150, "k18": 11000, "k20": 400000, "k21": 280000, "k23": 1311674, "k24": 829566}}};
+  const SEED_INVEST  = {"2025-05": {"0": {"iv1": 600000, "iv2": 1000000, "iv3": 1000000}}, "2025-06": {"0": {"iv1": 600000, "iv2": 500000, "iv3": 400000}}};
   // 사용자가 직접 만진 셀 기록 (이 셀은 시드로 덮어쓰지 않음)
   const KEY_AMT_TOUCHED = 'workspace.budget.amounts.touched';
   const KEY_INV_TOUCHED = 'workspace.budget.invest.touched';
+  const KEY_MEMO = 'workspace.budget.memo';
+  const SEED_MEMO = { '2025-05': "[5월 비고]\n· 하나카드 73,150원: 5/11 결제예정 (토스 Visa카드 — 클로드·아마존·네이버 구독)\n· 가스비: 4월 미납분 14,000 + 5월분 4만원 합산. 가스앱 설치 후 BC카드 결제\n· 관리비: 계좌이체에 ARS 인증 필요 → 카드결제로 대체\n· 전세자금대출/식권비/교통카드: 결제예정\n· 대출이자 366,205 + 원금 100만원\n· 어버이날 용돈 30,000 (부모님께)", '2025-06': "[6월 비고]\n· 하나카드(해외결제용): 클로드 291,143(max+api), 픽셀랩, 아마존, 네이버클라우드(취업 후 해지예정), 노벨피아, 미용실\n· BC카드: 보험료, 도시가스(지난달 결제), 오쥬드, 핸드폰 등\n· 7월 예정 비싼 지출: 클로드맥스 $110, 회식비 234,000, 오쥬드 145,000, AWS $145+@" };
   // 카테고리(섹션) 버전: 코드에서 카테고리를 바꾸면 이 숫자를 올리세요.
   // 저장된 버전보다 코드 버전이 높으면 코드의 defaultSections로 갱신됩니다.
-  const SECTIONS_VERSION = 2;
+  const SECTIONS_VERSION = 3;
   const KEY_SEC_VER = 'workspace.budget.sections.version';
 
   // deep-merge: base(시드) 위에 over(사용자값)를 덮어씀
@@ -1816,19 +1839,24 @@ const Budget = (()=>{
     let k = 0;
     const mk = (label, ratio) => ({key:'k'+(++k), label, ratio});
     return [
+      {key:'s0', label:'💵 수입', noExpense:true, items:[
+        mk('월급', 0),
+      ]},
       {key:'s1', label:'고정비 (자동이체)', items:[
         mk('전기세', 2),
-        mk('가스비', 1),
-        mk('관리비', 4),
-        mk('도시가스', 9),
-        mk('핸드폰', 2),
-        mk('보험료', 9),
-        mk('건강보험료', 16),
-        mk('교통카드', 3),
+        mk('가스비', 4),
+        mk('관리비', 2),
+        mk('도시가스', 4),
+        mk('핸드폰', 1),
+        mk('보험료', 4),
+        mk('건강보험료', 7),
+        mk('교통카드', 2),
+        mk('식권비', 2),
       ]},
       {key:'s2', label:'대출 / 상환', items:[
-        mk('전세자금대출', 12),
-        mk('대출이자', 19),
+        mk('전세자금대출', 6),
+        mk('대출이자', 9),
+        mk('대출원금', 24),
       ]},
       {key:'s3', label:'구독 / 서비스', items:[
         mk('클로드 (Claude)', 0),
@@ -1838,19 +1866,14 @@ const Budget = (()=>{
         mk('노벨피아', 0),
         mk('AWS Cloud', 0),
       ]},
-      {key:'s4', label:'생활 / 미용', items:[
+      {key:'s4', label:'생활 / 미용 / 기타', items:[
         mk('미용실', 0),
         mk('오쥬드', 0),
+        mk('어버이날 용돈', 0),
       ]},
-      {key:'s5', label:'카드값 합계 (참고용)', items:[
+      {key:'s5', label:'카드값 합계 (참고용)', noExpense:true, items:[
         mk('BC카드 합계', 0),
-        mk('하나카드 합계 (해외결제)', 0),
-      ]},
-      {key:'s6', label:'※ 7월 예정 지출 (메모)', items:[
-        mk('클로드맥스 $110', 0),
-        mk('회식비 234,000', 0),
-        mk('오쥬드 145,000', 0),
-        mk('AWS Cloud $145+@', 0),
+        mk('하나카드 합계', 0),
       ]},
     ];
   }
@@ -1965,7 +1988,12 @@ const Budget = (()=>{
 
   function getMonthTotal(ymStr){
     let t = 0;
-    sections.forEach(s=>s.items.forEach(it=>{ t += getCellAmount(ymStr, it.key); }));
+    sections.forEach(s=>{ if(s.noExpense) return; s.items.forEach(it=>{ t += getCellAmount(ymStr, it.key); }); });
+    return t;
+  }
+  function getMonthIncome(ymStr){
+    let t = 0;
+    sections.forEach(s=>{ if(!s.noExpense || s.key!=='s0') return; s.items.forEach(it=>{ t += getCellAmount(ymStr, it.key); }); });
     return t;
   }
   function getItemYearTotal(key){
@@ -2009,6 +2037,15 @@ const Budget = (()=>{
     renderPersonCards();
     renderTable();
     renderInvest();
+    // 메모: 월 선택 기본값을 최신 데이터(6월)로, 그리고 로드
+    (function(){
+      const sel = document.getElementById('bg-memo-month');
+      if(sel && !sel.dataset.inited){
+        sel.dataset.inited = '1';
+        sel.value = '2025-06';
+      }
+      loadMemo();
+    })();
     document.getElementById('bg-year').textContent = `${year}년`;
     document.getElementById('bg-tbl-sub').textContent = (filter==='all')
       ? '월별 카테고리 지출 — 셀을 입력하려면 위 탭에서 사람을 선택하세요'
@@ -2174,7 +2211,7 @@ const Budget = (()=>{
     // total row
     html += `<tr class="bg-tbl-total">`;
     html += `<td class="col-label">합계</td>`;
-    const totalRatio = sections.reduce((a,s)=>a+s.items.reduce((b,i)=>b+i.ratio,0),0);
+    const totalRatio = sections.reduce((a,s)=> s.noExpense ? a : a+s.items.reduce((b,i)=>b+i.ratio,0),0);
     html += `<td class="bg-tbl-ratio">${totalRatio}%</td>`;
     monthCols.forEach((ymStr)=>{
       const t = getMonthTotal(ymStr);
@@ -2686,8 +2723,35 @@ const Budget = (()=>{
     render();
   }
 
+  // ── 메모 / 특이사항 ──
+  let memos = (function(){
+    const user = LS.get(KEY_MEMO, {});
+    const out = Object.assign({}, SEED_MEMO);
+    Object.keys(user).forEach(k=>{ out[k] = user[k]; }); // 사용자 작성분 우선
+    return out;
+  })();
+  function curMemoMonth(){
+    const sel = document.getElementById('bg-memo-month');
+    return sel ? sel.value : ('2025-' + String(new Date().getMonth()+1).padStart(2,'0'));
+  }
+  function loadMemo(){
+    const ta = document.getElementById('bg-memo-text');
+    if(ta) ta.value = memos[curMemoMonth()] || '';
+  }
+  function saveMemo(){
+    const ta = document.getElementById('bg-memo-text');
+    if(!ta) return;
+    const m = curMemoMonth();
+    memos[m] = ta.value;
+    // 사용자 작성분만 저장 (시드와 달라진 것 + 새로 쓴 것)
+    const userMemos = LS.get(KEY_MEMO, {});
+    userMemos[m] = ta.value;
+    LS.set(KEY_MEMO, userMemos);
+  }
+
   return {
     init, render, filter:setFilter,
+    loadMemo, saveMemo,
     prevYear, nextYear,
     startAmt, commitAmt, startRatio, commitRatio, _cancel, _cellKey,
     startLabel, commitLabel, startSection, commitSection,
