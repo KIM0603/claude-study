@@ -542,6 +542,20 @@ select.ipt{cursor:pointer}
 .ppl-card-bal .ppl-card-row-num{font-size:19px;font-weight:700}
 .ppl-card-couple{background:linear-gradient(135deg,#fff7ed,#f0f9f4);border:1px solid #e6e0d6}
 .ppl-card-couple .ppl-card-name{font-weight:700}
+/* 월 비교 표 */
+.bg-cmp-tbl .bg-cell{padding:2px}
+.bg-cmp-tbl .bg-cell-input{width:100%;border:1px solid transparent;background:transparent;text-align:right;padding:6px 8px;border-radius:6px;font:14px/1 inherit;color:var(--ink);font-variant-numeric:tabular-nums;box-sizing:border-box}
+.bg-cmp-tbl .bg-cell-input:hover{border-color:var(--line);background:var(--bg-soft,#fafaf7)}
+.bg-cmp-tbl .bg-cell-input:focus{border-color:#3f7ae0;background:#fff;outline:none}
+.bg-cmp-tbl .bg-cell-sum{text-align:right;padding:6px 10px;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink-2,var(--ink))}
+.bg-cmp-tbl .bg-cell-sum.out{color:#8a3a45}
+.bg-cmp-tbl .bg-cell-sum.inc{color:#2d6a4f}
+.bg-cmp-tbl .bg-cell-sum.pos{color:#1b5e3f}
+.bg-cmp-tbl .bg-cell-sum.neg{color:#b3261e}
+.bg-cmp-summary td{border-top:1px solid var(--line);font-weight:600;padding-top:8px}
+.bg-cmp-bal td{border-top:2px solid var(--ink);font-size:15px;font-weight:700}
+.bg-cmp-tbl th{text-align:right;padding:8px 10px;font-size:12px}
+.bg-cmp-tbl th.col-label,.bg-cmp-tbl td.col-label{text-align:left}
 
 /* edit modal fields */
 .ppl-edit-field{
@@ -1305,6 +1319,10 @@ select.ipt{cursor:pointer}
         <div class="ppl-tabs" id="ppl-tabs">
           <!-- populated by Budget: 전체 / Person A / Person B -->
         </div>
+        <button class="btn btn-sm" onclick="Budget.addPerson()">
+          <svg viewBox="0 0 24 24" class="ico14"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          사람 추가
+        </button>
         <button class="btn btn-sm" onclick="Budget.openPplEdit()">
           <svg viewBox="0 0 24 24" class="ico14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
           이름 수정
@@ -1329,9 +1347,33 @@ select.ipt{cursor:pointer}
             <button class="btn btn-sm" onclick="Budget.nextYear()" title="다음 연도">
               <svg viewBox="0 0 24 24" class="ico14"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
+            <div class="seg" id="bg-view-toggle" style="margin-left:8px">
+              <button class="seg-btn" data-vm="year" onclick="Budget.setViewMode('year')">연간</button>
+              <button class="seg-btn on" data-vm="month" onclick="Budget.setViewMode('month')">월 비교</button>
+            </div>
           </div>
         </div>
-        <div class="bg-tbl-wrap" id="bg-tbl-wrap"></div>
+
+        <!-- 연간 보기 (12개월 × 카테고리) -->
+        <div id="bg-year-view">
+          <div class="bg-tbl-wrap" id="bg-tbl-wrap"></div>
+        </div>
+
+        <!-- 월 비교 보기 (한 달, 사람 좌우 나란히) -->
+        <div id="bg-compare-view">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <select id="bg-cmp-month" onchange="Budget.renderCompare()" class="btn btn-sm" style="cursor:pointer">
+              <option value="2025-01">2025년 1월</option><option value="2025-02">2025년 2월</option>
+              <option value="2025-03">2025년 3월</option><option value="2025-04">2025년 4월</option>
+              <option value="2025-05">2025년 5월</option><option value="2025-06">2025년 6월</option>
+              <option value="2025-07">2025년 7월</option><option value="2025-08">2025년 8월</option>
+              <option value="2025-09">2025년 9월</option><option value="2025-10">2025년 10월</option>
+              <option value="2025-11">2025년 11월</option><option value="2025-12">2025년 12월</option>
+            </select>
+            <span class="card-sub" id="bg-cmp-sub">사람별 지출/수입/잔액</span>
+          </div>
+          <div class="bg-tbl-wrap" id="bg-cmp-wrap"></div>
+        </div>
       </div>
 
       <!-- ── 카테고리별 지출 비율 (도넛) ── -->
@@ -2100,6 +2142,19 @@ const Budget = (()=>{
     renderTabs();
     renderPersonCards();
     renderTable();
+    renderCompare();
+    // 보기 모드에 따라 연간표/월비교표 토글
+    (function(){
+      const yearWrap = document.getElementById('bg-year-view');
+      const cmpWrap  = document.getElementById('bg-compare-view');
+      if(yearWrap) yearWrap.style.display = (viewMode==='year') ? '' : 'none';
+      if(cmpWrap)  cmpWrap.style.display  = (viewMode==='month') ? '' : 'none';
+      document.querySelectorAll('#bg-view-toggle .seg-btn').forEach(b=>{
+        b.classList.toggle('on', b.dataset.vm===viewMode);
+      });
+      const csel = document.getElementById('bg-cmp-month');
+      if(csel && !csel.dataset.inited){ csel.dataset.inited='1'; csel.value = latestDataYm(); }
+    })();
     renderInvest();
     // 메모: 월 선택 기본값을 최신 데이터(6월)로, 그리고 로드
     (function(){
@@ -2784,16 +2839,25 @@ const Budget = (()=>{
   function renderEditFields(){
     const el = document.getElementById('ppl-edit-fields');
     if(!el || !_editDraft) return;
-    el.innerHTML = people.map(p=>{
-      const d = _editDraft[p.id];
+    el.innerHTML = people.map((p,idx)=>{
+      const d = _editDraft[p.id] || {name:p.name, color:p.color};
+      _editDraft[p.id] = d;
       return `<div class="ppl-edit-field">
-        <div class="ppl-edit-field-head">사람 ${p.id+1}</div>
+        <div class="ppl-edit-field-head" style="display:flex;justify-content:space-between;align-items:center">
+          <span>사람 ${idx+1}</span>
+          ${people.length>1?`<button class="ppl-del-btn" data-del="${p.id}" style="border:none;background:none;color:#b3261e;cursor:pointer;font-size:12px">삭제</button>`:''}
+        </div>
         <input type="text" class="ppl-edit-name" data-pid="${p.id}" value="${escapeHtml(d.name)}" placeholder="이름" />
         <div class="ppl-edit-swatches">
           ${PALETTE.map(c=>`<div class="ppl-edit-swatch${c===d.color?' on':''}" data-pid="${p.id}" data-c="${c}" style="background:${c}"></div>`).join('')}
         </div>
       </div>`;
-    }).join('');
+    }).join('') + `<button class="btn" id="ppl-add-btn" style="width:100%;margin-top:4px">+ 사람 추가</button>`;
+    const addBtn = el.querySelector('#ppl-add-btn');
+    if(addBtn) addBtn.addEventListener('click', addPerson);
+    el.querySelectorAll('.ppl-del-btn').forEach(b=>{
+      b.addEventListener('click', ()=> removePerson(Number(b.dataset.del)));
+    });
     el.querySelectorAll('.ppl-edit-swatch').forEach(sw=>{
       sw.addEventListener('click', ()=>{
         const pid = Number(sw.dataset.pid);
@@ -2821,6 +2885,32 @@ const Budget = (()=>{
     });
     save();
     closePplEdit();
+    render();
+  }
+  function nextPersonId(){
+    return people.reduce((mx,p)=>Math.max(mx,p.id), -1) + 1;
+  }
+  function addPerson(){
+    const id = nextPersonId();
+    const color = PALETTE[people.length % PALETTE.length];
+    people.push({id, name:`사람${id+1}`, color});
+    if(_editDraft) _editDraft[id] = {name:`사람${id+1}`, color};
+    save();
+    renderEditFields();
+    render();
+  }
+  function removePerson(pid){
+    if(people.length<=1){ alert('최소 1명은 있어야 해요.'); return; }
+    const p = people.find(x=>x.id===pid);
+    if(!confirm(`"${p?p.name:'사람'}" 님을 삭제할까요?\n(입력했던 금액도 함께 사라집니다)`)) return;
+    people = people.filter(x=>x.id!==pid);
+    // remove their amounts/invest data
+    Object.values(amounts).forEach(ym=>{ delete ym[pid]; });
+    Object.values(investAmts).forEach(ym=>{ delete ym[pid]; });
+    if(_editDraft) delete _editDraft[pid];
+    if(filter===String(pid)) filter='all';
+    save();
+    renderEditFields();
     render();
   }
 
@@ -2905,9 +2995,99 @@ const Budget = (()=>{
     if(sub) sub.textContent = (parseInt(ymStr.split('-')[1],10))+'월 지출 구성';
   }
 
+  // ══════════════════════════════════════════════════════
+  //  월 비교 보기 — 한 달을 크게, 사람들을 좌우로 나란히
+  // ══════════════════════════════════════════════════════
+  let viewMode = LS.get('workspace.budget.viewmode', 'month'); // 'month' | 'year'
+  function setViewMode(m){
+    viewMode = m;
+    LS.set('workspace.budget.viewmode', m);
+    render();
+  }
+  function curCompareMonth(){
+    const sel = document.getElementById('bg-cmp-month');
+    return sel ? sel.value : latestDataYm();
+  }
+  // 특정 사람 셀에 저장 (filter 무관)
+  function setCellForPerson(ymStr, pid, key, val){
+    const n = Number(val)||0;
+    if(!amounts[ymStr]) amounts[ymStr] = {};
+    if(!amounts[ymStr][pid]) amounts[ymStr][pid] = {};
+    if(n>0) amounts[ymStr][pid][key] = n;
+    else delete amounts[ymStr][pid][key];
+    _setUser(userAmounts, ymStr, pid, key, n>0?n:0);
+    _mark(touchedAmt, ymStr, pid, key);
+    save();
+    renderCompare();
+    renderPersonCards();
+    renderDonut();
+  }
+  function _cellOf(ymStr, pid, key){
+    const m = amounts[ymStr]; if(!m) return 0;
+    return ((m[pid]||{})[key]||0);
+  }
+  function renderCompare(){
+    const host = document.getElementById('bg-cmp-wrap');
+    if(!host) return;
+    const ymStr = curCompareMonth();
+    const ppl = people;
+    const nCols = 1 + ppl.length + 1; // 카테고리 + 사람들 + 합계
+
+    let html = '<table class="bg-tbl bg-cmp-tbl"><thead><tr>';
+    html += '<th class="col-label">항목</th>';
+    ppl.forEach(p=>{ html += `<th style="color:${p.color}">${escapeHtml(p.name)}</th>`; });
+    html += '<th>합계</th></tr></thead><tbody>';
+
+    sections.forEach(sec=>{
+      // section header
+      html += `<tr class="bg-tbl-sec"><td class="col-label" colspan="${nCols}"><span class="sec-label-text">[${escapeHtml(sec.label)}]</span></td></tr>`;
+      sec.items.forEach(it=>{
+        html += `<tr class="bg-tbl-item"><td class="col-label"><span class="cat-label-text">${escapeHtml(it.label)}</span></td>`;
+        let rowSum = 0;
+        ppl.forEach(p=>{
+          const v = _cellOf(ymStr, p.id, it.key);
+          rowSum += v;
+          html += `<td class="bg-cell"><input class="bg-cell-input" type="text" inputmode="numeric"
+            value="${v>0?fmt.won(v):''}" placeholder="-"
+            data-ym="${ymStr}" data-pid="${p.id}" data-key="${it.key}"
+            onfocus="this.select()"
+            onblur="Budget._cmpCommit(this)"
+            onkeydown="if(event.key==='Enter')this.blur()" /></td>`;
+        });
+        html += `<td class="bg-cell-sum">${rowSum>0?fmt.won(rowSum):'-'}</td></tr>`;
+      });
+    });
+
+    // ── 요약 행: 지출합계 / 월급 / 남은금액 ──
+    const expByP = ppl.map(p=>personExpense(ymStr, p.id));
+    const incByP = ppl.map(p=>personIncome(ymStr, p.id));
+    const balByP = ppl.map((p,i)=>incByP[i]-expByP[i]);
+    html += `<tr class="bg-cmp-summary"><td class="col-label">지출 합계</td>`;
+    expByP.forEach(v=> html += `<td class="bg-cell-sum out">${fmt.won(v)}</td>`);
+    html += `<td class="bg-cell-sum out">${fmt.won(expByP.reduce((a,b)=>a+b,0))}</td></tr>`;
+    html += `<tr class="bg-cmp-summary"><td class="col-label">월급 (수입)</td>`;
+    incByP.forEach(v=> html += `<td class="bg-cell-sum inc">${fmt.won(v)}</td>`);
+    html += `<td class="bg-cell-sum inc">${fmt.won(incByP.reduce((a,b)=>a+b,0))}</td></tr>`;
+    html += `<tr class="bg-cmp-summary bg-cmp-bal"><td class="col-label">남은 금액</td>`;
+    balByP.forEach(v=> html += `<td class="bg-cell-sum ${v>=0?'pos':'neg'}">${fmt.won(v)}</td>`);
+    const balTot = balByP.reduce((a,b)=>a+b,0);
+    html += `<td class="bg-cell-sum ${balTot>=0?'pos':'neg'}">${fmt.won(balTot)}</td></tr>`;
+
+    html += '</tbody></table>';
+    host.innerHTML = html;
+
+    const sub = document.getElementById('bg-cmp-sub');
+    if(sub) sub.textContent = (parseInt(ymStr.split('-')[1],10))+'월 — 사람별 지출/수입/잔액';
+  }
+  function _cmpCommit(input){
+    const raw = (input.value||'').replace(/[^0-9]/g,'');
+    setCellForPerson(input.dataset.ym, Number(input.dataset.pid), input.dataset.key, Number(raw)||0);
+  }
+
   return {
     init, render, filter:setFilter,
     loadMemo, saveMemo, renderDonut,
+    setViewMode, renderCompare, _cmpCommit,
     prevYear, nextYear,
     startAmt, commitAmt, startRatio, commitRatio, _cancel, _cellKey,
     startLabel, commitLabel, startSection, commitSection,
@@ -2915,7 +3095,7 @@ const Budget = (()=>{
     setInvMode,
     startInvLabel, commitInvLabel, cycleInvColor, addInvCat, deleteInvCat,
     startInvAmt, commitInvAmt, _invCellKey,
-    openPplEdit, closePplEdit, savePplEdit,
+    openPplEdit, closePplEdit, savePplEdit, addPerson, removePerson,
   };
 })();
 window.Budget = Budget;
