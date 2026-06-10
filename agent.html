@@ -1776,6 +1776,42 @@ const Budget = (()=>{
   const KEY_INV     = 'workspace.budget.invest';        // {ym: {pid: {key: amt}}}
   const KEY_INV_MODE= 'workspace.budget.invest.mode';   // 'line' | 'stack'
 
+  // ══════════════════════════════════════════════════════
+  //  SEED DATA — 캡처 이미지로 매달 채워넣는 기본값 (코드 관리)
+  //  · 여기에 월별 데이터를 추가하면 어느 브라우저에서든 표시됩니다 (방식 A)
+  //  · 사용자가 화면에서 직접 고친 셀은 그 값이 우선됩니다 (방식 B)
+  //  · ym 형식: "2025-06"  /  pid: 사람 id(0,1..)  /  값: 금액(원)
+  // ══════════════════════════════════════════════════════
+  const SEED_AMOUNTS = {"2025-06": {"0": {"k1": 39830, "k2": 22740, "k3": 70000, "k4": 182600, "k5": 36300, "k6": 166034, "k7": 301620, "k8": 55000, "k9": 231690, "k10": 867116, "k11": 291143, "k12": 37295, "k13": 390, "k14": 18150, "k15": 11000, "k17": 400000, "k18": 280000, "k19": 1311674, "k20": 829566}}};
+  const SEED_INVEST  = {"2025-06": {"0": {"iv1": 600000, "iv2": 500000, "iv3": 400000}}};
+  // 사용자가 직접 만진 셀 기록 (이 셀은 시드로 덮어쓰지 않음)
+  const KEY_AMT_TOUCHED = 'workspace.budget.amounts.touched';
+  const KEY_INV_TOUCHED = 'workspace.budget.invest.touched';
+  // 카테고리(섹션) 버전: 코드에서 카테고리를 바꾸면 이 숫자를 올리세요.
+  // 저장된 버전보다 코드 버전이 높으면 코드의 defaultSections로 갱신됩니다.
+  const SECTIONS_VERSION = 2;
+  const KEY_SEC_VER = 'workspace.budget.sections.version';
+
+  // deep-merge: base(시드) 위에 over(사용자값)를 덮어씀
+  function mergeYmMap(seed, user, touched){
+    const out = {};
+    const yms = new Set([...Object.keys(seed||{}), ...Object.keys(user||{})]);
+    yms.forEach(ym=>{
+      out[ym] = {};
+      const pids = new Set([...Object.keys(seed?.[ym]||{}), ...Object.keys(user?.[ym]||{})]);
+      pids.forEach(pid=>{
+        const sCells = seed?.[ym]?.[pid] || {};
+        const uCells = user?.[ym]?.[pid] || {};
+        const merged = {...sCells};
+        // 사용자값은 항상 우선 (직접 입력/0으로 지운 것 포함)
+        Object.keys(uCells).forEach(k=>{ merged[k] = uCells[k]; });
+        // 사용자가 0으로 지운(삭제) 셀도 touched에 기록돼 있으면 0 유지
+        out[ym][pid] = merged;
+      });
+    });
+    return out;
+  }
+
   function defaultSections(){
     let k = 0;
     const mk = (label, ratio) => ({key:'k'+(++k), label, ratio});
@@ -1832,13 +1868,38 @@ const Budget = (()=>{
   let people = LS.get(KEY_PPL, [
     {id:0, name:'본인', color:'#cc5500'},
   ]);
-  let sections = LS.get(KEY_SEC, defaultSections());
-  let amounts  = LS.get(KEY_AMT, {"2025-06": {"0": {"k1": 39830, "k2": 22740, "k3": 70000, "k4": 182600, "k5": 36300, "k6": 166034, "k7": 301620, "k8": 55000, "k9": 231690, "k10": 867116, "k11": 291143, "k12": 37295, "k13": 390, "k14": 18150, "k15": 11000, "k17": 400000, "k18": 280000, "k19": 1311674, "k20": 829566}}});
+  let sections = (function(){
+    const storedVer = LS.get(KEY_SEC_VER, 0);
+    const stored = LS.get(KEY_SEC, null);
+    if(stored && storedVer >= SECTIONS_VERSION) return stored; // 사용자 편집 유지
+    LS.set(KEY_SEC_VER, SECTIONS_VERSION);
+    LS.set(KEY_SEC, defaultSections());
+    return defaultSections(); // 코드 카테고리로 갱신
+  })();
+  let amounts  = mergeYmMap(SEED_AMOUNTS, LS.get(KEY_AMT, {}), LS.get(KEY_AMT_TOUCHED, {}));
   let filter   = LS.get(KEY_FILTER, 'all');
   let year     = LS.get(KEY_YEAR, 2025);
   let editing  = null;
-  let investCats = LS.get(KEY_INV_CAT, defaultInvestCats());
-  let investAmts = LS.get(KEY_INV, {"2025-06": {"0": {"iv1": 600000, "iv2": 500000, "iv3": 400000}}});
+  let investCats = (function(){
+    const storedVer = LS.get(KEY_SEC_VER+'.inv', 0);
+    const stored = LS.get(KEY_INV_CAT, null);
+    if(stored && storedVer >= SECTIONS_VERSION) return stored;
+    LS.set(KEY_SEC_VER+'.inv', SECTIONS_VERSION);
+    LS.set(KEY_INV_CAT, defaultInvestCats());
+    return defaultInvestCats();
+  })();
+  let investAmts = mergeYmMap(SEED_INVEST, LS.get(KEY_INV, {}), LS.get(KEY_INV_TOUCHED, {}));
+  // 사용자 직접 입력분(시드와 별개로 저장) + 만진 셀 기록
+  let userAmounts = LS.get(KEY_AMT, {});
+  let userInvest  = LS.get(KEY_INV, {});
+  let touchedAmt  = LS.get(KEY_AMT_TOUCHED, {});
+  let touchedInv  = LS.get(KEY_INV_TOUCHED, {});
+  function _mark(store, ym, pid, key){ (((store[ym]=store[ym]||{})[pid]=store[ym][pid]||{}))[key]=1; }
+  function _setUser(store, ym, pid, key, val){
+    if(!store[ym]) store[ym]={};
+    if(!store[ym][pid]) store[ym][pid]={};
+    store[ym][pid][key]=val; // 0도 저장(=사용자가 지움)
+  }
   let investMode = LS.get(KEY_INV_MODE, 'line');
   let _maxInvKey = 0;
   investCats.forEach(c=>{
@@ -1865,13 +1926,15 @@ const Budget = (()=>{
 
   // ── persistence ──
   function save(){
-    LS.set(KEY_AMT, amounts);
+    LS.set(KEY_AMT, userAmounts);   // 사용자 입력분만 저장 (시드는 코드 관리)
+    LS.set(KEY_AMT_TOUCHED, touchedAmt);
     LS.set(KEY_SEC, sections);
     LS.set(KEY_PPL, people);
     LS.set(KEY_FILTER, filter);
     LS.set(KEY_YEAR, year);
     LS.set(KEY_INV_CAT, investCats);
-    LS.set(KEY_INV, investAmts);
+    LS.set(KEY_INV, userInvest);    // 사용자 입력분만 저장
+    LS.set(KEY_INV_TOUCHED, touchedInv);
     LS.set(KEY_INV_MODE, investMode);
     Bus.emit('data-changed');
   }
@@ -1894,6 +1957,9 @@ const Budget = (()=>{
     if(!amounts[ym][pid]) amounts[ym][pid] = {};
     if(val>0) amounts[ym][pid][key] = val;
     else delete amounts[ym][pid][key];
+    // 사용자 입력분 별도 기록 (시드보다 우선)
+    _setUser(userAmounts, ym, pid, key, val>0?val:0);
+    _mark(touchedAmt, ym, pid, key);
     save();
   }
 
@@ -2252,6 +2318,8 @@ const Budget = (()=>{
     if(!investAmts[ymStr][pid]) investAmts[ymStr][pid] = {};
     if(val>0) investAmts[ymStr][pid][key] = val;
     else delete investAmts[ymStr][pid][key];
+    _setUser(userInvest, ymStr, pid, key, val>0?val:0);
+    _mark(touchedInv, ymStr, pid, key);
     save();
   }
   function getInvCatYearTotal(key){
