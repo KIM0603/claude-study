@@ -423,13 +423,13 @@ section{position:relative;}
   aspect-ratio:3/2;
   border-radius:var(--radius);
   overflow:hidden;flex-shrink:0;
-  background:#222;position:relative;
+  background:#f0efec;position:relative;
   cursor:pointer;
   transition:transform .45s var(--ease);
-  border:1px solid rgba(255,255,255,.06);
+  border:1px solid rgba(0,0,0,.05);
 }
 .roll-card:hover{transform:translateY(-8px);}
-.roll-card img{width:100%;height:100%;object-fit:cover;}
+.roll-card img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);}
 .roll-card .ph{
   position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
@@ -470,7 +470,8 @@ section{position:relative;}
 .showcase-viewport::-webkit-scrollbar{display:none;}
 .showcase-track{
   display:flex;gap:10px;
-  padding:0 clamp(18px,2.5vw,30px);
+  padding:0 clamp(18px,2.5vw,30px) 0
+    calc(max(0px,(100% - var(--maxw))/2) + clamp(18px,4vw,52px));
 }
 .sc-card{
   flex:0 0 clamp(300px,40vw,560px);
@@ -505,7 +506,7 @@ section{position:relative;}
 }
 .sc-card .sc-title{
   font-family:'Pretendard',sans-serif;font-weight:700;
-  font-size:var(--fs-h3);line-height:1.34;
+  font-size:clamp(1.15rem,1.5vw,1.4rem);line-height:1.34;
   letter-spacing:-.03em;color:var(--txt-dark);
   margin-bottom:8px;
 }
@@ -891,20 +892,25 @@ section{position:relative;}
   color:#9a9286;font-family:'Manrope';font-weight:700;
   font-size:var(--fs-label);letter-spacing:.04em;text-align:center;
 }
-/* Capability 툴 아이콘(아이콘 + 라벨) */
+/* Capability 툴 아이콘 (핸드폰 앱 아이콘 스타일) */
 .tool-grid.tool-grid-small{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-  width:auto;max-width:100%;flex-wrap:wrap;
+  display:flex;flex-wrap:wrap;gap:18px 16px;
+  width:auto;max-width:100%;
 }
 .tool-grid.tool-grid-small .tool-item{
-  width:auto;height:auto;aspect-ratio:1;
-  flex-direction:column;gap:7px;padding:12px 6px;background:#fff;
+  width:62px;height:auto;aspect-ratio:auto;
+  flex-direction:column;gap:7px;padding:0;
+  background:transparent;border:none;box-shadow:none;
 }
+.tool-grid.tool-grid-small .tool-item:hover{transform:translateY(-3px);}
 .tool-grid.tool-grid-small .tool-item img{
-  width:auto;height:42%;max-height:44px;max-width:62%;object-fit:contain;
+  width:54px;height:54px;padding:11px;
+  background:#fff;border:1px solid var(--card-border);
+  border-radius:15px;object-fit:contain;
+  box-shadow:0 3px 8px rgba(0,0,0,.06);
 }
 .tool-grid.tool-grid-small .tool-item .tool-name{
-  font-family:'Pretendard';font-weight:600;font-size:0.72rem;
+  font-family:'Pretendard';font-weight:600;font-size:0.68rem;
   color:var(--txt-dim);text-align:center;line-height:1.2;
 }
 /* 하단 : 3카드 + 소개 카드 */
@@ -916,7 +922,7 @@ section{position:relative;}
   background:#fff;border-radius:var(--radius);
   padding:clamp(24px,2vw,34px);
   display:flex;flex-direction:column;
-  min-height:clamp(360px,44vh,440px);
+  min-height:0;
   transition:transform .3s var(--ease);
   border:1px solid var(--card-border);box-shadow:var(--shadow-sm);
 }
@@ -934,7 +940,7 @@ section{position:relative;}
 .cap-card .cap-num{
   font-family:'Manrope',sans-serif;font-weight:800;
   font-size:var(--fs-caption);color:var(--accent);
-  letter-spacing:.04em;margin-top:auto;margin-bottom:4px;
+  letter-spacing:.04em;margin-bottom:4px;
 }
 .cap-card .cap-desc{
   font-family:'Pretendard',sans-serif;
