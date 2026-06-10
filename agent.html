@@ -1234,6 +1234,67 @@ select.ipt{cursor:pointer}
   .bg-row-cat,.bg-row-memo{display:none}
   .ppl-cards{grid-template-columns:1fr}
 }
+
+/* ════════════════════════════════════════
+   📱 모바일 최적화 (≤640px)
+   ════════════════════════════════════════ */
+@media(max-width:640px){
+  /* 사이드바 완전히 숨기고 본문 전체 폭 사용 */
+  body{ grid-template-columns:1fr !important; }
+  .sidebar{ display:none !important; }
+  /* 메인 여백 축소 */
+  .view{ padding:16px 12px 60px; gap:14px; max-width:100%; }
+  .crumb{ height:42px; padding:0 14px; font-size:12px; }
+
+  /* 카드 */
+  .card-head{ padding:13px 14px; flex-wrap:wrap; gap:8px; }
+  .card-title{ font-size:15px; }
+  .card-sub{ font-size:11px; }
+
+  /* 상단 사람 카드: 1열로 쌓기 */
+  .ppl-cards{ grid-template-columns:1fr; gap:10px; }
+  .ppl-card{ padding:14px 16px; }
+  .ppl-card-row-num{ font-size:15px; }
+  .ppl-card-bal .ppl-card-row-num{ font-size:17px; }
+
+  /* 헤더 액션(연/월 네비, 토글, 버튼) 줄바꿈 허용 */
+  .card-actions{ flex-wrap:wrap; gap:6px; row-gap:8px; }
+  .btn.btn-sm{ padding:6px 8px; font-size:12px; }
+  .bg-year{ font-size:13px; min-width:auto; }
+  .seg-btn{ padding:6px 10px; font-size:12px; }
+
+  /* 월 비교 표: 가로 스크롤 없이 화면에 꽉 차게 */
+  #bg-cmp-wrap{ overflow-x:visible; }
+  .bg-cmp-tbl{ min-width:0 !important; width:100%; font-size:12px; table-layout:fixed; }
+  .bg-cmp-tbl th, .bg-cmp-tbl td{ padding:7px 4px; }
+  .bg-cmp-tbl th.col-label, .bg-cmp-tbl td.col-label{ width:34%; word-break:break-all; font-size:11.5px; }
+  .bg-cmp-tbl .bg-cell-input{ padding:6px 3px; font-size:12px; }
+  .bg-cmp-tbl .bg-cell-sum{ padding:6px 4px; font-size:11.5px; }
+  .bg-cmp-tbl th{ font-size:11px; padding:7px 3px; }
+
+  /* 연간 표(12개월)는 폭이 커서 가로 스크롤 유지하되 글씨 축소 */
+  .bg-tbl{ font-size:11px; }
+  .bg-tbl-wrap{ -webkit-overflow-scrolling:touch; }
+
+  /* 도넛: 세로로 쌓기 */
+  #bg-donut{ flex-direction:column; gap:16px !important; }
+  #bg-donut svg{ width:180px; height:180px; }
+
+  /* 메모 textarea */
+  #bg-memo-text{ font-size:13px; min-height:120px; }
+
+  /* 모달 가독성 */
+  .modal, .ppl-edit-modal{ width:94vw; max-width:94vw; }
+}
+
+/* 아주 작은 화면(≤380px) 추가 보정 */
+@media(max-width:380px){
+  .view{ padding:12px 8px 50px; }
+  .bg-cmp-tbl{ font-size:11px; }
+  .bg-cmp-tbl .bg-cell-input{ font-size:11px; }
+  .card-title{ font-size:14px; }
+}
+
 </style>
 </head>
 <body>
