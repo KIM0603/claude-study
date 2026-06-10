@@ -1349,6 +1349,15 @@ select.ipt{cursor:pointer}
                 <svg viewBox="0 0 24 24" class="ico14"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </button>
             </div>
+            <div id="bg-month-nav" style="display:flex;align-items:center;gap:4px">
+              <button class="btn btn-sm" onclick="Budget.prevCompareMonth()" title="이전 달">
+                <svg viewBox="0 0 24 24" class="ico14"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="bg-year" id="bg-cmp-month-label" style="min-width:64px;text-align:center">6월</div>
+              <button class="btn btn-sm" onclick="Budget.nextCompareMonth()" title="다음 달">
+                <svg viewBox="0 0 24 24" class="ico14"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
             <div class="seg" id="bg-view-toggle" style="margin-left:8px">
               <button class="seg-btn" data-vm="year" onclick="Budget.setViewMode('year')">연간</button>
               <button class="seg-btn on" data-vm="month" onclick="Budget.setViewMode('month')">월 비교</button>
@@ -1363,17 +1372,9 @@ select.ipt{cursor:pointer}
 
         <!-- 월 비교 보기 (한 달, 사람 좌우 나란히) -->
         <div id="bg-compare-view">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <select id="bg-cmp-month" onchange="Budget.renderCompare()" class="btn btn-sm" style="cursor:pointer">
-              <option value="2025-01">2025년 1월</option><option value="2025-02">2025년 2월</option>
-              <option value="2025-03">2025년 3월</option><option value="2025-04">2025년 4월</option>
-              <option value="2025-05">2025년 5월</option><option value="2025-06">2025년 6월</option>
-              <option value="2025-07">2025년 7월</option><option value="2025-08">2025년 8월</option>
-              <option value="2025-09">2025년 9월</option><option value="2025-10">2025년 10월</option>
-              <option value="2025-11">2025년 11월</option><option value="2025-12">2025년 12월</option>
-            </select>
-            <span class="card-sub" id="bg-cmp-sub">사람별 지출/수입/잔액</span>
-          </div>
+          <!-- 월 상태값 보관용 (숨김). 실제 이동은 상단 ◀ ▶ 버튼 -->
+          <input type="hidden" id="bg-cmp-month" value="2025-06" />
+          <span class="card-sub" id="bg-cmp-sub" style="display:block;margin-bottom:10px">사람별 지출/수입/잔액</span>
           <div class="bg-tbl-wrap" id="bg-cmp-wrap"></div>
         </div>
       </div>
@@ -2167,9 +2168,12 @@ const Budget = (()=>{
       const cmpWrap  = document.getElementById('bg-compare-view');
       if(yearWrap) yearWrap.style.display = (viewMode==='year') ? '' : 'none';
       if(cmpWrap)  cmpWrap.style.display  = (viewMode==='month') ? '' : 'none';
-      // 월 비교 모드에서는 연도 네비게이션 숨김 (월 드롭다운으로 선택)
+      // 모드별 네비게이션 표시: 연간→연도 네비, 월 비교→월 네비
       const yearNav = document.getElementById('bg-year-nav');
-      if(yearNav) yearNav.style.display = (viewMode==='year') ? 'flex' : 'none';
+      const monthNav = document.getElementById('bg-month-nav');
+      if(yearNav)  yearNav.style.display  = (viewMode==='year')  ? 'flex' : 'none';
+      if(monthNav) monthNav.style.display = (viewMode==='month') ? 'flex' : 'none';
+      updateCompareMonthLabel();
       document.querySelectorAll('#bg-view-toggle .seg-btn').forEach(b=>{
         b.classList.toggle('on', b.dataset.vm===viewMode);
       });
@@ -3029,6 +3033,29 @@ const Budget = (()=>{
     const sel = document.getElementById('bg-cmp-month');
     return sel ? sel.value : latestDataYm();
   }
+  function setCompareMonth(ymStr){
+    const sel = document.getElementById('bg-cmp-month');
+    if(sel) sel.value = ymStr;
+    updateCompareMonthLabel();
+    renderCompare();
+  }
+  function shiftCompareMonth(delta){
+    const cur = curCompareMonth();           // "2025-06"
+    let [y,m] = cur.split('-').map(Number);
+    m += delta;
+    if(m<1){ m=12; y-=1; }
+    if(m>12){ m=1; y+=1; }
+    setCompareMonth(`${y}-${String(m).padStart(2,'0')}`);
+  }
+  function prevCompareMonth(){ shiftCompareMonth(-1); }
+  function nextCompareMonth(){ shiftCompareMonth(1); }
+  function updateCompareMonthLabel(){
+    const lbl = document.getElementById('bg-cmp-month-label');
+    if(!lbl) return;
+    const [y,m] = curCompareMonth().split('-').map(Number);
+    lbl.textContent = `${m}월`;
+    lbl.title = `${y}년 ${m}월`;
+  }
   // 특정 사람 셀에 저장 (filter 무관)
   function setCellForPerson(ymStr, pid, key, val){
     const n = Number(val)||0;
@@ -3108,7 +3135,7 @@ const Budget = (()=>{
   return {
     init, render, filter:setFilter,
     loadMemo, saveMemo, renderDonut,
-    setViewMode, renderCompare, _cmpCommit,
+    setViewMode, renderCompare, _cmpCommit, prevCompareMonth, nextCompareMonth,
     prevYear, nextYear,
     startAmt, commitAmt, startRatio, commitRatio, _cancel, _cellKey,
     startLabel, commitLabel, startSection, commitSection,
