@@ -1960,10 +1960,26 @@ const Budget = (()=>{
     ];
   }
 
-  let people = LS.get(KEY_PPL, [
-    {id:0, name:'사람1', color:'#cc5500'},
-    {id:1, name:'사람2', color:'#0055cc'},
-  ]);
+  const PEOPLE_VERSION = 2;
+  const KEY_PPL_VER = 'workspace.budget.people.version';
+  const DEFAULT_PEOPLE = [
+    {id:0, name:'본인',  color:'#cc5500'},
+    {id:1, name:'지인2', color:'#0055cc'},
+  ];
+  let people = (function(){
+    const storedVer = LS.get(KEY_PPL_VER, 0);
+    const stored = LS.get(KEY_PPL, null);
+    if(stored && storedVer >= PEOPLE_VERSION) return stored; // 사용자 편집 유지
+    // 갱신: 기존 사람(데이터 보존)은 유지하고, 부족한 기본 인원만 채움
+    let merged = Array.isArray(stored) && stored.length ? stored.slice() : [];
+    DEFAULT_PEOPLE.forEach(dp=>{
+      if(!merged.some(p=>p.id===dp.id)) merged.push({...dp});
+    });
+    if(!merged.length) merged = DEFAULT_PEOPLE.map(p=>({...p}));
+    LS.set(KEY_PPL_VER, PEOPLE_VERSION);
+    LS.set(KEY_PPL, merged);
+    return merged;
+  })();
   let sections = (function(){
     const storedVer = LS.get(KEY_SEC_VER, 0);
     const stored = LS.get(KEY_SEC, null);
