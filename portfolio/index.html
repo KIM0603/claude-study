@@ -417,7 +417,7 @@ section{position:relative;}
   display:flex;gap:10px;width:max-content;
   animation:slideRoll 44s linear infinite;
 }
-.roller-track:hover{animation-play-state:paused;}
+.roller-track:hover{animation-play-state:running;}
 @keyframes slideRoll{to{transform:translateX(-50%);}}
 /* 개별 이미지 카드 */
 .roll-card{
@@ -426,7 +426,7 @@ section{position:relative;}
   border-radius:var(--radius);
   overflow:hidden;flex-shrink:0;
   background:#f0efec;position:relative;
-  cursor:pointer;
+  cursor:default;
   transition:transform .45s var(--ease);
   border:1px solid rgba(0,0,0,.05);
 }
@@ -447,14 +447,15 @@ section{position:relative;}
   transition:.4s var(--ease);
 }
 .roll-card:hover .cap{opacity:1;transform:translateY(0);}
+.roll-card .cap .cap-tags{display:flex;flex-wrap:nowrap;gap:4px;margin-bottom:8px;}
 .roll-card .cap .t{
-  font-family:'Manrope';font-weight:700;font-size:var(--fs-label);
-  letter-spacing:.04em;color:var(--txt-dark);
-  background:var(--accent);display:inline-block;
-  padding:4px 11px;border-radius:6px;margin-bottom:8px;
+  font-family:'Manrope';font-weight:600;font-size:15px;
+  letter-spacing:.04em;color:#6b6157;
+  background:#f1efe8;display:inline-block;
+  padding:3px 9px;border-radius:6px;margin-bottom:0;
 }
 .roll-card .cap h4{
-  font-family:'Pretendard';font-weight:700;font-size:var(--fs-h4);
+  font-family:'Pretendard';font-weight:700;font-size:1.25rem;
   color:#fff;letter-spacing:-.02em;
 }
 @media(max-width:600px){
@@ -502,17 +503,18 @@ section{position:relative;}
   display:flex;flex-direction:column;flex:0 0 auto;
   background:#fff;
 }
+.sc-card .sc-labels{display:flex;flex-wrap:nowrap;gap:4px;}
 .sc-card .sc-label{
   font-family:'Manrope',sans-serif;font-weight:600;
-  font-size:var(--fs-body-sm);
+  font-size:15px;
   display:inline-block;
-  background:rgba(0,0,0,.55);color:#fff;
-  padding:4px 12px;border-radius:999px;
+  background:#f1efe8;color:#6b6157;
+  padding:3px 9px;border-radius:6px;
   margin-bottom:0;
 }
 .sc-card .sc-title{
   font-family:'Pretendard',sans-serif;font-weight:600;
-  font-size:var(--fs-h3);line-height:1.34;
+  font-size:clamp(1.375rem,2.1vw,1.875rem);line-height:1.34;
   letter-spacing:-.03em;color:var(--txt-dark);
   margin-bottom:8px;
 }
@@ -540,7 +542,8 @@ section{position:relative;}
 @media(max-width:600px){
   .sc-card{flex-basis:84vw;min-height:0;}
   .sc-card .sc-title{font-size:1.25rem;line-height:1.3;margin-bottom:6px;}
-  .sc-card .sc-label{font-size:0.85rem;margin-bottom:0;}
+  .sc-card .sc-label{font-size:11.6px;font-weight:500;margin-bottom:0;}
+  .roll-card .cap .t{font-size:11.6px;font-weight:500;}
   .career-tl .career-row .c-body .c-role{font-size:var(--fs-label);}
   .career-tl .career-row .c-body .c-tags span{font-size:0.8rem;padding:2px 8px;}
   .headline{font-size:clamp(1.9rem,7.5vw,2.6rem);line-height:1.2;}
@@ -656,6 +659,21 @@ section{position:relative;}
   cursor:pointer;transition:.2s var(--ease);
 }
 .career-more-btn:hover{background:var(--accent-deep);transform:translateY(-1px);}
+.cta-lg{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--accent);color:#fff;border:none;
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-body);letter-spacing:-.01em;
+  padding:18px 38px;border-radius:50px;
+  cursor:pointer;transition:.2s var(--ease);
+}
+.cta-lg:hover{background:var(--accent-deep);transform:translateY(-1px);}
+@media(max-width:600px){
+  .career-more-btn,.cta-lg{
+    font-size:16px;font-weight:600;
+    padding:14px 28px;border-radius:999px;
+  }
+}
 .career-more-btn svg{transition:transform .2s var(--ease);}
 .career-more-btn:hover svg{transform:translateX(4px);}
 .career-row .c-body .c-date{
@@ -664,7 +682,7 @@ section{position:relative;}
   margin-bottom:5px;
 }
 .career-row .c-body h4{
-  font-size:var(--fs-body-lg);font-weight:600;color:var(--txt-dark);
+  font-size:calc(var(--fs-body-lg) - 1px);font-weight:600;color:var(--txt-dark);
   letter-spacing:-.01em;margin-bottom:4px;
 }
 .career-row .c-body .c-role{
@@ -1036,10 +1054,11 @@ section{position:relative;}
 .work .ph::after{content:"[[ PROJECT IMAGE ]]";}
 .work .meta{position:static;z-index:2;
   padding:18px 20px 20px;background:#fff;}
+.work .meta .tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
 .work .meta .tag{display:inline-block;font-family:'Pretendard';font-weight:600;
-  font-size:var(--fs-label);letter-spacing:.02em;color:#1a1a1a;
+  font-size:15px;letter-spacing:.02em;color:#6b6157;
   background:#f1efe8;
-  padding:4px 10px;border-radius:6px;margin-bottom:10px;}
+  padding:3px 9px;border-radius:6px;margin-bottom:0;}
 .work .meta h3{font-family:'Pretendard';font-weight:700;font-size:clamp(1.3rem,1.5vw,1.55rem);
   color:#1a1a1a;letter-spacing:-.02em;}
 .work .corner{position:absolute;top:14px;right:14px;z-index:2;
@@ -1199,7 +1218,7 @@ section{position:relative;}
 .credit-track span{
   font-family:'Pretendard',sans-serif;
   font-size:clamp(1.05rem,1.4vw,1.25rem);
-  font-weight:500;color:var(--txt-dark);
+  font-weight:500;color:#888888;
   line-height:1;padding:14px 0;
   border-bottom:1px solid var(--line-dark);
   white-space:nowrap;letter-spacing:-.01em;
@@ -1621,7 +1640,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   .acc-head .ttl{font-size:1.3rem;}
   .work .meta{padding:16px;}
   .work .meta h3{font-size:1.15rem;}
-  .work .meta .tag{font-size:0.78rem;padding:3px 8px;margin-bottom:8px;}
+  .work .meta .tag{font-size:0.78rem;padding:3px 8px;margin-bottom:0;}
 }
 </style>
 </head>
@@ -1966,7 +1985,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
             <div class="c-body">
               <div class="c-date">2025.09 — 2026.09</div>
               <h4>아이엠브릿지 · 사원 웹디자이너</h4>
-              <p class="c-role">병원/한의원 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
+              <p class="c-role">한의원 브랜드 홈페이지 리뉴얼·상세페이지 제작 및 월별 이벤트 프로모션 운영</p>
             </div>
           </div>
           <!-- 항목 1 -->
@@ -2012,7 +2031,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     <div class="wrap" style="text-align:center;">
       <div class="eyebrow sr">Let's talk</div>
       <h2 class="headline sr" style="margin-bottom:34px;">이제, 당신의 브랜드를<br>설계할 시간입니다.</h2>
-      <button class="sr" onclick="go('contact')" style="background:var(--accent);color:#fff;border:none;font-weight:700;font-size:var(--fs-body);padding:18px 38px;border-radius:50px;">
+      <button class="sr cta-lg" onclick="go('contact')">
         제작 문의하기 →
       </button>
     </div>
@@ -2046,7 +2065,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miol_01.jpg" alt="미올한의원 메인 페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#UI/UX #Web Design #한의원 #브랜드 #메인페이지 #리뉴얼</span>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Web Design</span><span class="tag">한의원</span><span class="tag">브랜드</span></div>
             <h3>미올한의원 메인 페이지</h3>
           </div>
         </div>
@@ -2055,7 +2074,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #한의원 #바디라인 #브랜딩</span>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">바디라인</span></div>
             <h3>미올한의원 바디라인 상세페이지</h3>
           </div>
         </div>
@@ -2064,7 +2083,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #한의원 #튼살치료 #브랜딩</span>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">튼살치료</span></div>
             <h3>미올한의원 튼살치료 상세페이지</h3>
           </div>
         </div>
@@ -2073,7 +2092,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="mioldiet_01.jpg" alt="미올한의원 다이어트셔플먼트 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #한의원 #다이어트 #브랜딩</span>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">다이어트</span></div>
             <h3>미올한의원 다이어트셔플먼트 상세페이지</h3>
           </div>
         </div>
@@ -2082,7 +2101,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #한의원 #스킨부스터 #브랜딩</span>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">스킨부스터</span></div>
             <h3>미올한의원 스킨부스터 상세페이지</h3>
           </div>
         </div>
@@ -2091,7 +2110,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #한의원 #핑크환 #브랜딩</span>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">핑크환</span></div>
             <h3>미올한의원 핑크환 상세페이지</h3>
           </div>
         </div>
@@ -2100,7 +2119,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #한의원 #안면마비 #브랜딩</span>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">안면마비</span></div>
             <h3>미올한의원 안면마비 상세페이지</h3>
           </div>
         </div>
@@ -2109,7 +2128,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="daynova_01.jpg" alt="데이노바 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #가전 #뷰티 #브랜딩</span>
+            <div class="tags"><span class="tag">가전</span><span class="tag">뷰티</span></div>
             <h3>데이노바 상세페이지</h3>
           </div>
         </div>
@@ -2118,7 +2137,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #카카오선물하기 #뷰티 #브랜딩</span>
+            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">뷰티</span></div>
             <h3>TWINCURL 카카오선물하기</h3>
           </div>
         </div>
@@ -2127,7 +2146,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="ezleb_01.jpg" alt="이지렙 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #카카오선물하기 #브랜딩</span>
+            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">브랜딩</span></div>
             <h3>이지렙 카카오선물하기</h3>
           </div>
         </div>
@@ -2136,7 +2155,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="gualsa_01.jpg" alt="문어괄사 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #뷰티 #브랜딩</span>
+            <div class="tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>문어괄사 상세페이지</h3>
           </div>
         </div>
@@ -2145,7 +2164,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="lash_01.jpg" alt="속눈썹영양제 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Landing Page #상세페이지 #뷰티 #브랜딩</span>
+            <div class="tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>속눈썹영양제 상세페이지</h3>
           </div>
         </div>
@@ -2154,7 +2173,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#AI Creative #Branding #가구 #신규런칭 #누끼+AI배경</span>
+            <div class="tags"><span class="tag">AI Creative</span><span class="tag">Branding</span><span class="tag">가구</span><span class="tag">신규런칭</span></div>
             <h3>니케하임 가구 브랜드 런칭</h3>
           </div>
         </div>
@@ -2163,7 +2182,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
+            <div class="tags"><span class="tag">AI Creative</span><span class="tag">가구</span><span class="tag">누끼+AI배경</span></div>
             <h3>니케하임 가구 베네 상세페이지</h3>
           </div>
         </div>
@@ -2172,7 +2191,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
+            <div class="tags"><span class="tag">AI Creative</span><span class="tag">가구</span><span class="tag">누끼+AI배경</span></div>
             <h3>니케하임 가구 어페로 상세페이지</h3>
           </div>
         </div>
@@ -2181,7 +2200,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#UI/UX #Branding #Responsive Web Design #PC #Mobile #Tablet #디자인시스템</span>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Responsive Web Design</span><span class="tag">PC</span></div>
             <h3>KH정보교육원(통합) 반응형 웹사이트</h3>
           </div>
         </div>
@@ -2190,7 +2209,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="atents_01.jpg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#UI/UX #Branding #Web Design #반응형 #디자인시스템</span>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Web Design</span><span class="tag">반응형</span></div>
             <h3>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h3>
           </div>
         </div>
@@ -2199,7 +2218,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#UI/UX #Web Design #홈페이지구축 #신규</span>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Web Design</span><span class="tag">홈페이지구축</span><span class="tag">신규</span></div>
             <h3>KH정보교육원 신규 홈페이지 구축</h3>
           </div>
         </div>
@@ -2208,7 +2227,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="latemeta_01.jpg" alt="레이트 가전뷰티 메타소재">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Graphic #메타소재 #가전 #뷰티 #브랜딩</span>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">메타소재</span><span class="tag">가전</span><span class="tag">뷰티</span></div>
             <h3>레이트 가전뷰티 메타소재</h3>
           </div>
         </div>
@@ -2217,7 +2236,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolglobal_01.jpg" alt="미올 해외팀 월 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Graphic #이벤트 #프로모션 #한의원 #해외팀</span>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span></div>
             <h3>미올 해외팀 월 이벤트</h3>
           </div>
         </div>
@@ -2226,7 +2245,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolmom_01.jpg" alt="미올 맘카페 전지점 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Graphic #이벤트 #프로모션 #한의원 #맘카페</span>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span></div>
             <h3>미올 맘카페 전지점 이벤트</h3>
           </div>
         </div>
@@ -2235,7 +2254,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">#Graphic #Poster #Leaflet #인쇄물</span>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">Poster</span><span class="tag">Leaflet</span><span class="tag">인쇄물</span></div>
             <h3>KH 포스터/리플렛 제작</h3>
           </div>
         </div>
@@ -2261,22 +2280,21 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
 
           <div class="arh-intro">
-            <p class="arh-tagline">브랜드와 사람 사이, 감정이 통하는 디자인을 만듭니다.</p>
-            <p>레이트코리아에서 가전/뷰티 브랜드 홈페이지 기획·리뉴얼, 아텐츠게임아카데미에서<br>
-            KH정보교육원 반응형 웹사이트 등 다양한 디지털 경험을 설계해왔습니다.</p>
+            <p class="arh-tagline">사람의 마음을 먼저 떠올리고, 그 마음이 닿도록 설계하는 디자이너입니다.</p>
+            <p>화면을 예쁘게 만들기보다, 볼 사람의 마음을 먼저 떠올리는 데서 시작합니다. 가전·뷰티부터 한의원 브랜드까지 기획·리뉴얼과 상세페이지·이벤트를 전 과정 직접 책임졌고, 제 결과물이 사람들에게 가닿을 때 가장 큰 보람을 느낍니다.</p>
 
             <div class="arh-bullets">
               <div class="arh-bullet">
                 <span class="arh-ico">✦</span>
-                <span><strong>[업무 경험]</strong> 브랜드 홈페이지 기획부터 상세페이지·이벤트 디자인까지 전 과정을 주도한 경험이 있어요</span>
+                <span><strong>[일하는 방식]</strong> 예쁨보다 '왜 이렇게'라는 이유와 구조를 먼저 세우고, 복잡한 정보도 한눈에 정리합니다.</span>
               </div>
               <div class="arh-bullet">
                 <span class="arh-ico">✦</span>
-                <span><strong>[강점]</strong> 사용자 감성에 맞는 비주얼을 기획하고, AI 툴을 활용해 빠르게 고품질 결과물을 만들어요</span>
+                <span><strong>[강점]</strong> 고객의 시선을 끌어당기는 비주얼과 카피를 '무엇으로 보여줄지' 정확히 골라내는 감각이 있고, AI 등 새 툴을 빠르게 익혀 완성도 높은 결과물로 연결합니다.</span>
               </div>
               <div class="arh-bullet">
                 <span class="arh-ico">✦</span>
-                <span><strong>[업무 포용력]</strong> 온라인·오프라인 디자인 모두 담당하며 다양한 컨셉의 디자인물을 제작할 수 있어요</span>
+                <span><strong>[태도]</strong> 낯선 업무에도 빠르게 적응하며, 늘 한 걸음 더 나아지려 합니다.</span>
               </div>
             </div>
 
@@ -3583,6 +3601,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
       src:img?img.getAttribute('src'):'',
       alt:img?(img.getAttribute('alt')||''):'',
       tag:(c.querySelector('.tag')||{}).textContent||'',
+      tags:[...c.querySelectorAll('.tag')].map(t=>t.textContent.replace(/^#/,'').trim()).filter(Boolean).slice(0,4),
       title:(c.querySelector('h3')||{}).textContent||''
     };
   }).filter(d=>d.id);
@@ -3591,9 +3610,9 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   // 1) 자동 롤링 띠
   const rt=document.querySelector('.roller-track');
   if(rt){
-    const make=(d,hide)=>`<div class="roll-card"${hide?' aria-hidden="true"':''} onclick="openProject('${d.id}')">`
+    const make=(d,hide)=>`<div class="roll-card"${hide?' aria-hidden="true"':''}>`
       +(d.src?`<img src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)
-      +`<div class="cap"><span class="t">${d.tag}</span><h4>${d.title}</h4></div></div>`;
+      +`</div>`;
     rt.innerHTML=data.map(d=>make(d,false)).join('')+data.map(d=>make(d,true)).join('');
     rt.style.animationDuration=Math.max(30,data.length*2.6)+'s';
   }
@@ -3603,7 +3622,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   if(st){
     st.innerHTML=data.map(d=>`<div class="sc-card" onclick="openProject('${d.id}')" style="cursor:pointer;">`
       +`<div class="sc-thumb">`+(d.src?`<img src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)+`</div>`
-      +`<div class="sc-body"><div class="sc-title">${d.title}</div><div class="sc-label">${d.tag}</div></div>`
+      +`<div class="sc-body"><div class="sc-title">${d.title}</div><div class="sc-labels">${d.tags.slice(0,2).map(t=>`<span class="sc-label">${t}</span>`).join('')}</div></div>`
       +`</div>`).join('');
   }
 })();
