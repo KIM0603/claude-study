@@ -542,6 +542,8 @@ select.ipt{cursor:pointer}
 .ppl-card-bal .ppl-card-row-num{font-size:19px;font-weight:700}
 .ppl-card-couple{background:linear-gradient(135deg,#fff7ed,#f0f9f4);border:1px solid #e6e0d6}
 .ppl-card-couple .ppl-card-name{font-weight:700}
+.ppl-card-hold{background:linear-gradient(135deg,#fef9ef,#eef6f0);border:1px solid #e0d8c8}
+.ppl-card-hold .ppl-card-name{font-weight:700}
 /* 월 비교 표 */
 .bg-cmp-tbl .bg-cell{padding:2px}
 .bg-cmp-tbl .bg-cell-input{width:100%;border:1px solid transparent;background:transparent;text-align:right;padding:6px 8px;border-radius:6px;font:14px/1 inherit;color:var(--ink);font-variant-numeric:tabular-nums;box-sizing:border-box}
@@ -556,6 +558,62 @@ select.ipt{cursor:pointer}
 .bg-cmp-bal td{border-top:2px solid var(--ink);font-size:15px;font-weight:700}
 .bg-cmp-card td{background:#fafaf7}
 .bg-cmp-diff td{border-bottom:1px solid var(--line);padding-bottom:8px;font-size:12px}
+/* 주식현황 기존액 칸 */
+.stk-base-col{ background:#f3efe7; }
+.stk-base-cell{ background:#faf7f0; padding:2px !important; }
+.stk-base-input{ width:100%; min-width:70px; border:1px solid transparent; background:transparent; text-align:right; padding:7px 6px; border-radius:6px; font:13px/1 inherit; color:#8a5a1a; font-weight:600; font-variant-numeric:tabular-nums; box-sizing:border-box; }
+.stk-base-input:hover{ border-color:var(--line); background:#fff; }
+.stk-base-input:focus{ border-color:#cc8500; background:#fff; outline:none; }
+
+/* 투자/주식 현황 표: 자산 칸 좁히고 입력 칸 넓고 잘 보이게 */
+#bg-inv-tbl-wrap .col-label,
+#bg-stk-tbl-wrap .col-label{ width:150px; min-width:150px; max-width:150px; }
+#bg-inv-tbl-wrap .bg-tbl-amt,
+#bg-stk-tbl-wrap .bg-tbl-amt{ width:120px; min-width:120px; }
+/* 입력 가능한 셀(잠기지 않은 월 칸) 강조 */
+#bg-inv-tbl-wrap .bg-tbl-amt:not(.locked),
+#bg-stk-tbl-wrap .bg-tbl-amt:not(.locked){
+  background:#fffdf8;
+  box-shadow:inset 0 0 0 1px #ecdfc8;
+  border-radius:4px;
+}
+#bg-inv-tbl-wrap .bg-tbl-amt:not(.locked):hover,
+#bg-stk-tbl-wrap .bg-tbl-amt:not(.locked):hover{
+  background:#fff7e8;
+  box-shadow:inset 0 0 0 1.5px #d9a441;
+}
+#bg-inv-tbl-wrap .bg-tbl-amt.editing input,
+#bg-stk-tbl-wrap .bg-tbl-amt.editing input{
+  width:100%; text-align:right; font-size:14px; padding:4px 6px;
+  border:1.5px solid #3f7ae0; border-radius:5px; box-sizing:border-box;
+}
+
+@media(max-width:640px){
+  /* 모바일: 자산 칸은 이름이 보이도록 적당히, 입력 칸은 충분히 */
+  #bg-inv-tbl-wrap .col-label,
+  #bg-stk-tbl-wrap .col-label{ width:118px; min-width:118px; max-width:118px; }
+  #bg-inv-tbl-wrap .col-label .cat-label-text,
+  #bg-stk-tbl-wrap .col-label .cat-label-text{ font-size:12px; white-space:nowrap; }
+  #bg-inv-tbl-wrap .bg-tbl-amt,
+  #bg-stk-tbl-wrap .bg-tbl-amt{ width:92px; min-width:92px; font-size:12.5px; }
+  #bg-stk-tbl-wrap .stk-base-input{ min-width:84px; font-size:12.5px; }
+  /* 편집 아이콘은 평소 숨김 → 셀 탭(편집 중)일 때만 노출, 이름 공간 확보 */
+  #bg-inv-tbl-wrap .cat-label-actions,
+  #bg-stk-tbl-wrap .cat-label-actions{ display:none; }
+  #bg-inv-tbl-wrap .ppl-tab-dot,
+  #bg-stk-tbl-wrap .ppl-tab-dot{ margin-right:3px; }
+}
+/* 주식투자 표 */
+.bg-stock-tbl th{text-align:right;padding:8px 4px;font-size:11.5px}
+.bg-stock-tbl th.col-label{text-align:left}
+.bg-stock-tbl .bg-cell{padding:2px}
+.bg-stock-tbl .bg-cell-input{width:100%;border:1px solid transparent;background:transparent;text-align:right;padding:7px 6px;border-radius:6px;font:13px/1 inherit;color:var(--ink);font-variant-numeric:tabular-nums;box-sizing:border-box}
+.bg-stock-tbl .bg-cell-input:hover{border-color:var(--line);background:var(--bg-soft,#fafaf7)}
+.bg-stock-tbl .bg-cell-input:focus{border-color:#3f7ae0;background:#fff;outline:none}
+.bg-stock-tbl .bg-cell-input.stk-in{color:#1b5e3f}
+.bg-stock-tbl .bg-cell-input.stk-out{color:#b3261e}
+.bg-stock-tbl .stk-final{text-align:right;padding:7px 6px;font-weight:700;font-variant-numeric:tabular-nums}
+.bg-stock-tbl td.col-label{text-align:left}
 .bg-cmp-tbl th{text-align:right;padding:8px 10px;font-size:12px}
 .bg-cmp-tbl th.col-label,.bg-cmp-tbl td.col-label{text-align:left}
 
@@ -1241,6 +1299,13 @@ select.ipt{cursor:pointer}
    📱 모바일 최적화 (≤640px)
    ════════════════════════════════════════ */
 @media(max-width:640px){
+  /* 주식투자 표 모바일: 5컬럼 다 보이게 압축 */
+  .bg-stock-tbl{ font-size:10.5px; }
+  .bg-stock-tbl th{ font-size:9.5px; padding:6px 2px; }
+  .bg-stock-tbl td.col-label{ font-size:10.5px; }
+  .bg-stock-tbl .bg-cell-input{ font-size:10.5px; padding:6px 2px; }
+  .bg-stock-tbl .stk-final{ font-size:10.5px; padding:6px 2px; }
+  .bg-stock-tbl col.stk-name, .bg-stock-tbl .col-label{ width:18%; }
   /* 사이드바 완전히 숨기고 본문 전체 폭 사용 */
   body{ grid-template-columns:1fr !important; }
   .sidebar{ display:none !important; }
@@ -1460,24 +1525,29 @@ select.ipt{cursor:pointer}
             </select>
           </div>
         </div>
-        <div id="bg-donut" style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:center;padding:10px 0"></div>
+        <div id="bg-donut" style="padding:4px 14px 14px"></div>
       </div>
 
+      <!-- ── 주식투자 (월별 기존→입·출→최종) ── -->
       <div class="card">
         <div class="card-head">
           <div class="card-head-left">
             <div class="card-mark">📈</div>
-            <div><div class="card-title">투자 현황</div><div class="card-sub" id="bg-inv-sub">월별 잔액을 기입하면 그래프가 자동으로 그려져요</div></div>
-          </div>
-          <div class="card-actions">
-            <div class="seg" id="inv-mode">
-              <button class="seg-btn on" data-mode="line" onclick="Budget.setInvMode('line')">라인</button>
-              <button class="seg-btn" data-mode="stack" onclick="Budget.setInvMode('stack')">누적</button>
-            </div>
+            <div><div class="card-title">투자 현황</div><div class="card-sub" id="bg-inv-sub">월별 잔액을 기입하면 자동으로 정리돼요</div></div>
           </div>
         </div>
-        <div class="bg-inv-chart" id="bg-inv-chart"></div>
         <div class="bg-tbl-wrap" id="bg-inv-tbl-wrap"></div>
+      </div>
+
+      <!-- ── 주식현황 (투자 현황과 동일 폼) ── -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-head-left">
+            <div class="card-mark">📊</div>
+            <div><div class="card-title">주식현황</div><div class="card-sub">월별 잔액을 기입하면 자동으로 정리돼요</div></div>
+          </div>
+        </div>
+        <div class="bg-tbl-wrap" id="bg-stk-tbl-wrap"></div>
       </div>
 
       <!-- ── 월별 메모 / 특이사항 ── -->
@@ -1947,10 +2017,14 @@ const Budget = (()=>{
   const KEY_AMT_TOUCHED = 'workspace.budget.amounts.touched';
   const KEY_INV_TOUCHED = 'workspace.budget.invest.touched';
   const KEY_MEMO = 'workspace.budget.memo';
+  const KEY_STOCK_CAT = 'workspace.budget.stock.cats';
+  const KEY_STOCK_AMT = 'workspace.budget.stock.amts';
+  const KEY_STOCK_NOTE = 'workspace.budget.stock.note';
+  const KEY_STOCK_BASE = 'workspace.budget.stock.base';
   const SEED_MEMO = { '2025-04': "[4월 비고]\n· 하나카드 73,150원: 결제예정 (토스 Visa카드 — 클로드·아마존·네이버 구독)\n· 가스비: 미납분 14,000 + 당월분 4만원 합산. 가스앱 설치 후 BC카드 결제\n· 관리비: 계좌이체에 ARS 인증 필요 → 카드결제로 대체\n· 전세자금대출/식권비/교통카드: 결제예정\n· 대출이자 366,205 + 원금 100만원\n· 어버이날 용돈 30,000 (부모님께)", '2025-05': "[5월 비고]\n· 하나카드(해외결제용): 클로드 291,143(max+api), 픽셀랩, 아마존, 네이버클라우드(취업 후 해지예정), 노벨피아, 미용실\n· BC카드: 보험료, 도시가스(지난달 결제), 오쥬드, 핸드폰 등\n· 예정 비싼 지출: 클로드맥스 $110, 회식비 234,000, 오쥬드 145,000, AWS $145+@" };
   // 카테고리(섹션) 버전: 코드에서 카테고리를 바꾸면 이 숫자를 올리세요.
   // 저장된 버전보다 코드 버전이 높으면 코드의 defaultSections로 갱신됩니다.
-  const SECTIONS_VERSION = 6;
+  const SECTIONS_VERSION = 8;
   const KEY_SEC_VER = 'workspace.budget.sections.version';
 
   // deep-merge: base(시드) 위에 over(사용자값)를 덮어씀
@@ -1991,9 +2065,7 @@ const Budget = (()=>{
         mk('교통카드', 2),
         mk('식권비', 2),
         mk('데이트통장', 0),
-      ]},
-      {key:'sc', label:'💳 카드값 (실제 청구액)', noExpense:true, isCard:true, items:[
-        mk('카드값', 0),
+        mk('그외', 0),
       ]},
       {key:'s2', label:'대출 / 상환', items:[
         mk('전세자금대출', 6),
@@ -2121,6 +2193,8 @@ const Budget = (()=>{
     LS.set(KEY_INV, userInvest);    // 사용자 입력분만 저장
     LS.set(KEY_INV_TOUCHED, touchedInv);
     LS.set(KEY_INV_MODE, investMode);
+    if(typeof stockCats!=='undefined') LS.set(KEY_STOCK_CAT, stockCats);
+    if(typeof stockAmts!=='undefined') LS.set(KEY_STOCK_AMT, stockAmts);
     Bus.emit('data-changed');
   }
 
@@ -2185,6 +2259,39 @@ const Budget = (()=>{
   function coupleIncome(ymStr){ return people.reduce((t,p)=>t+personIncome(ymStr,p.id),0); }
   function coupleExpense(ymStr){ return people.reduce((t,p)=>t+personExpense(ymStr,p.id),0); }
   function coupleBalance(ymStr){ return coupleIncome(ymStr) - coupleExpense(ymStr); }
+
+  // ── 총 보유 자산 계산 (남은금액 + 주식 + 투자) ──
+  // 주식현황: 사람(경민=sv1, 유정=sv2)별 기존액 + 연간 합
+  function stkHoldingByCatKey(catKey){
+    let t = getStkBase(catKey);
+    for(let i=0;i<12;i++) t += getStkAmt(ym(year,i), catKey);
+    return t;
+  }
+  // 투자현황 전체 합(부부 공동): 최신 데이터 달 기준
+  function investTotalLatest(){
+    const ymStr = latestDataYm();
+    return getInvMonthTotal(ymStr);
+  }
+  // 사람 인덱스(0,1)를 주식현황 항목 키(sv1,sv2)에 매핑
+  function stkKeyForPersonIndex(idx){
+    return stockCats[idx] ? stockCats[idx].key : null;
+  }
+  // 개인 총보유 = 남은금액(최신달) + 본인 주식
+  function personHolding(personIdx){
+    const ymStr = latestDataYm();
+    const p = people[personIdx];
+    let bal = p ? personBalance(ymStr, p.id) : 0;
+    const sk = stkKeyForPersonIndex(personIdx);
+    const stk = sk ? stkHoldingByCatKey(sk) : 0;
+    return bal + stk;
+  }
+  // 부부 총보유 = 개인합 + 투자현황(부부공동)
+  function coupleHolding(){
+    let sum = 0;
+    people.forEach((p,idx)=> sum += personHolding(idx));
+    sum += investTotalLatest();
+    return sum;
+  }
   // 카드값(실제 청구액) 합계 — isCard 섹션 항목들
   function cardKeys(){
     const ks=[];
@@ -2260,6 +2367,8 @@ const Budget = (()=>{
       if(csel && !csel.dataset.inited){ csel.dataset.inited='1'; csel.value = latestDataYm(); }
     })();
     renderInvest();
+    renderStockTable();
+    loadStkNote();
     // 메모: 월 선택 기본값을 최신 데이터(6월)로, 그리고 로드
     (function(){
       const sel = document.getElementById('bg-memo-month');
@@ -2362,7 +2471,34 @@ const Budget = (()=>{
       </div>
     </div>`;
 
-    el.innerHTML = personCards + coupleCard;
+    // ── 총 보유 자산 카드 (남은금액 + 주식 + 투자) ──
+    const holdRows = people.map((p,idx)=>{
+      const h = personHolding(idx);
+      return `<div class="ppl-card-row">
+        <span class="ppl-card-row-lbl"><span class="ppl-tab-dot" style="background:${p.color};margin-right:6px;display:inline-block;width:9px;height:9px;border-radius:2px"></span>${escapeHtml(p.name)} 총 보유</span>
+        <span class="ppl-card-row-num ${h>=0?'pos':'neg'}">${fmt.won(h)}원</span>
+      </div>`;
+    }).join('');
+    const cHold = coupleHolding();
+    const holdCard = `<div class="ppl-card ppl-card-hold" style="grid-column:1/-1">
+      <div class="ppl-card-head">
+        <div class="ppl-card-name"><span>💰 총 보유 자산</span></div>
+        <div class="ppl-card-share">남은금액+주식+투자</div>
+      </div>
+      <div class="ppl-card-rows">
+        <div class="ppl-card-row ppl-card-bal" style="border-top:none;margin-top:0;padding-top:0">
+          <span class="ppl-card-row-lbl" style="font-weight:700">부부 총 보유</span>
+          <span class="ppl-card-row-num ${cHold>=0?'pos':'neg'}" style="font-size:20px">${fmt.won(cHold)}원</span>
+        </div>
+        ${holdRows}
+        <div class="ppl-card-row" style="border-top:1px dashed var(--line);padding-top:8px;margin-top:2px">
+          <span class="ppl-card-row-lbl">투자 현황 (부부 공동)</span>
+          <span class="ppl-card-row-num">${fmt.won(investTotalLatest())}원</span>
+        </div>
+      </div>
+    </div>`;
+
+    el.innerHTML = personCards + holdCard; // 부부 합산 카드 제거
   }
 
   function getPersonYearTotal(pid){
@@ -2627,7 +2763,6 @@ const Budget = (()=>{
   }
 
   function renderInvest(){
-    renderInvestChart();
     renderInvestTable();
   }
 
@@ -3067,34 +3202,23 @@ const Budget = (()=>{
       host.innerHTML = '<div style="color:var(--ink-3);font-size:13px;padding:30px">이 달은 지출 데이터가 없어요</div>';
       return;
     }
-    // SVG donut
-    const R=80, r=50, C=110, circ=2*Math.PI*R;
-    let acc=0;
-    const ring = segs.map(sg=>{
-      const frac = sg.value/total;
-      const dash = frac*circ;
-      const seg = `<circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="${sg.color}" stroke-width="${R-r}" 
-        stroke-dasharray="${dash} ${circ-dash}" stroke-dashoffset="${-acc}" transform="rotate(-90 ${C} ${C})"></circle>`;
-      acc += dash;
-      return seg;
+    // 차트 없이 카테고리별 금액·% 리스트만 (간소화)
+    const COLORS = DONUT_COLORS;
+    const rows = segs.map((sg,idx)=>{
+      const pct = Math.round(sg.value/total*100);
+      return `<div style="display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid var(--line)">
+        <span style="width:11px;height:11px;border-radius:3px;background:${COLORS[idx % COLORS.length]};flex:none"></span>
+        <span style="flex:1;color:var(--ink);font-size:14px">${escapeHtml(sg.label)}</span>
+        <span style="color:var(--ink-3);font-size:13px;min-width:38px;text-align:right">${pct}%</span>
+        <span style="font-weight:600;font-variant-numeric:tabular-nums;font-size:14px;min-width:96px;text-align:right">${fmt.won(sg.value)}원</span>
+      </div>`;
     }).join('');
-    const svg = `<svg width="220" height="220" viewBox="0 0 220 220">
-      ${ring}
-      <text x="${C}" y="${C-6}" text-anchor="middle" style="font-size:12px;fill:var(--ink-3)">총 지출</text>
-      <text x="${C}" y="${C+16}" text-anchor="middle" style="font-size:18px;font-weight:700;fill:var(--ink)">${fmt.won(total)}</text>
-    </svg>`;
-    // legend
-    const legend = `<div style="display:flex;flex-direction:column;gap:8px;min-width:200px">` +
-      segs.map(sg=>{
-        const pct = Math.round(sg.value/total*100);
-        return `<div style="display:flex;align-items:center;gap:8px;font-size:13px">
-          <span style="width:12px;height:12px;border-radius:3px;background:${sg.color};flex:none"></span>
-          <span style="flex:1;color:var(--ink)">${escapeHtml(sg.label)}</span>
-          <span style="color:var(--ink-3);font-variant-numeric:tabular-nums">${pct}%</span>
-          <span style="font-weight:600;font-variant-numeric:tabular-nums;min-width:90px;text-align:right">${fmt.won(sg.value)}원</span>
-        </div>`;
-      }).join('') + `</div>`;
-    host.innerHTML = svg + legend;
+    const totalRow = `<div style="display:flex;align-items:center;gap:10px;padding:13px 4px 4px;margin-top:2px;border-top:2px solid var(--ink)">
+      <span style="flex:1;color:var(--ink);font-size:14px;font-weight:700">총 지출</span>
+      <span style="font-weight:700;font-variant-numeric:tabular-nums;font-size:15px;min-width:96px;text-align:right">${fmt.won(total)}원</span>
+    </div>`;
+    host.innerHTML = `<div style="width:100%">${rows}${totalRow}</div>`;
+
     const sub = document.getElementById('bg-donut-sub');
     if(sub) sub.textContent = (parseInt(ymStr.split('-')[1],10))+'월 지출 구성';
   }
@@ -3193,23 +3317,6 @@ const Budget = (()=>{
     expByP.forEach(v=> html += `<td class="bg-cell-sum out">${fmt.won(v)}</td>`);
     html += `<td class="bg-cell-sum out">${fmt.won(expByP.reduce((a,b)=>a+b,0))}</td></tr>`;
 
-    // ── 카드값 검산: 지출합계 vs 카드값, 차액 ──
-    const cardByP = ppl.map(p=>personCard(ymStr, p.id));
-    const cardTot = cardByP.reduce((a,b)=>a+b,0);
-    const expTot  = expByP.reduce((a,b)=>a+b,0);
-    html += `<tr class="bg-cmp-summary bg-cmp-card"><td class="col-label">카드값(청구)</td>`;
-    cardByP.forEach(v=> html += `<td class="bg-cell-sum">${v>0?fmt.won(v):'-'}</td>`);
-    html += `<td class="bg-cell-sum">${cardTot>0?fmt.won(cardTot):'-'}</td></tr>`;
-    // 차액 행 (지출합계 - 카드값). 카드값 입력이 있을 때만 의미있게 표시
-    const diffByP = ppl.map((p,i)=> expByP[i] - cardByP[i]);
-    const diffTot = expTot - cardTot;
-    const diffLabel = (d)=>{
-      if(d===0) return '<span style="color:#1b5e3f">일치 ✓</span>';
-      return `<span style="color:#b3261e">${d>0?'+':''}${fmt.won(d)}</span>`;
-    };
-    html += `<tr class="bg-cmp-summary bg-cmp-diff"><td class="col-label">차액(지출−카드)</td>`;
-    cardByP.forEach((cv,i)=> html += `<td class="bg-cell-sum">${cv>0?diffLabel(diffByP[i]):'-'}</td>`);
-    html += `<td class="bg-cell-sum">${cardTot>0?diffLabel(diffTot):'-'}</td></tr>`;
 
     html += `<tr class="bg-cmp-summary"><td class="col-label">월급 (수입)</td>`;
     incByP.forEach(v=> html += `<td class="bg-cell-sum inc">${fmt.won(v)}</td>`);
@@ -3230,8 +3337,236 @@ const Budget = (()=>{
     setCellForPerson(input.dataset.ym, Number(input.dataset.pid), input.dataset.key, Number(raw)||0);
   }
 
+  function defaultStockCats(){
+    let k = 0;
+    const mk = (label, color) => ({key:'sv'+(++k), label, color});
+    return [
+      mk('경민', '#cc5500'),
+      mk('유정', '#0055cc'),
+    ];
+  }
+  let stockCats = (function(){
+    const storedVer = LS.get('workspace.budget.stock.cats.ver', 0);
+    const stored = LS.get(KEY_STOCK_CAT, null);
+    if(stored && storedVer >= 1) return stored;
+    LS.set('workspace.budget.stock.cats.ver', 1);
+    LS.set(KEY_STOCK_CAT, defaultStockCats());
+    return defaultStockCats();
+  })();
+  let stockAmts = LS.get(KEY_STOCK_AMT, {});
+
+  function getStkAmt(ymStr, key){
+    const m = stockAmts[ymStr]; if(!m) return 0;
+    return (m[key]||0);
+  }
+
+  function setStkAmt(ymStr, key, val){
+    const n = Number(val)||0;
+    if(!stockAmts[ymStr]) stockAmts[ymStr] = {};
+    if(n>0) stockAmts[ymStr][key] = n;
+    else delete stockAmts[ymStr][key];
+    LS.set(KEY_STOCK_AMT, stockAmts);
+    renderStockTable();
+    renderPersonCards();
+  }
+  function getStkCatYearTotal(key){
+    let t=0; for(let i=0;i<12;i++) t += getStkAmt(ym(year,i), key); return t;
+  }
+
+  function getStkMonthTotal(ymStr){
+    let t=0; stockCats.forEach(c=>{ t += getStkAmt(ymStr, c.key); }); return t;
+  }
+
+  function startStkLabel(key){ editing={kind:'stklabel', key}; renderStockTable(); }
+
+  function commitStkLabel(key, val){
+    const v = (val||'').trim();
+    const c = stockCats.find(x=>x.key===key);
+    if(c){ c.label = v || c.label; save(); }
+    editing=null; renderInvest();
+  }
+
+  function cycleStkColor(key){
+    const PALETTE = ['#cc5500','#0055cc','#226622','#664499','#993356','#226666','#cc9900','#444444'];
+    const c = stockCats.find(x=>x.key===key);
+    if(!c) return;
+    const idx = PALETTE.indexOf(c.color);
+    c.color = PALETTE[(idx+1) % PALETTE.length];
+    save(); renderInvest();
+  }
+
+  function addStkCat(){
+    const PALETTE = ['#cc5500','#0055cc','#226622','#664499','#993356','#226666','#cc9900','#444444'];
+    const used = stockCats.map(c=>c.color);
+    const color = PALETTE.find(c=>!used.includes(c)) || PALETTE[stockCats.length % PALETTE.length];
+    const nc = {key: nextInvKey(), label:'새 자산', color};
+    stockCats.push(nc);
+    save();
+    editing={kind:'stklabel', key:nc.key};
+    render();
+  }
+
+  function deleteStkCat(key){
+    const c = stockCats.find(x=>x.key===key);
+    if(!c) return;
+    if(!confirm(`"${c.label}" 자산 항목을 삭제할까요?\n(입력했던 잔액도 함께 사라집니다)`)) return;
+    stockCats = stockCats.filter(x=>x.key!==key);
+    Object.values(stockAmts).forEach(mb=>{
+      Object.values(mb).forEach(pm=>{ delete pm[key]; });
+    });
+    save(); render();
+  }
+
+  function startStkAmt(ymStr, key){
+    if(filter==='all') return;
+    editing={kind:'stkamt', ym:ymStr, key};
+    renderStockTable();
+  }
+
+  function commitStkAmt(ymStr, key, val){
+    const n = Number(val) || 0;
+    setStkAmt(ymStr, key, n);
+    editing=null; render();
+  }
+
+  function _stkCellKey(e, ymStr, key){
+    if(e.key==='Enter'){ e.target.blur(); }
+    else if(e.key==='Escape'){ e.preventDefault(); editing=null; render(); }
+    else if(e.key==='Tab'){
+      e.preventDefault();
+      const all = [];
+      stockCats.forEach(c=>{ for(let i=0;i<12;i++) all.push({ym:ym(year,i), key:c.key}); });
+      const idx = all.findIndex(c=>c.ym===ymStr && c.key===key);
+      const next = all[idx + (e.shiftKey?-1:1)];
+      if(next){
+        commitStkAmt(ymStr, key, e.target.value);
+        setTimeout(()=>startStkAmt(next.ym, next.key), 0);
+      } else {
+        e.target.blur();
+      }
+    }
+  }
+
+  function renderStockTable(){
+    const host = document.getElementById('bg-stk-tbl-wrap');
+    if(!host) return;
+    const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    const nowYm = fmt.ym(new Date());
+    const monthCols = months.map((_,i)=> ym(year,i));
+    const editable = true; // 주식현황은 사람 탭과 무관하게 항상 입력 가능
+    const totalCols = 1 + 12 + 1;
+
+    let html = '<table class="bg-tbl"><thead><tr>';
+    html += `<th class="col-label">자산</th>`;
+    html += `<th class="stk-base-col">기존액</th>`;
+    months.forEach((mLabel, i)=>{
+      const ymStr = ym(year,i);
+      const cls = ymStr===nowYm ? ' this-month' : '';
+      html += `<th class="${cls.trim()}">${mLabel}</th>`;
+    });
+    html += `<th>합계</th></tr></thead><tbody>`;
+
+    stockCats.forEach(c=>{
+      const isEditingLabel = editing && editing.kind==='stklabel' && editing.key===c.key;
+      html += `<tr class="bg-tbl-item" data-key="${c.key}">`;
+      html += `<td class="col-label">
+        <div class="cat-label-cell">
+          <span class="ppl-tab-dot" style="background:${c.color};margin-right:4px"></span>
+          ${isEditingLabel
+            ? `<input class="cat-label-input" type="text" value="${escapeHtml(c.label)}" onblur="Budget.commitStkLabel('${c.key}', this.value)" onkeydown="if(event.key==='Enter')this.blur(); if(event.key==='Escape'){Budget._cancel();}" />`
+            : `<span class="cat-label-text">${escapeHtml(c.label)}</span>`
+          }
+          <span class="cat-label-actions">
+            <button class="cat-act-btn" onclick="Budget.startStkLabel('${c.key}')" title="이름 수정">
+              <svg viewBox="0 0 24 24" class="ico14"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button class="cat-act-btn" onclick="Budget.cycleStkColor('${c.key}')" title="색상 변경" style="color:${c.color}">●</button>
+            <button class="cat-act-btn danger" onclick="Budget.deleteStkCat('${c.key}')" title="삭제">✕</button>
+          </span>
+        </div>
+      </td>`;
+      // 기존액 입력 셀
+      const baseV = getStkBase(c.key);
+      html += `<td class="bg-tbl-amt stk-base-cell"><input class="stk-base-input" type="text" inputmode="numeric" value="${baseV?fmt.won(baseV):''}" placeholder="-" data-key="${c.key}" onfocus="this.select()" onblur="Budget._stkBaseCommit(this)" onkeydown="if(event.key==='Enter')this.blur()" /></td>`;
+      monthCols.forEach(ymStr=>{
+        const amt = getStkAmt(ymStr, c.key);
+        const isEditing = editing && editing.kind==='stkamt' && editing.ym===ymStr && editing.key===c.key;
+        const thisMonth = ymStr===nowYm ? ' this-month' : '';
+        if(isEditing){
+          html += `<td class="bg-tbl-amt editing${thisMonth}"><input type="number" min="0" value="${amt||''}" placeholder="0" onblur="Budget.commitStkAmt('${ymStr}','${c.key}',this.value)" onkeydown="Budget._stkCellKey(event,'${ymStr}','${c.key}')" /></td>`;
+        } else if(!editable){
+          html += `<td class="bg-tbl-amt locked${thisMonth}${amt===0?' empty':''}">${amt? fmt.won(amt) : '-'}</td>`;
+        } else {
+          html += `<td class="bg-tbl-amt${thisMonth}${amt===0?' empty':''}" onclick="Budget.startStkAmt('${ymStr}','${c.key}')">${amt? fmt.won(amt) : '-'}</td>`;
+        }
+      });
+      // 행 합계 = 기존액 + 12개월 합
+      const rowTotal = getStkBase(c.key) + getStkCatYearTotal(c.key);
+      html += `<td class="bg-tbl-amt locked${rowTotal===0?' empty':''}">${rowTotal? fmt.won(rowTotal) : '-'}</td>`;
+      html += `</tr>`;
+    });
+
+    // "+ 자산 추가" row (기존액 컬럼 포함하여 colspan = 1 + 1 + 12)
+    html += `<tr class="bg-tbl-add-sec"><td class="col-label" colspan="15">
+      <button class="btn-add-section" onclick="Budget.addStkCat()">
+        <svg viewBox="0 0 24 24" class="ico14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        자산 추가
+      </button>
+    </td></tr>`;
+
+    // 합계 행: 기존액 합 + 각 월 합 + 전체 합
+    let baseSum = 0; stockCats.forEach(c=>{ baseSum += getStkBase(c.key); });
+    html += `<tr class="bg-tbl-total"><td class="col-label">합계</td>`;
+    html += `<td class="bg-tbl-amt locked${baseSum===0?' empty':''}">${baseSum? fmt.won(baseSum) : '-'}</td>`;
+    monthCols.forEach(ymStr=>{
+      const t = getStkMonthTotal(ymStr);
+      const cls = ymStr===nowYm ? ' this-month' : '';
+      html += `<td class="bg-tbl-amt locked${cls}${t===0?' empty':''}">${t? fmt.won(t) : '-'}</td>`;
+    });
+    let grand = baseSum; stockCats.forEach(c=>{ grand += getStkCatYearTotal(c.key); });
+    html += `<td class="bg-tbl-amt locked${grand===0?' empty':''}">${grand? fmt.won(grand) : '-'}</td>`;
+    html += `</tr>`;
+
+    html += `</tbody></table>`;
+
+    host.innerHTML = html;
+    if(editing && (editing.kind==='stkamt' || editing.kind==='stklabel')){
+      const inp = host.querySelector('.editing input, .cat-label-input');
+      if(inp){ inp.focus(); inp.select(); }
+    }
+  }
+  // 주식현황 기존액 (항목별 시작 금액)
+  let stockBase = LS.get(KEY_STOCK_BASE, {});
+  function getStkBase(key){ return stockBase[key]||0; }
+  function setStkBase(key, val){
+    const n=Number(val)||0;
+    if(n>0) stockBase[key]=n; else delete stockBase[key];
+    LS.set(KEY_STOCK_BASE, stockBase);
+    renderStockTable();
+    renderPersonCards();
+  }
+  function _stkBaseCommit(input){
+    const raw=(input.value||'').replace(/[^0-9]/g,'');
+    setStkBase(input.dataset.key, Number(raw)||0);
+  }
+
+  // 주식현황 특이사항(기존액) 메모
+  function loadStkNote(){
+    const ta = document.getElementById('bg-stk-note');
+    if(ta) ta.value = LS.get(KEY_STOCK_NOTE, '');
+  }
+  function saveStkNote(){
+    const ta = document.getElementById('bg-stk-note');
+    if(ta) LS.set(KEY_STOCK_NOTE, ta.value);
+  }
+
+  // 주식현황 저장
+  function saveStock(){ LS.set(KEY_STOCK_CAT, stockCats); LS.set(KEY_STOCK_AMT, stockAmts); }
+
   return {
     init, render, filter:setFilter,
+    startStkLabel, commitStkLabel, cycleStkColor, addStkCat, deleteStkCat,
+    startStkAmt, commitStkAmt, _stkCellKey, renderStockTable, saveStkNote, _stkBaseCommit,
     loadMemo, saveMemo, renderDonut,
     setViewMode, renderCompare, _cmpCommit, prevCompareMonth, nextCompareMonth,
     prevYear, nextYear,
