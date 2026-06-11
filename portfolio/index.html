@@ -193,7 +193,7 @@ section{position:relative;}
   display:flex;flex-wrap:wrap;gap:10px 36px;align-items:flex-end;
 }
 .hero-foot .yr{
-  font-family:'Manrope',sans-serif;font-weight:600;
+  font-family:'Manrope',sans-serif;font-weight:800;
   font-size:var(--fs-body-sm);color:var(--txt-dim);letter-spacing:.01em;
 }
 .hero-foot .desc{
@@ -208,18 +208,18 @@ section{position:relative;}
 }
 .contact-chips a,.contact-chips span{
   font-family:'Pretendard',sans-serif;font-weight:500;
-  font-size:var(--fs-body-sm);letter-spacing:-.01em;
-  padding:8px 16px;border-radius:8px;
-  border:1px solid var(--card-border);
+  font-size:0.8rem;letter-spacing:-.01em;
+  padding:3px 10px;border-radius:6px;
+  border:1px solid #ececec;
   color:var(--txt-dim);
   transition:.2s var(--ease);
 }
 .contact-chips a:hover{
-  background:var(--accent);color:#fff;border-color:var(--accent);
+  color:var(--accent);
 }
 .contact-chips .chip-name{
-  background:var(--accent);border-color:var(--accent);
-  color:#fff;font-weight:700;
+  background:transparent;border-color:#ececec;
+  color:var(--txt-dim);font-weight:600;
 }
 /* 오른쪽 이미지 카드 */
 .hero-right{
@@ -466,12 +466,12 @@ section{position:relative;}
   overflow:hidden;
 }
 .showcase-viewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
-  scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none;}
+  scroll-snap-type:x proximity;scroll-padding-left:clamp(18px,2.5vw,30px);
+  scrollbar-width:none;-ms-overflow-style:none;}
 .showcase-viewport::-webkit-scrollbar{display:none;}
 .showcase-track{
-  display:flex;gap:10px;
-  padding:0 clamp(18px,2.5vw,30px) 0
-    calc(max(0px,(100% - var(--maxw))/2) + clamp(18px,4vw,52px));
+  display:flex;gap:10px;align-items:flex-start;
+  padding:0 clamp(18px,2.5vw,30px);
 }
 .sc-card{
   flex:0 0 clamp(300px,40vw,560px);
@@ -505,8 +505,8 @@ section{position:relative;}
   font-size:var(--fs-body-sm);color:var(--txt-dim);margin-bottom:0;
 }
 .sc-card .sc-title{
-  font-family:'Pretendard',sans-serif;font-weight:700;
-  font-size:clamp(1.15rem,1.5vw,1.4rem);line-height:1.34;
+  font-family:'Pretendard',sans-serif;font-weight:600;
+  font-size:var(--fs-h3);line-height:1.34;
   letter-spacing:-.03em;color:var(--txt-dark);
   margin-bottom:8px;
 }
@@ -537,12 +537,13 @@ section{position:relative;}
   .sc-card .sc-label{font-size:0.85rem;margin-bottom:0;}
   .career-tl .career-row .c-body .c-role{font-size:var(--fs-label);}
   .career-tl .career-row .c-body .c-tags span{font-size:0.8rem;padding:2px 8px;}
+  .headline{font-size:clamp(1.9rem,7.5vw,2.6rem);line-height:1.2;}
 }
 
 /* PARTNER  ─ Career 섹션 */
 .partner-sec{
   background:var(--bg-2);
-  padding:22px clamp(18px,2.5vw,30px) clamp(60px,9vh,120px);
+  padding:clamp(80px,12vh,150px) clamp(18px,2.5vw,30px) clamp(60px,9vh,120px);
 }
 .partner-grid{
   display:grid;grid-template-columns:1fr 1fr;gap:10px;
@@ -573,7 +574,7 @@ section{position:relative;}
   color:var(--txt-dark);margin-bottom:22px;
 }
 .partner-left .p-body p{
-  font-size:var(--fs-body);line-height:1.68;color:#5c5c58;margin-bottom:14px;
+  font-size:var(--fs-body-sm);line-height:1.6;color:var(--txt-dim);margin-bottom:14px;
 }
 .partner-left .p-body p:last-child{margin-bottom:0;}
 /* 파트너 로고 그리드 */
@@ -639,21 +640,21 @@ section{position:relative;}
 }
 .career-row:last-child .marker::after{display:none;}
 .career-more-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  margin-top:20px;align-self:flex-start;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:28px;align-self:center;
   background:var(--accent);
   border:none;color:#fff;
   font-family:'Pretendard',sans-serif;font-weight:600;
   font-size:var(--fs-body-sm);letter-spacing:-.01em;
-  padding:10px 20px;border-radius:8px;
+  padding:12px 24px;border-radius:999px;
   cursor:pointer;transition:.2s var(--ease);
 }
 .career-more-btn:hover{background:var(--accent-deep);transform:translateY(-1px);}
 .career-more-btn svg{transition:transform .2s var(--ease);}
 .career-more-btn:hover svg{transform:translateX(4px);}
 .career-row .c-body .c-date{
-  font-family:'Manrope',sans-serif;font-weight:500;
-  font-size:var(--fs-caption);letter-spacing:.02em;color:#555555;
+  font-family:'Manrope',sans-serif;font-weight:600;
+  font-size:var(--fs-label);letter-spacing:.02em;color:#555555;
   margin-bottom:5px;
 }
 .career-row .c-body h4{
@@ -688,9 +689,10 @@ section{position:relative;}
 @media(max-width:900px){
   .partner-grid{grid-template-columns:1fr;}
   .partner-right{min-height:0;}
+  .partner-left{padding:24px;}
   .partner-left h2 br{display:none;}
   .partner-left h2{letter-spacing:-.055em;white-space:nowrap;margin-top:2px;}
-  .partner-left .p-body p{font-size:1.0625rem;}
+  .partner-left .p-body p{font-size:var(--fs-caption);}
 }
 
 /* FEATURE ROW */
@@ -835,7 +837,7 @@ section{position:relative;}
 .cap-headcard .head-left{display:flex;flex-direction:column;}
 /* 툴 그리드 */
 .tool-grid-small{
-  display:flex;flex-wrap:nowrap !important;gap:4px;
+  display:flex;flex-wrap:wrap;gap:4px;
   margin-top:24px;
   justify-content:flex-start;
   width:fit-content;max-width:100%;
@@ -894,12 +896,12 @@ section{position:relative;}
 }
 /* Capability 툴 아이콘 (핸드폰 앱 아이콘 스타일) */
 .tool-grid.tool-grid-small{
-  display:flex;flex-wrap:wrap;gap:18px 16px;
+  display:flex;flex-wrap:wrap;gap:10px 8px;
   width:auto;max-width:100%;
 }
 .tool-grid.tool-grid-small .tool-item{
-  width:62px;height:auto;aspect-ratio:auto;
-  flex-direction:column;gap:7px;padding:0;
+  width:54px;height:auto;aspect-ratio:auto;
+  flex-direction:column;gap:0;padding:0;
   background:transparent;border:none;box-shadow:none;
 }
 .tool-grid.tool-grid-small .tool-item:hover{transform:translateY(-3px);}
@@ -910,8 +912,7 @@ section{position:relative;}
   box-shadow:0 3px 8px rgba(0,0,0,.06);
 }
 .tool-grid.tool-grid-small .tool-item .tool-name{
-  font-family:'Pretendard';font-weight:600;font-size:0.68rem;
-  color:var(--txt-dim);text-align:center;line-height:1.2;
+  display:none;
 }
 /* 하단 : 3카드 + 소개 카드 */
 .cap-row{
@@ -1205,8 +1206,9 @@ section{position:relative;}
 }
 @media(max-width:860px){
   .cap-headcard{grid-template-columns:1fr !important;}
-  .credit-roll{border-left:none;border-top:1px solid var(--line-dark);padding-left:0;padding-top:20px;height:180px;}
-  .credit-track span{font-size:0.95rem;padding:11px 0;}
+  .credit-roll{border-left:none;border-top:1px solid var(--line-dark);padding-left:0;padding-top:20px;height:180px;margin-left:0;width:100%;}
+  .credit-track{align-items:flex-start;}
+  .credit-track span{font-size:0.95rem;padding:11px 0;text-align:left;}
 }
 
 .about-top{display:grid;grid-template-columns:.85fr 1.15fr;
@@ -1239,7 +1241,7 @@ section{position:relative;}
 .tl-row{display:grid;grid-template-columns:118px 1fr;gap:16px;
   padding:8px 0;border-bottom:1px solid var(--line);}
 .tl-row:last-child{border-bottom:none;padding-bottom:0;}
-.tl-row .d{font-family:'Manrope';font-weight:700;font-size:var(--fs-caption);color:var(--accent);}
+.tl-row .d{font-family:'Manrope';font-weight:700;font-size:var(--fs-caption);color:#999999;}
 .tl-row .b h4{font-size:var(--fs-body-sm);font-weight:600;margin-bottom:3px;color:var(--txt-dark);}
 .tl-row .b p{font-size:var(--fs-caption);color:var(--txt-dim);}
 .skill{margin-bottom:16px;}
@@ -1344,24 +1346,28 @@ section{position:relative;}
   .exp-header{grid-template-columns:1fr;}
   .exp-tasks{padding-left:0;}
 }
-.exp-header .exp-meta{}
-.exp-header .exp-meta .exp-company{font-family:'Pretendard';font-weight:700;
-  font-size:var(--fs-body-lg);color:var(--txt-dark);margin-bottom:3px;}
+.exp-header .exp-meta{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+.exp-header .exp-meta .exp-company{font-family:'Pretendard';font-weight:800;
+  font-size:var(--fs-h4);color:var(--txt-dark);letter-spacing:-.02em;margin-bottom:2px;}
 .exp-header .exp-meta .exp-role{font-family:'Pretendard';font-weight:600;
-  font-size:var(--fs-body-sm);color:var(--txt-dark);}
-.exp-header .exp-date{font-family:'Manrope';font-weight:700;font-size:var(--fs-caption);
-  color:var(--txt-dark);padding-top:3px;}
-.exp-tasks{}
-.exp-task-group{margin-bottom:12px;}
+  font-size:var(--fs-body-sm);color:var(--accent);}
+.exp-header .exp-date{font-family:'Manrope';font-weight:600;font-size:var(--fs-label);
+  color:var(--txt-dim);padding-top:4px;letter-spacing:0;}
+.exp-tasks{margin-top:18px;}
+.exp-task-group{margin-bottom:16px;}
 .exp-task-group:last-child{margin-bottom:0;}
-.exp-task-group .task-title{font-family:'Pretendard';font-weight:500;
-  font-size:var(--fs-body-sm);color:var(--txt-dark);margin-bottom:5px;}
+.exp-task-group .task-title{font-family:'Pretendard';font-weight:600;
+  font-size:var(--fs-body-sm);color:var(--txt-dark);margin-bottom:6px;}
 .exp-task-group ul{padding-left:0;list-style:none;}
 .exp-task-group ul li{font-size:var(--fs-caption);line-height:1.6;
   color:var(--txt-dim);padding-left:12px;position:relative;}
-.exp-task-group ul li::before{content:"–";position:absolute;left:0;color:var(--accent);}
+.exp-task-group ul li::before{content:"–";position:absolute;left:0;color:currentColor;}
 @media(max-width:640px){
   .exp-header{grid-template-columns:1fr;gap:4px;}
+  .exp-box .exp-item .exp-header .exp-meta .exp-company{font-size:1.15rem;font-weight:600;letter-spacing:-.02em;}
+  .exp-box .exp-item .exp-header .exp-meta .exp-role{font-size:0.85rem;font-weight:500;}
+  .exp-box .exp-item .exp-task-group .task-title{font-size:0.95rem;font-weight:600;color:#444444;margin-bottom:5px;letter-spacing:-.02em;}
+  .exp-box .exp-item .exp-task-group ul li{font-size:0.95rem;line-height:1.55;color:#444444;letter-spacing:-.02em;}
 }
 
 /* PROJECT DETAIL — 소이정 스타일 */
@@ -1605,7 +1611,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   nav .menu button{padding:8px 10px;font-size:var(--fs-caption);}
   nav .cta{display:none;}
   .contact-grid{grid-template-columns:1fr;}
-  .tl-row{grid-template-columns:1fr;gap:3px;}
+  .tl-row{grid-template-columns:1fr;gap:6px;padding:16px 0;}
   .acc-head .ttl{font-size:1.3rem;}
   .work .meta{padding:16px;}
   .work .meta h3{font-size:1.15rem;}
@@ -1637,7 +1643,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     <div class="hero-shell">
       <!-- 왼쪽 텍스트 카드 -->
       <div class="hero-left">
-        <h1 style="font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.15;letter-spacing:-.03em;font-weight:800;">
+        <h1 style="font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.15;letter-spacing:-.03em;font-weight:600;">
           <span class="row"><i class="dim">보기 좋은 화면을 넘어,</i></span>
           <span class="row"><i>머무는 경험을</i></span>
           <span class="row"><i>설계합니다.</i></span>
@@ -1646,12 +1652,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <div class="hero-foot">
           <div class="foot-top">
             <div class="yr">© 2023—2026</div>
-            <div class="desc">
-              경험을 설계하는 <span>UI/UX 웹 디자이너,</span> 김유정.
-            </div>
           </div>
           <div class="contact-chips">
             <span class="chip-name">김유정</span>
+            <span>웹디자이너</span>
             <span>서울시 강동구</span>
             <a href="tel:01041569889">010-4156-9889</a>
             <a href="mailto:lucky771628@naver.com">lucky771628@naver.com</a>
@@ -1957,7 +1961,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
               <div class="c-date">2025.09 — 2026.09</div>
               <h4>아이엠브릿지 · 사원 웹디자이너</h4>
               <p class="c-role">병원/한의원 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
-              <div class="c-tags"><span>상세페이지</span><span>프로모션</span></div>
             </div>
           </div>
           <!-- 항목 1 -->
@@ -1967,7 +1970,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
               <div class="c-date">2024.09 — 2025.09</div>
               <h4>레이트코리아 · 대리 웹디자이너</h4>
               <p class="c-role">가전/뷰티 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
-              <div class="c-tags"><span>Branding</span><span>상세페이지</span><span>프로모션</span></div>
             </div>
           </div>
           <!-- 항목 2 -->
@@ -1979,7 +1981,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
                 <span class="c-name-change">구. KH정보교육원</span>
               </h4>
               <p class="c-role">반응형 웹사이트 기획·디자인, 디자인 시스템 구축</p>
-              <div class="c-tags"><span>UI/UX</span><span>반응형 웹</span><span>디자인 시스템</span></div>
             </div>
           </div>
           <!-- 항목 3 -->
@@ -1989,7 +1990,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
               <div class="c-date">2020.01 — 2020.07</div>
               <h4>무버먼한국 · 디자인 보조</h4>
               <p class="c-role">SNS 이벤트·프로모션 디자인 및 상세페이지 서브 업무</p>
-              <div class="c-tags"><span>SNS 디자인</span><span>상세페이지</span></div>
             </div>
           </div>
         </div>
@@ -2311,12 +2311,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <div class="chips">
           <!-- [[ 자격증 목록 ]] -->
           <span>GTQ 포토샵</span>
-          <span>ITQ 한글·파워포인트·엑셀</span>
-          <span>COS (Coding Specialist)</span>
-          <span>워드프로세서</span>
-          <span>웹디자인기능사</span>
-          <span>컴퓨터그래픽스운용기능사</span>
-          <span>[[ 추가 자격증 ]]</span>
+          <span>GTQ 일러스트</span>
         </div>
       </div>
 
@@ -2328,7 +2323,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <!-- 레이트코리아 -->
           <div class="exp-item">
             <div class="exp-header">
-              <div class="exp-date">2024.09 — 2025.09<br><span style="font-size:var(--fs-caption);color:var(--txt-dark-dim);font-weight:500;">(1년)</span></div>
+              <div class="exp-date">2024.09 — 2025.09 <span>(1년)</span></div>
               <div class="exp-meta">
                 <div class="exp-company">레이트코리아</div>
                 <div class="exp-role">대리 · 웹디자이너</div>
@@ -2373,7 +2368,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <!-- 아텐츠게임아카데미 -->
           <div class="exp-item">
             <div class="exp-header">
-              <div class="exp-date">2021.12 — 2024.08<br><span style="font-size:var(--fs-caption);color:var(--txt-dark-dim);font-weight:500;">(2년 6개월)</span></div>
+              <div class="exp-date">2021.12 — 2024.08 <span>(2년 6개월)</span></div>
               <div class="exp-meta">
                 <div class="exp-company">아텐츠게임아카데미</div>
                 <div class="exp-role">주임 · 컨텐츠개발팀</div>
@@ -2423,7 +2418,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <!-- 무버먼한국 -->
           <div class="exp-item">
             <div class="exp-header">
-              <div class="exp-date">2020.01 — 2020.07<br><span style="font-size:var(--fs-caption);color:var(--txt-dark-dim);font-weight:500;">(6개월)</span></div>
+              <div class="exp-date">2020.01 — 2020.07 <span>(6개월)</span></div>
               <div class="exp-meta">
                 <div class="exp-company">무버먼한국</div>
                 <div class="exp-role">디자인 보조</div>
