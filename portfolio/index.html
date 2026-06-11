@@ -1646,11 +1646,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 </head>
 <body>
 
-<div id="loader">
-  <div class="lt">PORTFOLIO</div>
-  <div class="lb"></div>
-</div>
-
 <nav>
   <!-- [[ 로고 텍스트 ]] -->
   <a class="logo" href="#" onclick="go('home');return false;">PORTFOLIO</a>
@@ -3556,11 +3551,8 @@ function countUp(el){
   tick();
 }
 window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('loader').classList.add('done');
-    initReveal();
-    initMasonry();
-  },1700);
+  initReveal();
+  initMasonry();
 });
 document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
 
