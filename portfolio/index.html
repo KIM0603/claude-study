@@ -152,8 +152,8 @@ section{position:relative;}
 }
 .hero-left h1{
   font-family:'Pretendard',sans-serif;font-weight:800;
-  font-size:var(--fs-display);
-  line-height:.98;letter-spacing:-.04em;
+  font-size:clamp(2.4rem,4.4vw,3.9rem);
+  line-height:1.08;letter-spacing:-.03em;
   color:var(--txt-dark);
 }
 .hero-left h1 .row{
@@ -242,6 +242,8 @@ section{position:relative;}
   .hero{padding-top:88px;}
   .hero-shell{grid-template-columns:1fr;min-height:auto;}
   .hero-right{aspect-ratio:4/3;min-height:0;}
+  .hero-left{padding:32px 22px;}
+  .hero-left h1{font-weight:600;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.15;}
 }
 
 /* HERO 3D FAN */
@@ -934,7 +936,7 @@ section{position:relative;}
 .cap-card .cap-ico svg{width:100%;height:100%;display:block;}
 .cap-card .cap-ttl{
   font-family:'Pretendard',sans-serif;font-weight:700;
-  font-size:var(--fs-h3);line-height:1.3;
+  font-size:clamp(1.35rem,1.6vw,1.55rem);line-height:1.3;
   letter-spacing:-.02em;color:var(--txt-dark);
   margin-top:16px;
 }
@@ -1034,7 +1036,7 @@ section{position:relative;}
   font-size:var(--fs-label);letter-spacing:.02em;color:#1a1a1a;
   background:#f1efe8;
   padding:4px 10px;border-radius:6px;margin-bottom:10px;}
-.work .meta h3{font-family:'Pretendard';font-weight:700;font-size:var(--fs-h3);
+.work .meta h3{font-family:'Pretendard';font-weight:700;font-size:clamp(1.3rem,1.5vw,1.55rem);
   color:#1a1a1a;letter-spacing:-.02em;}
 .work .corner{position:absolute;top:14px;right:14px;z-index:2;
   width:38px;height:38px;border-radius:8px;
@@ -1643,7 +1645,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     <div class="hero-shell">
       <!-- 왼쪽 텍스트 카드 -->
       <div class="hero-left">
-        <h1 style="font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.15;letter-spacing:-.03em;font-weight:600;">
+        <h1>
           <span class="row"><i class="dim">보기 좋은 화면을 넘어,</i></span>
           <span class="row"><i>머무는 경험을</i></span>
           <span class="row"><i>설계합니다.</i></span>
@@ -2040,7 +2042,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miol_01.jpg" alt="미올한의원 메인 페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">UI/UX · Web Design</span>
+            <span class="tag">#UI/UX #Web Design #한의원 #브랜드 #메인페이지 #리뉴얼</span>
             <h3>미올한의원 메인 페이지</h3>
           </div>
         </div>
@@ -2049,7 +2051,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #한의원 #바디라인 #브랜딩</span>
             <h3>미올한의원 바디라인 상세페이지</h3>
           </div>
         </div>
@@ -2058,7 +2060,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #한의원 #튼살치료 #브랜딩</span>
             <h3>미올한의원 튼살치료 상세페이지</h3>
           </div>
         </div>
@@ -2067,7 +2069,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="mioldiet_01.jpg" alt="미올한의원 다이어트셔플먼트 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #한의원 #다이어트 #브랜딩</span>
             <h3>미올한의원 다이어트셔플먼트 상세페이지</h3>
           </div>
         </div>
@@ -2076,7 +2078,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #한의원 #스킨부스터 #브랜딩</span>
             <h3>미올한의원 스킨부스터 상세페이지</h3>
           </div>
         </div>
@@ -2085,7 +2087,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #한의원 #핑크환 #브랜딩</span>
             <h3>미올한의원 핑크환 상세페이지</h3>
           </div>
         </div>
@@ -2094,7 +2096,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #한의원 #안면마비 #브랜딩</span>
             <h3>미올한의원 안면마비 상세페이지</h3>
           </div>
         </div>
@@ -2103,7 +2105,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="daynova_01.jpg" alt="데이노바 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #가전 #뷰티 #브랜딩</span>
             <h3>데이노바 상세페이지</h3>
           </div>
         </div>
@@ -2112,7 +2114,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #카카오선물하기 #뷰티 #브랜딩</span>
             <h3>TWINCURL 카카오선물하기</h3>
           </div>
         </div>
@@ -2121,7 +2123,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="ezleb_01.jpg" alt="이지렙 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #카카오선물하기 #브랜딩</span>
             <h3>이지렙 카카오선물하기</h3>
           </div>
         </div>
@@ -2130,7 +2132,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="gualsa_01.jpg" alt="문어괄사 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #뷰티 #브랜딩</span>
             <h3>문어괄사 상세페이지</h3>
           </div>
         </div>
@@ -2139,7 +2141,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="lash_01.jpg" alt="속눈썹영양제 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Landing Page · 상세페이지</span>
+            <span class="tag">#Landing Page #상세페이지 #뷰티 #브랜딩</span>
             <h3>속눈썹영양제 상세페이지</h3>
           </div>
         </div>
@@ -2148,7 +2150,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">AI Creative · Branding</span>
+            <span class="tag">#AI Creative #Branding #가구 #신규런칭 #누끼+AI배경</span>
             <h3>니케하임 가구 브랜드 런칭</h3>
           </div>
         </div>
@@ -2157,7 +2159,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">AI Creative · 상세페이지</span>
+            <span class="tag">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
             <h3>니케하임 가구 베네 상세페이지</h3>
           </div>
         </div>
@@ -2166,7 +2168,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">AI Creative · 상세페이지</span>
+            <span class="tag">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
             <h3>니케하임 가구 어페로 상세페이지</h3>
           </div>
         </div>
@@ -2175,7 +2177,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">UI/UX · Responsive Web</span>
+            <span class="tag">#UI/UX #Branding #Responsive Web Design #PC #Mobile #Tablet #디자인시스템</span>
             <h3>KH정보교육원(통합) 반응형 웹사이트</h3>
           </div>
         </div>
@@ -2184,7 +2186,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="atents_01.jpg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">UI/UX · Web Design</span>
+            <span class="tag">#UI/UX #Branding #Web Design #반응형 #디자인시스템</span>
             <h3>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h3>
           </div>
         </div>
@@ -2193,7 +2195,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">UI/UX · Web Design</span>
+            <span class="tag">#UI/UX #Web Design #홈페이지구축 #신규</span>
             <h3>KH정보교육원 신규 홈페이지 구축</h3>
           </div>
         </div>
@@ -2202,7 +2204,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="latemeta_01.jpg" alt="레이트 가전뷰티 메타소재">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Graphic · 메타소재</span>
+            <span class="tag">#Graphic #메타소재 #가전 #뷰티 #브랜딩</span>
             <h3>레이트 가전뷰티 메타소재</h3>
           </div>
         </div>
@@ -2211,7 +2213,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolglobal_01.jpg" alt="미올 해외팀 월 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Graphic · 이벤트</span>
+            <span class="tag">#Graphic #이벤트 #프로모션 #한의원 #해외팀</span>
             <h3>미올 해외팀 월 이벤트</h3>
           </div>
         </div>
@@ -2220,7 +2222,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolmom_01.jpg" alt="미올 맘카페 전지점 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Graphic · 이벤트</span>
+            <span class="tag">#Graphic #이벤트 #프로모션 #한의원 #맘카페</span>
             <h3>미올 맘카페 전지점 이벤트</h3>
           </div>
         </div>
@@ -2229,7 +2231,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
           <div class="corner">↗</div>
           <div class="meta">
-            <span class="tag">Graphic · Poster / Leaflet</span>
+            <span class="tag">#Graphic #Poster #Leaflet #인쇄물</span>
             <h3>KH 포스터/리플렛 제작</h3>
           </div>
         </div>
@@ -2649,14 +2651,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2023</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">기존 틀을 손보는 게 아니라 처음부터 새로 구축하는 프로젝트라, 정보 구조와 화면 골격을 백지에서 설계해야 했습니다. 교육원이 전달해야 할 핵심 정보를 우선순위로 정리하고, 방문자 유형별 진입 동선을 기준으로 페이지를 구성했습니다. 확장 가능한 레이아웃과 일관된 디자인 규칙으로, 이후 운영까지 고려한 신규 홈페이지를 완성했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="khsite_02.jpg" alt="">
@@ -2732,14 +2734,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. 어떤 문제를 어떻게 풀었는지, 사용한 도구나 디자인 포인트, 결과를 함께 적으면 좋습니다. ]]</p>
+      <p class="pj-summary">한의원은 '치료'와 '미용·다이어트'를 함께 다루는 곳이라, 신뢰감과 트렌디함이 충돌하기 쉬운 브랜드였습니다. 그래서 방문자가 처음 마주하는 메인에서 '믿을 수 있는 한의원'이라는 인상을 먼저 잡고, 다이어트·페이스밸런스·흉터/톤살·피부미용 등 흩어진 진료 영역을 한눈에 탐색할 수 있도록 정보 구조를 다시 설계했습니다. 차분한 우드톤과 여백 중심의 레이아웃으로 의료 신뢰도를, 진료별 진입 동선과 반응형 구성으로 사용 편의를 동시에 잡아 PC·모바일 모두 일관된 브랜드 경험을 완성했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miol_02.jpg" alt="">
@@ -2771,14 +2773,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">튼살은 한번 생기면 잘 사라지지 않는다는 인식 때문에 '치료가 될까?'라는 의심을 먼저 풀어야 하는 주제였습니다. 그래서 원인과 치료 원리를 시각 자료로 먼저 설명해 납득을 만든 뒤, 치료 과정과 기대 변화를 단계별로 보여주는 구조로 설계했습니다. 차분한 톤과 정돈된 정보 흐름으로 의료 신뢰도를 지키면서, 망설이는 방문자가 상담으로 넘어오도록 유도했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miolstretch_02.jpg" alt="">
@@ -2807,14 +2809,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">다이어트 제품은 비슷한 광고가 넘쳐 '또 그런 거겠지'라는 피로감을 먼저 넘어야 했습니다. 그래서 자극적인 약속 대신 한방 처방의 원리와 차별점을 단계적으로 풀어, 왜 이 방식인지를 납득시키는 흐름으로 구성했습니다. 핵심 메시지를 큼직한 위계로 잡고 근거를 받쳐주는 레이아웃으로, 신뢰와 구매 동기를 함께 끌어올렸습니다.</p>
     </div>
     <div class="pj-images">
       <img src="mioldiet_02.jpg" alt="">
@@ -2843,14 +2845,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">스킨부스터는 시술 종류가 많아 방문자가 '내게 맞는 게 뭔지' 헷갈리기 쉬운 영역이었습니다. 그래서 효과·대상·과정을 기준으로 정보를 분류해, 자신의 고민에 맞는 시술을 빠르게 찾아 내려갈 수 있도록 구조를 설계했습니다. 피부 결을 살린 비주얼과 깔끔한 정보 위계로 전문성과 미용 감성을 동시에 전달하며 상담 전환을 유도했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miolskin_02.jpg" alt="">
@@ -2879,14 +2881,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">핑크환은 제품명만으로는 무엇인지 알기 어려워, 정체성과 효능을 처음부터 명확히 잡아주는 게 우선이었습니다. 한방 다이어트 환이라는 콘셉트를 브랜드 컬러와 함께 각인시키고, 성분·복용·기대 효과를 순서대로 풀어 구매 결정을 단계적으로 도왔습니다. 감각적인 핑크 톤 비주얼로 제품을 기억에 남기면서도 한의원 브랜드의 신뢰감을 유지했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miolpink_02.jpg" alt="">
@@ -2915,14 +2917,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">안면마비는 환자가 불안한 상태에서 정보를 찾는 주제라, 과한 마케팅보다 '제대로 치료받을 수 있다'는 안심을 주는 게 핵심이었습니다. 증상·원인·치료 단계를 차분하게 설명하고, 한방 치료의 접근법을 신뢰감 있는 톤으로 정리했습니다. 절제된 색과 또렷한 정보 위계로 의료 전문성을 강조해, 빠른 상담·내원으로 이어지도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miolface_02.jpg" alt="">
@@ -2952,14 +2954,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. 어떤 문제를 어떻게 풀었는지, 사용한 도구나 디자인 포인트, 결과를 함께 적으면 좋습니다. ]]</p>
+      <p class="pj-summary">바디라인 케어는 효과를 단정적으로 약속할 수 없는 의료 영역이라, 과장 없이도 '하고 싶다'는 마음이 들게 만드는 게 관건이었습니다. 정밀 분석→맞춤 설계→케어→관리로 이어지는 4단계 솔루션을 스토리처럼 따라 내려오도록 구성해, 방문자가 자신의 변화 과정을 미리 그려볼 수 있게 했습니다. 바디 비주얼과 절제된 카피, 단계별 정보 위계로 신뢰감을 유지하면서 상담 전환까지 자연스럽게 이어지는 동선을 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miolbody_02.jpg" alt="">
@@ -2988,14 +2990,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2024</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">뷰티 가전은 기능 설명이 많아 자칫 스펙 나열로 흐르기 쉬운 카테고리였습니다. 그래서 '왜 필요한지'의 사용 맥락을 먼저 보여주고 기능을 그 뒤에 배치해, 스펙이 아니라 일상의 변화로 읽히도록 구성했습니다. 제품 비주얼과 포인트 컬러로 브랜드 무드를 잡고, 핵심 기능을 단계별 위계로 정리해 구매 설득력을 높였습니다.</p>
     </div>
     <div class="pj-images">
       <img src="daynova_02.jpg" alt="">
@@ -3026,14 +3028,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2024</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">이지렙 역시 카카오 선물하기 특성상, 긴 설명보다 '한눈에 와닿는 가치'가 먼저였습니다. 제품의 핵심 효익을 상단에서 즉시 전달하고, 모바일 스크롤 흐름에 맞춰 정보를 가볍게 끊어 읽히도록 구성했습니다. 선물 상황을 고려한 톤과 명확한 시각 위계로, 짧은 동선 안에서 구매까지 이어지게 만들었습니다.</p>
     </div>
     <div class="pj-images">
       <img src="ezleb_02.jpg" alt="">
@@ -3060,14 +3062,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2024</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">괄사툴은 사용법이 생소해 '어떻게 쓰는지'를 모르면 구매로 이어지지 않는 제품이었습니다. 그래서 사용 부위와 방법을 시각적으로 먼저 안내하고, 기대 효과를 단계적으로 보여줘 진입 장벽을 낮췄습니다. 제품 형태를 살린 비주얼과 직관적인 정보 흐름으로, 처음 접하는 사용자도 쉽게 이해하고 구매하도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="gualsa_02.jpg" alt="">
@@ -3093,14 +3095,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2024</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">속눈썹 영양제는 효과가 눈에 보이기까지 시간이 걸려, '꾸준히 쓸 이유'를 만들어주는 게 관건이었습니다. 사용 전후의 변화와 성분 근거를 단계적으로 보여주고, 사용 루틴을 자연스럽게 제안하는 흐름으로 구성했습니다. 깔끔한 비주얼과 신뢰 요소 배치로 제품에 대한 확신을 키워 구매 전환을 유도했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="lash_02.jpg" alt="">
@@ -3127,14 +3129,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2024</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">카카오 선물하기는 짧은 스크롤 안에서 '선물로 살 만하다'는 확신을 줘야 하는 채널이었습니다. 그래서 제품의 매력 포인트를 상단에 압축해 보여주고, 사용 장면과 혜택을 빠르게 훑을 수 있도록 모바일 우선으로 정보를 재배치했습니다. 가독성 높은 위계와 선물 맥락에 맞춘 카피로, 짧은 체류 시간 안에 구매 전환이 일어나도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="twincurl_02.jpg" alt="">
@@ -3165,14 +3167,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">신규 가구 브랜드라 기준이 되는 비주얼이 전혀 없는 상태에서 톤과 무드부터 정의해야 했습니다. Midjourney·ChatGPT 등 AI 도구로 제품 누끼에 어울리는 배경과 분위기를 직접 만들어, 촬영 없이도 브랜드 세계관이 일관되게 보이도록 구축했습니다. 컬러·타이포·이미지 톤을 한 줄기로 묶어, 런칭 시점부터 완성된 브랜드처럼 보이는 첫인상을 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="nikeheim_02.jpg" alt="">
@@ -3201,14 +3203,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">브랜드 무드는 잡혔지만, 개별 제품을 실제 공간처럼 보여줄 촬영 컷이 없는 게 문제였습니다. AI로 제품에 어울리는 배경·연출을 만들어 누끼 이미지와 합성해, 실사 촬영 못지않은 상세 비주얼을 완성했습니다. 제품의 소재·디테일을 부각하는 정보 위계로 구성해, 온라인에서도 구매 확신이 들도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="nikebene_02.jpg" alt="">
@@ -3234,14 +3236,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">어페로 라인도 동일하게, 촬영 없이 AI 연출만으로 제품 매력을 전달해야 했습니다. 제품 톤에 맞는 배경과 분위기를 AI로 생성·합성해 시리즈 전체의 비주얼 일관성을 유지하면서, 각 제품의 개성을 살린 상세 구성으로 풀어냈습니다. 소재감과 사용 맥락을 함께 보여주는 위계로, 브랜드 신뢰와 구매 동기를 동시에 잡았습니다.</p>
     </div>
     <div class="pj-images">
       <img src="nikeapero_02.jpg" alt="">
@@ -3267,14 +3269,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">해외팀 대상 월간 이벤트라, 언어·문화가 다른 대상에게도 한눈에 읽히는 시각 전달이 중요했습니다. 이벤트의 핵심 혜택을 큼직한 위계로 잡고, 텍스트 의존을 줄인 직관적 비주얼로 메시지를 정리했습니다. 미올 브랜드 톤을 유지하면서 매월 변주가 가능한 틀로 만들어, 반복 운영에도 일관성이 유지되도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miolglobal_02.jpg" alt="">
@@ -3301,14 +3303,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2022</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">인쇄물은 화면과 달리 한 장 안에서 정보가 모두 정리돼야 하고, 출력 품질까지 고려해야 했습니다. 전달할 메시지의 우선순위를 먼저 정한 뒤, 시선 흐름에 맞춰 정보를 배치하고 인쇄 규격에 맞게 정돈했습니다. 교육원 브랜드 톤을 유지한 레이아웃으로, 한눈에 읽히면서도 신뢰감 있는 인쇄물을 완성했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="khposter_02.jpg" alt="">
@@ -3335,14 +3337,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2025</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">맘카페 대상 전지점 이벤트라, 친근하면서도 신뢰가 느껴지는 균형이 필요했습니다. 혜택과 참여 방법을 한눈에 이해되도록 정리하고, 따뜻한 톤의 비주얼로 거부감 없이 다가가도록 구성했습니다. 여러 지점에 공통 적용되는 틀로 설계해, 통일감 있게 운영되면서도 각 지점 정보가 명확히 보이게 했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="miolmom_02.jpg" alt="">
@@ -3371,14 +3373,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
-          <span class="pj-mt-val">[[ 작업 시기 입력 ]]</span>
+          <span class="pj-mt-val">2024</span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">기여</span>
           <span class="pj-mt-val">기획 100% · 디자인 100%</span>
         </div>
       </div>
-      <p class="pj-summary">[[ 프로젝트 설명을 입력하세요. ]]</p>
+      <p class="pj-summary">메타 광고 소재는 피드에서 0.1초 안에 손가락을 멈추게 해야 성과가 나는 영역이었습니다. 그래서 제품의 핵심 효익 하나를 강한 비주얼과 카피로 단번에 전달하도록, 메시지를 과감하게 압축했습니다. 다양한 사이즈·포맷에 맞춰 변주하면서도 브랜드 톤을 유지해, 클릭으로 이어지는 소재를 설계했습니다.</p>
     </div>
     <div class="pj-images">
       <img src="latemeta_02.jpg" alt="">
