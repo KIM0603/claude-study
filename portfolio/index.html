@@ -243,7 +243,8 @@ section{position:relative;}
   .hero-shell{grid-template-columns:1fr;min-height:auto;}
   .hero-right{aspect-ratio:4/3;min-height:0;}
   .hero-left{padding:32px 22px;}
-  .hero-left h1{font-weight:600;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.15;}
+  .hero-left h1{font-weight:700;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.15;}
+  .hero-foot .yr{font-weight:600;}
 }
 
 /* HERO 3D FAN */
@@ -653,9 +654,9 @@ section{position:relative;}
   margin-top:28px;align-self:center;
   background:var(--accent);
   border:none;color:#fff;
-  font-family:'Pretendard',sans-serif;font-weight:600;
-  font-size:var(--fs-body-sm);letter-spacing:-.01em;
-  padding:12px 24px;border-radius:999px;
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:var(--fs-body);letter-spacing:-.01em;
+  padding:18px 38px;border-radius:50px;
   cursor:pointer;transition:.2s var(--ease);
 }
 .career-more-btn:hover{background:var(--accent-deep);transform:translateY(-1px);}
@@ -931,7 +932,7 @@ section{position:relative;}
 }
 .tool-grid.tool-grid-small .tool-item:hover{transform:translateY(-3px);}
 .tool-grid.tool-grid-small .tool-item img{
-  width:54px;height:54px;padding:11px;
+  width:54px;height:54px;padding:2px;
   background:#fff;border:1px solid var(--card-border);
   border-radius:15px;object-fit:contain;
   box-shadow:0 3px 8px rgba(0,0,0,.06);
@@ -1379,6 +1380,7 @@ section{position:relative;}
   font-size:var(--fs-body-sm);color:var(--accent);}
 .exp-header .exp-date{font-family:'Manrope';font-weight:600;font-size:var(--fs-label);
   color:var(--txt-dim);padding-top:4px;letter-spacing:0;}
+.exp-header .exp-date span{display:inline;}
 .exp-tasks{margin-top:18px;}
 .exp-task-group{margin-bottom:16px;}
 .exp-task-group:last-child{margin-bottom:0;}
@@ -1597,7 +1599,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   transition:.2s var(--ease);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-.co-logo:hover .co-name{color:var(--accent);}
 .co-group{
   grid-column:span 2;
   display:flex;align-items:center;
@@ -1944,7 +1945,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <div class="f-pill">Experience &amp; Career</div>
         <h2>경험이 시작된 <br>공간들</h2>
         <div class="p-body">
-          <p>총 3곳의 회사에서 UI/UX·브랜딩·반응형 웹 등 다양한 디자인 업무를 담당하며 실무 역량을 쌓아왔습니다.</p>
+          <p>총 3곳의 회사에서 UI/UX·브랜딩·웹 설계 등<br>다양한 디자인 업무를 담당하며<br>실무 역량을 쌓아왔습니다.</p>
           <p>각 회사에서의 경험이 지금의 디자인 방향성과 작업 방식의 기반이 되었습니다.</p>
         </div>
         <!-- 회사명 텍스트 그리드 -->
@@ -2061,7 +2062,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miol_01.jpg" alt="미올한의원 메인 페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Web Design</span><span class="tag">한의원</span><span class="tag">브랜드</span></div>
+            <div class="tags"><span class="tag">리뉴얼</span><span class="tag">한의원</span><span class="tag">브랜딩</span></div>
             <h3>미올한의원 메인 페이지</h3>
           </div>
         </div>
@@ -2106,7 +2107,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">핑크환</span></div>
+            <div class="tags"><span class="tag">핑크환</span><span class="tag">AI영상</span></div>
             <h3>미올한의원 핑크환 상세페이지</h3>
           </div>
         </div>
@@ -2124,7 +2125,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="daynova_01.jpg" alt="데이노바 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">가전</span><span class="tag">뷰티</span></div>
+            <div class="tags"><span class="tag">프리미엄드라이기</span><span class="tag">가전</span><span class="tag">브랜딩</span></div>
             <h3>데이노바 상세페이지</h3>
           </div>
         </div>
@@ -2133,8 +2134,8 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">뷰티</span></div>
-            <h3>TWINCURL 카카오선물하기</h3>
+            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">속눈썹영양제</span><span class="tag">뷰티</span></div>
+            <h3>TWINCURL X 카카오선물하기</h3>
           </div>
         </div>
         <!-- 이지렙 카카오선물하기 -->
@@ -2142,8 +2143,8 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="ezleb_01.jpg" alt="이지렙 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">브랜딩</span></div>
-            <h3>이지렙 카카오선물하기</h3>
+            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">봉고데기</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
+            <h3>이지랩 X 카카오선물하기</h3>
           </div>
         </div>
         <!-- 문어괄사 상세페이지 -->
@@ -2151,7 +2152,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="gualsa_01.jpg" alt="문어괄사 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
+            <div class="tags"><span class="tag">문어괄사</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>문어괄사 상세페이지</h3>
           </div>
         </div>
@@ -2160,7 +2161,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="lash_01.jpg" alt="속눈썹영양제 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
+            <div class="tags"><span class="tag">속눈썹영양제</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>속눈썹영양제 상세페이지</h3>
           </div>
         </div>
@@ -2196,7 +2197,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Responsive Web Design</span><span class="tag">PC</span></div>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Web Design</span><span class="tag">반응형</span></div>
             <h3>KH정보교육원(통합) 반응형 웹사이트</h3>
           </div>
         </div>
@@ -2232,7 +2233,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolglobal_01.jpg" alt="미올 해외팀 월 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span></div>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">해외</span><span class="tag">이벤트</span><span class="tag">한의원</span></div>
             <h3>미올 해외팀 월 이벤트</h3>
           </div>
         </div>
@@ -2241,7 +2242,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="miolmom_01.jpg" alt="미올 맘카페 전지점 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span></div>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">맘카페</span><span class="tag">전지점이벤트</span></div>
             <h3>미올 맘카페 전지점 이벤트</h3>
           </div>
         </div>
@@ -2250,7 +2251,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <img src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">Graphic</span><span class="tag">Poster</span><span class="tag">Leaflet</span><span class="tag">인쇄물</span></div>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">포스터</span><span class="tag">리플렛</span><span class="tag">인쇄물</span></div>
             <h3>KH 포스터/리플렛 제작</h3>
           </div>
         </div>
