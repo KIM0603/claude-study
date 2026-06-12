@@ -515,7 +515,7 @@ section{position:relative;}
 }
 .sc-card .sc-title{
   font-family:'Pretendard',sans-serif;font-weight:600;
-  font-size:clamp(1.375rem,2.1vw,1.875rem);line-height:1.34;
+  font-size:clamp(1.375rem,2.1vw,1.75rem);line-height:1.34;
   letter-spacing:-.03em;color:var(--txt-dark);
   margin-bottom:8px;
 }
@@ -583,6 +583,7 @@ section{position:relative;}
   line-height:1.32;letter-spacing:-.03em;
   color:var(--txt-dark);margin-bottom:22px;
 }
+.partner-left h2 .exp-mbr{display:none;} /* PC: 한 줄 */
 .partner-left .p-body p{
   font-size:var(--fs-body-sm);line-height:1.6;color:var(--txt-dim);margin-bottom:14px;
 }
@@ -716,8 +717,8 @@ section{position:relative;}
   .partner-grid{grid-template-columns:1fr;}
   .partner-right{min-height:0;}
   .partner-left{padding:24px;}
-  .partner-left h2 br{display:none;}
-  .partner-left h2{letter-spacing:-.055em;white-space:nowrap;margin-top:2px;}
+  .partner-left h2 .exp-mbr{display:inline;} /* 모바일: 경험이 뒤 줄바꿈 → 두 줄 */
+  .partner-left h2{letter-spacing:-.055em;margin-top:2px;}
   .partner-left .p-body p{font-size:var(--fs-caption);}
 }
 
@@ -926,16 +927,33 @@ section{position:relative;}
   width:auto;max-width:100%;
 }
 .tool-grid.tool-grid-small .tool-item{
-  width:54px;height:auto;aspect-ratio:auto;
+  width:54px;height:54px;aspect-ratio:auto;
   flex-direction:column;gap:0;padding:0;
-  background:transparent;border:none;box-shadow:none;
+  background:#fff;border:1px solid var(--card-border);
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 3px 8px rgba(0,0,0,.06);
 }
 .tool-grid.tool-grid-small .tool-item:hover{transform:translateY(-3px);}
 .tool-grid.tool-grid-small .tool-item img{
-  width:54px;height:54px;padding:2px;
-  background:#fff;border:1px solid var(--card-border);
-  border-radius:15px;object-fit:contain;
-  box-shadow:0 3px 8px rgba(0,0,0,.06);
+  width:100%;height:100%;display:block;
+  object-fit:cover;
+  padding:0;background:transparent;border:none;border-radius:0;box-shadow:none;
+}
+/* 앱아이콘형(Ps·Ai·Xd·JS·Ae): 자체 배경을 박스 모서리까지 꽉 채움 */
+.tool-grid.tool-grid-small .tool-item:nth-child(1) img,
+.tool-grid.tool-grid-small .tool-item:nth-child(2) img,
+.tool-grid.tool-grid-small .tool-item:nth-child(4) img,
+.tool-grid.tool-grid-small .tool-item:nth-child(7) img,
+.tool-grid.tool-grid-small .tool-item:nth-child(8) img{
+  transform:scale(1.12);
+}
+/* 로고형(Figma·HTML·CSS): 투명 배경 + 내부 여백 → 잘리지 않게 키워 채움 */
+.tool-grid.tool-grid-small .tool-item:nth-child(3) img{
+  object-fit:contain;transform:scale(1.32);
+}
+.tool-grid.tool-grid-small .tool-item:nth-child(5) img,
+.tool-grid.tool-grid-small .tool-item:nth-child(6) img{
+  object-fit:contain;transform:scale(1.18);
 }
 .tool-grid.tool-grid-small .tool-item .tool-name{
   display:none;
@@ -1485,6 +1503,12 @@ section{position:relative;}
   font-family:'Pretendard';font-size:clamp(0.9rem,1.1vw,1rem);
   color:#444;line-height:1.6;
 }
+/* 상세페이지 KEYWORD: 카드와 동일한 베이지박스로 통일 */
+.pj-meta-row2.is-tags{align-items:center;}
+.pj-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.pj-tags .tag{display:inline-block;font-family:'Pretendard';font-weight:600;
+  font-size:0.9rem;letter-spacing:.02em;color:#6b6157;
+  background:#f1efe8;padding:4px 11px;border-radius:6px;}
 
 /* 설명 */
 .pj-summary{
@@ -1692,7 +1716,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <video
           class="hero-video"
           src="u2642383152__URL_Close-up_3D_render_of_a_playful_keyboard_in__57bc1b76-e8ea-4055-a33e-9e693c48adf4_0.mp4"
-          autoplay loop muted playsinline
+          autoplay loop muted playsinline preload="metadata"
         ></video>
       </div>
     </div>
@@ -1740,7 +1764,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     </div>
     <div class="roller-viewport">
       <!-- 9개 카드를 2번 반복 = 무한 롤링용. 실제로는 앞 9개만 채우면 됩니다 -->
-      <!-- [[ 프로젝트 이미지 ]] 각 카드의 .ph 를 <img src="경로" alt="">로 교체하세요 -->
+      <!-- [[ 프로젝트 이미지 ]] 각 카드의 .ph 를 <img loading="lazy" decoding="async" src="경로" alt="">로 교체하세요 -->
       <div class="roller-track">
         <!-- ── 1세트 (9개) ── -->
         <div class="roll-card"><div class="ph">[[ PROJECT 01 ]]</div>
@@ -1794,14 +1818,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <h2>경험을 설계하는<br>확고한 업무 능력</h2>
           <!-- 툴 아이콘: 텍스트 바로 아래 작게 배치 -->
           <div class="tool-grid tool-grid-small">
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/photoshop/photoshop-original.svg" alt="Photoshop"><span class="tool-name">Photoshop</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/illustrator/illustrator-original.svg" alt="Illustrator"><span class="tool-name">Illustrator</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/figma/figma-original.svg" alt="Figma"><span class="tool-name">Figma</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/xd/xd-original.svg" alt="XD"><span class="tool-name">XD</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/html5/html5-original.svg" alt="HTML"><span class="tool-name">HTML</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/css3/css3-original.svg" alt="CSS"><span class="tool-name">CSS</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/javascript/javascript-original.svg" alt="JavaScript"><span class="tool-name">JavaScript</span></div>
-            <div class="tool-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/aftereffects/aftereffects-original.svg" alt="After Effects"><span class="tool-name">After Effects</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/photoshop/photoshop-original.svg" alt="Photoshop"><span class="tool-name">Photoshop</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/illustrator/illustrator-original.svg" alt="Illustrator"><span class="tool-name">Illustrator</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/figma/figma-original.svg" alt="Figma"><span class="tool-name">Figma</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/xd/xd-original.svg" alt="XD"><span class="tool-name">XD</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/html5/html5-original.svg" alt="HTML"><span class="tool-name">HTML</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/css3/css3-original.svg" alt="CSS"><span class="tool-name">CSS</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/javascript/javascript-original.svg" alt="JavaScript"><span class="tool-name">JavaScript</span></div>
+            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/aftereffects/aftereffects-original.svg" alt="After Effects"><span class="tool-name">After Effects</span></div>
           </div>
         </div>
         <!-- 크레딧 롤 -->
@@ -1854,7 +1878,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <div class="showcase-track" id="scTrack">
 
         <!-- 사례 카드 0 (기존 인트로 → 일반 카드로 통일) -->
-        <!-- [[ 제작 사례 ]] sc-thumb 의 .ph 를 <img src="썸네일경로" alt="">로 교체 -->
+        <!-- [[ 제작 사례 ]] sc-thumb 의 .ph 를 <img loading="lazy" decoding="async" src="썸네일경로" alt="">로 교체 -->
         <div class="sc-card">
           <div class="sc-thumb"><div class="ph">[[ THUMBNAIL 01 ]]</div></div>
           <div class="sc-body">
@@ -1870,7 +1894,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
 
         <!-- 사례 카드 1 -->
-        <!-- [[ 제작 사례 ]] sc-thumb 의 .ph 를 <img src="썸네일경로" alt="">로 교체 -->
+        <!-- [[ 제작 사례 ]] sc-thumb 의 .ph 를 <img loading="lazy" decoding="async" src="썸네일경로" alt="">로 교체 -->
         <div class="sc-card">
           <div class="sc-thumb"><div class="ph">[[ THUMBNAIL 02 ]]</div></div>
           <div class="sc-body">
@@ -1943,7 +1967,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <!-- 왼쪽 : 텍스트 + 로고 -->
       <div class="partner-left sr">
         <div class="f-pill">Experience &amp; Career</div>
-        <h2>경험이 시작된 <br>공간들</h2>
+        <h2>경험이<br class="exp-mbr"> 시작된 공간들</h2>
         <div class="p-body">
           <p>총 3곳의 회사에서 UI/UX·브랜딩·웹 설계 등<br>다양한 디자인 업무를 담당하며<br>실무 역량을 쌓아왔습니다.</p>
           <p>각 회사에서의 경험이 지금의 디자인 방향성과 작업 방식의 기반이 되었습니다.</p>
@@ -2059,140 +2083,140 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <div class="work-grid" id="workGrid">
         <!-- 프로젝트 0: 미올한의원 메인 페이지 -->
         <div class="work sr" data-cat="uiweb" onclick="openProject('miol')" style="cursor:pointer;">
-          <img src="miol_01.jpg" alt="미올한의원 메인 페이지">
+          <img loading="lazy" decoding="async" src="miol_01.jpg" alt="미올한의원 메인 페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">리뉴얼</span><span class="tag">한의원</span><span class="tag">브랜딩</span></div>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Web Design</span><span class="tag">한의원</span><span class="tag">브랜드</span><span class="tag">메인페이지</span><span class="tag">리뉴얼</span></div>
             <h3>미올한의원 메인 페이지</h3>
           </div>
         </div>
         <!-- 프로젝트 1-2: 미올한의원 바디라인 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('miolbody')" style="cursor:pointer;">
-          <img src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
+          <img loading="lazy" decoding="async" src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">바디라인</span></div>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">바디라인</span><span class="tag">브랜딩</span></div>
             <h3>미올한의원 바디라인 상세페이지</h3>
           </div>
         </div>
         <!-- 미올한의원 튼살치료 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('miolstretch')" style="cursor:pointer;">
-          <img src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
+          <img loading="lazy" decoding="async" src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">튼살치료</span></div>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">튼살치료</span><span class="tag">브랜딩</span></div>
             <h3>미올한의원 튼살치료 상세페이지</h3>
           </div>
         </div>
-        <!-- 미올한의원 다이어트셔플먼트 상세페이지 -->
+        <!-- 미올한의원 다이어트 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('mioldiet')" style="cursor:pointer;">
-          <img src="mioldiet_01.jpg" alt="미올한의원 다이어트셔플먼트 상세페이지">
+          <img loading="lazy" decoding="async" src="mioldiet_01.jpg" alt="미올한의원 다이어트 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">다이어트</span></div>
-            <h3>미올한의원 다이어트셔플먼트 상세페이지</h3>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">다이어트</span><span class="tag">브랜딩</span></div>
+            <h3>미올한의원 다이어트 상세페이지</h3>
           </div>
         </div>
         <!-- 미올한의원 스킨부스터 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('miolskin')" style="cursor:pointer;">
-          <img src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
+          <img loading="lazy" decoding="async" src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">스킨부스터</span></div>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">스킨부스터</span><span class="tag">브랜딩</span></div>
             <h3>미올한의원 스킨부스터 상세페이지</h3>
           </div>
         </div>
         <!-- 미올한의원 핑크환 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('miolpink')" style="cursor:pointer;">
-          <img src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
+          <img loading="lazy" decoding="async" src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">핑크환</span><span class="tag">AI영상</span></div>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">핑크환</span><span class="tag">다이어트환</span><span class="tag">AI영상</span><span class="tag">브랜딩</span></div>
             <h3>미올한의원 핑크환 상세페이지</h3>
           </div>
         </div>
         <!-- 미올한의원 안면마비 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('miolface')" style="cursor:pointer;">
-          <img src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
+          <img loading="lazy" decoding="async" src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">안면마비</span></div>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">안면마비</span><span class="tag">브랜딩</span></div>
             <h3>미올한의원 안면마비 상세페이지</h3>
           </div>
         </div>
         <div class="work sr" data-cat="landing" onclick="openProject('miolnaso')" style="cursor:pointer;">
-          <img src="miolnaso_01.jpg" alt="한의원 팔자주름 상세페이지">
+          <img loading="lazy" decoding="async" src="miolnaso_01.jpg" alt="한의원 팔자주름 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">팔자주름</span></div>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">팔자주름</span><span class="tag">브랜딩</span></div>
             <h3>한의원 팔자주름 상세페이지</h3>
           </div>
         </div>
         <div class="work sr" data-cat="landing" onclick="openProject('miolnose')" style="cursor:pointer;">
-          <img src="miolnose_01.jpg" alt="한의원 코성형 상세페이지">
+          <img loading="lazy" decoding="async" src="miolnose_01.jpg" alt="한의원 코성형 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">한의원</span><span class="tag">코성형</span></div>
+            <div class="tags"><span class="tag">한의원</span><span class="tag">코성형</span><span class="tag">브랜딩</span></div>
             <h3>한의원 코성형 상세페이지</h3>
           </div>
         </div>
         <!-- 데이노바 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('daynova')" style="cursor:pointer;">
-          <img src="daynova_01.jpg" alt="데이노바 상세페이지">
+          <img loading="lazy" decoding="async" src="daynova_01.jpg" alt="데이노바 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">프리미엄드라이기</span><span class="tag">가전</span><span class="tag">브랜딩</span></div>
+            <div class="tags"><span class="tag">가전</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>데이노바 상세페이지</h3>
           </div>
         </div>
         <!-- TWINCURL 카카오선물하기 -->
         <div class="work sr" data-cat="landing" onclick="openProject('twincurl')" style="cursor:pointer;">
-          <img src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
+          <img loading="lazy" decoding="async" src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">속눈썹영양제</span><span class="tag">뷰티</span></div>
+            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>TWINCURL X 카카오선물하기</h3>
           </div>
         </div>
         <!-- 이지렙 카카오선물하기 -->
         <div class="work sr" data-cat="landing" onclick="openProject('ezleb')" style="cursor:pointer;">
-          <img src="ezleb_01.jpg" alt="이지렙 카카오선물하기">
+          <img loading="lazy" decoding="async" src="ezleb_01.jpg" alt="이지렙 카카오선물하기">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">봉고데기</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
+            <div class="tags"><span class="tag">카카오선물하기</span><span class="tag">브랜딩</span></div>
             <h3>이지랩 X 카카오선물하기</h3>
           </div>
         </div>
         <!-- 문어괄사 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('gualsa')" style="cursor:pointer;">
-          <img src="gualsa_01.jpg" alt="문어괄사 상세페이지">
+          <img loading="lazy" decoding="async" src="gualsa_01.jpg" alt="문어괄사 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">문어괄사</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
+            <div class="tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>문어괄사 상세페이지</h3>
           </div>
         </div>
         <!-- 속눈썹영양제 상세페이지 -->
         <div class="work sr" data-cat="landing" onclick="openProject('lash')" style="cursor:pointer;">
-          <img src="lash_01.jpg" alt="속눈썹영양제 상세페이지">
+          <img loading="lazy" decoding="async" src="lash_01.jpg" alt="속눈썹영양제 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">속눈썹영양제</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
+            <div class="tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>속눈썹영양제 상세페이지</h3>
           </div>
         </div>
         <!-- 프로젝트 2: 니케하임 가구 브랜드 런칭 -->
         <div class="work sr" data-cat="ai" onclick="openProject('nikeheim')" style="cursor:pointer;">
-          <img src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
+          <img loading="lazy" decoding="async" src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">AI Creative</span><span class="tag">Branding</span><span class="tag">가구</span><span class="tag">신규런칭</span></div>
+            <div class="tags"><span class="tag">AI Creative</span><span class="tag">Branding</span><span class="tag">가구</span><span class="tag">신규런칭</span><span class="tag">누끼+AI배경</span></div>
             <h3>니케하임 가구 브랜드 런칭</h3>
           </div>
         </div>
         <!-- 니케하임 가구 베네 상세페이지 -->
         <div class="work sr" data-cat="ai" onclick="openProject('nikebene')" style="cursor:pointer;">
-          <img src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
+          <img loading="lazy" decoding="async" src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
             <div class="tags"><span class="tag">AI Creative</span><span class="tag">가구</span><span class="tag">누끼+AI배경</span></div>
@@ -2201,7 +2225,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <!-- 니케하임 가구 어페로 상세페이지 -->
         <div class="work sr" data-cat="ai" onclick="openProject('nikeapero')" style="cursor:pointer;">
-          <img src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
+          <img loading="lazy" decoding="async" src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
           <div class="corner">↗</div>
           <div class="meta">
             <div class="tags"><span class="tag">AI Creative</span><span class="tag">가구</span><span class="tag">누끼+AI배경</span></div>
@@ -2210,25 +2234,25 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <!-- 프로젝트 3: KH정보교육원 반응형 웹사이트 -->
         <div class="work sr" data-cat="uiweb" onclick="openProject('kh')" style="cursor:pointer;">
-          <img src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
+          <img loading="lazy" decoding="async" src="img_kh_01.jpg" alt="KH정보교육원 반응형 웹사이트">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Web Design</span><span class="tag">반응형</span></div>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Responsive Web Design</span><span class="tag">PC</span><span class="tag">Mobile</span><span class="tag">Tablet</span><span class="tag">디자인시스템</span></div>
             <h3>KH정보교육원(통합) 반응형 웹사이트</h3>
           </div>
         </div>
         <!-- 프로젝트 4: 아텐츠게임아카데미 교육과정 리뉴얼 -->
         <div class="work sr" data-cat="uiweb" onclick="openProject('atents')" style="cursor:pointer;">
-          <img src="atents_01.jpg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
+          <img loading="lazy" decoding="async" src="atents_01.jpg" alt="아텐츠게임아카데미 교육과정 홈페이지 리뉴얼">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Web Design</span><span class="tag">반응형</span></div>
+            <div class="tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Web Design</span><span class="tag">반응형</span><span class="tag">디자인시스템</span></div>
             <h3>아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h3>
           </div>
         </div>
         <!-- KH정보교육원 신규 홈페이지 구축 -->
         <div class="work sr" data-cat="uiweb" onclick="openProject('khsite')" style="cursor:pointer;">
-          <img src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
+          <img loading="lazy" decoding="async" src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
           <div class="corner">↗</div>
           <div class="meta">
             <div class="tags"><span class="tag">UI/UX</span><span class="tag">Web Design</span><span class="tag">홈페이지구축</span><span class="tag">신규</span></div>
@@ -2237,37 +2261,37 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         </div>
         <!-- 레이트 가전뷰티 메타소재 -->
         <div class="work sr" data-cat="graphic" onclick="openProject('latemeta')" style="cursor:pointer;">
-          <img src="latemeta_01.jpg" alt="레이트 가전뷰티 메타소재">
+          <img loading="lazy" decoding="async" src="latemeta_01.jpg" alt="레이트 가전뷰티 메타소재">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">Graphic</span><span class="tag">메타소재</span><span class="tag">가전</span><span class="tag">뷰티</span></div>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">메타소재</span><span class="tag">가전</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></div>
             <h3>레이트 가전뷰티 메타소재</h3>
           </div>
         </div>
         <!-- 미올 해외팀 월 이벤트 -->
         <div class="work sr" data-cat="graphic" onclick="openProject('miolglobal')" style="cursor:pointer;">
-          <img src="miolglobal_01.jpg" alt="미올 해외팀 월 이벤트">
+          <img loading="lazy" decoding="async" src="miolglobal_01.jpg" alt="미올 해외팀 월 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">Graphic</span><span class="tag">해외</span><span class="tag">이벤트</span><span class="tag">한의원</span></div>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span><span class="tag">해외팀</span></div>
             <h3>미올 해외팀 월 이벤트</h3>
           </div>
         </div>
         <!-- 미올 맘카페 전지점 이벤트 -->
         <div class="work sr" data-cat="graphic" onclick="openProject('miolmom')" style="cursor:pointer;">
-          <img src="miolmom_01.jpg" alt="미올 맘카페 전지점 이벤트">
+          <img loading="lazy" decoding="async" src="miolmom_01.jpg" alt="미올 맘카페 전지점 이벤트">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">Graphic</span><span class="tag">맘카페</span><span class="tag">전지점이벤트</span></div>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span><span class="tag">맘카페</span></div>
             <h3>미올 맘카페 전지점 이벤트</h3>
           </div>
         </div>
         <!-- KH 포스터/리플렛 제작 -->
         <div class="work sr" data-cat="graphic" onclick="openProject('khposter')" style="cursor:pointer;">
-          <img src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
+          <img loading="lazy" decoding="async" src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
           <div class="corner">↗</div>
           <div class="meta">
-            <div class="tags"><span class="tag">Graphic</span><span class="tag">포스터</span><span class="tag">리플렛</span><span class="tag">인쇄물</span></div>
+            <div class="tags"><span class="tag">Graphic</span><span class="tag">Poster</span><span class="tag">Leaflet</span><span class="tag">인쇄물</span></div>
             <h3>KH 포스터/리플렛 제작</h3>
           </div>
         </div>
@@ -2622,7 +2646,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
     <!-- 대표 이미지 -->
     <div class="pj-hero">
-      <img src="img_kh_01.jpg" alt="KH정보교육원">
+      <img loading="lazy" decoding="async" src="img_kh_01.jpg" alt="KH정보교육원">
     </div>
 
     <!-- 텍스트 정보 -->
@@ -2634,9 +2658,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       </h2>
 
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#UI/UX #Branding #Responsive Web Design #PC #Mobile #Tablet #디자인시스템</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Responsive Web Design</span><span class="tag">PC</span><span class="tag">Mobile</span><span class="tag">Tablet</span><span class="tag">디자인시스템</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2653,18 +2677,18 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
     <!-- 이미지 갤러리 (텍스트 없이 나열) -->
     <div class="pj-images">
-      <img src="img_kh_02.jpg" alt="">
-      <img src="img_kh_03.jpg" alt="">
-      <img src="img_kh_04.jpg" alt="">
-      <img src="img_kh_05.jpg" alt="">
-      <img src="img_kh_06.jpg" alt="">
-      <img src="img_kh_07.jpg" alt="">
-      <img src="img_kh_08.jpg" alt="">
-      <img src="img_kh_09.jpg" alt="">
-      <img src="img_kh_10.jpg" alt="">
-      <img src="img_kh_11.jpg" alt="">
-      <img src="img_kh_12.jpg" alt="">
-      <img src="img_kh_13.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_08.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_09.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_10.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_11.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_12.jpg" alt="">
+      <img loading="lazy" decoding="async" src="img_kh_13.jpg" alt="">
     </div>
 
   </div>
@@ -2675,14 +2699,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
+      <img loading="lazy" decoding="async" src="khsite_01.jpg" alt="KH정보교육원 신규 홈페이지 구축">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">KH정보교육원 신규 홈페이지 구축</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#UI/UX #Web Design #홈페이지구축 #신규</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">UI/UX</span><span class="tag">Web Design</span><span class="tag">홈페이지구축</span><span class="tag">신규</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2696,11 +2720,11 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">기존 틀을 손보는 게 아니라 처음부터 새로 구축하는 프로젝트라, 정보 구조와 화면 골격을 백지에서 설계해야 했습니다. 교육원이 전달해야 할 핵심 정보를 우선순위로 정리하고, 방문자 유형별 진입 동선을 기준으로 페이지를 구성했습니다. 확장 가능한 레이아웃과 일관된 디자인 규칙으로, 이후 운영까지 고려한 신규 홈페이지를 완성했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="khsite_02.jpg" alt="">
-      <img src="khsite_03.jpg" alt="">
-      <img src="khsite_04.jpg" alt="">
-      <img src="khsite_05.jpg" alt="">
-      <img src="khsite_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khsite_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khsite_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khsite_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khsite_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khsite_06.jpg" alt="">
     </div>
   </div>
 </div>
@@ -2712,16 +2736,16 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
 
     <div class="pj-hero">
-      <img src="atents_01.jpg" alt="아텐츠게임아카데미">
+      <img loading="lazy" decoding="async" src="atents_01.jpg" alt="아텐츠게임아카데미">
     </div>
 
     <div class="pj-info">
       <h2 class="pj-h1">아텐츠게임아카데미 교육과정 홈페이지 리뉴얼</h2>
 
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#UI/UX #Branding #Web Design #반응형 #디자인시스템</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">UI/UX</span><span class="tag">Branding</span><span class="tag">Web Design</span><span class="tag">반응형</span><span class="tag">디자인시스템</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2737,16 +2761,16 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     </div>
 
     <div class="pj-images">
-      <img src="atents_02.jpg" alt="">
-      <img src="atents_03.jpg" alt="">
-      <img src="atents_04.jpg" alt="">
-      <img src="atents_05.jpg" alt="">
-      <img src="atents_06.jpg" alt="">
-      <img src="atents_07.jpg" alt="">
-      <img src="atents_08.jpg" alt="">
-      <img src="atents_09.jpg" alt="">
-      <img src="atents_10.jpg" alt="">
-      <img src="atents_11.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_08.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_09.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_10.jpg" alt="">
+      <img loading="lazy" decoding="async" src="atents_11.jpg" alt="">
     </div>
 
   </div>
@@ -2758,14 +2782,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miol_01.jpg" alt="미올한의원 메인 페이지">
+      <img loading="lazy" decoding="async" src="miol_01.jpg" alt="미올한의원 메인 페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올한의원 메인 페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#UI/UX #Web Design #한의원 #브랜드 #메인페이지 #리뉴얼</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">UI/UX</span><span class="tag">Web Design</span><span class="tag">한의원</span><span class="tag">브랜드</span><span class="tag">메인페이지</span><span class="tag">리뉴얼</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2779,15 +2803,15 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">한의원은 '치료'와 '미용·다이어트'를 함께 다루는 곳이라, 신뢰감과 트렌디함이 충돌하기 쉬운 브랜드였습니다. 그래서 방문자가 처음 마주하는 메인에서 '믿을 수 있는 한의원'이라는 인상을 먼저 잡고, 다이어트·페이스밸런스·흉터/톤살·피부미용 등 흩어진 진료 영역을 한눈에 탐색할 수 있도록 정보 구조를 다시 설계했습니다. 차분한 우드톤과 여백 중심의 레이아웃으로 의료 신뢰도를, 진료별 진입 동선과 반응형 구성으로 사용 편의를 동시에 잡아 PC·모바일 모두 일관된 브랜드 경험을 완성했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miol_02.jpg" alt="">
-      <img src="miol_03.jpg" alt="">
-      <img src="miol_04.jpg" alt="">
-      <img src="miol_05.jpg" alt="">
-      <img src="miol_06.jpg" alt="">
-      <img src="miol_07.jpg" alt="">
-      <img src="miol_08.jpg" alt="">
-      <img src="miol_09.jpg" alt="">
-      <img src="miol_10.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_08.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_09.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miol_10.jpg" alt="">
     </div>
   </div>
 </div>
@@ -2797,14 +2821,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
+      <img loading="lazy" decoding="async" src="miolstretch_01.jpg" alt="미올한의원 튼살치료 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올한의원 튼살치료 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #튼살치료 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">튼살치료</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2818,29 +2842,29 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">튼살은 한번 생기면 잘 사라지지 않는다는 인식 때문에 '치료가 될까?'라는 의심을 먼저 풀어야 하는 주제였습니다. 그래서 원인과 치료 원리를 시각 자료로 먼저 설명해 납득을 만든 뒤, 치료 과정과 기대 변화를 단계별로 보여주는 구조로 설계했습니다. 차분한 톤과 정돈된 정보 흐름으로 의료 신뢰도를 지키면서, 망설이는 방문자가 상담으로 넘어오도록 유도했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolstretch_02.jpg" alt="">
-      <img src="miolstretch_03.jpg" alt="">
-      <img src="miolstretch_04.jpg" alt="">
-      <img src="miolstretch_05.jpg" alt="">
-      <img src="miolstretch_06.jpg" alt="">
-      <img src="miolstretch_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolstretch_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolstretch_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolstretch_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolstretch_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolstretch_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolstretch_07.jpg" alt="">
     </div>
   </div>
 </div>
 
-<!-- ============ PROJECT DETAIL: 미올한의원 다이어트셔플먼트 ============ -->
+<!-- ============ PROJECT DETAIL: 미올한의원 다이어트 ============ -->
 <div class="proj-overlay" id="proj-mioldiet" onclick="handleOverlayClick(event)">
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="mioldiet_01.jpg" alt="미올한의원 다이어트셔플먼트 상세페이지">
+      <img loading="lazy" decoding="async" src="mioldiet_01.jpg" alt="미올한의원 다이어트 상세페이지">
     </div>
     <div class="pj-info">
-      <h2 class="pj-h1">미올한의원 다이어트셔플먼트 상세페이지</h2>
+      <h2 class="pj-h1">미올한의원 다이어트 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #다이어트 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">다이어트</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2854,12 +2878,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">다이어트 제품은 비슷한 광고가 넘쳐 '또 그런 거겠지'라는 피로감을 먼저 넘어야 했습니다. 그래서 자극적인 약속 대신 한방 처방의 원리와 차별점을 단계적으로 풀어, 왜 이 방식인지를 납득시키는 흐름으로 구성했습니다. 핵심 메시지를 큼직한 위계로 잡고 근거를 받쳐주는 레이아웃으로, 신뢰와 구매 동기를 함께 끌어올렸습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="mioldiet_02.jpg" alt="">
-      <img src="mioldiet_03.jpg" alt="">
-      <img src="mioldiet_04.jpg" alt="">
-      <img src="mioldiet_05.jpg" alt="">
-      <img src="mioldiet_06.jpg" alt="">
-      <img src="mioldiet_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="mioldiet_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="mioldiet_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="mioldiet_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="mioldiet_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="mioldiet_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="mioldiet_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -2869,14 +2893,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
+      <img loading="lazy" decoding="async" src="miolskin_01.jpg" alt="미올한의원 스킨부스터 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올한의원 스킨부스터 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #스킨부스터 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">스킨부스터</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2890,12 +2914,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">스킨부스터는 시술 종류가 많아 방문자가 '내게 맞는 게 뭔지' 헷갈리기 쉬운 영역이었습니다. 그래서 효과·대상·과정을 기준으로 정보를 분류해, 자신의 고민에 맞는 시술을 빠르게 찾아 내려갈 수 있도록 구조를 설계했습니다. 피부 결을 살린 비주얼과 깔끔한 정보 위계로 전문성과 미용 감성을 동시에 전달하며 상담 전환을 유도했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolskin_02.jpg" alt="">
-      <img src="miolskin_03.jpg" alt="">
-      <img src="miolskin_04.jpg" alt="">
-      <img src="miolskin_05.jpg" alt="">
-      <img src="miolskin_06.jpg" alt="">
-      <img src="miolskin_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolskin_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolskin_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolskin_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolskin_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolskin_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolskin_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -2905,14 +2929,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
+      <img loading="lazy" decoding="async" src="miolpink_01.jpg" alt="미올한의원 핑크환 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올한의원 핑크환 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #핑크환 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">핑크환</span><span class="tag">다이어트환</span><span class="tag">AI영상</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2926,12 +2950,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">핑크환은 제품명만으로는 무엇인지 알기 어려워, 정체성과 효능을 처음부터 명확히 잡아주는 게 우선이었습니다. 한방 다이어트 환이라는 콘셉트를 브랜드 컬러와 함께 각인시키고, 성분·복용·기대 효과를 순서대로 풀어 구매 결정을 단계적으로 도왔습니다. 감각적인 핑크 톤 비주얼로 제품을 기억에 남기면서도 한의원 브랜드의 신뢰감을 유지했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolpink_02.jpg" alt="">
-      <img src="miolpink_03.jpg" alt="">
-      <img src="miolpink_04.jpg" alt="">
-      <img src="miolpink_05.jpg" alt="">
-      <img src="miolpink_06.jpg" alt="">
-      <img src="miolpink_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolpink_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolpink_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolpink_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolpink_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolpink_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolpink_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -2941,14 +2965,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
+      <img loading="lazy" decoding="async" src="miolface_01.jpg" alt="미올한의원 안면마비 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올한의원 안면마비 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #안면마비 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">안면마비</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2962,13 +2986,13 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">안면마비는 환자가 불안한 상태에서 정보를 찾는 주제라, 과한 마케팅보다 '제대로 치료받을 수 있다'는 안심을 주는 게 핵심이었습니다. 증상·원인·치료 단계를 차분하게 설명하고, 한방 치료의 접근법을 신뢰감 있는 톤으로 정리했습니다. 절제된 색과 또렷한 정보 위계로 의료 전문성을 강조해, 빠른 상담·내원으로 이어지도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolface_02.jpg" alt="">
-      <img src="miolface_03.jpg" alt="">
-      <img src="miolface_04.jpg" alt="">
-      <img src="miolface_05.jpg" alt="">
-      <img src="miolface_06.jpg" alt="">
-      <img src="miolface_07.jpg" alt="">
-      <img src="miolface_08.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolface_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolface_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolface_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolface_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolface_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolface_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolface_08.jpg" alt="">
     </div>
   </div>
 </div>
@@ -2978,14 +3002,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolnaso_01.jpg" alt="한의원 팔자주름 상세페이지">
+      <img loading="lazy" decoding="async" src="miolnaso_01.jpg" alt="한의원 팔자주름 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">한의원 팔자주름 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #팔자주름 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">팔자주름</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -2999,12 +3023,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">팔자주름은 인상의 나이를 좌우하는 부위라, '자연스럽게 어려 보이고 싶다'는 기대를 자극하면서도 과장 없이 신뢰를 주는 균형이 중요했습니다. 원인과 케어 원리를 먼저 설명해 납득을 만든 뒤, 단계별 개선 과정과 기대 변화를 보여주는 구조로 설계했습니다. 차분한 톤과 또렷한 정보 위계로 한의원의 전문성을 살리면서, 망설이는 방문자가 상담으로 이어지도록 동선을 잡았습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolnaso_02.jpg" alt="">
-      <img src="miolnaso_03.jpg" alt="">
-      <img src="miolnaso_04.jpg" alt="">
-      <img src="miolnaso_05.jpg" alt="">
-      <img src="miolnaso_06.jpg" alt="">
-      <img src="miolnaso_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnaso_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnaso_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnaso_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnaso_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnaso_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnaso_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3014,14 +3038,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolnose_01.jpg" alt="한의원 코성형 상세페이지">
+      <img loading="lazy" decoding="async" src="miolnose_01.jpg" alt="한의원 코성형 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">한의원 코성형 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #코성형 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">코성형</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3035,12 +3059,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">코성형은 '수술 없이 자연스럽게 라인을 바꾸고 싶다'는 기대와 '정말 효과가 있을까'라는 의심이 동시에 큰 주제였습니다. 비수술 교정의 원리와 변화 과정을 단계별로 보여주며 막연한 불안을 먼저 덜어내는 구조로 설계했습니다. 절제된 비주얼과 또렷한 정보 위계로 한의원의 전문성과 신뢰를 전하면서, 상담으로 자연스럽게 이어지도록 동선을 잡았습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolnose_02.jpg" alt="">
-      <img src="miolnose_03.jpg" alt="">
-      <img src="miolnose_04.jpg" alt="">
-      <img src="miolnose_05.jpg" alt="">
-      <img src="miolnose_06.jpg" alt="">
-      <img src="miolnose_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnose_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnose_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnose_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnose_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnose_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolnose_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3050,14 +3074,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
+      <img loading="lazy" decoding="async" src="miolbody_01.jpg" alt="미올한의원 바디라인 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올한의원 바디라인 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #한의원 #바디라인 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">한의원</span><span class="tag">바디라인</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3071,12 +3095,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">바디라인 케어는 효과를 단정적으로 약속할 수 없는 의료 영역이라, 과장 없이도 '하고 싶다'는 마음이 들게 만드는 게 관건이었습니다. 정밀 분석→맞춤 설계→케어→관리로 이어지는 4단계 솔루션을 스토리처럼 따라 내려오도록 구성해, 방문자가 자신의 변화 과정을 미리 그려볼 수 있게 했습니다. 바디 비주얼과 절제된 카피, 단계별 정보 위계로 신뢰감을 유지하면서 상담 전환까지 자연스럽게 이어지는 동선을 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolbody_02.jpg" alt="">
-      <img src="miolbody_03.jpg" alt="">
-      <img src="miolbody_04.jpg" alt="">
-      <img src="miolbody_05.jpg" alt="">
-      <img src="miolbody_06.jpg" alt="">
-      <img src="miolbody_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolbody_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolbody_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolbody_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolbody_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolbody_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolbody_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3086,14 +3110,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="daynova_01.jpg" alt="데이노바 상세페이지">
+      <img loading="lazy" decoding="async" src="daynova_01.jpg" alt="데이노바 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">데이노바 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #가전 #뷰티 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">가전</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3107,14 +3131,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">뷰티 가전은 기능 설명이 많아 자칫 스펙 나열로 흐르기 쉬운 카테고리였습니다. 그래서 '왜 필요한지'의 사용 맥락을 먼저 보여주고 기능을 그 뒤에 배치해, 스펙이 아니라 일상의 변화로 읽히도록 구성했습니다. 제품 비주얼과 포인트 컬러로 브랜드 무드를 잡고, 핵심 기능을 단계별 위계로 정리해 구매 설득력을 높였습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="daynova_02.jpg" alt="">
-      <img src="daynova_03.jpg" alt="">
-      <img src="daynova_04.jpg" alt="">
-      <img src="daynova_05.jpg" alt="">
-      <img src="daynova_06.jpg" alt="">
-      <img src="daynova_07.jpg" alt="">
-      <img src="daynova_08.jpg" alt="">
-      <img src="daynova_09.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_08.jpg" alt="">
+      <img loading="lazy" decoding="async" src="daynova_09.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3124,14 +3148,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="ezleb_01.jpg" alt="이지렙 카카오선물하기">
+      <img loading="lazy" decoding="async" src="ezleb_01.jpg" alt="이지렙 카카오선물하기">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">이지렙 카카오선물하기</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #카카오선물하기 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">카카오선물하기</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3145,10 +3169,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">이지렙 역시 카카오 선물하기 특성상, 긴 설명보다 '한눈에 와닿는 가치'가 먼저였습니다. 제품의 핵심 효익을 상단에서 즉시 전달하고, 모바일 스크롤 흐름에 맞춰 정보를 가볍게 끊어 읽히도록 구성했습니다. 선물 상황을 고려한 톤과 명확한 시각 위계로, 짧은 동선 안에서 구매까지 이어지게 만들었습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="ezleb_02.jpg" alt="">
-      <img src="ezleb_03.jpg" alt="">
-      <img src="ezleb_04.jpg" alt="">
-      <img src="ezleb_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="ezleb_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="ezleb_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="ezleb_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="ezleb_05.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3158,14 +3182,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="gualsa_01.jpg" alt="문어괄사 상세페이지">
+      <img loading="lazy" decoding="async" src="gualsa_01.jpg" alt="문어괄사 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">문어괄사 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #뷰티 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3179,9 +3203,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">괄사툴은 사용법이 생소해 '어떻게 쓰는지'를 모르면 구매로 이어지지 않는 제품이었습니다. 그래서 사용 부위와 방법을 시각적으로 먼저 안내하고, 기대 효과를 단계적으로 보여줘 진입 장벽을 낮췄습니다. 제품 형태를 살린 비주얼과 직관적인 정보 흐름으로, 처음 접하는 사용자도 쉽게 이해하고 구매하도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="gualsa_02.jpg" alt="">
-      <img src="gualsa_03.jpg" alt="">
-      <img src="gualsa_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="gualsa_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="gualsa_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="gualsa_04.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3191,14 +3215,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="lash_01.jpg" alt="속눈썹영양제 상세페이지">
+      <img loading="lazy" decoding="async" src="lash_01.jpg" alt="속눈썹영양제 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">속눈썹영양제 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #뷰티 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">뷰티</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3212,10 +3236,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">속눈썹 영양제는 효과가 눈에 보이기까지 시간이 걸려, '꾸준히 쓸 이유'를 만들어주는 게 관건이었습니다. 사용 전후의 변화와 성분 근거를 단계적으로 보여주고, 사용 루틴을 자연스럽게 제안하는 흐름으로 구성했습니다. 깔끔한 비주얼과 신뢰 요소 배치로 제품에 대한 확신을 키워 구매 전환을 유도했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="lash_02.jpg" alt="">
-      <img src="lash_03.jpg" alt="">
-      <img src="lash_04.jpg" alt="">
-      <img src="lash_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="lash_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="lash_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="lash_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="lash_05.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3225,14 +3249,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
+      <img loading="lazy" decoding="async" src="twincurl_01.jpg" alt="TWINCURL 카카오선물하기">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">TWINCURL 카카오선물하기</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Landing Page #상세페이지 #카카오선물하기 #뷰티 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">카카오선물하기</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3246,14 +3270,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">카카오 선물하기는 짧은 스크롤 안에서 '선물로 살 만하다'는 확신을 줘야 하는 채널이었습니다. 그래서 제품의 매력 포인트를 상단에 압축해 보여주고, 사용 장면과 혜택을 빠르게 훑을 수 있도록 모바일 우선으로 정보를 재배치했습니다. 가독성 높은 위계와 선물 맥락에 맞춘 카피로, 짧은 체류 시간 안에 구매 전환이 일어나도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="twincurl_02.jpg" alt="">
-      <img src="twincurl_03.jpg" alt="">
-      <img src="twincurl_04.jpg" alt="">
-      <img src="twincurl_05.jpg" alt="">
-      <img src="twincurl_06.jpg" alt="">
-      <img src="twincurl_07.jpg" alt="">
-      <img src="twincurl_08.jpg" alt="">
-      <img src="twincurl_09.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_08.jpg" alt="">
+      <img loading="lazy" decoding="async" src="twincurl_09.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3263,14 +3287,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
+      <img loading="lazy" decoding="async" src="nikeheim_01.jpg" alt="니케하임 가구 브랜드 런칭">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">니케하임 가구 브랜드 런칭</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#AI Creative #Branding #가구 #신규런칭 #누끼+AI배경</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">AI Creative</span><span class="tag">Branding</span><span class="tag">가구</span><span class="tag">신규런칭</span><span class="tag">누끼+AI배경</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3284,12 +3308,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">신규 가구 브랜드라 기준이 되는 비주얼이 전혀 없는 상태에서 톤과 무드부터 정의해야 했습니다. Midjourney·ChatGPT 등 AI 도구로 제품 누끼에 어울리는 배경과 분위기를 직접 만들어, 촬영 없이도 브랜드 세계관이 일관되게 보이도록 구축했습니다. 컬러·타이포·이미지 톤을 한 줄기로 묶어, 런칭 시점부터 완성된 브랜드처럼 보이는 첫인상을 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="nikeheim_02.jpg" alt="">
-      <img src="nikeheim_03.jpg" alt="">
-      <img src="nikeheim_04.jpg" alt="">
-      <img src="nikeheim_05.jpg" alt="">
-      <img src="nikeheim_06.jpg" alt="">
-      <img src="nikeheim_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeheim_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeheim_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeheim_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeheim_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeheim_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeheim_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3299,14 +3323,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
+      <img loading="lazy" decoding="async" src="nikebene_01.jpg" alt="니케하임 가구 베네 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">니케하임 가구 베네 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">AI Creative</span><span class="tag">가구</span><span class="tag">누끼+AI배경</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3320,9 +3344,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">브랜드 무드는 잡혔지만, 개별 제품을 실제 공간처럼 보여줄 촬영 컷이 없는 게 문제였습니다. AI로 제품에 어울리는 배경·연출을 만들어 누끼 이미지와 합성해, 실사 촬영 못지않은 상세 비주얼을 완성했습니다. 제품의 소재·디테일을 부각하는 정보 위계로 구성해, 온라인에서도 구매 확신이 들도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="nikebene_02.jpg" alt="">
-      <img src="nikebene_03.jpg" alt="">
-      <img src="nikebene_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikebene_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikebene_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikebene_04.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3332,14 +3356,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
+      <img loading="lazy" decoding="async" src="nikeapero_01.jpg" alt="니케하임 가구 어페로 상세페이지">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">니케하임 가구 어페로 상세페이지</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#AI Creative #상세페이지 #가구 #누끼+AI배경</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">AI Creative</span><span class="tag">가구</span><span class="tag">누끼+AI배경</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3353,9 +3377,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">어페로 라인도 동일하게, 촬영 없이 AI 연출만으로 제품 매력을 전달해야 했습니다. 제품 톤에 맞는 배경과 분위기를 AI로 생성·합성해 시리즈 전체의 비주얼 일관성을 유지하면서, 각 제품의 개성을 살린 상세 구성으로 풀어냈습니다. 소재감과 사용 맥락을 함께 보여주는 위계로, 브랜드 신뢰와 구매 동기를 동시에 잡았습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="nikeapero_02.jpg" alt="">
-      <img src="nikeapero_03.jpg" alt="">
-      <img src="nikeapero_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeapero_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeapero_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="nikeapero_04.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3365,14 +3389,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolglobal_01.jpg" alt="미올 해외팀 월 이벤트">
+      <img loading="lazy" decoding="async" src="miolglobal_01.jpg" alt="미올 해외팀 월 이벤트">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올 해외팀 월 이벤트</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Graphic #이벤트 #프로모션 #한의원 #해외팀</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span><span class="tag">해외팀</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3386,10 +3410,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">해외팀 대상 월간 이벤트라, 언어·문화가 다른 대상에게도 한눈에 읽히는 시각 전달이 중요했습니다. 이벤트의 핵심 혜택을 큼직한 위계로 잡고, 텍스트 의존을 줄인 직관적 비주얼로 메시지를 정리했습니다. 미올 브랜드 톤을 유지하면서 매월 변주가 가능한 틀로 만들어, 반복 운영에도 일관성이 유지되도록 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolglobal_02.jpg" alt="">
-      <img src="miolglobal_03.jpg" alt="">
-      <img src="miolglobal_04.jpg" alt="">
-      <img src="miolglobal_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolglobal_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolglobal_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolglobal_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolglobal_05.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3399,14 +3423,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
+      <img loading="lazy" decoding="async" src="khposter_01.jpg" alt="KH 포스터/리플렛 제작">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">KH 포스터/리플렛 제작</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Graphic #Poster #Leaflet #인쇄물</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">Graphic</span><span class="tag">Poster</span><span class="tag">Leaflet</span><span class="tag">인쇄물</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3420,10 +3444,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">인쇄물은 화면과 달리 한 장 안에서 정보가 모두 정리돼야 하고, 출력 품질까지 고려해야 했습니다. 전달할 메시지의 우선순위를 먼저 정한 뒤, 시선 흐름에 맞춰 정보를 배치하고 인쇄 규격에 맞게 정돈했습니다. 교육원 브랜드 톤을 유지한 레이아웃으로, 한눈에 읽히면서도 신뢰감 있는 인쇄물을 완성했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="khposter_02.jpg" alt="">
-      <img src="khposter_03.jpg" alt="">
-      <img src="khposter_04.jpg" alt="">
-      <img src="khposter_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khposter_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khposter_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khposter_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="khposter_05.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3433,14 +3457,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="miolmom_01.jpg" alt="미올 맘카페 전지점 이벤트">
+      <img loading="lazy" decoding="async" src="miolmom_01.jpg" alt="미올 맘카페 전지점 이벤트">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">미올 맘카페 전지점 이벤트</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Graphic #이벤트 #프로모션 #한의원 #맘카페</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">Graphic</span><span class="tag">이벤트</span><span class="tag">프로모션</span><span class="tag">한의원</span><span class="tag">맘카페</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3454,12 +3478,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">맘카페 대상 전지점 이벤트라, 친근하면서도 신뢰가 느껴지는 균형이 필요했습니다. 혜택과 참여 방법을 한눈에 이해되도록 정리하고, 따뜻한 톤의 비주얼로 거부감 없이 다가가도록 구성했습니다. 여러 지점에 공통 적용되는 틀로 설계해, 통일감 있게 운영되면서도 각 지점 정보가 명확히 보이게 했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="miolmom_02.jpg" alt="">
-      <img src="miolmom_03.jpg" alt="">
-      <img src="miolmom_04.jpg" alt="">
-      <img src="miolmom_05.jpg" alt="">
-      <img src="miolmom_06.jpg" alt="">
-      <img src="miolmom_07.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolmom_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolmom_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolmom_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolmom_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolmom_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="miolmom_07.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3469,14 +3493,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <div class="proj-inner">
     <button class="proj-close" onclick="closeProject()">목록으로 돌아가기</button>
     <div class="pj-hero">
-      <img src="latemeta_01.jpg" alt="레이트 가전뷰티 메타소재">
+      <img loading="lazy" decoding="async" src="latemeta_01.jpg" alt="레이트 가전뷰티 메타소재">
     </div>
     <div class="pj-info">
       <h2 class="pj-h1">레이트 가전뷰티 메타소재</h2>
       <div class="pj-meta-table">
-        <div class="pj-meta-row2">
+        <div class="pj-meta-row2 is-tags">
           <span class="pj-mt-label">KEYWORD</span>
-          <span class="pj-mt-val">#Graphic #메타소재 #가전 #뷰티 #브랜딩</span>
+          <span class="pj-mt-val pj-tags"><span class="tag">Graphic</span><span class="tag">메타소재</span><span class="tag">가전</span><span class="tag">뷰티</span><span class="tag">브랜딩</span></span>
         </div>
         <div class="pj-meta-row2">
           <span class="pj-mt-label">DATE</span>
@@ -3490,11 +3514,11 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <p class="pj-summary">메타 광고 소재는 피드에서 0.1초 안에 손가락을 멈추게 해야 성과가 나는 영역이었습니다. 그래서 제품의 핵심 효익 하나를 강한 비주얼과 카피로 단번에 전달하도록, 메시지를 과감하게 압축했습니다. 다양한 사이즈·포맷에 맞춰 변주하면서도 브랜드 톤을 유지해, 클릭으로 이어지는 소재를 설계했습니다.</p>
     </div>
     <div class="pj-images">
-      <img src="latemeta_02.jpg" alt="">
-      <img src="latemeta_03.jpg" alt="">
-      <img src="latemeta_04.jpg" alt="">
-      <img src="latemeta_05.jpg" alt="">
-      <img src="latemeta_06.jpg" alt="">
+      <img loading="lazy" decoding="async" src="latemeta_02.jpg" alt="">
+      <img loading="lazy" decoding="async" src="latemeta_03.jpg" alt="">
+      <img loading="lazy" decoding="async" src="latemeta_04.jpg" alt="">
+      <img loading="lazy" decoding="async" src="latemeta_05.jpg" alt="">
+      <img loading="lazy" decoding="async" src="latemeta_06.jpg" alt="">
     </div>
   </div>
 </div>
@@ -3693,7 +3717,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   const rt=document.querySelector('.roller-track');
   if(rt){
     const make=(d,hide)=>`<div class="roll-card"${hide?' aria-hidden="true"':''}>`
-      +(d.src?`<img src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)
+      +(d.src?`<img loading="lazy" decoding="async" src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)
       +`</div>`;
     rt.innerHTML=data.map(d=>make(d,false)).join('')+data.map(d=>make(d,true)).join('');
     rt.style.animationDuration=Math.max(30,data.length*2.6)+'s';
@@ -3703,7 +3727,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   const st=document.getElementById('scTrack');
   if(st){
     st.innerHTML=data.map(d=>`<div class="sc-card" onclick="openProject('${d.id}')" style="cursor:pointer;">`
-      +`<div class="sc-thumb">`+(d.src?`<img src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)+`</div>`
+      +`<div class="sc-thumb">`+(d.src?`<img loading="lazy" decoding="async" src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)+`</div>`
       +`<div class="sc-body"><div class="sc-title">${d.title}</div><div class="sc-labels">${d.tags.slice(0,2).map(t=>`<span class="sc-label">${t}</span>`).join('')}</div></div>`
       +`</div>`).join('');
   }
