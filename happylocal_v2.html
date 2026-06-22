@@ -212,6 +212,11 @@
   .node.pickup{background:var(--brand);color:var(--on-brand)}
   .node.spot{background:var(--surface-3);color:var(--text-hi);border-color:var(--border-2)}
   .node.home{background:var(--surface-3);color:var(--text-hi);border-color:var(--border-2)}
+  .node .nic{display:flex;align-items:center;justify-content:center}
+  .node .nic svg{width:25px;height:25px;display:block}
+  .node.pickup .nic svg{filter:brightness(0) invert(1)}
+  .leg-ic{display:inline-flex;vertical-align:-3px;color:var(--text-mut)}
+  .leg-ic svg{width:15px;height:15px}
   .tl-card{flex:1;background:var(--surface-1);border:1px solid var(--border);border-radius:7px;padding:12px 13px;box-shadow:var(--shadow)}
   .tl-card.pick{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
   .tl-card .typ{font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--text-mut)}
@@ -539,8 +544,8 @@
   .map-back{width:46px;height:46px;flex:0 0 auto;border-radius:12px;background:var(--surface-1);border:1px solid var(--border);box-shadow:0 4px 14px -6px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer}
   .map-back svg{width:22px;height:22px}
   .map-search{flex:1}
-  .map-top{position:absolute;top:14px;left:14px;right:14px;z-index:500;display:flex;flex-direction:column;gap:8px}
-  .map-search{background:var(--surface-1);border:1px solid var(--border);border-radius:6px;padding:13px 15px;font-size:13.5px;color:var(--text-mut);font-weight:600;box-shadow:0 4px 14px -6px rgba(0,0,0,.3)}
+  .map-top{position:absolute;top:0;left:0;right:0;z-index:500;display:flex;flex-direction:column;gap:9px;background:#fff;padding:12px 14px 11px;border-bottom:1px solid var(--border)}
+  .map-search{background:#f2f3f5;border:1px solid var(--border-2);border-radius:8px;padding:13px 15px;font-size:13.5px;color:var(--text-mut);font-weight:600}
   .map-filters{display:flex;gap:7px}
   .map-chip{background:var(--surface-1);border:1px solid var(--border);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:700;color:var(--text);box-shadow:0 4px 14px -6px rgba(0,0,0,.3);cursor:pointer}
   .map-chip.on{border-color:var(--brand);color:var(--brand)}
@@ -1348,9 +1353,6 @@
         <div id="smap"></div>
         <div class="map-top">
           <div class="map-row">
-            <div class="map-back" onclick="go('home')" title="뒤로">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
-            </div>
             <div class="map-search">🔍 장소·가게 검색</div>
           </div>
           <div class="map-filters">
@@ -1807,6 +1809,7 @@
     return 'pin';
   }
   function vicon(k){return '<span class="cl-ic">'+(VIC[vmap(k)]||VIC.pin)+'</span>';}
+  const CAR_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l1.6-4.2A2 2 0 017.5 7.5h9a2 2 0 011.9 1.3L20 13"/><path d="M3 13h18v4a1 1 0 01-1 1h-1.5a1 1 0 01-1-1v-1H6.5v1a1 1 0 01-1 1H4a1 1 0 01-1-1z"/><circle cx="7" cy="15.5" r="0.6"/><circle cx="17" cy="15.5" r="0.6"/></svg>';
   function stopsOf(c){return c.seq.map(s=>{const p=PLACES[s.k];const g=GEO[s.k]||[37.49,127.98];
     const node=p.type==='pickup'?'pickup':(p.type==='start'?'home':'spot');
     return {k:s.k,node:node,ic:p.ic,nm:p.nm,lab:p.lab||'',type:p.type,save:p.save,lat:g[0],lng:g[1],time:s.time,leg:s.leg,pick:p.type==='pickup'};});}
@@ -1884,9 +1887,9 @@
     let pk=0;const num=['①','②','③','④'];
     document.getElementById('tl').innerHTML='<div class="tl-line"></div>'+stops.map(s=>{
       let lab=s.lab||'';if(s.type==='pickup'){lab='픽업 '+num[pk++];}
-      const sub=s.k==='ic'?'코스 시작점':(s.leg?'🚗 '+s.leg:'');
+      const sub=s.k==='ic'?'코스 시작점':(s.leg?'<span class="leg-ic">'+CAR_SVG+'</span> '+s.leg:'');
       const badge=s.type==='pickup'?`<span class="pill brand">−${s.save}원 절약</span> `:'';
-      return `<div class="tl-item"><div class="node ${s.node}">${s.ic}</div>
+      return `<div class="tl-item"><div class="node ${s.node}"><span class="nic">${VIC[vmap(s.k)]||VIC.pin}</span></div>
         <div class="tl-card${s.pick?' pick':''}" onclick="openPlace('${s.k}')">
           <div class="tl-h"><span class="typ${s.pick?' b':''}">${lab} · ${s.time}</span><span class="tl-ch">›</span></div>
           <div class="nm">${s.nm}</div>
