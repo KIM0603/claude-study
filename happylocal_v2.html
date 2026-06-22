@@ -255,12 +255,22 @@
   .st-fav{position:absolute;right:6px;bottom:6px;width:26px;height:26px;border-radius:50%;background:var(--brand);border:2px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
   .st-fav svg{width:13px;height:13px;color:#fff;fill:#fff;fill-opacity:0;transition:fill-opacity .12s}
   .st-fav.on svg{fill-opacity:1}
+  .st-thumb.comb{background-color:var(--tile,#6b7079);background-image:repeating-linear-gradient(-45deg,var(--tile-line) 0 1.5px,transparent 1.5px 12px);display:flex;align-items:center;justify-content:center;font-size:30px}
+  #cal-list .st-card:last-child,#rb-cal-list .st-card:last-child{border-bottom:none}
   .st-empty{text-align:center;color:var(--text-mut);font-size:13px;font-weight:600;padding:44px 0}
   #s-cal{background:#fff}
   .months{display:flex;gap:8px;overflow-x:auto;padding:8px 20px 14px}
   .months::-webkit-scrollbar{display:none}
   .mchip{flex:0 0 auto;padding:8px 15px;border-radius:999px;border:1px solid var(--border);background:var(--surface-1);font-size:13px;font-weight:700;color:var(--text-mut);cursor:pointer}
   .mchip.on{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+  .mchip.nodata{opacity:.55}
+  .cal-subrow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 20px 6px}
+  .cal-when{font-size:13px;font-weight:700;color:var(--text-hi)}
+  .cal-mapbtn{position:absolute;right:12px;width:38px;height:38px;border:none;background:none;color:var(--text-hi);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .cal-mapbtn svg{width:23px;height:23px}
+  .cc-store-cta{display:inline-flex;align-items:center;margin-left:6px;font-size:10.5px;font-weight:800;color:var(--brand);background:var(--brand-soft);border:1px solid var(--border);border-radius:999px;padding:2px 8px;white-space:nowrap;cursor:pointer;vertical-align:middle}
+  .cal-empty{margin:8px 20px;text-align:center;color:var(--text-mut);font-size:13px;font-weight:600;padding:42px 16px;background:var(--surface-1);border:1px solid var(--border);border-radius:8px;line-height:1.6}
+  .rb-region-note{font-size:12px;color:var(--text-mut);font-weight:700;padding:14px 20px 6px}
   .crow{display:flex;align-items:center;gap:13px;background:var(--surface-1);border:1px solid var(--border);border-radius:8px;padding:12px;margin:0 20px 11px;box-shadow:var(--shadow)}
   .crow .ic{width:46px;height:46px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto}
   .crow b{font-size:14px;color:var(--text-hi)}.crow .reg{font-size:12px;color:var(--brand);font-weight:700;margin-top:2px}
@@ -473,8 +483,10 @@
   .cc-price{font-size:13px}
   .cc-price s{color:var(--text-mut);font-weight:600;margin-right:5px}
   .cc-price b{color:var(--text-hi);font-weight:800}
-  .cc-bell{width:40px;height:40px;border-radius:6px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;flex:0 0 auto;cursor:pointer;background:var(--surface-1)}
-  .cc-bell.on{background:var(--brand-soft);border-color:var(--brand)}
+  .cc-bell{background:none;border:none;padding:3px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-mut);line-height:0}
+  .cc-bell svg{width:22px;height:22px;fill-opacity:0;transition:fill-opacity .12s,color .12s}
+  .cc-bell.on{color:var(--brand)}
+  .cc-bell.on svg{fill-opacity:1}
   .my-greet{padding:8px 20px 16px;font-size:24px;font-weight:800;color:var(--text-hi);line-height:1.32}
   .my-greet b{color:var(--brand)}
   .my-greet .sc{display:block;font-size:13px;font-weight:600;color:var(--text-mut);margin-top:7px}
@@ -1236,7 +1248,9 @@
           </svg></div><div class="cl">안흥찐빵</div></div>
         </div>
 
-        <div id="rt-list" style="margin-top:6px"></div>
+        <div class="rb-region-note" id="rb-cal-note"></div>
+        <div class="months" id="rb-months"></div>
+        <div id="rb-cal-list" style="margin-top:2px"></div>
 
         <div class="map-fab-wrap"></div>
         <div style="height:8px"></div>
@@ -1277,22 +1291,15 @@
       <section class="screen" id="s-cal">
         <div class="st-head">
           <button class="st-back" onclick="go('home')">‹</button>
-          <span class="st-title">매장 선택</span>
-          <button class="st-srch" onclick="toggleStSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg></button>
+          <span class="st-title">제철 캘린더</span>
+          <button class="cal-mapbtn" onclick="openMap()" aria-label="지도로 보기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M9 4 3 6.4v13.2L9 17l6 2.6 6-2.6V6.4L15 6.6 9 4z"/><path d="M9 4v13M15 6.6v13"/></svg></button>
         </div>
-        <div class="st-tabs">
-          <div class="st-tab on" onclick="pickStTab(this,'near')">가까운 매장</div>
-          <div class="st-tab" onclick="openMap()">지도로 선택</div>
-          <div class="st-tab" onclick="pickStTab(this,'fav')">즐겨찾기</div>
-        </div>
-        <div class="st-searchbar" id="st-searchbar">
-          <input id="st-search" placeholder="매장명·주소를 입력하세요" oninput="renderCalStores()">
-        </div>
-        <div class="st-sub">
-          <span id="st-count">내 주변에 10개의 매장이 있어요</span>
+        <div class="cal-subrow">
+          <span class="cal-when">지금 이 계절, 가장 맛있을 때</span>
           <span class="st-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg> 강원 횡성·평창·정선</span>
         </div>
-        <div id="st-list" class="st-list"></div>
+        <div class="months" id="cal-months"></div>
+        <div id="cal-list"></div>
         <div style="height:14px"></div>
       </section>
 
@@ -1635,7 +1642,7 @@
     var lh=document.querySelector('.hl-listhead');if(lh&&lh.scrollIntoView)lh.scrollIntoView({behavior:'smooth',block:'start'});
   }
   renderPL();renderRT('횡성');
-  function pickRg(el,name){routeRegion=name;el.parentNode.querySelectorAll('.hl-rg').forEach(c=>c.classList.remove('on'));el.classList.add('on');var b=document.getElementById('hl-cta');if(b)b.textContent=name+' 픽업 둘러보기';renderRT(name);}
+  function pickRg(el,name){routeRegion=name;el.parentNode.querySelectorAll('.hl-rg').forEach(c=>c.classList.remove('on'));el.classList.add('on');var b=document.getElementById('hl-cta');if(b)b.textContent=name+' 픽업 둘러보기';renderRT(name);paintRouteCal();}
   function toggleTour(el){var box=el.querySelector('.box');box.classList.toggle('on');routeTour=box.classList.contains('on');}
   function pickFl(el){el.parentNode.querySelectorAll('.fl-tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
   function dDots(){
@@ -2058,30 +2065,44 @@
       {ic:'🍠',prod:'횡성 황태채 300g',store:'횡성 황태덕장',region:'횡성',why:'겨울 황태 건조철',wasN:18000,nowN:12000,status:'선예약 D-7',pre:true,tile:'#4a4636'}
     ]
   };
-  const months=Object.keys(cal);let curM='10월';
+  const allMonths=['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  let curM=(new Date().getMonth()+1)+'월'; if(!cal[curM])curM='6월';
   function renderMonths(){
-    document.getElementById('months').innerHTML=months.map(m=>`<div class="mchip ${m===curM?'on':''}" onclick="curM='${m}';renderMonths();renderCal()">${m}</div>`).join('');
+    const html=allMonths.map(m=>`<div class="mchip ${m===curM?'on':''}${cal[m]?'':' nodata'}" onclick="curM='${m}';renderMonths();paintCal();paintRouteCal()">${m}</div>`).join('');
+    ['cal-months','rb-months'].forEach(id=>{const e=document.getElementById(id);if(e)e.innerHTML=html;});
   }
   function wonC(n){return n.toLocaleString('ko-KR')+'원';}
-  function renderCal(){
-    const items=cal[curM];
-    const avg=Math.round(items.reduce((s,it)=>s+(it.wasN-it.nowN)/it.wasN*100,0)/items.length);
-    let html=`<div class="cc-summary">🗓 ${curM} 제철 <b>${items.length}품목</b> · 직거래로 평균 <b>${avg}% 저렴</b>하게 픽업</div>`;
-    html+=items.map(it=>{
-      const pct=Math.round((it.wasN-it.nowN)/it.wasN*100);
-      return `<div class="ccard" onclick="go('routebuild')">
-        <div class="cc-img comb" style="--tile:${it.tile}">${it.ic}</div>
-        <div class="cc-info">
-          <div class="cc-h"><span class="cc-prod">${it.prod}</span><span class="cc-pct">${pct}%↓</span></div>
-          <div class="cc-store">🏠 ${it.store}</div>
-          <div class="cc-sub">📍 강원 ${it.region} · ${it.why}</div>
-          <div class="cc-foot"><span class="cc-price"><s>${wonC(it.wasN)}</s><b>${wonC(it.nowN)}</b></span></div>
+  function calCard(it){
+    const pct=Math.round((it.wasN-it.nowN)/it.wasN*100);
+    const r=it.region.replace(/'/g,''), st=it.store.replace(/'/g,'');
+    return `<div class="st-card" onclick="recommendStore('${r}','${st}')">
+        <div class="st-info">
+          <div class="st-name">${it.prod}<span class="cc-pct" style="margin-left:7px">${pct}%↓</span></div>
+          <div class="st-addr">🏠 ${it.store} · 강원 ${it.region}</div>
+          <div class="st-status"><span class="cc-price"><s>${wonC(it.wasN)}</s><b>${wonC(it.nowN)}</b></span><span class="cc-store-cta" onclick="event.stopPropagation();recommendStore('${r}','${st}')">가게 보기 ›</span></div>
         </div>
-        <div class="cc-bell" onclick="event.stopPropagation();this.classList.toggle('on');this.textContent=this.classList.contains('on')?'🔔':'🔕'">🔕</div>
+        <div class="st-thumb comb" style="--tile:${it.tile}">${it.ic}<button class="st-fav" onclick="event.stopPropagation();this.classList.toggle('on')" aria-label="저장"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20S3 14.5 3 8.8C3 6 5 4.4 7.2 4.4c1.7 0 3.1 1 3.8 2.2.7-1.2 2.1-2.2 3.8-2.2C20 4.4 21 6 21 8.8 21 14.5 12 20 12 20z"/></svg></button></div>
       </div>`;
-    }).join('');
-    document.getElementById('cal-list').innerHTML=html;
   }
+  /* 캘린더 탭: 그 달 전체 제철 + 연결 가게 */
+  function paintCal(){
+    const host=document.getElementById('cal-list');if(!host)return;
+    const items=cal[curM];
+    if(!items||!items.length){host.innerHTML=`<div class="cal-empty">🗓 ${curM}의 제철 추천은 아직 준비 중이에요.<br>다른 달을 선택해 보세요.</div>`;return;}
+    const avg=Math.round(items.reduce((s,it)=>s+(it.wasN-it.nowN)/it.wasN*100,0)/items.length);
+    host.innerHTML=`<div class="cc-summary">🗓 ${curM} 제철 <b>${items.length}품목</b> · 직거래로 평균 <b>${avg}% 저렴</b>하게 픽업</div><div class="st-list">`+items.map(calCard).join('')+`</div>`;
+  }
+  /* 로컬루트 탭: 선택 지역의 그 달 제철 + 연결 가게 */
+  function paintRouteCal(){
+    const host=document.getElementById('rb-cal-list');if(!host)return;
+    const note=document.getElementById('rb-cal-note');
+    const items=(cal[curM]||[]).filter(it=>it.region===routeRegion);
+    if(note)note.textContent=`📍 ${routeRegion} · ${curM} 제철 ${items.length}품목 — 연결된 픽업 가게를 추천해요`;
+    if(!items.length){host.innerHTML=`<div class="cal-empty">${routeRegion}은(는) ${curM}에 등록된 제철 품목이 없어요.<br>다른 달이나 지역을 선택해 보세요.</div>`;return;}
+    host.innerHTML=`<div class="st-list">`+items.map(calCard).join('')+`</div>`;
+  }
+  /* 제철 품목 → 연결된 지역 픽업 가게를 지도에서 추천 */
+  function recommendStore(region,store){ openMap(); }
   /* ===== 캘린더 → 매장 선택 (거리순) ===== */
   let calTab='near';
   function pickStTab(el,t){calTab=t;document.querySelectorAll('#s-cal .st-tab').forEach(x=>x.classList.remove('on'));el.classList.add('on');renderCalStores();}
@@ -2121,7 +2142,7 @@
     if(/운영|영업/.test(r))return {t:'재고 넉넉',c:'#03c75a'};
     return {t:'방문 픽업 가능',c:'#03c75a'};
   }
-  renderCalStores();renderList();
+  renderCalStores();renderList();renderMonths();paintCal();paintRouteCal();
 </script>
 </body>
 </html>
