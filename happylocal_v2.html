@@ -302,6 +302,24 @@
   .listitem .ic{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;background:#fff;border:1px solid #e7eaee;flex:0 0 auto}
   .listitem b{font-size:14px;color:var(--text-hi)}.listitem p{font-size:12px;color:var(--text-mut);margin-top:2px}
   .listitem .ch{margin-left:auto;color:var(--text-mut)}
+  .my-card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;margin:16px 16px 0;overflow:hidden}
+  .my-card-head{font-size:12.5px;font-weight:800;color:var(--text-mut);padding:14px 16px 11px;border-bottom:1px solid var(--border)}
+  .prof-card{padding:0}
+  .prof-row{display:flex;align-items:center;gap:14px;padding:16px}
+  .prof-info{flex:1;min-width:0}
+  .prof-ch{color:var(--text-mut);font-size:20px;flex:0 0 auto}
+  .prof-card .my-name{font-size:19px;margin-top:5px}
+  .prof-card .my-goal{margin:0;background:transparent;border-radius:0;border-top:1px solid var(--border);padding:15px 0}
+  .cpn-head{display:flex;align-items:center;justify-content:space-between}
+  .cpn-more{font-size:12px;color:var(--text-mut);font-weight:700}
+  .cpn-card .pcp-strip{padding:13px 16px}
+  .my-row{display:flex;align-items:center;gap:13px;padding:15px 16px;cursor:pointer}
+  .my-row+.my-row{border-top:1px solid var(--border)}
+  .my-row .ic{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #e7eaee;flex:0 0 auto;color:var(--text)}
+  .my-row .ic svg{width:22px;height:22px}
+  .my-row b{font-size:14.5px;color:var(--text-hi)}
+  .my-row p{font-size:12px;color:var(--text-mut);margin-top:2px}
+  .my-row .ch{margin-left:auto;color:var(--text-mut)}
 
   /* ============ CTA / tabs / sheet ============ */
   .cta-bar{padding:14px 18px 18px}
@@ -311,7 +329,7 @@
   .btn.soft{background:var(--surface-3);color:var(--text-hi);border:1px solid var(--border-2)}
 
   .tabbar{position:absolute;bottom:0;left:0;right:0;height:74px;background:var(--surface-1);border-top:1px solid var(--border);display:flex;z-index:602;padding-bottom:8px}
-  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--text-mut);font-size:10.5px;font-weight:700}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:#222222;font-size:10.5px;font-weight:700}
   .tab svg{width:23px;height:23px}
   .tab.on{color:var(--brand)}
 
@@ -388,6 +406,11 @@
   .cat .em svg{width:32px;height:32px;display:block}
   .phone[data-theme="dark"] .cat .em{background:var(--surface-2);border-color:var(--border-2)}
   .cat .cl{font-size:12.5px;font-weight:600;color:var(--text-hi);white-space:nowrap}
+  .cat:active .em{transform:scale(.92)}
+  .cat .em{transition:transform .12s,background .15s,border-color .15s}
+  .cat.on .em{background:var(--brand-soft);border-color:var(--brand);box-shadow:0 0 0 1px var(--brand) inset}
+  .cat.on .cl{color:var(--brand);font-weight:800}
+  .rt-empty{padding:44px 26px;text-align:center;color:var(--text-mut);font-size:13.5px;font-weight:600;line-height:1.65}
   .cat-more{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;color:var(--text-mut);cursor:pointer;font-size:16px;margin:0 6px}
   /* 로컬루트: 가게 리스트 위까지 흰 배경, 리스트 영역만 회색 유지 (라이트) */
   .phone[data-theme="light"] #s-routebuild{background:#fff}
@@ -582,9 +605,27 @@
   .map-filters{display:flex;gap:7px}
   .map-chip{background:var(--surface-1);border:1px solid var(--border);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:700;color:var(--text);box-shadow:0 4px 14px -6px rgba(0,0,0,.3);cursor:pointer}
   .map-chip.on{border-color:var(--brand);color:var(--brand)}
+  /* 픽업일(전체/오늘/내일): 흰 캡슐 안의 세그먼트 토글 (선택 항목만 다크 알약) */
+  .map-seg{align-self:center;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:5px;box-shadow:0 6px 18px -6px rgba(0,0,0,.28)}
+  .map-seg-btn{border:none;background:none;cursor:pointer;font-family:inherit;padding:9px 24px;border-radius:999px;font-size:14px;font-weight:800;color:#5b6068;line-height:1;transition:background .18s,color .18s}
+  .map-seg-btn.on{background:#3c3e42;color:#fff}
   .map-list-btn{position:absolute;bottom:226px;left:50%;transform:translateX(-50%);z-index:500;background:#17191d;color:#fff;border-radius:999px;padding:11px 20px;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px -4px rgba(0,0,0,.4)}
   .map-loc{position:absolute;right:14px;bottom:195px;z-index:500;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:0 4px 14px -4px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;color:var(--brand);cursor:pointer}
   .map-loc svg{width:22px;height:22px}
+  /* 지역 선택 FAB (하단 좌측) — 기본 동그라미 '전체', 탭하면 위로 펼쳐짐 */
+  .rgn-scrim{position:absolute;inset:0;z-index:540;background:rgba(0,0,0,0);pointer-events:none;transition:background .2s}
+  .rgn-scrim.show{pointer-events:auto;background:rgba(0,0,0,.05)}
+  .rgn-fab{position:absolute;left:14px;bottom:195px;z-index:560;width:54px;height:54px;border-radius:50%;border:1px solid var(--border);background:#fff;color:var(--brand);box-shadow:0 5px 16px -4px rgba(0,0,0,.32);cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:800;display:flex;align-items:center;justify-content:center;transition:transform .16s,background .18s,color .18s,border-color .18s}
+  .rgn-fab:active{transform:scale(.93)}
+  .rgn-fab.open{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+  .rgn-pop{position:absolute;left:14px;bottom:259px;z-index:560;display:flex;flex-direction:column-reverse;align-items:flex-start;gap:9px;pointer-events:none}
+  .rgn-pop.show{pointer-events:auto}
+  .rgn-opt{background:#fff;border:1px solid var(--border);border-radius:999px;padding:11px 18px;font-family:inherit;font-size:13.5px;font-weight:800;color:var(--text-hi);box-shadow:0 6px 16px -6px rgba(0,0,0,.3);cursor:pointer;opacity:0;transform:translateY(14px) scale(.9);transition:opacity .2s ease,transform .2s ease}
+  .rgn-pop.show .rgn-opt{opacity:1;transform:translateY(0) scale(1)}
+  .rgn-pop.show .rgn-opt:nth-child(1){transition-delay:.0s}
+  .rgn-pop.show .rgn-opt:nth-child(2){transition-delay:.05s}
+  .rgn-pop.show .rgn-opt:nth-child(3){transition-delay:.1s}
+  .rgn-pop.show .rgn-opt:nth-child(4){transition-delay:.14s}
   .map-cards{position:absolute;bottom:84px;left:0;right:0;z-index:500;display:flex;gap:10px;overflow-x:auto;padding:0 14px;scroll-snap-type:x mandatory}
   .map-cards::-webkit-scrollbar{display:none}
   .mcard{flex:0 0 86%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px 13px;box-shadow:0 10px 26px -10px rgba(0,0,0,.3);cursor:pointer;display:flex;flex-direction:column;gap:10px}
@@ -607,9 +648,19 @@
   .mc-time.off{color:var(--text-mut);background:#f3f4f6;border-color:var(--border)}
   .map-listbtn-c{position:absolute;left:50%;bottom:198px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:7px;background:#fff;color:var(--text-hi);font-size:13.5px;font-weight:800;padding:11px 20px;border-radius:999px;box-shadow:0 6px 18px -4px rgba(0,0,0,.4);cursor:pointer}
   .map-listbtn-c svg{width:17px;height:17px}
-  .map-listview{position:absolute;left:0;right:0;top:55px;bottom:78px;z-index:600;background:var(--bg);transform:translateY(106%);transition:transform .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
-  .map-listview.show{transform:translateY(0)}
-  .mlv-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 11px;border-bottom:1px solid var(--border);background:#fff}
+  .map-listview{position:absolute;left:0;right:0;top:55px;bottom:78px;z-index:600;background:var(--bg);border-radius:18px 18px 0 0;box-shadow:0 -10px 30px -12px rgba(0,0,0,.28);transform:translateY(110%);transition:transform .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden;visibility:hidden}
+  .map-listview.show{visibility:visible}
+  .mlv-drag{flex:0 0 auto;background:#fff;border-radius:18px 18px 0 0;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none}
+  .mlv-grab{display:flex;justify-content:center;padding:9px 0 2px}
+  .mlv-grab::before{content:"";width:38px;height:5px;border-radius:999px;background:var(--border-2)}
+  /* 시트가 열려 있는 동안 지도 위 하단 컨트롤은 숨김(겹침 방지) */
+  #s-map.sheet-open .map-cards,
+  #s-map.sheet-open .map-listbtn-c,
+  #s-map.sheet-open .map-loc,
+  #s-map.sheet-open .rgn-fab,
+  #s-map.sheet-open .rgn-pop,
+  #s-map.sheet-open .rgn-scrim{display:none}
+  .mlv-head{display:flex;align-items:center;justify-content:space-between;padding:6px 18px 11px;border-bottom:1px solid var(--border);background:#fff}
   .mlv-title{font-size:15px;font-weight:800;color:var(--text-hi)}
   .mlv-close{font-size:13px;font-weight:800;color:var(--brand);cursor:pointer}
   .mlv-list{flex:1;overflow-y:auto;background:var(--bg)}
@@ -636,7 +687,7 @@
   .rc-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:13px;box-shadow:0 1px 4px rgba(20,22,26,.06);cursor:pointer}
   .rc-card-top{display:flex;gap:12px;align-items:center}
   .rc-thumb{flex:0 0 auto;width:52px;height:52px;border-radius:50%;background:#fff;border:1px solid #e7eaee;display:flex;align-items:center;justify-content:center;font-size:26px}
-  .phone[data-theme="dark"] .season .ic,.phone[data-theme="dark"] .listitem .ic,.phone[data-theme="dark"] .rc-thumb{background:var(--surface-2);border-color:var(--border-2)}
+  .phone[data-theme="dark"] .season .ic,.phone[data-theme="dark"] .listitem .ic,.phone[data-theme="dark"] .my-row .ic,.phone[data-theme="dark"] .rc-thumb{background:var(--surface-2);border-color:var(--border-2)}
   .rc-meta{min-width:0}
   .rc-nm{font-size:15.5px;font-weight:800;color:var(--text-hi);line-height:1.25}
   .rc-cat{font-size:12px;color:var(--text-mut);font-weight:600;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1360,49 +1411,52 @@
 
       <!-- ============ MY ============ -->
       <section class="screen" id="s-my">
-        <div class="my-white">
         <div class="my-top">
           <span class="my-title">마이페이지</span>
           <div class="my-top-ic">
-            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></button>
-            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.3l2 11a1.4 1.4 0 001.4 1.1h8.3a1.4 1.4 0 001.4-1.1L19.6 7H6.2"/></svg></button>
+            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></button>
+            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7.7 1.6 1.6 0 01-3.2 0 1.6 1.6 0 00-2.7-.7l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 004.6 15a1.6 1.6 0 01-1-1.5 1.6 1.6 0 011-1.5 1.6 1.6 0 00.6-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H12a1.6 1.6 0 001-1.5 1.6 1.6 0 013.2 0 1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V12a1.6 1.6 0 001 1.5 1.6 1.6 0 010 3z"/></svg></button>
           </div>
         </div>
 
-        <div class="my-prof">
-          <div class="my-ava"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21 V11" stroke="#2f9e44" stroke-width="2.4" stroke-linecap="round"/><path d="M12 13 C7 13 5 8.5 6 4 c5 .6 7 4.5 6 9z" fill="#40c057"/><path d="M12 12 C17 12 19 7.5 18 3 c-5 .6-7 4.5-6 9z" fill="#37b24d"/></svg></div>
-          <div>
-            <span class="my-tag">로컬 직거래를 즐기는</span>
-            <div class="my-name">유정님</div>
+        <div class="my-card prof-card" onclick="go('home')">
+          <div class="prof-row">
+            <div class="my-ava"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21 V11" stroke="#2f9e44" stroke-width="2.4" stroke-linecap="round"/><path d="M12 13 C7 13 5 8.5 6 4 c5 .6 7 4.5 6 9z" fill="#40c057"/><path d="M12 12 C17 12 19 7.5 18 3 c-5 .6-7 4.5-6 9z" fill="#37b24d"/></svg></div>
+            <div class="prof-info">
+              <span class="my-tag">로컬 직거래를 즐기는</span>
+              <div class="my-name">유정님</div>
+            </div>
+            <span class="prof-ch">›</span>
           </div>
-        </div>
-
-        <div class="my-goal-head" onclick="go('home')">나의 로컬 활동 ›</div>
-        <div class="my-goal">
+          <div class="my-goal">
           <div class="mg"><div class="mg-l">누적 픽업</div><div class="mg-v">14회</div></div>
           <div class="mg"><div class="mg-l">아낀 금액</div><div class="mg-v">214,000원</div></div>
           <div class="mg"><div class="mg-l">리뷰</div><div class="mg-v">8개</div></div>
         </div>
         </div>
 
-        <div class="pay-coupon">
-          <div class="pcp-head"><span class="t">받은 쿠폰</span><span class="more">전체보기 ›</span></div>
+        <div class="my-card cpn-card">
+          <div class="my-card-head cpn-head"><span>받은 쿠폰</span><span class="cpn-more">전체보기 ›</span></div>
           <div class="pcp-strip">
-            <div class="pcp-chip">🎁 3,000원 첫 픽업 할인</div>
+            <div class="pcp-chip">3,000원 첫 픽업 할인</div>
             <div class="pcp-chip">10% 신규 웰컴</div>
             <div class="pcp-chip">가을 픽업 5% 추가</div>
           </div>
         </div>
 
-        <div class="my-sec">관리</div>
-        <div class="listitem"><div class="ic">📝</div><div><b>리뷰 관리</b></div><span class="ch">›</span></div>
-        <div class="listitem"><div class="ic">📍</div><div><b>픽업 주소·동선 관리</b></div><span class="ch">›</span></div>
-        <div class="listitem"><div class="ic">🏡</div><div><b>내 농가·가게 등록</b><p>직거래 생산자로 입점 신청</p></div><span class="ch">›</span></div>
+        <div class="my-card">
+          <div class="my-card-head">관리</div>
+          <div class="my-row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 012 2v8a2 2 0 01-2 2h-6l-4 3v-3H5a2 2 0 01-2-2V6a2 2 0 012-2z" fill="#51cf66"/><path d="M12 6.2l1.25 2.55 2.8.4-2.02 1.97.48 2.8L12 12.6l-2.52 1.32.48-2.8L7.95 9.15l2.8-.4z" fill="#fff"/></svg></div><div><b>리뷰 관리</b></div><span class="ch">›</span></div>
+          <div class="my-row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2.5c-3.6 0-6.5 2.8-6.5 6.3 0 4.6 6.5 12.2 6.5 12.2s6.5-7.6 6.5-12.2c0-3.5-2.9-6.3-6.5-6.3z" fill="#ff6b6b"/><circle cx="12" cy="8.8" r="2.3" fill="#fff"/></svg></div><div><b>픽업 주소·동선 관리</b></div><span class="ch">›</span></div>
+          <div class="my-row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3.5 8.7l1.3-3.5A1.5 1.5 0 016.2 4.2h11.6a1.5 1.5 0 011.4 1l1.3 3.5z" fill="#ff922b"/><path d="M5 8.7h14V20a.9.9 0 01-.9.9H5.9A.9.9 0 015 20z" fill="#51cf66"/><rect x="9.4" y="13" width="5.2" height="7.9" rx="1" fill="#2f9e44"/></svg></div><div><b>내 농가·가게 등록</b><p>직거래 생산자로 입점 신청</p></div><span class="ch">›</span></div>
+        </div>
 
-        <div class="my-sec">고객지원</div>
-        <div class="listitem"><div class="ic">📢</div><div><b>공지사항</b></div><span class="ch">›</span></div>
-        <div class="listitem"><div class="ic">❓</div><div><b>자주 묻는 질문</b></div><span class="ch">›</span></div>
-        <div class="listitem"><div class="ic">🎧</div><div><b>1:1 문의</b></div><span class="ch">›</span></div>
+        <div class="my-card">
+          <div class="my-card-head">고객지원</div>
+          <div class="my-row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 10a1.5 1.5 0 011.5-1.5h2.2L16 4.3a.7.7 0 011 .65v12.1a.7.7 0 01-1 .65L7.7 14H5.5A1.5 1.5 0 014 12.5z" fill="#ffa94d"/><path d="M19 9a4.2 4.2 0 010 6" stroke="#fa5252" stroke-width="1.9" fill="none" stroke-linecap="round"/><path d="M7.7 14v3.4a1 1 0 001 1h1a1 1 0 001-1V14.6z" fill="#ff922b"/></svg></div><div><b>공지사항</b></div><span class="ch">›</span></div>
+          <div class="my-row"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#4dabf7"/><path d="M9.4 9.3a2.7 2.7 0 015.3.8c0 1.9-2.7 2.3-2.7 4.1" stroke="#fff" stroke-width="1.9" fill="none" stroke-linecap="round"/><circle cx="12" cy="17" r="1.05" fill="#fff"/></svg></div><div><b>자주 묻는 질문</b></div><span class="ch">›</span></div>
+          <div class="my-row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a7.5 7.5 0 01-10.9 6.7L4 20l1.9-5.8A7.5 7.5 0 1121 11.5z" fill="#3bc9db"/><circle cx="9" cy="11.6" r="1.05" fill="#fff"/><circle cx="12" cy="11.6" r="1.05" fill="#fff"/><circle cx="15" cy="11.6" r="1.05" fill="#fff"/></svg></div><div><b>1:1 문의</b></div><span class="ch">›</span></div>
+        </div>
         <div style="height:16px"></div>
       </section>
 
@@ -1410,22 +1464,28 @@
       <section class="screen" id="s-map">
         <div id="smap"></div>
         <div class="map-top">
-          <div class="map-filters">
-            <div class="map-chip on" onclick="pickMapRegion(this,'전체')">전체</div>
-            <div class="map-chip" onclick="pickMapRegion(this,'횡성')">횡성</div>
-            <div class="map-chip" onclick="pickMapRegion(this,'평창')">평창</div>
-            <div class="map-chip" onclick="pickMapRegion(this,'정선')">정선</div>
+          <div class="map-seg">
+            <button class="map-seg-btn on" onclick="pickMapDay(this,'전체')">전체</button>
+            <button class="map-seg-btn" onclick="pickMapDay(this,'오늘')">오늘</button>
+            <button class="map-seg-btn" onclick="pickMapDay(this,'내일')">내일</button>
           </div>
         </div>
         <div class="map-loc" onclick="mapLocate()" title="현위치">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
         </div>
+        <!-- 지역 선택: 하단 좌측 동그라미 버튼(기본 '전체') · 탭하면 위로 촤라락 -->
+        <div class="rgn-scrim" id="rgn-scrim" onclick="toggleRegion(false)"></div>
+        <div class="rgn-pop" id="rgn-pop"></div>
+        <button class="rgn-fab" id="rgn-fab" onclick="toggleRegion()" aria-label="지역 선택"><span id="rgn-fab-label">전체</span></button>
         <div class="map-listbtn-c" onclick="openMapList()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>목록보기</div>
         <div class="map-cards" id="map-cards" onscroll="onCardsScroll()"></div>
         <div class="map-listview" id="map-listview">
-          <div class="mlv-head">
-            <span class="mlv-title" id="mlv-count">주변 매장</span>
-            <span class="mlv-close" onclick="closeMapList()">지도보기 ›</span>
+          <div class="mlv-drag" onpointerdown="sheetDown(event)">
+            <div class="mlv-grab"></div>
+            <div class="mlv-head">
+              <span class="mlv-title" id="mlv-count">주변 매장</span>
+              <span class="mlv-close" onpointerdown="event.stopPropagation()" onclick="closeMapList()">지도 크게 ›</span>
+            </div>
           </div>
           <div class="mlv-list" id="mlv-list"></div>
         </div>
@@ -1690,11 +1750,41 @@
     if(!list.length){el.innerHTML='<div style="text-align:center;color:var(--text-mut);font-size:13px;padding:40px 0">해당하는 농가가 없어요.</div>';return;}
     el.innerHTML=list.map((p,i)=>plCardHTML(p,i===0)).join('');
   }
+  // 카테고리 아이콘 → PL.cat 매칭 (감자/옥수수는 같은 cat이라 품목명으로 구분)
+  const CAT_MATCH={
+    '한우·정육': p=>p.cat==='한우·정육',
+    '곤드레':    p=>p.cat==='곤드레·산나물',
+    '감자':      p=>p.cat==='감자·옥수수'&&/감자/.test(p.prod),
+    '옥수수':    p=>p.cat==='감자·옥수수'&&/옥수수/.test(p.prod),
+    '메밀':      p=>p.cat==='메밀',
+    '더덕·약초': p=>p.cat==='더덕·약초',
+    '송어·황태': p=>p.cat==='송어·황태',
+    '안흥찐빵':  p=>p.cat==='떡·빵'
+  };
+  let routeCat=null;
   function renderRT(region){
-    const list=PL.filter(p=>p.region===region);
+    let list=PL.filter(p=>p.region===region);
+    if(routeCat&&CAT_MATCH[routeCat]) list=list.filter(CAT_MATCH[routeCat]);
     const el=document.getElementById('rt-list');if(!el)return;
+    if(!list.length){
+      el.innerHTML='<div class="rt-empty">'+region+'에는 ‘'+routeCat+'’ 픽업이 아직 없어요.<br>다른 카테고리나 지역을 선택해 보세요.</div>';
+      return;
+    }
     el.innerHTML=list.map((p,i)=>plCardHTML(p,i===0)).join('');
   }
+  function pickCat(el,name){
+    if(routeCat===name){routeCat=null;el.classList.remove('on');}      // 다시 누르면 전체
+    else{
+      routeCat=name;
+      el.parentNode.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
+      el.classList.add('on');
+    }
+    renderRT(routeRegion);
+  }
+  // 카테고리 행 클릭 핸들러 연결 (라벨 텍스트 기준)
+  document.querySelectorAll('#s-routebuild .cat-row .cat').forEach(c=>{
+    var lab=c.querySelector('.cl'); if(lab) c.addEventListener('click',function(){pickCat(c,lab.textContent.trim());});
+  });
   function pickHf(el){el.parentNode.querySelectorAll('.hf-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');plFilter=el.textContent.trim();renderPL();}
   function pickRegionHome(r){
     plFilter=r;renderPL();
@@ -1702,7 +1792,7 @@
     var lh=document.querySelector('.hl-listhead');if(lh&&lh.scrollIntoView)lh.scrollIntoView({behavior:'smooth',block:'start'});
   }
   renderPL();renderRT('횡성');
-  function pickRg(el,name){routeRegion=name;el.parentNode.querySelectorAll('.hl-rg').forEach(c=>c.classList.remove('on'));el.classList.add('on');var b=document.getElementById('hl-cta');if(b)b.textContent=name+' 픽업 둘러보기';renderRT(name);paintRouteCal();}
+  function pickRg(el,name){routeRegion=name;el.parentNode.querySelectorAll('.hl-rg').forEach(c=>c.classList.remove('on'));el.classList.add('on');var b=document.getElementById('hl-cta');if(b)b.textContent=name+' 픽업 둘러보기';routeCat=null;document.querySelectorAll('#s-routebuild .cat').forEach(c=>c.classList.remove('on'));renderRT(name);paintRouteCal();}
   function toggleTour(el){var box=el.querySelector('.box');box.classList.toggle('on');routeTour=box.classList.contains('on');}
   function pickFl(el){el.parentNode.querySelectorAll('.fl-tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
   function dDots(){
@@ -2052,12 +2142,51 @@
     {key:'pk_js_hwanggi',cat:'황기 직거래',rate:'4.6',rev:33,off:true,tile:'#5e5236',rg:'정선',dist:'52km',addr:'강원 정선군 임계면 약초마을',tags:['4년근황기','약초','선예약']},
     {key:'arari_market',cat:'전통시장',rate:'4.6',rev:120,off:false,tile:'#5e5236',rg:'정선',dist:'40km',addr:'강원 정선군 정선읍 아리랑시장',tags:['오일장','곤드레밥','먹거리']}
   ];
-  let mapRegion='전체';
-  function mapStores(){ return mapRegion==='전체'?STORES:STORES.filter(s=>s.rg===mapRegion); }
-  function pickMapRegion(el,r){
-    mapRegion=r;
-    el.parentNode.querySelectorAll('.map-chip').forEach(c=>c.classList.remove('on'));
+  // 매장별 픽업 가능일: today=오늘만 / tomorrow=내일만 / both=둘 다 (미지정 시 both)
+  const MAP_PDAY={
+    pk_hanwoo:'today', pk_plaza:'both', pk_bread:'today', eat_maeul:'both',
+    eat_tongnamu:'both', eat_market:'both', pk_namul:'both', pk_deodeok:'tomorrow',
+    pk_potato:'both', pk_local:'today', pk_pc_trout:'today', pk_pc_buck:'tomorrow',
+    eat_pc_makguksu:'both', eat_pc_hanu:'both', pk_js_gondre:'today',
+    pk_js_surichi:'tomorrow', pk_js_hwanggi:'tomorrow', arari_market:'both'
+  };
+  let mapRegion='전체', mapDay='전체';
+  function dayOK(s){
+    if(mapDay==='전체')return true;
+    const pd=MAP_PDAY[s.key]||'both';
+    if(pd==='both')return true;
+    return mapDay==='오늘'?pd==='today':pd==='tomorrow';
+  }
+  function mapStores(){
+    return STORES.filter(s=>(mapRegion==='전체'||s.rg===mapRegion)&&dayOK(s));
+  }
+  function pickMapDay(el,d){
+    mapDay=d;
+    el.parentNode.querySelectorAll('.map-seg-btn').forEach(c=>c.classList.remove('on'));
     el.classList.add('on');
+    renderStoreCards();buildStoreMap();
+  }
+  // 지역 선택 FAB: 현재 선택은 버튼에 표시, 펼치면 나머지 지역(3개)이 위로 촤라락
+  const REGIONS=['전체','횡성','평창','정선'];
+  let rgnOpen=false;
+  function renderRegionPop(){
+    const pop=document.getElementById('rgn-pop');if(!pop)return;
+    pop.innerHTML=REGIONS.filter(r=>r!==mapRegion)
+      .map(r=>`<button class="rgn-opt" onclick="selectRegion('${r}')">${r}</button>`).join('');
+  }
+  function toggleRegion(force){
+    const open=(typeof force==='boolean')?force:!rgnOpen;
+    rgnOpen=open;
+    if(open)renderRegionPop();
+    const fab=document.getElementById('rgn-fab'),pop=document.getElementById('rgn-pop'),scr=document.getElementById('rgn-scrim');
+    if(fab)fab.classList.toggle('open',open);
+    if(pop)pop.classList.toggle('show',open);
+    if(scr)scr.classList.toggle('show',open);
+  }
+  function selectRegion(r){
+    mapRegion=r;
+    const lab=document.getElementById('rgn-fab-label');if(lab)lab.textContent=r;
+    toggleRegion(false);
     renderStoreCards();buildStoreMap();
   }
   let _smap=null,_stile=null,_slayer=null,_smarkers={};
@@ -2068,17 +2197,64 @@
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab==='map'));
     document.getElementById('fab-home').classList.remove('show');
     document.getElementById('fab-route').classList.remove('show');
-    mapRegion='전체';
-    var lv=document.getElementById('map-listview');if(lv)lv.classList.remove('show');
-    document.querySelectorAll('#s-map .map-chip').forEach((c,i)=>c.classList.toggle('on',i===0));
+    mapRegion='전체';mapDay='전체';
+    var lv=document.getElementById('map-listview');if(lv){lv.classList.remove('show');lv.style.transition='none';lv.style.transform='translateY(110%)';sheetY=110;}
+    document.getElementById('s-map').classList.remove('sheet-open');
+    document.querySelectorAll('#s-map .map-seg-btn').forEach((b,i)=>b.classList.toggle('on',i===0));
+    toggleRegion(false);
+    var rlab=document.getElementById('rgn-fab-label');if(rlab)rlab.textContent='전체';
     renderStoreCards();
     buildStoreMap();
   }
   function mapLocate(){
     if(_smap){var pts=mapStores().map(s=>GEO[s.key]).filter(Boolean);if(pts.length)_smap.flyToBounds(pts,{padding:[60,60],duration:.6});}
   }
-  function openMapList(){renderStoreCards();document.getElementById('map-listview').classList.add('show');}
-  function closeMapList(){document.getElementById('map-listview').classList.remove('show');}
+  // ===== 목록 바텀시트 (지도와 동시 표시 · 드래그로 절반/전체/닫힘) =====
+  const SHEET_HALF=46;                 // 반쯤 열림: 위 46%는 지도 노출
+  let sheetY=110, sheetDragging=false, _sStartY=0, _sStartT=0;
+  function setSheet(pct,anim){
+    const el=document.getElementById('map-listview');if(!el)return;
+    el.style.transition=anim?'transform .26s cubic-bezier(.4,0,.2,1)':'none';
+    el.style.transform='translateY('+pct+'%)';
+    sheetY=pct;
+  }
+  function openMapList(){
+    renderStoreCards();
+    const el=document.getElementById('map-listview');
+    document.getElementById('s-map').classList.add('sheet-open');
+    el.classList.add('show');
+    requestAnimationFrame(()=>setSheet(SHEET_HALF,true));
+  }
+  function closeMapList(){
+    const el=document.getElementById('map-listview');
+    document.getElementById('s-map').classList.remove('sheet-open');
+    setSheet(110,true);
+    setTimeout(()=>{el.classList.remove('show');},260);
+  }
+  function sheetDown(e){
+    sheetDragging=true;
+    _sStartY=(e.touches?e.touches[0].clientY:e.clientY);
+    _sStartT=sheetY;
+    setSheet(sheetY,false);            // 트랜지션 끄고 손가락 추적
+    document.addEventListener('pointermove',sheetMove);
+    document.addEventListener('pointerup',sheetUp,{once:true});
+  }
+  function sheetMove(e){
+    if(!sheetDragging)return;
+    const y=(e.touches?e.touches[0].clientY:e.clientY);
+    const h=document.getElementById('map-listview').offsetHeight||1;
+    let pct=_sStartT+((y-_sStartY)/h)*100;
+    pct=Math.max(0,Math.min(120,pct));
+    setSheet(pct,false);
+    e.preventDefault();
+  }
+  function sheetUp(){
+    sheetDragging=false;
+    document.removeEventListener('pointermove',sheetMove);
+    if(sheetY>74)        closeMapList();        // 아래로 많이 내리면 닫힘
+    else if(sheetY>23)   setSheet(SHEET_HALF,true);  // 절반
+    else                 setSheet(0,true);      // 전체
+  }
   function renderStoreCards(){
     const list=mapStores();
     const cnt=document.getElementById('mlv-count');if(cnt)cnt.textContent='주변 매장 '+list.length+'곳';
