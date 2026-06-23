@@ -9,8 +9,8 @@
   /* ============ Surfit-derived design tokens ============ */
   .phone[data-theme="dark"]{
     /* Surfit 공식값: 브랜드 #3562FF · 기본 블랙 #17191D($dk-grey-1) */
-    --brand:#03c75a; --brand-press:#04b352; --brand-soft:rgba(9,139,17,.22); --on-brand:#fff;
-    --pos:#2bc48d; --pos-soft:rgba(43,196,141,.16);
+    --brand:#007304; --brand-press:#005c03; --brand-soft:rgba(0,115,4,.24); --on-brand:#fff;
+    --pos:#007304; --pos-soft:rgba(0,115,4,.18);
     --bg:#17191d;          /* 0dp 배경 */
     --surface-1:#232528;   /* #17191D + 흰색 5% : 콘텐츠 카드 */
     --surface-2:#2a2b2f;   /* + 흰색 8% : 드롭다운·시트·스티키바 */
@@ -25,8 +25,8 @@
   }
   .phone[data-theme="light"]{
     /* 라이트: 동일 브랜드 #3562FF, 깊이는 그림자로 (Surfit 방식) */
-    --brand:#03c75a; --brand-press:#04b352; --brand-soft:#e6f9ee; --on-brand:#fff;
-    --pos:#0fa66e; --pos-soft:#e4f6ee;
+    --brand:#007304; --brand-press:#005c03; --brand-soft:#e1efe1; --on-brand:#fff;
+    --pos:#007304; --pos-soft:#e1efe1;
     --bg:#ffffff;          /* 순백 배경 */
     --surface-1:#ffffff; --surface-2:#ffffff; --surface-3:#ffffff;
     --border:#ecedf0; --border-2:#e2e4e8;
@@ -161,6 +161,17 @@
   .dh-org s{color:var(--text-mut)}
   .dh-locrow{display:flex;justify-content:space-between;align-items:center;margin:11px 20px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:13px 14px;font-size:13px;font-weight:700;color:var(--text-hi);cursor:pointer}
   .dh-locrow .ch{color:var(--brand);font-weight:800;flex:0 0 auto}
+  .dh-addr{display:flex;align-items:center;gap:10px;margin:8px 20px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:11px 13px 11px 14px;font-size:12.5px;font-weight:600;color:var(--text)}
+  .dh-addr-txt{flex:1;min-width:0;line-height:1.5}
+  .dh-addr-txt b{color:var(--text-hi);font-weight:800;margin-right:8px}
+  .dh-addr-loc{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;margin:0;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text);text-align:left;cursor:pointer}
+  .dh-addr-map{flex:0 0 auto;color:var(--brand);font-weight:800;font-size:12px}
+  .dh-addr-loc:active{opacity:.6}
+  .dh-copy{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:11.5px;font-weight:800;color:var(--brand);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
+  .dh-copy svg{width:14px;height:14px}
+  .dh-copy:active{transform:scale(.96)}
+  .dh-copy.done{color:var(--text-mut);border-color:var(--border)}
+  .phone[data-theme="dark"] .dh-copy{background:var(--surface-2)}
   .d-dots{position:absolute;right:14px;top:60px;z-index:3;display:flex;gap:5px}
   .d-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45);transition:width .2s}
   .d-dots span.on{background:#fff;width:16px;border-radius:2px}
@@ -177,9 +188,11 @@
   .ibox .k{font-size:10.5px;color:var(--text-mut);font-weight:700}
   .ibox .v{font-size:12.5px;font-weight:800;margin-top:4px;color:var(--text-hi)}
   .ibox .v.pos{color:var(--pos)}
+  .sec-band{height:9px;margin:22px 0 0;background:#f2f3f5;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .phone[data-theme="dark"] .sec-band{background:var(--surface-2)}
   .storybody{margin:18px 20px 0;font-size:13.5px;line-height:1.7;color:var(--text)}
   .storybody h4{font-size:15px;margin-bottom:7px;color:var(--text-hi)}
-  .reviews{margin:24px 20px 0;border-top:1px solid var(--border);padding-top:22px}
+  .reviews{margin:40px 20px 0;border-top:1px solid var(--border);padding-top:40px}
   .rv-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
   .rv-title{font-size:17px;font-weight:800;color:var(--text-hi)}
   .rv-avg{font-size:13px;font-weight:700;color:var(--text-mut)}
@@ -534,7 +547,7 @@
   .my-greet b{color:var(--brand)}
   .my-greet .sc{display:block;font-size:13px;font-weight:600;color:var(--text-mut);margin-top:7px}
   .my-greet .sc b{color:var(--brand)}
-  .tier-banner{margin:0 20px 16px;background:linear-gradient(135deg,var(--brand),#04b352);color:#fff;border-radius:8px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;font-weight:800;font-size:14px;box-shadow:var(--shadow)}
+  .tier-banner{margin:0 20px 16px;background:linear-gradient(135deg,var(--brand),#005c03);color:#fff;border-radius:8px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;font-weight:800;font-size:14px;box-shadow:var(--shadow)}
   .tier-banner .ch{color:#fff;font-weight:800;font-size:18px}
   .pt-card{margin:0 20px 4px;background:var(--surface-1);border:1px solid var(--border);border-radius:9px;padding:18px}
   .pt-top{display:flex;align-items:flex-start;justify-content:space-between}
@@ -569,7 +582,7 @@
   .pay-greet h1{font-size:29px;font-weight:800;color:var(--text-hi);line-height:1.3}
   .pay-greet h1 em{font-style:normal;color:var(--brand)}
   .pay-greet .deco{position:absolute;right:18px;top:8px;font-size:58px;line-height:1;filter:drop-shadow(0 8px 14px rgba(0,0,0,.28))}
-  .pay-cta{margin:0 20px 18px;background:linear-gradient(135deg,#03c75a,#04b352);color:#fff;border-radius:9px;padding:20px;text-align:center;font-size:15.5px;font-weight:800;line-height:1.45;cursor:pointer;box-shadow:var(--shadow)}
+  .pay-cta{margin:0 20px 18px;background:linear-gradient(135deg,#007304,#005c03);color:#fff;border-radius:9px;padding:20px;text-align:center;font-size:15.5px;font-weight:800;line-height:1.45;cursor:pointer;box-shadow:var(--shadow)}
   .pay-card{margin:0 20px 14px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:20px}
   .pc-top{display:flex;align-items:flex-start;justify-content:space-between}
   .pc-lab{font-size:14px;font-weight:800;color:var(--brand)}
@@ -961,8 +974,8 @@
   .hl-list-sec .pl-card.first{ background:transparent; border:none; border-top:1px solid var(--border); border-radius:0; margin:0; padding:16px; }
   .hl-list-sec .pl-card.first{ border-top:none; }
   /* 상세 리뷰 리스트 */
-  .rv-list{ margin-top:8px; }
-  .rvitem{ padding:18px 0 16px; border-top:1px solid var(--border); }
+  .rv-list{ margin-top:80px; }
+  .rvitem{ padding:36px 0 32px; border-top:1px solid var(--border); }
   .rv-top{ display:flex; align-items:center; gap:9px; }
   .rv-ava{ width:36px; height:36px; border-radius:50%; flex:0 0 auto; }
   .rv-name{ font-size:14px; font-weight:700; color:var(--text-hi); }
@@ -1036,7 +1049,16 @@
         <div class="home-white">
         <div class="hl-top">
           <div class="hl-logo">
-            <svg class="leaf" viewBox="0 0 24 24" fill="none"><path d="M5 19.5C3.8 11 9 3.8 19.2 3.8c1.1 8.8-4.2 15.7-14.2 15.7z" fill="currentColor"/><path d="M16.2 7.2C12 9.3 8.2 13.2 6.6 18.2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg class="botari" width="27" height="27" viewBox="0 0 48 48" aria-label="해피로컬">
+              <path d="M24 15c-2.4-4.2-6.6-5.4-10-3.2 1.4 3.4 4.8 5.2 10 4.2Z" fill="#2f8a2f"/>
+              <path d="M24 15c2.4-4.2 6.6-5.4 10-3.2-1.4 3.4-4.8 5.2-10 4.2Z" fill="#2f8a2f"/>
+              <path d="M24 14c8.4 0 14.5 5.4 14.5 13.2C38.5 34.4 32.4 39 24 39S9.5 34.4 9.5 27.2C9.5 19.4 15.6 14 24 14Z" fill="#007304"/>
+              <circle cx="16.6" cy="29" r="2.5" fill="#ff8a5c" opacity=".55"/>
+              <circle cx="31.4" cy="29" r="2.5" fill="#ff8a5c" opacity=".55"/>
+              <circle cx="19.4" cy="25.2" r="2" fill="#0a2118"/>
+              <circle cx="28.6" cy="25.2" r="2" fill="#0a2118"/>
+              <path d="M20.3 30.4c1.5 1.8 5.9 1.8 7.4 0" fill="none" stroke="#0a2118" stroke-width="2.1" stroke-linecap="round"/>
+            </svg>
             <span class="word">해피로컬</span>
           </div>
           <div class="hl-bell" title="알림">
@@ -1079,8 +1101,8 @@
           <div class="rgn" onclick="go('routebuild')">
             <div class="th"><svg viewBox="0 0 24 24" fill="none">
               <path d="M6 19c4 0 4-5 8-5s4-4.5 4-4.5" stroke="#9fe0bb" stroke-width="2.1" stroke-linecap="round" stroke-dasharray="0.1 3.3"/>
-              <circle cx="6" cy="19" r="2.5" fill="#03c75a"/>
-              <path d="M17 3.2c-2.8 0-5 2.1-5 4.8 0 3.4 5 7.4 5 7.4s5-4 5-7.4c0-2.7-2.2-4.8-5-4.8z" fill="#03c75a"/>
+              <circle cx="6" cy="19" r="2.5" fill="#007304"/>
+              <path d="M17 3.2c-2.8 0-5 2.1-5 4.8 0 3.4 5 7.4 5 7.4s5-4 5-7.4c0-2.7-2.2-4.8-5-4.8z" fill="#007304"/>
               <circle cx="17" cy="7.7" r="1.95" fill="#fff"/>
             </svg></div>
             <div class="nm">해피루트</div>
@@ -1150,7 +1172,7 @@
             <div class="d-slide comb-x" style="--tile:#46352a"></div>
           </div>
           <div class="d-hero-top">
-            <button class="d-ov-btn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="d-ov-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
             <div class="d-ov-right">
               <button class="d-ov-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M12 3v13M8 7l4-4 4 4"/></svg></button>
             </div>
@@ -1174,7 +1196,17 @@
           <div class="ibox"><div class="k">픽업 가능</div><div class="v">오늘 14–18시</div></div>
           <div class="ibox"><div class="k">신선도</div><div class="v">오늘 아침 정형</div></div>
         </div>
-        <div class="dh-locrow tap" onclick="openPlaceMap('pk_hanwoo')"><span>📍 픽업지 · 횡성 우천면 농가</span><span class="ch">지도 ›</span></div>
+        <div class="dh-addr">
+          <button class="dh-addr-loc tap" onclick="openPlaceMap('pk_hanwoo')" aria-label="픽업지 지도 보기">
+            <span class="dh-addr-txt"><b>주소</b>서울 강동구 성안로 155 1층 107호 (천호동, 강동역두산위브센티움)</span>
+            <span class="dh-addr-map">지도 ›</span>
+          </button>
+          <button class="dh-copy" data-addr="서울 강동구 성안로 155 1층 107호 (천호동, 강동역두산위브센티움)" onclick="copyAddr(this)" aria-label="주소 복사">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
+            <span class="dh-copy-t">복사</span>
+          </button>
+        </div>
+        <div class="sec-band"></div>
         <div class="storybody"><h4>김성호 농부의 이야기</h4>
           3대째 횡성에서 한우를 키웁니다. 풀과 곡물 비율을 직접 맞추고, 스트레스 없이 키우는 게 맛의 비결이에요. 중간 유통 없이 여행 오신 분께 바로 드리니 같은 등급을 절반 값에 가져가실 수 있습니다. 오시면 축사도 보여드릴게요.</div>
         <div class="reviews">
@@ -1257,7 +1289,7 @@
       <!-- ============ PLACE MAP (픽업지 위치) ============ -->
       <section class="screen" id="s-place">
         <div class="topbar">
-          <div class="iconbtn" onclick="openDetail()">‹</div>
+          <div class="iconbtn" onclick="goBack()">‹</div>
           <b style="font-size:15px;color:var(--text-hi)">픽업지 위치</b>
         </div>
         <div class="pm-head">
@@ -1273,7 +1305,7 @@
       </section>
       <section class="screen" id="s-routebuild">
         <div class="topbar">
-          <div class="iconbtn" onclick="go('home')">‹</div>
+          <div class="iconbtn" onclick="goBack()">‹</div>
           <b style="font-size:15px;color:var(--text-hi)">로컬 루트</b>
           <div style="margin-left:auto;display:flex;gap:8px">
             <div class="iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.3l2 11a1.4 1.4 0 001.4 1.1h8.3a1.4 1.4 0 001.4-1.1L19.6 7H6.2"/></svg></div>
@@ -1367,7 +1399,7 @@
       <!-- ============ ROUTE ============ -->
       <section class="screen" id="s-route">
         <div class="route-head">
-          <div class="iconbtn" style="margin-bottom:12px" onclick="go('routebuild')">‹</div>
+          <div class="iconbtn" style="margin-bottom:12px" onclick="goBack()">‹</div>
           <h2 id="rt-h2">횡성 추천 코스</h2>
         </div>
 
@@ -1396,7 +1428,7 @@
       <!-- ============ CALENDAR ============ -->
       <section class="screen" id="s-cal">
         <div class="st-head">
-          <button class="st-back" onclick="go('home')">‹</button>
+          <button class="st-back" onclick="goBack()">‹</button>
           <span class="st-title">제철 캘린더</span>
           <button class="cal-mapbtn" onclick="openMap()" aria-label="지도로 보기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M9 4 3 6.4v13.2L9 17l6 2.6 6-2.6V6.4L15 6.6 9 4z"/><path d="M9 4v13M15 6.6v13"/></svg></button>
         </div>
@@ -1419,7 +1451,7 @@
           </div>
         </div>
 
-        <div class="my-card prof-card" onclick="go('home')">
+        <div class="my-card prof-card" onclick="goTab('home')">
           <div class="prof-row">
             <div class="my-ava"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21 V11" stroke="#2f9e44" stroke-width="2.4" stroke-linecap="round"/><path d="M12 13 C7 13 5 8.5 6 4 c5 .6 7 4.5 6 9z" fill="#40c057"/><path d="M12 12 C17 12 19 7.5 18 3 c-5 .6-7 4.5-6 9z" fill="#37b24d"/></svg></div>
             <div class="prof-info">
@@ -1503,15 +1535,15 @@
     </div>
 
     <div class="tabbar">
-      <div class="tab on" data-tab="home" onclick="go('home')">
+      <div class="tab on" data-tab="home" onclick="goTab('home')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>홈</div>
-      <div class="tab" data-tab="map" onclick="openMap()">
+      <div class="tab" data-tab="map" onclick="goTab('map')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 1114 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>지도보기</div>
-      <div class="tab" data-tab="route" onclick="go('routebuild')">
+      <div class="tab" data-tab="route" onclick="goTab('route')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 19V7a3 3 0 016 0 3 3 0 006 0"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/></svg>로컬루트</div>
-      <div class="tab" data-tab="cal" onclick="go('cal')">
+      <div class="tab" data-tab="cal" onclick="goTab('cal')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>캘린더</div>
-      <div class="tab" data-tab="my" onclick="go('my')">
+      <div class="tab" data-tab="my" onclick="goTab('my')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>MY</div>
     </div>
 
@@ -1591,7 +1623,30 @@
 </div>
 
 <script>
+  // ===== 화면 네비게이션 히스토리 (뒤로가기 = 실제 직전 화면) =====
+  let navStack=[], curView='home', _navBack=false;
+  function _enter(view){
+    if(_navBack){_navBack=false;}                 // 뒤로가기 중에는 기록하지 않음
+    else if(view!==curView){navStack.push(curView);}
+    curView=view;
+  }
+  function _showView(view){
+    if(view==='map'){openMap();return;}
+    if(view==='detail'){openDetail();return;}
+    if(view.indexOf('place:')===0){openPlaceMap(view.slice(6));return;}
+    if(['home','routebuild','route','cal','my'].indexOf(view)>=0){go(view);return;}
+    go('home');
+  }
+  function goBack(){
+    _navBack=true;
+    _showView(navStack.length?navStack.pop():'home');
+  }
+  function goTab(key){                              // 하단 탭: 최상위 이동 → 히스토리 초기화
+    navStack=[];_navBack=true;
+    if(key==='map')openMap(); else go(key==='route'?'routebuild':key);
+  }
   function go(id){
+    _enter(id);
     ['plscrim','plsheet','pkscrim','orsheet','dtsheet','sheet'].forEach(x=>{var e=document.getElementById(x);if(e)e.classList.remove('show');});
     document.getElementById('phone').classList.remove('detail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -1604,11 +1659,13 @@
     if(id==='route'){curCourse=null;styleSel=0;document.querySelectorAll('.pk-chip').forEach(c=>c.classList.toggle('on',+c.dataset.v===0));document.getElementById('route-detail').style.display='none';document.getElementById('route-list').style.display='block';renderList();}
   }
   function openDetail(){
+    _enter('detail');
     document.getElementById('phone').classList.add('detail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     const d=document.getElementById('s-detail');d.classList.add('active');d.scrollTop=0;
   }
   function openPlaceMap(key){
+    _enter('place:'+(key||'pk_hanwoo'));
     document.getElementById('phone').classList.remove('detail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     const d=document.getElementById('s-place');d.classList.add('active');d.scrollTop=0;
@@ -1629,6 +1686,17 @@
     const icon=L.divIcon({className:'',html:`<div class="mk pk"><span>${p?p.ic:'📍'}</span></div>`,iconSize:[34,42],iconAnchor:[17,38]});
     L.marker(g,{icon}).addTo(_player);
     setTimeout(()=>{_pmap.invalidateSize();_pmap.setView(g,14);},80);
+  }
+  function copyAddr(btn){
+    const addr=btn.getAttribute('data-addr')||'';
+    const t=btn.querySelector('.dh-copy-t');
+    const done=()=>{btn.classList.add('done');if(t)t.textContent='복사됨';setTimeout(()=>{btn.classList.remove('done');if(t)t.textContent='복사';},1500);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(addr).then(done).catch(()=>_copyFallback(addr,done));
+    } else _copyFallback(addr,done);
+  }
+  function _copyFallback(text,cb){
+    try{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.top='-9999px';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);cb&&cb();}catch(e){}
   }
   function openSheet(){document.getElementById('scrim').classList.add('show');document.getElementById('sheet').classList.add('show');}
   function addToPlan(){
@@ -1801,7 +1869,6 @@
     document.querySelectorAll('#ddots span').forEach((s,n)=>s.classList.toggle('on',n===i));
   }
   function pickChip(el){el.parentNode.querySelectorAll('.h2-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
-  function pickCat(el){el.parentNode.querySelectorAll('.h2-cat').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
 
   function toggleTheme(){
     const p=document.getElementById('phone');
@@ -1934,7 +2001,7 @@
   })();
   /* ===== 리스트용 벡터 아이콘 ===== */
   const VIC={
-    flag:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 21V4" stroke="#868b94" stroke-width="2" stroke-linecap="round"/><path d="M6 5h11l-2.5 3.5L17 12H6z" fill="#03c75a"/></svg>',
+    flag:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 21V4" stroke="#868b94" stroke-width="2" stroke-linecap="round"/><path d="M6 5h11l-2.5 3.5L17 12H6z" fill="#007304"/></svg>',
     tent:'<svg viewBox="0 0 24 24"><path d="M12 4 3 20h18z" fill="#ff8c42"/><path d="M12 4 7.5 20h9z" fill="#ffb37a"/><path d="M12 11l-2.5 9h5z" fill="#fff"/></svg>',
     pin:'<svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5 5 8.8c0 4.7 7 13.2 7 13.2s7-8.5 7-13.2C19 5 15.9 2 12 2z" fill="#5b8def"/><circle cx="12" cy="9" r="2.5" fill="#fff"/></svg>',
     food:'<svg viewBox="0 0 24 24" fill="none" stroke="#e0844a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v8M6 3v4a2 2 0 004 0V3M8 11v10"/><path d="M16 3c-1.5 0-2.5 2-2.5 5S15 12 16 12s2.5-1 2.5-4S17.5 3 16 3zM16 12v9"/></svg>',
@@ -1946,7 +2013,7 @@
     root:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 9C10 7 10 5 11 4c1 1 1 3 1 5z" fill="#40c057"/><path d="M12 9C14 7 14 5 13 4c-1 1-1 3-1 5z" fill="#37b24d"/><path d="M12 8c2.2 0 3.2 2 3.2 4.2 0 2.6-1 3.8-1.1 5.6-.1 1.4-2.2 1.4-2.2 0 0-1.3-1.4-1.6-2.1-3.5C8.6 11.6 9 8 12 8z" fill="#e4d4ae"/></svg>',
     fish:'<svg viewBox="0 0 24 24"><path d="M9 12c0-3.4 3-6.2 7-6.2 3.2 0 5.2 2.2 5.2 6.2s-2 6.2-5.2 6.2c-4 0-7-2.8-7-6.2z" fill="#4dafce"/><path d="M9 12 2.5 8v8z" fill="#3f9bb6"/><circle cx="17.6" cy="10.6" r="1" fill="#fff"/></svg>',
     bun:'<svg viewBox="0 0 24 24"><path d="M4 16.2c0-5 3.6-9 8-9s8 4 8 9c0 .7-.5 1.2-1.2 1.2H5.2C4.5 17.4 4 16.9 4 16.2z" fill="#f3ece1"/><path d="M4.2 17.2h15.6c-.1 1-.9 1.8-1.9 1.8H6.1c-1 0-1.8-.8-1.9-1.8z" fill="#e6dac6"/></svg>',
-    basket:'<svg viewBox="0 0 24 24" fill="none" stroke="#03c75a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14l-1.3 9.5a1.5 1.5 0 01-1.5 1.3H7.8a1.5 1.5 0 01-1.5-1.3z"/><path d="M9 9 12 4l3 5"/></svg>'
+    basket:'<svg viewBox="0 0 24 24" fill="none" stroke="#007304" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14l-1.3 9.5a1.5 1.5 0 01-1.5 1.3H7.8a1.5 1.5 0 01-1.5-1.3z"/><path d="M9 9 12 4l3 5"/></svg>'
   };
   function vmap(k){
     const p=PLACES[k];const t=p.type;const ic=p.ic;
@@ -2002,7 +2069,7 @@
     stops.forEach(s=>{const ll=[s.lat,s.lng];pts.push(ll);const pk=s.node==='pickup';
       const icon=L.divIcon({className:'',html:`<div class="mk${pk?' pk':''}"><span>${s.ic}</span></div>`,iconSize:[32,40],iconAnchor:[16,36]});
       L.marker(ll,{icon}).addTo(_layer);});
-    L.polyline(pts,{color:'#03c75a',weight:4,opacity:.95,lineJoin:'round'}).addTo(_layer);
+    L.polyline(pts,{color:'#007304',weight:4,opacity:.95,lineJoin:'round'}).addTo(_layer);
     setTimeout(()=>{_map.invalidateSize();if(pts.length)_map.fitBounds(pts,{padding:[36,36]});},80);
   }
   const STYLE_DESC=[
@@ -2031,7 +2098,7 @@
     const id=ids.slice().sort((a,b)=>COURSES[b].pk-COURSES[a].pk)[0]; // 가장 풍성한 코스 추천
     curCourse=id; const c=COURSES[id];
     const SEC={start:'여행의 시작',tour:'둘러볼 관광 명소',festival:'축제·이벤트',food:'식사 장소 추천',pickup:'로컬 픽업 추천'};
-    const COL={start:'#7c6df2',tour:'#7c6df2',festival:'#ff922b',food:'#ff6b6b',pickup:'#03c75a'};
+    const COL={start:'#7c6df2',tour:'#7c6df2',festival:'#ff922b',food:'#ff6b6b',pickup:'#007304'};
     const TINT={start:'#efedfe',tour:'#efedfe',festival:'#fff1e3',food:'#ffecec',pickup:'#e7f7ee'};
     const CATL={start:'시작 지점',tour:'관광명소',festival:'축제',food:'맛집·식사',pickup:'로컬 픽업'};
     let prevSec='';
@@ -2191,6 +2258,7 @@
   }
   let _smap=null,_stile=null,_slayer=null,_smarkers={};
   function openMap(){
+    _enter('map');
     document.getElementById('phone').classList.remove('detail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById('s-map').classList.add('active');
@@ -2422,12 +2490,12 @@
     const m=r.match(/(\d+)/);
     if(m){
       const n=+m[1];const txt=r.replace(/^오늘\s*/,'');
-      if(n>=15)return {t:txt+' · 넉넉',c:'#03c75a'};
+      if(n>=15)return {t:txt+' · 넉넉',c:'#007304'};
       if(n>=7)return {t:txt,c:'#f4b400'};
       return {t:txt+' · 마감임박',c:'#ff5a5a'};
     }
-    if(/운영|영업/.test(r))return {t:'재고 넉넉',c:'#03c75a'};
-    return {t:'방문 픽업 가능',c:'#03c75a'};
+    if(/운영|영업/.test(r))return {t:'재고 넉넉',c:'#007304'};
+    return {t:'방문 픽업 가능',c:'#007304'};
   }
   renderCalStores();renderList();renderMonths();paintCal();paintRouteCal();
 </script>
