@@ -853,6 +853,8 @@
   .h2-slide.b h2 em{color:#9fb4ff}
   .h2-slide.c{--tile:#3f5142}
   .h2-slide.c h2 em{color:#bfe6b0}
+  .h2-slide.hero-img{background-size:cover;background-position:center;--tile:#cfe6f5}
+  .h2-slide.hero-img::after{display:none}
 
   /* stat strip */
   .h2-stat{margin:14px 18px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:8px;display:flex;box-shadow:var(--shadow)}
@@ -1066,26 +1068,9 @@
           </div>
         </div>
 
-        <!-- hero carousel -->
+        <!-- hero banner (single) -->
         <div class="h2-hero">
-          <div class="h2-slide comb-x" onclick="go('routebuild')">
-            <div class="bnr-logo">해피로컬 <span>×</span> 한국관광공사</div>
-            <h2>여행 동선 공유하고<br><em>최대 1,500P</em> 적립</h2>
-            <div class="bnr-cta">한정 혜택 받으러 가기 ›</div>
-            <span class="bnr-pg">01 <i>/ 03</i></span>
-          </div>
-          <div class="h2-slide b comb-x" onclick="openDetail()">
-            <div class="bnr-logo">해피로컬 <span>×</span> 강원 농가</div>
-            <h2>제철 강원 특산물<br><em>최대 50%</em> 픽업가</h2>
-            <div class="bnr-cta">지금 픽업 가능 보러 가기 ›</div>
-            <span class="bnr-pg">02 <i>/ 03</i></span>
-          </div>
-          <div class="h2-slide c comb-x" onclick="go('routebuild')">
-            <div class="bnr-logo">해피로컬 <span>×</span> 카카오맵</div>
-            <h2>관광공사가 채워주는<br><em>로컬 드라이브 루트</em></h2>
-            <div class="bnr-cta">내 루트 만들러 가기 ›</div>
-            <span class="bnr-pg">03 <i>/ 03</i></span>
-          </div>
+          <div class="h2-slide hero-img" onclick="go('routebuild')" role="img" aria-label="강원도 놀러가봄 · 산지직송 15% 할인" style="background-image:url('images/farms/banner-main01.jpg')"></div>
         </div>
 
         <div class="np-card np-my" onclick="openDetail()">
