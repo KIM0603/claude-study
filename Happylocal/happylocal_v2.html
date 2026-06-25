@@ -806,6 +806,7 @@
   .pl-card.first{border-top:1px solid var(--border)}
   .pl-imgs{display:flex;gap:4px}
   .pl-img{flex:1;height:140px;border-radius:6px;position:relative;overflow:hidden}
+  .pl-img.imgfill,.d-slide.imgfill{background-size:cover;background-position:center;background-repeat:no-repeat;background-color:var(--surface-2)}
   .pl-tag{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.45);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px}
   .pl-head{display:flex;align-items:center;gap:7px;margin-top:14px}
   .pl-name{font-size:17px;font-weight:800;color:var(--text-hi)}
@@ -1643,7 +1644,21 @@
     document.getElementById('fab-route').classList.toggle('show', id==='routebuild');
     if(id==='route'){curCourse=null;styleSel=0;document.querySelectorAll('.pk-chip').forEach(c=>c.classList.toggle('on',+c.dataset.v===0));document.getElementById('route-detail').style.display='none';document.getElementById('route-list').style.display='block';renderList();}
   }
-  function openDetail(){
+  function buildDetailGallery(fid){
+    const g=document.getElementById('dgallery'), dots=document.getElementById('ddots');
+    if(!g)return;
+    const shots=fid?FARM_SHOTS[fid]:null;
+    if(shots&&shots.length){
+      g.innerHTML=shots.map(n=>`<div class="d-slide imgfill" style="background-image:url('${farmImg(fid,n)}')"></div>`).join('');
+      if(dots)dots.innerHTML=shots.map((_,i)=>`<span class="${i===0?'on':''}"></span>`).join('');
+    } else {
+      g.innerHTML=`<div class="d-slide comb-x" style="--tile:#5a4636"></div><div class="d-slide comb" style="--tile:#6a4733"></div><div class="d-slide comb-x" style="--tile:#46352a"></div>`;
+      if(dots)dots.innerHTML=`<span class="on"></span><span></span><span></span>`;
+    }
+    g.scrollLeft=0;
+  }
+  function openDetail(fid){
+    buildDetailGallery(fid);
     _enter('detail');
     document.getElementById('phone').classList.add('detail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -1771,12 +1786,20 @@
     {name:'아우라지 곤드레 픽업',region:'정선',cat:'곤드레·산나물',prod:'곤드레 건나물 200g',dist:'39km',rate:201,mode:'now',day:'오늘',hours:'10:00 ~ 19:00',was:'12,000원',now:'7,000원',t1:'#3f5142',t2:'#46513f',tag:'오늘 20팩 예약가능',seasonal:0},
     {name:'정선 5일장 산나물 픽업',region:'정선',cat:'곤드레·산나물',prod:'모둠 산나물 1.5kg',dist:'43km',rate:38,mode:'now',day:'오늘',hours:'08:00 ~ 13:00',was:'20,000원',now:'12,000원',t1:'#3a4a36',t2:'#46513f',tag:'오늘 6팩 예약가능',seasonal:1}
   ];
+  const FARM_SHOTS={'01':[1,2,3,4,5,6],'02':[1,2,3,4,5],'03':[1,2,3,4,5],'04':[1,2,3,4,5,6,7],'05':[1,2,3,4,5,6,8],'06':[1,2,3,4,5],'07':[1,2,3,4,5],'08':[1,2,3,4],'09':[1,2,3,4,5,6],'10':[1,2,3,4],'11':[1,2,3,4,5]};
+  PL.forEach((p,i)=>{ if(i<11) p.fid=String(i+1).padStart(2,"0"); });
+  function farmImg(fid,n){return `images/farms/farm${fid}_${n}.jpg`;}
   let plFilter='직거래 최저가';
-  function plCardHTML(p,first){return `
-      <div class="pl-card${first?' first':''}" onclick="openDetail()">
+  function plCardHTML(p,first){
+    const shots=p.fid?FARM_SHOTS[p.fid]:null;
+    const i1=shots?farmImg(p.fid,shots[0]):null, i2=shots&&shots[1]?farmImg(p.fid,shots[1]):null;
+    const s1=i1?`<div class="pl-img imgfill" style="background-image:url('${i1}')"><span class="pl-tag">${p.tag}</span></div>`:`<div class="pl-img comb" style="--tile:${p.t1}"><span class="pl-tag">${p.tag}</span></div>`;
+    const s2=i2?`<div class="pl-img imgfill" style="background-image:url('${i2}')"></div>`:`<div class="pl-img comb-x" style="--tile:${p.t2}"></div>`;
+    return `
+      <div class="pl-card${first?' first':''}" onclick="openDetail('${p.fid||''}')">
         <div class="pl-imgs">
-          <div class="pl-img comb" style="--tile:${p.t1}"><span class="pl-tag">${p.tag}</span></div>
-          <div class="pl-img comb-x" style="--tile:${p.t2}"></div>
+          ${s1}
+          ${s2}
         </div>
         <div class="pl-head">
           <span class="pl-name">${p.name}</span>
