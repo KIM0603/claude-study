@@ -150,7 +150,7 @@
   .d-meta{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.92);margin-top:6px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
   .d-head{padding:15px 20px 4px}
   .dh-cat{font-size:12px;color:var(--text-mut);font-weight:700}
-  .dh-name{font-size:20px;font-weight:800;color:var(--text-hi);margin-top:7px;letter-spacing:-.01em}
+  .dh-name{font-size:21px;font-weight:800;color:var(--text-hi);margin-top:7px;letter-spacing:-.01em}
   .dh-rate{font-size:13px;margin-top:8px}
   .dh-star{color:#ffb02e;font-weight:800}
   .dh-rev{color:var(--brand);font-weight:700;margin-left:4px}
@@ -161,7 +161,7 @@
   .dh-org s{color:var(--text-mut)}
   .dh-locrow{display:flex;justify-content:space-between;align-items:center;margin:11px 20px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:13px 14px;font-size:13px;font-weight:700;color:var(--text-hi);cursor:pointer}
   .dh-locrow .ch{color:var(--brand);font-weight:800;flex:0 0 auto}
-  .dh-addr{display:flex;align-items:center;gap:10px;margin:8px 20px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:11px 13px 11px 14px;font-size:12.5px;font-weight:600;color:var(--text)}
+  .dh-addr{display:flex;align-items:center;gap:10px;margin:8px 16px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:11px 13px 11px 14px;font-size:12.5px;font-weight:600;color:var(--text)}
   .dh-addr-txt{flex:1;min-width:0;line-height:1.5}
   .dh-addr-txt b{color:var(--text-hi);font-weight:800;margin-right:8px}
   .dh-addr-loc{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;margin:0;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text);text-align:left;cursor:pointer}
@@ -183,11 +183,11 @@
   .pricebox{margin:16px 20px 0;background:transparent;border:none;border-radius:0;padding:0;box-shadow:none}
   .pricebox .line{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--text-mut);padding:5px 0}
   .pricebox .big{font-size:27px;font-weight:800;color:var(--brand)}
-  .cp-title{font-size:18px;font-weight:800;color:var(--text-hi);letter-spacing:-.02em;line-height:1.35}
+  .cp-title{font-size:14.5px;font-weight:600;color:var(--text);letter-spacing:-.02em;line-height:1.35}
   .cp-timebox{display:flex;align-items:center;justify-content:space-between;background:#f3f4f6;border:none;border-radius:11px;padding:11px 13px;margin-top:14px}
-  .cp-tlabel{font-size:13px;font-weight:800;color:var(--text-hi);background:#fff;padding:6px 12px;border-radius:8px}
+  .cp-tlabel{font-size:13px;font-weight:700;color:var(--text-mut)}
   .phone[data-theme="dark"] .cp-timebox{background:rgba(255,255,255,.06)}
-  .phone[data-theme="dark"] .cp-tlabel{background:var(--surface-1)}
+  .phone[data-theme="dark"] .cp-tlabel{color:var(--text-mut)}
   .cp-tdate{font-size:14px;font-weight:800;color:var(--text-hi)}
   .cp-spec{margin-top:8px;display:flex;flex-direction:column}
   .cp-row{display:flex;align-items:center;justify-content:space-between;padding:8px 2px}
@@ -206,9 +206,9 @@
   .sec-band{height:8px;margin:20px 0 0;background:#f4f5f6;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
   .phone[data-theme="dark"] .sec-band{background:var(--surface-2)}
   .phone[data-theme="dark"] .d-tabs{background:var(--bg)}
-  .storybody{margin:18px 20px 0;font-size:13.5px;line-height:1.7;color:var(--text)}
+  .storybody{margin:40px 20px 0;font-size:13.5px;line-height:1.7;color:var(--text)}
   .storybody h4{font-size:16px;font-weight:600;margin-bottom:7px;color:var(--text-hi)}
-  .d-tabs{display:flex;gap:26px;padding:0 20px;margin-top:0;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:6;background:#fff}
+  .d-tabs{display:flex;gap:26px;padding:12px 20px 0;margin-top:0;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:6;background:#fff}
   .d-tab{background:none;border:none;font-family:inherit;font-size:15.5px;font-weight:700;color:#9aa0a8;padding:13px 2px;cursor:pointer;position:relative}
   .d-tab.on{color:var(--text-hi)}
   .d-tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2.5px;border-radius:2px;background:var(--text-hi)}
@@ -247,6 +247,30 @@
   .pg-more{position:absolute;right:5px;bottom:5px;background:rgba(0,0,0,.45);color:#fff;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px}
   .rv-overlay{position:absolute;inset:0;background:rgba(0,0,0,.52);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center}
   .rvd-img{width:100%;height:200px;border-radius:7px;margin-bottom:16px}
+  /* photo viewer (Coupang/Naver style) */
+  .pv{position:absolute;inset:0;z-index:700;background:#fff;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .2s}
+  .pv.show{opacity:1;pointer-events:auto}
+  .phone[data-theme="dark"] .pv{background:var(--bg)}
+  .pv-top{flex:0 0 auto;height:52px;display:flex;align-items:center;gap:6px;padding:0 8px 0 2px;background:inherit;border-bottom:1px solid var(--border)}
+  .pv-x{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--text-hi);cursor:pointer;padding:0}
+  .pv-x svg{width:24px;height:24px}
+  .pv-title{flex:1;font-size:16px;font-weight:700;color:var(--text-hi)}
+  .pv-idx{font-size:14px;font-weight:600;color:var(--text-mut);padding-right:12px}
+  .pv-idx b{color:var(--text-hi);font-weight:800}
+  .pv-track{flex:0 0 auto;width:100%;aspect-ratio:1/1;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;background:#0d0d0d}
+  .pv-track::-webkit-scrollbar{display:none}
+  .pv-slide{min-width:100%;flex:0 0 100%;height:100%;scroll-snap-align:center}
+  .pv-img{width:100%;height:100%;background-size:contain;background-position:center;background-repeat:no-repeat}
+  .pv-info{flex:1 1 auto;overflow-y:auto;padding:16px 18px 22px}
+  .pv-head{display:flex;align-items:center;gap:10px}
+  .pv-name{font-size:14px;font-weight:700;color:var(--text-hi)}
+  .pv-sub{font-size:11.5px;color:var(--text-mut);margin-top:1px}
+  .pv-stars{margin-left:auto;font-size:13px;color:#f3a942;letter-spacing:1px}
+  .pv-text{margin-top:12px;font-size:14px;line-height:1.65;color:var(--text)}
+  .pv-thumbs{flex:0 0 auto;display:flex;gap:6px;padding:9px 12px;overflow-x:auto;border-top:1px solid var(--border);background:inherit}
+  .pv-thumbs::-webkit-scrollbar{display:none}
+  .pv-thumb{width:52px;height:52px;flex:0 0 auto;border-radius:6px;background-size:cover;background-position:center;cursor:pointer;opacity:.45;border:2px solid transparent;transition:opacity .15s}
+  .pv-thumb.on{opacity:1;border-color:var(--brand)}
   .rvd-text{font-size:14px;line-height:1.65;color:var(--text);margin-top:14px}
 
   /* ============ ROUTE ============ */
@@ -453,11 +477,11 @@
   /* category icon row */
   .cat-row{display:flex;gap:2px;overflow-x:auto;padding:20px 12px 16px;align-items:center;border-bottom:1px solid var(--border)}
   .cat-row::-webkit-scrollbar{display:none}
-  .cat{flex:0 0 auto;width:70px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
-  .cat .em{font-size:26px;line-height:1;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #e7eaee}
-  .cat .em svg{width:32px;height:32px;display:block}
+  .cat{flex:0 0 auto;width:70px;display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer}
+  .cat .em{font-size:26px;line-height:1;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #ededf0;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  .cat .em svg{width:34px;height:34px;display:block}
   .phone[data-theme="dark"] .cat .em{background:var(--surface-2);border-color:var(--border-2)}
-  .cat .cl{font-size:12.5px;font-weight:600;color:var(--text-hi);white-space:nowrap}
+  .cat .cl{font-size:13px;font-weight:600;color:var(--text-hi);white-space:nowrap}
   .cat:active .em{transform:scale(.92)}
   .cat .em{transition:transform .12s,background .15s,border-color .15s}
   .cat.on .em{background:var(--brand-soft);border-color:var(--brand);box-shadow:0 0 0 1px var(--brand) inset}
@@ -500,10 +524,10 @@
   .crs-tab.on{background:var(--brand);border-color:var(--brand);color:#fff}
   #rmap{height:240px;width:100%}
   .leaflet-container{background:var(--map-land);font:inherit}
-  .mk{width:32px;height:32px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;background:var(--brand);border:2.5px solid #fff;box-shadow:0 3px 7px rgba(0,0,0,.32)}
+  .mk{width:32px;height:32px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;background:var(--brand);border:2.5px solid #fff}
   .mk>span{transform:rotate(45deg);font-size:15px;line-height:1;display:block;filter:brightness(0) invert(1)}
   .mk.pk{background:var(--brand);border-color:#fff}
-  .mk.active{transform:rotate(-45deg) scale(1.28);border-color:#fff;box-shadow:0 7px 16px rgba(0,0,0,.45);background:var(--brand-press)}
+  .mk.active{transform:rotate(-45deg) scale(1.28);border-color:#fff;background:var(--brand-press)}
   .tl-card{cursor:pointer}
   .tl-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .tl-ch{color:var(--text-mut);font-weight:800;font-size:17px;line-height:1}
@@ -658,11 +682,11 @@
   .map-chip{background:var(--surface-1);border:1px solid var(--border);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:700;color:var(--text);box-shadow:0 4px 14px -6px rgba(0,0,0,.3);cursor:pointer}
   .map-chip.on{border-color:var(--brand);color:var(--brand)}
   /* 픽업일(전체/오늘/내일): 흰 캡슐 안의 세그먼트 토글 (선택 항목만 다크 알약) */
-  .map-seg{align-self:center;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:5px;box-shadow:0 6px 18px -6px rgba(0,0,0,.28)}
+  .map-seg{align-self:center;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:5px}
   .map-seg-btn{border:none;background:none;cursor:pointer;font-family:inherit;padding:9px 24px;border-radius:999px;font-size:14px;font-weight:800;color:#5b6068;line-height:1;transition:background .18s,color .18s}
   .map-seg-btn.on{background:#3c3e42;color:#fff}
   .map-list-btn{position:absolute;bottom:226px;left:50%;transform:translateX(-50%);z-index:500;background:#17191d;color:#fff;border-radius:999px;padding:11px 20px;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px -4px rgba(0,0,0,.4)}
-  .map-loc{position:absolute;right:14px;bottom:195px;z-index:500;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:0 4px 14px -4px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;color:var(--brand);cursor:pointer}
+  .map-loc{position:absolute;right:14px;bottom:195px;z-index:500;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:#000;cursor:pointer}
   .map-loc svg{width:22px;height:22px}
   /* 지역 선택 FAB (하단 좌측) — 기본 동그라미 '전체', 탭하면 위로 펼쳐짐 */
   .rgn-scrim{position:absolute;inset:0;z-index:540;background:rgba(0,0,0,0);pointer-events:none;transition:background .2s}
@@ -680,7 +704,7 @@
   .rgn-pop.show .rgn-opt:nth-child(4){transition-delay:.14s}
   .map-cards{position:absolute;bottom:84px;left:0;right:0;z-index:500;display:flex;gap:10px;overflow-x:auto;padding:0 14px;scroll-snap-type:x mandatory}
   .map-cards::-webkit-scrollbar{display:none}
-  .mcard{flex:0 0 86%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px 13px;box-shadow:0 10px 26px -10px rgba(0,0,0,.3);cursor:pointer;display:flex;flex-direction:column;gap:10px}
+  .mcard{flex:0 0 100%;scroll-snap-align:center;background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 15px;box-shadow:0 10px 26px -10px rgba(0,0,0,.3);cursor:pointer;display:flex;flex-direction:column;gap:13px}
   .mc-top{display:flex;gap:11px;align-items:center}
   .mc-img{width:50px;height:50px;border-radius:50%;background:#fff;border:1px solid #e7eaee;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:25px}
   .mc-info{min-width:0;flex:1}
@@ -698,7 +722,7 @@
   .mc-tag.more{color:var(--text-mut)}
   .mc-time{flex:0 0 auto;font-size:11.5px;font-weight:800;color:var(--brand);background:var(--brand-soft);border:1px solid #c8eed8;border-radius:999px;padding:6px 11px;white-space:nowrap}
   .mc-time.off{color:var(--text-mut);background:#f3f4f6;border-color:var(--border)}
-  .map-listbtn-c{position:absolute;left:50%;bottom:198px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:7px;background:#fff;color:var(--text-hi);font-size:13.5px;font-weight:800;padding:11px 20px;border-radius:999px;box-shadow:0 6px 18px -4px rgba(0,0,0,.4);cursor:pointer}
+  .map-listbtn-c{position:absolute;left:50%;bottom:198px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:7px;background:#fff;color:var(--text-hi);font-size:13.5px;font-weight:800;padding:11px 20px;border-radius:999px;border:2px solid var(--brand);cursor:pointer}
   .map-listbtn-c svg{width:17px;height:17px}
   .map-listview{position:absolute;left:0;right:0;top:55px;bottom:78px;z-index:600;background:var(--bg);border-radius:18px 18px 0 0;box-shadow:0 -10px 30px -12px rgba(0,0,0,.28);transform:translateY(110%);transition:transform .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden;visibility:hidden}
   .map-listview.show{visibility:visible}
@@ -839,7 +863,7 @@
 
   /* home place list (맛집 지도 style) */
   .hf-filters{display:flex;gap:18px;overflow-x:auto;padding:6px 16px 0;border-bottom:1px solid var(--border)}
-  .hf-chip{padding:9px 2px;border:none;background:transparent;text-align:center;font-size:15px;font-weight:700;color:#9aa0a8;cursor:pointer;position:relative;border-radius:0;white-space:nowrap}
+  .hf-chip{padding:9px 2px;border:none;background:transparent;text-align:center;font-size:16px;font-weight:700;color:#9aa0a8;cursor:pointer;position:relative;border-radius:0;white-space:nowrap}
   .hf-chip.on{background:transparent;color:#1f2329}
   .hf-chip.on::after{content:"";position:absolute;left:2px;right:2px;bottom:-1px;height:2.5px;border-radius:2px;background:var(--brand)}
   .pl-card{padding:18px 16px 22px;border-top:8px solid var(--bg);cursor:pointer}
@@ -847,7 +871,7 @@
   .pl-imgs{display:flex;gap:4px}
   .pl-img{flex:1;height:140px;border-radius:6px;position:relative;overflow:hidden}
   .pl-img.imgfill,.d-slide.imgfill{background-size:cover;background-position:center;background-repeat:no-repeat;background-color:var(--surface-2)}
-  .pl-tag{position:absolute;left:8px;top:8px;background:var(--brand);color:#fff;font-size:13px;font-weight:800;padding:4px 9px;border-radius:999px}
+  .pl-tag{position:absolute;left:0;top:8px;background:var(--brand);color:#fff;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px}
   .pl-head{display:flex;align-items:center;gap:7px;margin-top:14px}
   .pl-name{font-size:17px;font-weight:800;color:var(--text-hi)}
   .pl-dist{font-size:13px;color:var(--text-mut);font-weight:600}
@@ -860,10 +884,10 @@
   .pl-ic.bell.on{color:var(--brand)}
   .pl-ic.on svg{fill-opacity:1}
   .pl-cat{font-size:13.5px;color:var(--text-mut);margin-top:7px;font-weight:600}
-  .pl-time{display:flex;align-items:center;gap:9px;margin-top:10px}
-  .pl-day{font-size:12px;font-weight:800;color:var(--brand);background:var(--brand-soft);padding:3px 8px;border-radius:4px}
+  .pl-time{display:flex;align-items:center;gap:3px;margin-top:10px}
+  .pl-day{font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-soft);padding:3px 7px;border-radius:4px;line-height:1}
   .pl-day.pre{color:#e0962a;background:rgba(224,150,42,.16)}
-  .pl-hours{font-size:14px;font-weight:700;color:var(--text-hi)}
+  .pl-hours{font-size:14px;font-weight:600;color:var(--text-hi);letter-spacing:-.02em}
   .pl-price{margin-left:auto;display:flex;align-items:baseline;gap:8px}
   .pl-price s{font-size:12.5px;color:var(--text-mut)}
   .pl-price b{font-size:17px;font-weight:800;color:var(--text-hi)}
@@ -969,7 +993,7 @@
   .pricebox{ margin:18px 16px 0; padding:0; }
   .infogrid{ margin:16px 16px 0; gap:8px; grid-template-columns:repeat(3,1fr); }
   .ibox{ border-radius:9px; padding:14px 7px; text-align:center; }
-  .storybody{ margin:22px 16px 0; }
+  .storybody{ margin:40px 16px 0; }
   .btn{ border-radius:999px; padding:17px; }
   .cta-bar{ padding:14px 16px 20px; }
   #s-detail{ padding-bottom:132px; }
@@ -985,10 +1009,10 @@
   .phone.detail .fab{ display:none !important; }
   /* ===== PICAPlay 스타일 메인 (초록) ===== */
   .hl-top{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px 6px; }
-  .hl-logo{ display:flex; align-items:center; gap:6px; color:var(--brand); }
+  .hl-logo{ display:flex; align-items:center; gap:4px; color:var(--brand); }
   .hl-logo .leaf{ width:22px; height:22px; color:var(--brand); }
   .hl-logo .word{ font-size:20px; font-weight:800; letter-spacing:-.3px; color:var(--brand); }
-  .hl-bell{ color:var(--text); cursor:pointer; display:flex; }
+  .hl-bell{ color:#222222; cursor:pointer; display:flex; }
   .hl-stats{ margin:7px 16px 0; background:#069a47; border-radius:8px; padding:18px 8px; display:flex; align-items:center; }
   .hl-stats .hs{ flex:1; text-align:center; }
   .hl-stats .hs-k{ font-size:12px; color:rgba(255,255,255,.72); font-weight:600; }
@@ -1005,15 +1029,16 @@
   .hl-qr{ width:120px; flex:0 0 auto; background:var(--brand); border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:11px; color:#fff; cursor:pointer; }
   .hl-qr .qr-ic{ display:flex; }
   .hl-qr .qr-lab{ font-size:13px; font-weight:800; }
-  .rgns{ display:flex; justify-content:space-around; gap:6px; margin:8px 14px 2px; }
+  .rgns{ display:flex; justify-content:space-between; gap:4px; margin:8px 14px 2px; }
   .rgn{ cursor:pointer; text-align:center; flex:0 0 auto; }
-  .rgn .th{ width:58px; height:58px; margin:0 auto; border-radius:50%; display:flex; align-items:center; justify-content:center; background:radial-gradient(120% 120% at 50% 22%, #ffffff 0%, #eef0f2 58%, #e6e9ec 100%); border:1px solid #ededf0; overflow:hidden; position:relative; box-shadow:0 1px 2px rgba(0,0,0,.05); }
-  .rgn .th svg{ width:36px; height:36px; transform:none; }
+  .rgn .th{ width:54px; height:54px; margin:0 auto; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #ededf0; overflow:hidden; position:relative; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+  .rgn .th svg, .rgn .th img{ width:34px; height:34px; object-fit:contain; transform:none; }
+  .rgn.promo .th svg, .rgn.promo .th img{ width:54px; height:54px; }
   .rgn .nm{ font-size:13px; font-weight:600; color:#3b4046; margin-top:9px; letter-spacing:-.02em; }
   .hl-listhead{ font-size:17px; font-weight:800; color:var(--text-hi); margin:12px 16px 2px; }
   .hl-list-sec{ background:#fff; border:1px solid var(--border); border-radius:14px; margin:24px 12px 12px; overflow:hidden; }
-  .hl-list-sec .hl-listhead{ margin:16px 16px 0; }
-  .hl-list-sec .hf-filters{ padding:8px 16px 0; }
+  .hl-list-sec .hl-listhead{ margin:32px 16px 0; }
+  .hl-list-sec .hf-filters{ padding:18px 16px 0; }
   .hl-list-sec .pl-card,
   .hl-list-sec .pl-card.first{ background:transparent; border:none; border-top:1px solid var(--border); border-radius:0; margin:0; padding:16px; }
   .hl-list-sec .pl-card.first{ border-top:none; }
@@ -1070,12 +1095,13 @@
   /* 상단(할인/적립 ~ 지역아이콘) 하나의 흰 배경, 아래는 구분선 + 기존 회색 배경 */
   .home-white{ background:#fff; border-bottom:1px solid var(--border); padding:4px 0 30px; }
   .home-white .np-card{ background:transparent; border:none; border-radius:0; margin:8px 16px 0; padding:8px 0 0; }
-  .home-white .rgns{ margin:14px 12px 2px; }
-  .hl-list-sec{ background:#fff; border:none; border-radius:0; margin:0; overflow:visible; }
-  .hl-list-sec .hl-listhead{ margin:16px 16px 0; }
-  .hl-list-sec .hf-filters{ padding:8px 16px 0; }
+  .home-white .rgns{ margin:28px 12px 2px; }
+  .hl-list-sec{ background:#fff; border:none; border-top:1px solid var(--border); border-radius:0; margin:8px 0 0; overflow:visible; }
+  .hl-list-sec .hl-listhead{ margin:32px 16px 0; }
+  .hl-list-sec .hf-filters{ padding:18px 16px 0; }
   .hl-list-sec .pl-card,
   .hl-list-sec .pl-card.first{ background:#fff; border:1px solid var(--border); border-radius:12px; margin:0 12px 10px; padding:14px; }
+  .hl-list-sec .pl-card.first{ margin-top:20px; }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -1093,7 +1119,7 @@
         <div class="home-white">
         <div class="hl-top">
           <div class="hl-logo">
-            <svg class="botari" width="27" height="27" viewBox="0 0 48 48" aria-label="해피로컬">
+            <svg class="botari" width="33" height="33" viewBox="0 0 48 48" aria-label="해피로컬">
               <path d="M24 15c-2.4-4.2-6.6-5.4-10-3.2 1.4 3.4 4.8 5.2 10 4.2Z" fill="#2f8a2f"/>
               <path d="M24 15c2.4-4.2 6.6-5.4 10-3.2-1.4 3.4-4.8 5.2-10 4.2Z" fill="#2f8a2f"/>
               <path d="M24 14c8.4 0 14.5 5.4 14.5 13.2C38.5 34.4 32.4 39 24 39S9.5 34.4 9.5 27.2C9.5 19.4 15.6 14 24 14Z" fill="#3FC358"/>
@@ -1106,7 +1132,7 @@
             <span class="word">해피로컬</span>
           </div>
           <div class="hl-bell" title="알림">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" style="width:23px;height:23px"><path d="M6 9.6a6 6 0 0112 0c0 3.9 1.4 5.4 1.9 6.1.4.5 0 1.3-.7 1.3H4.8c-.7 0-1.1-.8-.7-1.3.5-.7 1.9-2.2 1.9-6.1z"/><path d="M10 20a2 2 0 004 0"/></svg>
           </div>
         </div>
 
@@ -1115,62 +1141,31 @@
           <div class="h2-slide hero-img" onclick="go('routebuild')" role="img" aria-label="강원도 놀러가봄 · 산지직송 15% 할인" style="background-image:url('images/farms/banner-main01.jpg')"></div>
         </div>
 
-        <div class="cat-sec-head">산지 바로가기</div>
         <div class="rgns">
+          <div class="rgn promo" onclick="document.getElementById('s-home').querySelector('.hl-list-sec').scrollIntoView({behavior:'smooth'})">
+            <div class="th"><img src="images/farms/icon-season.svg" alt="제철 할인"></div>
+            <div class="nm">제철 할인</div>
+          </div>
           <div class="rgn" onclick="go('routebuild')">
-            <div class="th"><svg viewBox="0 0 24 24">
-              <path d="M2.5 6.8 L8.5 4.6 L15.5 6.8 L21.5 4.6 V17.4 L15.5 19.6 L8.5 17.4 L2.5 19.6 Z" fill="#5b86b8"/>
-              <path d="M8.5 4.6 L15.5 6.8 V19.6 L8.5 17.4 Z" fill="#3f6fa3"/>
-              <path d="M15.7 2.4c-2.4 0-4.3 1.8-4.3 4 0 2.9 4.3 6.2 4.3 6.2s4.3-3.3 4.3-6.2c0-2.2-1.9-4-4.3-4z" fill="#2B8A3D"/>
-              <circle cx="15.7" cy="6.4" r="1.7" fill="#fff"/>
-            </svg></div>
+            <div class="th"><img src="images/farms/icon-route.svg" alt="해피루트"></div>
             <div class="nm">해피루트</div>
           </div>
           <div class="rgn" onclick="pickRegionHome('횡성')">
-            <div class="th"><svg viewBox="0 0 24 24">
-              <path d="M6 9C3.7 6.9 3.2 5 4.3 4.1c1 .9 1.7 2.3 2.5 3.7z" fill="#cdb389"/>
-              <path d="M18 9c2.3-2.1 2.8-4 1.7-4.9-1 .9-1.7 2.3-2.5 3.7z" fill="#cdb389"/>
-              <ellipse cx="5.7" cy="12" rx="2.6" ry="3.2" fill="#2e2925"/>
-              <ellipse cx="18.3" cy="12" rx="2.6" ry="3.2" fill="#2e2925"/>
-              <path d="M12 6.2c-4 0-6.4 2.4-6.4 6.1S8.1 18.4 12 18.4s6.4-2.4 6.4-6.1S16 6.2 12 6.2z" fill="#2e2925"/>
-              <path d="M12 7.6c-1.8 0-3.1.7-3.1.7l.5 5h5.2l.5-5S13.8 7.6 12 7.6z" fill="#f3ece1"/>
-              <rect x="8.2" y="12.6" width="7.6" height="5.2" rx="2.6" fill="#f0d7cb"/>
-              <circle cx="10.4" cy="15.2" r="0.85" fill="#a9745f"/>
-              <circle cx="13.6" cy="15.2" r="0.85" fill="#a9745f"/>
-              <circle cx="9.7" cy="11.5" r="1.15" fill="#1c1714"/>
-              <circle cx="14.3" cy="11.5" r="1.15" fill="#1c1714"/>
-            </svg></div>
+            <div class="th"><img src="images/farms/icon-hoengseong.svg" alt="횡성"></div>
             <div class="nm">횡성</div>
           </div>
           <div class="rgn" onclick="pickRegionHome('평창')">
-            <div class="th"><svg viewBox="0 0 24 24">
-              <path d="M2.5 9.2 L12 3.2 L21.5 9.2 Z" fill="#d6443a"/>
-              <rect x="4.3" y="9.2" width="15.4" height="11" rx="1" fill="#ead2a8"/>
-              <rect x="9.4" y="12.4" width="5.2" height="7.8" fill="#8a5a2b"/>
-              <rect x="11.7" y="12.4" width="0.6" height="7.8" fill="#ead2a8"/>
-              <rect x="10.8" y="6.1" width="2.4" height="2.4" rx="0.4" fill="#8a5a2b"/>
-            </svg></div>
+            <div class="th"><img src="images/farms/icon-pyeongchang.svg" alt="평창"></div>
             <div class="nm">평창</div>
           </div>
           <div class="rgn" onclick="pickRegionHome('정선')">
-            <div class="th"><svg viewBox="0 0 24 24">
-              <rect x="10.8" y="12.5" width="2.4" height="8" rx="1" fill="#8a5a2b"/>
-              <circle cx="12" cy="8.6" r="5.8" fill="#3FC358"/>
-              <circle cx="7.7" cy="10.8" r="3.6" fill="#2B8A3D"/>
-              <circle cx="16.3" cy="10.8" r="3.6" fill="#2B8A3D"/>
-              <circle cx="9.6" cy="8.6" r="1.05" fill="#e8453c"/>
-              <circle cx="14.4" cy="8" r="1.05" fill="#e8453c"/>
-              <circle cx="12" cy="11.2" r="1.05" fill="#e8453c"/>
-            </svg></div>
+            <div class="th"><img src="images/farms/icon-jeongseon.svg" alt="정선"></div>
             <div class="nm">정선</div>
           </div>
         </div>
         </div>
 
-        <div class="sec-band"></div>
         <div class="hl-list-sec">
-          <div class="hl-listhead">로컬 직거래 농가</div>
-
           <div class="hf-filters np-chips">
             <div class="hf-chip on" onclick="pickHf(this)">전체</div>
             <div class="hf-chip" onclick="pickHf(this)">제철 추천</div>
@@ -1206,13 +1201,11 @@
         <div class="d-head">
           <div class="dh-cat">한우·정육 · 직거래</div>
           <div class="dh-name">청정한우 김성호 농가</div>
-          <div class="dh-rate"><span class="dh-star">★ 4.8</span><span class="dh-rev">리뷰 124</span> · <span style="color:var(--text-mut);font-weight:600">강원 횡성군 우천면</span></div>
+          <div class="dh-rate"><span class="dh-star">★ 4.8</span><span class="dh-rev">리뷰 124</span></div>
         </div>
-        <div class="cert"><div class="seal">✓</div>
-          <div><b>횡성축협 공식 인증 생산자</b><p>지자체·농협 파트너십으로 검증된 농가입니다</p></div></div>
         <div class="pricebox">
           <div class="cp-title">횡성한우 등심 500g</div>
-          <div class="cp-timebox"><span class="cp-tlabel">픽업 시간</span><span class="cp-tdate">오늘 14~18시</span></div>
+          <div class="cp-timebox"><span class="cp-tlabel">픽업 시간</span><span class="cp-tdate">14~18시</span></div>
           <div class="cp-spec">
             <div class="cp-row"><span class="cp-k">정가</span><span class="cp-v"><s>89,000원</s></span></div>
             <div class="cp-row"><span class="cp-k">할인</span><span class="cp-v"><span class="cp-badge">42%</span>−37,000원</span></div>
@@ -1243,14 +1236,14 @@
             <span class="rv-more2" onclick="openPhotos()">사진 더보기 ›</span>
           </div>
           <div class="rv-grid">
-            <div class="rv-cell" style="background:#eee url('images/farms/review_1.jpg') center/cover" onclick="openReview(0)"></div>
-            <div class="rv-cell" style="background:#eee url('images/farms/review_2.jpg') center/cover" onclick="openReview(1)"></div>
-            <div class="rv-cell" style="background:#eee url('images/farms/review_3.jpg') center/cover" onclick="openReview(2)"></div>
-            <div class="rv-cell" style="background:#eee url('images/farms/review_4.jpg') center/cover" onclick="openReview(3)"></div>
-            <div class="rv-cell" style="background:#eee url('images/farms/review_5.jpg') center/cover" onclick="openReview(4)"></div>
-            <div class="rv-cell" style="background:#eee url('images/farms/review_6.jpg') center/cover" onclick="openReview(5)"></div>
-            <div class="rv-cell" style="background:#eee url('images/farms/review_7.jpg') center/cover" onclick="openReview(6)"></div>
-            <div class="rv-cell" style="background:#eee url('images/farms/review_8.jpg') center/cover" onclick="openReview(7)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_1.jpg') center/cover" onclick="openPV(0)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_2.jpg') center/cover" onclick="openPV(1)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_3.jpg') center/cover" onclick="openPV(2)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_4.jpg') center/cover" onclick="openPV(3)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_5.jpg') center/cover" onclick="openPV(4)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_6.jpg') center/cover" onclick="openPV(5)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_7.jpg') center/cover" onclick="openPV(6)"></div>
+            <div class="rv-cell" style="background:#eee url('images/farms/review_8.jpg') center/cover" onclick="openPV(7)"></div>
             <div class="rv-cell" style="background:#eee url('images/farms/review_9.jpg') center/cover" onclick="openPhotos()"><span class="rv-overlay">더보기</span></div>
           </div>
 
@@ -1264,9 +1257,9 @@
               </div>
               <div class="rv-stars">★★★★★</div>
               <div class="rv-photos">
-                <div class="p" style="background:#eee url('images/farms/review_10.jpg') center/cover"></div>
-                <div class="p" style="background:#eee url('images/farms/review_11.jpg') center/cover"></div>
-                <div class="p" style="background:#eee url('images/farms/review_12.jpg') center/cover"></div>
+                <div class="p" style="background:#eee url('images/farms/review_10.jpg') center/cover" onclick="openPV(9)"></div>
+                <div class="p" style="background:#eee url('images/farms/review_11.jpg') center/cover" onclick="openPV(10)"></div>
+                <div class="p" style="background:#eee url('images/farms/review_12.jpg') center/cover" onclick="openPV(11)"></div>
               </div>
               <div class="rv-opt">옵션 등심 500g · <span class="rv-pick">🚗 직접 픽업</span></div>
               <div class="rv-sum">신선도 최고예요 · 포장 꼼꼼해요 · 양 넉넉해요</div>
@@ -1283,8 +1276,8 @@
               </div>
               <div class="rv-stars">★★★★★</div>
               <div class="rv-photos">
-                <div class="p" style="background:#eee url('images/farms/review_13.jpg') center/cover"></div>
-                <div class="p" style="background:#eee url('images/farms/review_14.jpg') center/cover"></div>
+                <div class="p" style="background:#eee url('images/farms/review_13.jpg') center/cover" onclick="openPV(12)"></div>
+                <div class="p" style="background:#eee url('images/farms/review_14.jpg') center/cover" onclick="openPV(13)"></div>
               </div>
               <div class="rv-opt">옵션 채끝 400g · <span class="rv-pick">🚗 직접 픽업</span></div>
               <div class="rv-sum">가성비 좋아요 · 재구매 의사 있어요</div>
@@ -1301,9 +1294,9 @@
               </div>
               <div class="rv-stars">★★★★<span class="rv-star-off">★</span></div>
               <div class="rv-photos">
-                <div class="p" style="background:#eee url('images/farms/review_15.jpg') center/cover"></div>
-                <div class="p" style="background:#eee url('images/farms/review_16.jpg') center/cover"></div>
-                <div class="p" style="background:#eee url('images/farms/review_17.jpg') center/cover"></div>
+                <div class="p" style="background:#eee url('images/farms/review_15.jpg') center/cover" onclick="openPV(14)"></div>
+                <div class="p" style="background:#eee url('images/farms/review_16.jpg') center/cover" onclick="openPV(15)"></div>
+                <div class="p" style="background:#eee url('images/farms/review_17.jpg') center/cover" onclick="openPV(16)"></div>
               </div>
               <div class="rv-opt">옵션 곱창 500g · <span class="rv-pick">🚗 직접 픽업</span></div>
               <div class="rv-sum">신선해요 · 잡내 없어요</div>
@@ -1344,9 +1337,9 @@
         <div class="hl-card">
           <div class="hl-q">어느 지역으로 떠나세요?</div>
           <div class="hl-regions">
-            <div class="hl-rg on" onclick="pickRg(this,'횡성')"><svg viewBox="0 0 24 24"><path d="M6 9C3.7 6.9 3.2 5 4.3 4.1c1 .9 1.7 2.3 2.5 3.7z" fill="#caa06b"/><path d="M18 9c2.3-2.1 2.8-4 1.7-4.9-1 .9-1.7 2.3-2.5 3.7z" fill="#caa06b"/><ellipse cx="5.7" cy="12" rx="2.5" ry="3" fill="#915f3c"/><ellipse cx="18.3" cy="12" rx="2.5" ry="3" fill="#915f3c"/><path d="M12 6.4c-4.1 0-6.6 2.5-6.6 6.2S8.2 19 12 19s6.6-2.7 6.6-6.4S16.1 6.4 12 6.4z" fill="#a9743f"/><rect x="8.1" y="13" width="7.8" height="5.2" rx="2.6" fill="#f1d9cd"/><circle cx="9.7" cy="11.7" r="1.1" fill="#37291f"/><circle cx="14.3" cy="11.7" r="1.1" fill="#37291f"/></svg>횡성</div>
-            <div class="hl-rg" onclick="pickRg(this,'평창')"><svg viewBox="0 0 24 24"><path d="M7.5 6.5c2.2-2 6-2.6 8.8-.6s3.4 6 1.4 9.4-6.4 4.4-9.6 2.4S5 9 7.5 6.5z" fill="#bb8a52"/><ellipse cx="10.2" cy="10" rx="1" ry="1.3" fill="#8a6238"/><ellipse cx="14" cy="13" rx="1" ry="1.3" fill="#8a6238"/></svg>평창</div>
-            <div class="hl-rg" onclick="pickRg(this,'정선')"><svg viewBox="0 0 24 24" fill="none"><path d="M12 20 V11" stroke="#2f9e44" stroke-width="2.2" stroke-linecap="round"/><path d="M12 13 C7 13 5 8.5 6 4 c5 .6 7 4.5 6 9z" fill="#40c057"/><path d="M12 12 C17 12 19 7.5 18 3 c-5 .6-7 4.5-6 9z" fill="#37b24d"/></svg>정선</div>
+            <div class="hl-rg on" onclick="pickRg(this,'횡성')">횡성</div>
+            <div class="hl-rg" onclick="pickRg(this,'평창')">평창</div>
+            <div class="hl-rg" onclick="pickRg(this,'정선')">정선</div>
           </div>
           <label class="hl-toggle" onclick="toggleTour(this)">
             <span class="box on">✓</span> 관광지·맛집·축제 함께 추천
@@ -1531,12 +1524,11 @@
           </div>
         </div>
         <div class="map-loc" onclick="mapLocate()" title="현위치">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="6"/><path d="M12 1.5v3.6M12 18.9v3.6M1.5 12h3.6M18.9 12h3.6"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg>
         </div>
         <!-- 지역 선택: 하단 좌측 동그라미 버튼(기본 '전체') · 탭하면 위로 촤라락 -->
         <div class="rgn-scrim" id="rgn-scrim" onclick="toggleRegion(false)"></div>
         <div class="rgn-pop" id="rgn-pop"></div>
-        <button class="rgn-fab" id="rgn-fab" onclick="toggleRegion()" aria-label="지역 선택"><span id="rgn-fab-label">전체</span></button>
         <div class="map-listbtn-c" onclick="openMapList()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>목록보기</div>
         <div class="map-cards" id="map-cards" onscroll="onCardsScroll()"></div>
         <div class="map-listview" id="map-listview">
@@ -1608,6 +1600,23 @@
         <span class="pg-count" id="pg-count">0</span>
       </div>
       <div class="pg-scroll"><div class="pg-grid" id="pg-grid"></div></div>
+    </div>
+    <div class="pv" id="photoview">
+      <div class="pv-top">
+        <button class="pv-x" onclick="closePV()" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <span class="pv-title">포토리뷰</span>
+        <span class="pv-idx"><b id="pv-cur">1</b> / <span id="pv-tot">25</span></span>
+      </div>
+      <div class="pv-track" id="pv-track"></div>
+      <div class="pv-info">
+        <div class="pv-head">
+          <div class="rv-ava comb" id="pv-ava"></div>
+          <div><div class="pv-name" id="pv-name"></div><div class="pv-sub" id="pv-sub"></div></div>
+          <span class="pv-stars" id="pv-stars"></span>
+        </div>
+        <div class="pv-text" id="pv-text"></div>
+      </div>
+      <div class="pv-thumbs" id="pv-thumbs"></div>
     </div>
     <div class="scrim" id="rvscrim" onclick="closeReview()"></div>
     <div class="sheet" id="rvsheet">
@@ -1781,7 +1790,7 @@
       let cells="";
       const N=REVIEW_IMG_COUNT;
       for(let i=0;i<N;i++){
-        cells+=`<div class="pg-cell" style="background:#eee url('${rvImg(i)}') center/cover"><span class="pg-more">+${(i%4)+1}</span></div>`;
+        cells+=`<div class="pg-cell" style="background:#eee url('${rvImg(i)}') center/cover" onclick="openPV(${i})"></div>`;
       }
       g.innerHTML=cells; g.dataset.filled="1";
       const cnt=document.getElementById("pg-count"); if(cnt) cnt.textContent=String(N);
@@ -1835,6 +1844,48 @@
     document.getElementById('rvscrim').classList.remove('show');
     document.getElementById('rvsheet').classList.remove('show');
   }
+  let pvCur=-1;
+  function pvBuild(){
+    const tr=document.getElementById('pv-track');
+    if(tr.dataset.filled) return;
+    let s='',th='';
+    for(let k=0;k<REVIEW_IMG_COUNT;k++){
+      s+=`<div class="pv-slide"><div class="pv-img" style="background-image:url('${rvImg(k)}')"></div></div>`;
+      th+=`<div class="pv-thumb" data-k="${k}" style="background-image:url('${rvImg(k)}')" onclick="pvGo(${k})"></div>`;
+    }
+    tr.innerHTML=s;
+    document.getElementById('pv-thumbs').innerHTML=th;
+    document.getElementById('pv-tot').textContent=String(REVIEW_IMG_COUNT);
+    tr.addEventListener('scroll',()=>{const k=Math.round(tr.scrollLeft/tr.clientWidth);if(k!==pvCur)pvSet(k);},{passive:true});
+    tr.dataset.filled='1';
+  }
+  function openPV(i){
+    pvBuild();
+    const tr=document.getElementById('pv-track');
+    document.getElementById('photoview').classList.add('show');
+    tr.scrollLeft=i*tr.clientWidth;
+    pvSet(i);
+  }
+  function pvGo(k){
+    const tr=document.getElementById('pv-track');
+    tr.scrollTo({left:k*tr.clientWidth,behavior:'smooth'});
+    pvSet(k);
+  }
+  function pvSet(k){
+    pvCur=k;
+    const r=RV[((k%RV.length)+RV.length)%RV.length];
+    document.getElementById('pv-cur').textContent=String(k+1);
+    const ava=document.getElementById('pv-ava');ava.className='rv-ava '+r.p;ava.style.setProperty('--tile',r.c);
+    document.getElementById('pv-name').textContent=r.n;
+    document.getElementById('pv-sub').textContent=r.m;
+    document.getElementById('pv-stars').textContent='★'.repeat(r.s)+'☆'.repeat(5-r.s);
+    document.getElementById('pv-text').textContent=r.t;
+    const tc=document.getElementById('pv-thumbs');
+    tc.querySelectorAll('.pv-thumb').forEach(t=>t.classList.toggle('on',+t.dataset.k===k));
+    const at=tc.querySelector('.pv-thumb.on');
+    if(at) tc.scrollTo({left:at.offsetLeft-tc.clientWidth/2+at.clientWidth/2,behavior:'smooth'});
+  }
+  function closePV(){document.getElementById('photoview').classList.remove('show');}
 
   function openOrigin(){const s=document.querySelector('.or-search');if(s){s.value='';filterOrigin('');}document.getElementById('pkscrim').classList.add('show');document.getElementById('orsheet').classList.add('show');}
   function filterOrigin(q){
