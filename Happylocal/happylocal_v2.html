@@ -128,6 +128,7 @@
   /* ============ DETAIL ============ */
   .topbar{position:sticky;top:0;z-index:30;background:var(--bg);display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
   .iconbtn{width:38px;height:38px;border-radius:6px;border:1px solid var(--border-2);background:var(--surface-1);color:var(--text-hi);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
+  .iconbtn.bare{background:none;border:none}
   .iconbtn svg{width:20px;height:20px}
   .d-hero-wrap{position:relative;height:255px;overflow:hidden;border-radius:0}
   .d-gallery{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory}
@@ -161,11 +162,12 @@
   .dh-org s{color:var(--text-mut)}
   .dh-locrow{display:flex;justify-content:space-between;align-items:center;margin:11px 20px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:13px 14px;font-size:13px;font-weight:700;color:var(--text-hi);cursor:pointer}
   .dh-locrow .ch{color:var(--brand);font-weight:800;flex:0 0 auto}
-  .dh-addr{display:flex;align-items:center;gap:10px;margin:8px 16px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:11px 13px 11px 14px;font-size:12.5px;font-weight:600;color:var(--text)}
-  .dh-addr-txt{flex:1;min-width:0;line-height:1.5}
-  .dh-addr-txt b{color:var(--text-hi);font-weight:800;margin-right:8px}
-  .dh-addr-loc{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;margin:0;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text);text-align:left;cursor:pointer}
-  .dh-addr-map{flex:0 0 auto;color:var(--brand);font-weight:800;font-size:12px}
+  .dh-addr{display:flex;align-items:center;gap:9px;margin:8px 16px 0;background:var(--surface-1);border:1px solid var(--border);border-radius:11px;padding:11px 12px}
+  .dh-addr-loc{flex:1;min-width:0;display:flex;align-items:center;gap:6px;background:none;border:none;padding:0;margin:0;font-family:inherit;text-align:left;cursor:pointer}
+  .dh-addr-pin{flex:0 0 auto;width:18px;height:18px;color:var(--brand)}
+  .dh-addr-pin svg{width:18px;height:18px;display:block}
+  .dh-addr-road{flex:1;min-width:0;font-size:14px;font-weight:700;color:var(--text-hi);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dh-addr-map{flex:0 0 auto;color:var(--brand);font-weight:800;font-size:12.5px}
   .dh-addr-loc:active{opacity:.6}
   .dh-copy{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:11.5px;font-weight:800;color:var(--brand);cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
   .dh-copy svg{width:14px;height:14px}
@@ -208,7 +210,7 @@
   .phone[data-theme="dark"] .d-tabs{background:var(--bg)}
   .storybody{margin:40px 20px 0;font-size:13.5px;line-height:1.7;color:var(--text)}
   .storybody h4{font-size:16px;font-weight:600;margin-bottom:7px;color:var(--text-hi)}
-  .d-tabs{display:flex;gap:26px;padding:12px 20px 0;margin-top:0;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:6;background:#fff}
+  .d-tabs{display:flex;gap:26px;padding:24px 20px 0;margin-top:0;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:6;background:#fff}
   .d-tab{background:none;border:none;font-family:inherit;font-size:15.5px;font-weight:700;color:#9aa0a8;padding:13px 2px;cursor:pointer;position:relative}
   .d-tab.on{color:var(--text-hi)}
   .d-tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2.5px;border-radius:2px;background:var(--text-hi)}
@@ -248,25 +250,27 @@
   .rv-overlay{position:absolute;inset:0;background:rgba(0,0,0,.52);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center}
   .rvd-img{width:100%;height:200px;border-radius:7px;margin-bottom:16px}
   /* photo viewer (Coupang/Naver style) */
-  .pv{position:absolute;inset:0;z-index:700;background:#fff;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .2s}
+  .pv{position:absolute;inset:0;z-index:700;background:#16181c;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .2s;--text-hi:#eceef0;--text:#c4c8ce;--text-mut:#9298a0;--border:#2c2e33;--surface-1:#1f2125;--surface-2:#26282c}
   .pv.show{opacity:1;pointer-events:auto}
   .phone[data-theme="dark"] .pv{background:var(--bg)}
-  .pv-top{flex:0 0 auto;height:52px;display:flex;align-items:center;gap:6px;padding:0 8px 0 2px;background:inherit;border-bottom:1px solid var(--border)}
+  .pv-top{flex:0 0 auto;height:80px;display:flex;align-items:center;gap:6px;padding:6px 8px 6px 2px;background:inherit;border-bottom:1px solid var(--border)}
   .pv-x{width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--text-hi);cursor:pointer;padding:0}
   .pv-x svg{width:24px;height:24px}
-  .pv-title{flex:1;font-size:16px;font-weight:700;color:var(--text-hi)}
-  .pv-idx{font-size:14px;font-weight:600;color:var(--text-mut);padding-right:12px}
-  .pv-idx b{color:var(--text-hi);font-weight:800}
+  .pv-title{flex:1;font-size:16px;font-weight:600;color:var(--text-hi)}
+  .pv-idx{font-size:14px;font-weight:500;color:var(--text-mut);padding-right:12px}
+  .pv-idx b{color:var(--text-hi);font-weight:700}
   .pv-track{flex:0 0 auto;width:100%;aspect-ratio:1/1;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;background:#0d0d0d}
   .pv-track::-webkit-scrollbar{display:none}
   .pv-slide{min-width:100%;flex:0 0 100%;height:100%;scroll-snap-align:center}
   .pv-img{width:100%;height:100%;background-size:contain;background-position:center;background-repeat:no-repeat}
   .pv-info{flex:1 1 auto;overflow-y:auto;padding:16px 18px 22px}
   .pv-head{display:flex;align-items:center;gap:10px}
-  .pv-name{font-size:14px;font-weight:700;color:var(--text-hi)}
-  .pv-sub{font-size:11.5px;color:var(--text-mut);margin-top:1px}
-  .pv-stars{margin-left:auto;font-size:13px;color:#f3a942;letter-spacing:1px}
-  .pv-text{margin-top:12px;font-size:14px;line-height:1.65;color:var(--text)}
+  .pv-name{font-size:15px;font-weight:700;color:var(--text-hi)}
+  .pv-sub{font-size:12px;color:var(--text-mut);margin-top:3px}
+  .pv-stars{margin-left:auto;font-size:14px;color:#f3a942;letter-spacing:1px}
+  .pv-text{margin-top:13px;font-size:14.5px;line-height:1.65;color:var(--text)}
+  .pv-ava-ic{width:36px;height:36px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:#26282c;color:#f3a942}
+  .pv-ava-ic svg{width:19px;height:19px;display:block}
   .pv-thumbs{flex:0 0 auto;display:flex;gap:6px;padding:9px 12px;overflow-x:auto;border-top:1px solid var(--border);background:inherit}
   .pv-thumbs::-webkit-scrollbar{display:none}
   .pv-thumb{width:52px;height:52px;flex:0 0 auto;border-radius:6px;background-size:cover;background-position:center;cursor:pointer;opacity:.45;border:2px solid transparent;transition:opacity .15s}
@@ -475,16 +479,19 @@
   .fl-check .box.on{background:var(--brand);border-color:var(--brand);color:#fff}
 
   /* category icon row */
-  .cat-row{display:flex;gap:2px;overflow-x:auto;padding:20px 12px 16px;align-items:center;border-bottom:1px solid var(--border)}
+  .cat-row{display:flex;gap:11px;overflow-x:auto;padding:18px 16px 16px;align-items:flex-start;border-bottom:1px solid var(--border)}
   .cat-row::-webkit-scrollbar{display:none}
-  .cat{flex:0 0 auto;width:70px;display:flex;flex-direction:column;align-items:center;gap:9px;cursor:pointer}
-  .cat .em{font-size:26px;line-height:1;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #ededf0;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05)}
-  .cat .em svg{width:34px;height:34px;display:block}
+  .cat{flex:0 0 auto;width:62px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
+  .cat .em{width:62px;height:62px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);overflow:hidden}
+  .cat .em svg,.cat .em img{width:44px;height:44px;object-fit:contain;display:block}
+  .cat .em .all-t{font-size:20px;font-weight:900;color:var(--text-mut);letter-spacing:-.5px}
   .phone[data-theme="dark"] .cat .em{background:var(--surface-2);border-color:var(--border-2)}
-  .cat .cl{font-size:13px;font-weight:600;color:var(--text-hi);white-space:nowrap}
-  .cat:active .em{transform:scale(.92)}
-  .cat .em{transition:transform .12s,background .15s,border-color .15s}
-  .cat.on .em{background:var(--brand-soft);border-color:var(--brand);box-shadow:0 0 0 1px var(--brand) inset}
+  .cat .cl{font-size:13px;font-weight:700;color:#3a3f47;white-space:nowrap}
+  .phone[data-theme="dark"] .cat .cl{color:var(--text-hi)}
+  .cat:active .em{transform:scale(.95)}
+  .cat .em{transition:transform .12s,border-color .15s}
+  .cat.on .em{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand) inset}
+  .cat.on .em .all-t{color:var(--brand)}
   .cat.on .cl{color:var(--brand);font-weight:800}
   .rt-empty{padding:44px 26px;text-align:center;color:var(--text-mut);font-size:13.5px;font-weight:600;line-height:1.65}
   .cat-more{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--border-2);display:flex;align-items:center;justify-content:center;color:var(--text-mut);cursor:pointer;font-size:16px;margin:0 6px}
@@ -682,11 +689,11 @@
   .map-chip{background:var(--surface-1);border:1px solid var(--border);border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:700;color:var(--text);box-shadow:0 4px 14px -6px rgba(0,0,0,.3);cursor:pointer}
   .map-chip.on{border-color:var(--brand);color:var(--brand)}
   /* 픽업일(전체/오늘/내일): 흰 캡슐 안의 세그먼트 토글 (선택 항목만 다크 알약) */
-  .map-seg{align-self:center;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:5px}
-  .map-seg-btn{border:none;background:none;cursor:pointer;font-family:inherit;padding:9px 24px;border-radius:999px;font-size:14px;font-weight:800;color:#5b6068;line-height:1;transition:background .18s,color .18s}
+  .map-seg{align-self:center;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:2px}
+  .map-seg-btn{border:none;background:none;cursor:pointer;font-family:inherit;height:32px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:700;color:#5b6068;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:background .18s,color .18s}
   .map-seg-btn.on{background:#3c3e42;color:#fff}
   .map-list-btn{position:absolute;bottom:226px;left:50%;transform:translateX(-50%);z-index:500;background:#17191d;color:#fff;border-radius:999px;padding:11px 20px;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px -4px rgba(0,0,0,.4)}
-  .map-loc{position:absolute;right:14px;bottom:195px;z-index:500;width:46px;height:46px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:#000;cursor:pointer}
+  .map-loc{position:absolute;right:14px;bottom:218px;z-index:500;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:#000;cursor:pointer}
   .map-loc svg{width:22px;height:22px}
   /* 지역 선택 FAB (하단 좌측) — 기본 동그라미 '전체', 탭하면 위로 펼쳐짐 */
   .rgn-scrim{position:absolute;inset:0;z-index:540;background:rgba(0,0,0,0);pointer-events:none;transition:background .2s}
@@ -712,17 +719,18 @@
   .mc-name{font-size:15px;font-weight:800;color:var(--text-hi);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .mc-dist{font-size:13px;font-weight:800;color:var(--text-hi);margin-left:auto;flex:0 0 auto}
   .mc-rate{font-size:12px;color:var(--text);font-weight:700;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .mc-brand{color:var(--brand);font-weight:800}
+  .mc-brand{color:var(--text-hi);font-weight:800}
   .mc-rev{color:var(--text-mut);font-weight:600}
   .mc-on{color:var(--brand);font-weight:800}
   .mc-off{color:var(--text-mut);font-weight:800}
   .mc-foot{display:flex;align-items:center;gap:8px}
   .mc-tags{display:flex;gap:6px;flex:1;min-width:0;overflow:hidden}
-  .mc-tag{font-size:11px;font-weight:700;color:var(--text);background:#f3f4f6;border:1px solid var(--border);border-radius:7px;padding:5px 8px;white-space:nowrap;flex:0 0 auto}
-  .mc-tag.more{color:var(--text-mut)}
-  .mc-time{flex:0 0 auto;font-size:11.5px;font-weight:800;color:var(--brand);background:var(--brand-soft);border:1px solid #c8eed8;border-radius:999px;padding:6px 11px;white-space:nowrap}
+  .mc-tag{font-size:11px;font-weight:700;color:#1f9d57;background:#eaf7ef;border:1px solid #cdeedb;border-radius:7px;padding:5px 8px;white-space:nowrap;flex:0 0 auto}
+  .mc-tag.more{color:#7fae95;background:#f1f8f4;border-color:#dcefe3}
+  .mc-time{flex:0 0 auto;font-size:11.5px;font-weight:800;color:#5b6068;background:#f3f4f6;border:1px solid var(--border);border-radius:999px;padding:6px 11px;white-space:nowrap}
+  .mc-time svg{width:13px;height:13px;vertical-align:-2px;margin-right:4px}
   .mc-time.off{color:var(--text-mut);background:#f3f4f6;border-color:var(--border)}
-  .map-listbtn-c{position:absolute;left:50%;bottom:198px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:7px;background:#fff;color:var(--text-hi);font-size:13.5px;font-weight:800;padding:11px 20px;border-radius:999px;border:2px solid var(--brand);cursor:pointer}
+  .map-listbtn-c{position:absolute;left:50%;bottom:218px;transform:translateX(-50%);z-index:500;display:flex;align-items:center;gap:7px;background:#fff;color:var(--text-hi);font-size:13.5px;font-weight:800;height:40px;padding:0 20px;border-radius:999px;border:2px solid rgba(255,255,255,.5);cursor:pointer}
   .map-listbtn-c svg{width:17px;height:17px}
   .map-listview{position:absolute;left:0;right:0;top:55px;bottom:78px;z-index:600;background:var(--bg);border-radius:18px 18px 0 0;box-shadow:0 -10px 30px -12px rgba(0,0,0,.28);transform:translateY(110%);transition:transform .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden;visibility:hidden}
   .map-listview.show{visibility:visible}
@@ -1031,7 +1039,7 @@
   .hl-qr .qr-lab{ font-size:13px; font-weight:800; }
   .rgns{ display:flex; justify-content:space-between; gap:4px; margin:8px 14px 2px; }
   .rgn{ cursor:pointer; text-align:center; flex:0 0 auto; }
-  .rgn .th{ width:54px; height:54px; margin:0 auto; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid #ededf0; overflow:hidden; position:relative; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+  .rgn .th{ width:54px; height:54px; margin:0 auto; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
   .rgn .th svg, .rgn .th img{ width:34px; height:34px; object-fit:contain; transform:none; }
   .rgn.promo .th svg, .rgn.promo .th img{ width:54px; height:54px; }
   .rgn .nm{ font-size:13px; font-weight:600; color:#3b4046; margin-top:9px; letter-spacing:-.02em; }
@@ -1093,10 +1101,12 @@
   .hl-list-sec .hf-chip.on{ background:transparent; border-color:transparent; color:#1f2329; }
   .np-search{ flex:0 0 auto; }
   /* 상단(할인/적립 ~ 지역아이콘) 하나의 흰 배경, 아래는 구분선 + 기존 회색 배경 */
-  .home-white{ background:#fff; border-bottom:1px solid var(--border); padding:4px 0 30px; }
+  .home-white{ background:#fff; padding:4px 0 26px; }
   .home-white .np-card{ background:transparent; border:none; border-radius:0; margin:8px 16px 0; padding:8px 0 0; }
-  .home-white .rgns{ margin:28px 12px 2px; }
-  .hl-list-sec{ background:#fff; border:none; border-top:1px solid var(--border); border-radius:0; margin:8px 0 0; overflow:visible; }
+  /* 5개 아이콘: 흰색 라운드 카드 위에 배치 (카카오쇼핑 스타일) */
+  .rgns-card{ background:#fff; border:1px solid var(--border); border-radius:18px; margin:14px 12px 4px; padding:22px 16px; box-shadow:0 2px 10px rgba(0,0,0,.05); }
+  .rgns-card .rgns{ margin:0; }
+  .hl-list-sec{ background:#fff; border:none; border-radius:0; margin:0; overflow:visible; }
   .hl-list-sec .hl-listhead{ margin:32px 16px 0; }
   .hl-list-sec .hf-filters{ padding:18px 16px 0; }
   .hl-list-sec .pl-card,
@@ -1110,7 +1120,6 @@
 <div class="stage">
   <div class="phone" data-theme="light" id="phone">
     <div class="notch"></div>
-    <div class="statusbar"><span>9:41</span><span>●●● 📶 🔋</span></div>
 
     <div class="viewport">
 
@@ -1141,6 +1150,7 @@
           <div class="h2-slide hero-img" onclick="go('routebuild')" role="img" aria-label="강원도 놀러가봄 · 산지직송 15% 할인" style="background-image:url('images/farms/banner-main01.jpg')"></div>
         </div>
 
+        <div class="rgns-card">
         <div class="rgns">
           <div class="rgn promo" onclick="document.getElementById('s-home').querySelector('.hl-list-sec').scrollIntoView({behavior:'smooth'})">
             <div class="th"><img src="images/farms/icon-season.svg" alt="제철 할인"></div>
@@ -1162,6 +1172,7 @@
             <div class="th"><img src="images/farms/icon-jeongseon.svg" alt="정선"></div>
             <div class="nm">정선</div>
           </div>
+        </div>
         </div>
         </div>
 
@@ -1213,11 +1224,12 @@
           </div>
         </div>
         <div class="dh-addr">
-          <button class="dh-addr-loc tap" onclick="openMapChoose('서울 강동구 성안로 155 1층 107호 (천호동, 강동역두산위브센티움)')" aria-label="픽업지 지도 열기">
-            <span class="dh-addr-txt"><b>주소</b>서울 강동구 성안로 155 1층 107호 (천호동, 강동역두산위브센티움)</span>
+          <button class="dh-addr-loc tap" onclick="openMapChoose('강원특별자치도 횡성군 우천면 한우로 123')" aria-label="픽업지 지도 열기">
+            <span class="dh-addr-pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 1114 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            <span class="dh-addr-road">강원 횡성군 우천면 한우로 123</span>
             <span class="dh-addr-map">지도 ›</span>
           </button>
-          <button class="dh-copy" data-addr="서울 강동구 성안로 155 1층 107호 (천호동, 강동역두산위브센티움)" onclick="copyAddr(this)" aria-label="주소 복사">
+          <button class="dh-copy" data-addr="강원특별자치도 횡성군 우천면 한우로 123" onclick="copyAddr(this)" aria-label="주소 복사">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>
           </button>
         </div>
@@ -1329,8 +1341,8 @@
           <div class="iconbtn" onclick="goBack()">‹</div>
           <b style="font-size:15px;color:var(--text-hi)">로컬 루트</b>
           <div style="margin-left:auto;display:flex;gap:8px">
-            <div class="iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.3l2 11a1.4 1.4 0 001.4 1.1h8.3a1.4 1.4 0 001.4-1.1L19.6 7H6.2"/></svg></div>
-            <div class="iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg></div>
+            <div class="iconbtn bare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.3l2 11a1.4 1.4 0 001.4 1.1h8.3a1.4 1.4 0 001.4-1.1L19.6 7H6.2"/></svg></div>
+            <div class="iconbtn bare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg></div>
           </div>
         </div>
 
@@ -1348,67 +1360,14 @@
         </div>
 
         <div class="cat-row">
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24">
-            <path d="M6 5.5C10.5 3.6 17 4.2 19.2 8.6c2 4-.6 10.4-7 10.4-5.2 0-8.4-3.8-8.4-7.8 0-3 .6-4.6 2.2-5.7z" fill="#f0ddd2"/>
-            <path d="M7.3 7.1C11 5.6 16 6.3 17.6 9.7c1.5 3.3-.6 8-5.6 8-4.2 0-6.8-3-6.8-6.2 0-2.4.6-3.4 2.1-4.4z" fill="#d9536c"/>
-            <path d="M9 9.6c2.3.3 4 1.6 5 3.6" stroke="#edc8d0" stroke-width="1" fill="none" stroke-linecap="round"/>
-            <path d="M9.6 12.9c1.5.2 2.8 1 3.6 2.2" stroke="#edc8d0" stroke-width="0.9" fill="none" stroke-linecap="round"/>
-            <circle cx="8.3" cy="9.4" r="1.7" fill="#f3ece5"/><circle cx="8.3" cy="9.4" r="0.7" fill="#cbb19c"/>
-          </svg></div><div class="cl">한우·정육</div></div>
-
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24" fill="none">
-            <path d="M9.2 21h5.6l-1-3.4H10.2z" fill="#c99a5a"/>
-            <path d="M12 18 C12 13 11 6.5 8 3.5 C6.8 8.4 8 13.4 12 18z" fill="#2f9e44"/>
-            <path d="M12 18 C12 13 13 6.5 16 3.5 C17.2 8.4 16 13.4 12 18z" fill="#40c057"/>
-            <path d="M12 18 C12 14 8.8 8.5 5.3 6.5 C5.3 11.4 8 15.4 12 18z" fill="#37b24d"/>
-            <path d="M12 18 C12 14 15.2 8.5 18.7 6.5 C18.7 11.4 16 15.4 12 18z" fill="#51cf66"/>
-          </svg></div><div class="cl">곤드레</div></div>
-
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24">
-            <path d="M7.5 6.5c2.2-2 6-2.6 8.8-.6s3.4 6 1.4 9.4-6.4 4.4-9.6 2.4S5 9 7.5 6.5z" fill="#bb8a52"/>
-            <ellipse cx="10.2" cy="10" rx="1" ry="1.3" fill="#8a6238"/>
-            <ellipse cx="14" cy="13" rx="1" ry="1.3" fill="#8a6238"/>
-            <ellipse cx="11" cy="15" rx="0.85" ry="1.1" fill="#8a6238"/>
-          </svg></div><div class="cl">감자</div></div>
-
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24">
-            <path d="M14.5 3c-7 2-9 10-7 17-3.2-1-5.2-5.2-4-10.4C4.7 4.4 9.6 1.2 14.5 3z" fill="#79bf4d"/>
-            <path d="M14.5 3c4 2 5 7.4 3 12.4s-7 6.8-10 4.6C5 13.4 7.5 5 14.5 3z" fill="#ffce3a"/>
-            <g fill="#e8a400"><circle cx="12" cy="9" r="0.7"/><circle cx="14" cy="10" r="0.7"/><circle cx="11.2" cy="11.5" r="0.7"/><circle cx="13.2" cy="12.6" r="0.7"/><circle cx="10.6" cy="14" r="0.7"/></g>
-          </svg></div><div class="cl">옥수수</div></div>
-
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 21 V9" stroke="#5f9a3f" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M12 15c-2.2-.5-3.8-2.1-4.3-4.4 2.3 0 3.9 1.5 4.3 4.4z" fill="#5fae4a"/>
-            <path d="M12 13c2.2-.5 3.8-2.1 4.3-4.4-2.3 0-3.9 1.5-4.3 4.4z" fill="#6fbe55"/>
-            <g fill="#fff" stroke="#e7d9c2" stroke-width="0.5">
-              <circle cx="12" cy="4.6" r="1.7"/>
-              <circle cx="8.3" cy="6.8" r="1.5"/>
-              <circle cx="15.7" cy="6.8" r="1.5"/>
-              <circle cx="12" cy="8.4" r="1.4"/>
-            </g>
-            <g fill="#f3aec0"><circle cx="12" cy="4.6" r="0.55"/><circle cx="8.3" cy="6.8" r="0.5"/><circle cx="15.7" cy="6.8" r="0.5"/><circle cx="12" cy="8.4" r="0.5"/></g>
-          </svg></div><div class="cl">메밀</div></div>
-
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 9 C10 7.2 10 5.2 11 4 c1 1.2 1 3 1 5z" fill="#40c057"/>
-            <path d="M12 9 C14 7.2 14 5.2 13 4 c-1 1.2-1 3-1 5z" fill="#37b24d"/>
-            <path d="M12 8c2.2 0 3.2 2 3.2 4.2 0 2.6-1 3.8-1.1 5.6-.1 1.4-2.2 1.4-2.2 0 0-1.3-1.4-1.6-2.1-3.5C8.6 11.6 9 8 12 8z" fill="#e4d4ae"/>
-            <path d="M11 17.5q-1 2-2.4 3" stroke="#d6c596" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M13.3 17.6q1 1.8 2.4 2.6" stroke="#d6c596" stroke-width="1.5" stroke-linecap="round"/>
-          </svg></div><div class="cl">더덕·약초</div></div>
-
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24">
-            <path d="M9 12c0-3.4 3-6.2 7-6.2 3.2 0 5.2 2.2 5.2 6.2s-2 6.2-5.2 6.2c-4 0-7-2.8-7-6.2z" fill="#4dafce"/>
-            <path d="M9 12 L2.5 8 v8 z" fill="#3f9bb6"/>
-            <circle cx="17.6" cy="10.6" r="1" fill="#fff"/><circle cx="17.6" cy="10.6" r="0.5" fill="#173c47"/>
-          </svg></div><div class="cl">송어·황태</div></div>
-
-          <div class="cat"><div class="em"><svg viewBox="0 0 24 24">
-            <path d="M4 16.2c0-5 3.6-9 8-9s8 4 8 9c0 .7-.5 1.2-1.2 1.2H5.2C4.5 17.4 4 16.9 4 16.2z" fill="#f3ece1"/>
-            <path d="M4.2 17.2h15.6c-.1 1-.9 1.8-1.9 1.8H6.1c-1 0-1.8-.8-1.9-1.8z" fill="#e6dac6"/>
-            <circle cx="12" cy="11.2" r="1.1" fill="#c8a079"/>
-          </svg></div><div class="cl">안흥찐빵</div></div>
+          <div class="cat cat-all on"><div class="em"><span class="all-t">ALL</span></div><div class="cl">전체</div></div>
+          <div class="cat"><div class="em"><img src="images/cat/cat-hanwoo.svg" alt="한우·정육" loading="lazy"></div><div class="cl">한우·정육</div></div>
+          <div class="cat"><div class="em"><img src="images/cat/cat-gondre.svg" alt="곤드레" loading="lazy"></div><div class="cl">곤드레</div></div>
+          <div class="cat"><div class="em"><img src="images/cat/cat-potato-corn.svg" alt="감자·옥수수" loading="lazy"></div><div class="cl">감자·옥수수</div></div>
+          <div class="cat"><div class="em"><img src="images/cat/cat-memil.svg" alt="메밀" loading="lazy"></div><div class="cl">메밀</div></div>
+          <div class="cat"><div class="em"><img src="images/cat/cat-deodeok.svg" alt="더덕·약초" loading="lazy"></div><div class="cl">더덕·약초</div></div>
+          <div class="cat"><div class="em"><img src="images/cat/cat-songeo.svg" alt="송어·황태" loading="lazy"></div><div class="cl">송어·황태</div></div>
+          <div class="cat"><div class="em"><img src="images/cat/cat-tteok.svg" alt="떡·간식" loading="lazy"></div><div class="cl">떡·간식</div></div>
         </div>
 
         <div id="rt-list" style="margin-top:6px"></div>
@@ -1468,7 +1427,7 @@
           <span class="my-title">마이페이지</span>
           <div class="my-top-ic">
             <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></button>
-            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-2.7.7 1.6 1.6 0 01-3.2 0 1.6 1.6 0 00-2.7-.7l-.1.1a2 2 0 11-2.8-2.8l.1-.1A1.6 1.6 0 004.6 15a1.6 1.6 0 01-1-1.5 1.6 1.6 0 011-1.5 1.6 1.6 0 00.6-2.7l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H12a1.6 1.6 0 001-1.5 1.6 1.6 0 013.2 0 1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V12a1.6 1.6 0 001 1.5 1.6 1.6 0 010 3z"/></svg></button>
+            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.076.124l1.217-.456a1.125 1.125 0 011.369.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.356-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
 
@@ -1560,7 +1519,7 @@
       <div class="tab" data-tab="map" onclick="goTab('map')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.5-7-11a7 7 0 1114 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>지도보기</div>
       <div class="tab" data-tab="route" onclick="goTab('route')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 19V7a3 3 0 016 0 3 3 0 006 0"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/></svg>로컬루트</div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M9 4 3 6.4v13.2L9 17l6 2.6 6-2.6V6.4L15 6.6 9 4z"/><path d="M9 4v13M15 6.6v13"/></svg>로컬루트</div>
       <div class="tab" data-tab="cal" onclick="goTab('cal')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>캘린더</div>
       <div class="tab" data-tab="my" onclick="goTab('my')">
@@ -1603,7 +1562,7 @@
     </div>
     <div class="pv" id="photoview">
       <div class="pv-top">
-        <button class="pv-x" onclick="closePV()" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <button class="pv-x" onclick="closePV()" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
         <span class="pv-title">포토리뷰</span>
         <span class="pv-idx"><b id="pv-cur">1</b> / <span id="pv-tot">25</span></span>
       </div>
@@ -1875,7 +1834,7 @@
     pvCur=k;
     const r=RV[((k%RV.length)+RV.length)%RV.length];
     document.getElementById('pv-cur').textContent=String(k+1);
-    const ava=document.getElementById('pv-ava');ava.className='rv-ava '+r.p;ava.style.setProperty('--tile',r.c);
+    const ava=document.getElementById('pv-ava');ava.className='pv-ava-ic';ava.style.removeProperty('--tile');ava.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
     document.getElementById('pv-name').textContent=r.n;
     document.getElementById('pv-sub').textContent=r.m;
     document.getElementById('pv-stars').textContent='★'.repeat(r.s)+'☆'.repeat(5-r.s);
@@ -1977,16 +1936,15 @@
     if(!list.length){el.innerHTML='<div style="text-align:center;color:var(--text-mut);font-size:13px;padding:40px 0">해당하는 농가가 없어요.</div>';return;}
     el.innerHTML=list.map((p,i)=>plCardHTML(p,i===0)).join('');
   }
-  // 카테고리 아이콘 → PL.cat 매칭 (감자/옥수수는 같은 cat이라 품목명으로 구분)
+  // 카테고리 아이콘 → PL.cat 매칭
   const CAT_MATCH={
-    '한우·정육': p=>p.cat==='한우·정육',
-    '곤드레':    p=>p.cat==='곤드레·산나물',
-    '감자':      p=>p.cat==='감자·옥수수'&&/감자/.test(p.prod),
-    '옥수수':    p=>p.cat==='감자·옥수수'&&/옥수수/.test(p.prod),
-    '메밀':      p=>p.cat==='메밀',
-    '더덕·약초': p=>p.cat==='더덕·약초',
-    '송어·황태': p=>p.cat==='송어·황태',
-    '안흥찐빵':  p=>p.cat==='떡·빵'
+    '한우·정육':   p=>p.cat==='한우·정육',
+    '곤드레':      p=>p.cat==='곤드레·산나물',
+    '감자·옥수수': p=>p.cat==='감자·옥수수',
+    '메밀':        p=>p.cat==='메밀',
+    '더덕·약초':   p=>p.cat==='더덕·약초',
+    '송어·황태':   p=>p.cat==='송어·황태',
+    '떡·간식':     p=>p.cat==='떡·빵'
   };
   let routeCat=null;
   function renderRT(region){
@@ -2000,12 +1958,18 @@
     el.innerHTML=list.map((p,i)=>plCardHTML(p,i===0)).join('');
   }
   function pickCat(el,name){
-    if(routeCat===name){routeCat=null;el.classList.remove('on');}      // 다시 누르면 전체
-    else{
-      routeCat=name;
-      el.parentNode.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
+    var row=el.parentNode;
+    if(name==='전체'){
+      routeCat=null;
+      row.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
       el.classList.add('on');
+      renderRT(routeRegion); return;
     }
+    if(routeCat===name){ routeCat=null; }   // 다시 누르면 전체
+    else{ routeCat=name; }
+    row.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));
+    if(routeCat===null){ var a=row.querySelector('.cat-all'); if(a)a.classList.add('on'); }
+    else{ el.classList.add('on'); }
     renderRT(routeRegion);
   }
   // 카테고리 행 클릭 핸들러 연결 (라벨 텍스트 기준)
@@ -2019,7 +1983,7 @@
     var lh=document.querySelector('.hl-listhead');if(lh&&lh.scrollIntoView)lh.scrollIntoView({behavior:'smooth',block:'start'});
   }
   renderPL();renderRT('횡성');
-  function pickRg(el,name){routeRegion=name;el.parentNode.querySelectorAll('.hl-rg').forEach(c=>c.classList.remove('on'));el.classList.add('on');var b=document.getElementById('hl-cta');if(b)b.textContent=name+' 픽업 둘러보기';routeCat=null;document.querySelectorAll('#s-routebuild .cat').forEach(c=>c.classList.remove('on'));renderRT(name);paintRouteCal();}
+  function pickRg(el,name){routeRegion=name;el.parentNode.querySelectorAll('.hl-rg').forEach(c=>c.classList.remove('on'));el.classList.add('on');var b=document.getElementById('hl-cta');if(b)b.textContent=name+' 픽업 둘러보기';routeCat=null;document.querySelectorAll('#s-routebuild .cat').forEach(c=>c.classList.remove('on'));var ac=document.querySelector('#s-routebuild .cat-all');if(ac)ac.classList.add('on');renderRT(name);paintRouteCal();}
   function toggleTour(el){var box=el.querySelector('.box');box.classList.toggle('on');routeTour=box.classList.contains('on');}
   function pickFl(el){el.parentNode.querySelectorAll('.fl-tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
   function dDots(){
@@ -2505,11 +2469,12 @@
       const parts=p.nm.split(/—|·/);const branch=(parts[parts.length-1]||p.nm).trim();
       const shown=s.tags.slice(0,2).map(t=>`<span class="mc-tag">${t}</span>`).join('');
       const extra=s.tags.length>2?`<span class="mc-tag more">+${s.tags.length-2}</span>`:'';
-      const time=s.off?'영업 종료':'🕐 '+(p.hours||'').replace('~',' ~ ');
+      const clk='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 1.9"/></svg>';
+      const time=s.off?'영업 종료':clk+(p.hours||'').replace('~',' ~ ');
       return `<div class="mcard" data-key="${s.key}" onclick="openDetail()">
         <div class="mc-info">
           <div class="mc-title"><span class="mc-name">${branch}</span><span class="mc-dist">${s.dist}</span></div>
-          <div class="mc-rate"><span class="mc-brand">${s.cat}</span> · ★ ${s.rate} <span class="mc-rev">(${s.rev})</span> · <span class="${s.off?'mc-off':'mc-on'}">${s.off?'영업 종료':'영업 중'}</span></div>
+          <div class="mc-rate"><span class="mc-brand">${s.cat}</span> · ★ ${s.rate} <span class="mc-rev">(${s.rev})</span></div>
         </div>
         <div class="mc-foot">
           <div class="mc-tags">${shown}${extra}</div>
