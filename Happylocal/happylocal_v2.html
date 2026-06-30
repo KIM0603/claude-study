@@ -129,6 +129,15 @@
   .topbar{position:sticky;top:0;z-index:30;background:var(--bg);display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
   .iconbtn{width:38px;height:38px;border-radius:6px;border:1px solid var(--border-2);background:var(--surface-1);color:var(--text-hi);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px}
   .iconbtn.bare{background:none;border:none}
+  /* ===== 통일 상단바 (시안 A: 센터 타이틀) ===== */
+  .appbar{position:sticky;top:0;z-index:30;height:52px;display:flex;align-items:center;padding:0 6px;background:#fff;border-bottom:1px solid var(--border)}
+  .phone[data-theme="dark"] .appbar{background:var(--bg)}
+  .appbar .ab-back,.appbar .ab-ic{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--text-hi);cursor:pointer;padding:0;font-family:inherit}
+  .appbar .ab-back svg{width:26px;height:26px}
+  .appbar .ab-ic svg{width:23px;height:23px}
+  .appbar .ab-sp{width:40px;height:40px;flex:0 0 auto}
+  .appbar .ab-title{position:absolute;left:50%;transform:translateX(-50%);font-size:17px;font-weight:700;color:var(--text-hi);white-space:nowrap}
+  .appbar .ab-acts{margin-left:auto;display:flex;gap:2px}
   .iconbtn svg{width:20px;height:20px}
   .d-hero-wrap{position:relative;height:255px;overflow:hidden;border-radius:0}
   .d-gallery{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory}
@@ -483,7 +492,7 @@
   .cat-row::-webkit-scrollbar{display:none}
   .cat{flex:0 0 auto;width:62px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer}
   .cat .em{width:62px;height:62px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);overflow:hidden}
-  .cat .em svg,.cat .em img{width:44px;height:44px;object-fit:contain;display:block}
+  .cat .em svg,.cat .em img{width:36px;height:36px;object-fit:contain;display:block}
   .cat .em .all-t{font-size:20px;font-weight:900;color:var(--text-mut);letter-spacing:-.5px}
   .phone[data-theme="dark"] .cat .em{background:var(--surface-2);border-color:var(--border-2)}
   .cat .cl{font-size:13px;font-weight:700;color:#3a3f47;white-space:nowrap}
@@ -1337,12 +1346,12 @@
         <div class="cta-bar"><button class="btn primary" onclick="go('routebuild')">이 픽업지를 내 루트에 담기</button></div>
       </section>
       <section class="screen" id="s-routebuild">
-        <div class="topbar">
-          <div class="iconbtn" onclick="goBack()">‹</div>
-          <b style="font-size:15px;color:var(--text-hi)">로컬 루트</b>
-          <div style="margin-left:auto;display:flex;gap:8px">
-            <div class="iconbtn bare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.3l2 11a1.4 1.4 0 001.4 1.1h8.3a1.4 1.4 0 001.4-1.1L19.6 7H6.2"/></svg></div>
-            <div class="iconbtn bare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg></div>
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">로컬 루트</span>
+          <div class="ab-acts">
+            <button class="ab-ic" aria-label="장바구니"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.3l2 11a1.4 1.4 0 001.4 1.1h8.3a1.4 1.4 0 001.4-1.1L19.6 7H6.2"/></svg></button>
+            <button class="ab-ic" aria-label="검색"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/></svg></button>
           </div>
         </div>
 
@@ -1360,7 +1369,7 @@
         </div>
 
         <div class="cat-row">
-          <div class="cat cat-all on"><div class="em"><span class="all-t">ALL</span></div><div class="cl">전체</div></div>
+          <div class="cat cat-all on"><div class="em"><img src="images/farms/cat-all.png" alt="전체" loading="lazy"></div><div class="cl">전체</div></div>
           <div class="cat"><div class="em"><img src="images/farms/cat-hanwoo.svg" alt="한우·정육" loading="lazy"></div><div class="cl">한우·정육</div></div>
           <div class="cat"><div class="em"><img src="images/farms/cat-gondre.svg" alt="곤드레" loading="lazy"></div><div class="cl">곤드레</div></div>
           <div class="cat"><div class="em"><img src="images/farms/cat-potato-corn.svg" alt="감자·옥수수" loading="lazy"></div><div class="cl">감자·옥수수</div></div>
@@ -1407,10 +1416,12 @@
 
       <!-- ============ CALENDAR ============ -->
       <section class="screen" id="s-cal">
-        <div class="st-head">
-          <button class="st-back" onclick="goBack()">‹</button>
-          <span class="st-title">제철 캘린더</span>
-          <button class="cal-mapbtn" onclick="openMap()" aria-label="지도로 보기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M9 4 3 6.4v13.2L9 17l6 2.6 6-2.6V6.4L15 6.6 9 4z"/><path d="M9 4v13M15 6.6v13"/></svg></button>
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">제철 캘린더</span>
+          <div class="ab-acts">
+            <button class="ab-ic" onclick="openMap()" aria-label="지도로 보기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M9 4 3 6.4v13.2L9 17l6 2.6 6-2.6V6.4L15 6.6 9 4z"/><path d="M9 4v13M15 6.6v13"/></svg></button>
+          </div>
         </div>
         <div class="cal-subrow">
           <span class="cal-when">지금 이 계절, 가장 맛있을 때</span>
@@ -1423,11 +1434,12 @@
 
       <!-- ============ MY ============ -->
       <section class="screen" id="s-my">
-        <div class="my-top">
-          <span class="my-title">마이페이지</span>
-          <div class="my-top-ic">
-            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></button>
-            <button class="myic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.076.124l1.217-.456a1.125 1.125 0 011.369.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.356-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        <div class="appbar">
+          <span class="ab-sp"></span>
+          <span class="ab-title">마이페이지</span>
+          <div class="ab-acts">
+            <button class="ab-ic" aria-label="알림"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 01-3.4 0"/></svg></button>
+            <button class="ab-ic" aria-label="설정"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.076.124l1.217-.456a1.125 1.125 0 011.369.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.356-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><circle cx="12" cy="12" r="3"/></svg></button>
           </div>
         </div>
 
