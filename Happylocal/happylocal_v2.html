@@ -1293,6 +1293,35 @@
   .rsv-done-ic{width:66px;height:66px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;margin:14px auto 18px}
   .rsv-done-ic svg{width:34px;height:34px}
 
+  /* ===== 날짜 선택 달력 ===== */
+  .dp-sheet{padding:8px 18px 24px}
+  .dp-head{display:flex;align-items:flex-start;justify-content:space-between;margin-top:6px}
+  .dp-title{font-size:21px;font-weight:800;color:var(--text-hi)}
+  .dp-range{font-size:15px;font-weight:700;color:#2B8A3D;margin-top:8px}
+  .dp-x{width:36px;height:36px;background:none;border:none;color:var(--text-hi);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0}
+  .dp-x svg{width:22px;height:22px}
+  .dp-monthbar{display:flex;align-items:center;justify-content:center;margin-top:20px;position:relative;height:34px}
+  .dp-monthlabel{font-size:16px;font-weight:800;color:var(--text-hi)}
+  .dp-nav{position:absolute;top:0;width:34px;height:34px;background:none;border:none;color:var(--text-hi);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+  .dp-nav.left{left:0}.dp-nav.right{right:0}
+  .dp-nav svg{width:22px;height:22px}
+  .dp-week{display:grid;grid-template-columns:repeat(7,1fr);margin-top:16px}
+  .dp-wd{text-align:center;font-size:13px;font-weight:600;color:var(--text-mut);padding:6px 0}
+  .dp-wd.sun{color:#e0473c}
+  .dp-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+  .dp-cell{height:54px;border:none;background:none;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;font-family:inherit;padding:0}
+  .dp-cell.range{background:#E7F4EC}
+  .dp-cell.start{border-top-left-radius:12px;border-bottom-left-radius:12px}
+  .dp-cell.end{border-top-right-radius:12px;border-bottom-right-radius:12px}
+  .dp-day{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:16px;font-weight:600;color:var(--text-hi)}
+  .dp-day.sun{color:#e0473c}
+  .dp-day.out{color:#c4c9cf;font-weight:500}
+  .dp-day.on{background:#2B8A3D;color:#fff;font-weight:800}
+  .dp-dot{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#e0763c}
+  .dp-legend{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-mut);margin-top:18px;padding-top:15px;border-top:1px solid var(--border)}
+  .dp-legend .dot{width:6px;height:6px;border-radius:50%;background:#e0763c;flex:0 0 auto}
+  .dp-apply{width:100%;height:54px;border:none;border-radius:14px;background:#2B8A3D;color:#fff;font-size:16.5px;font-weight:800;margin-top:18px;cursor:pointer}
+
   /* ===== 결제 화면 ===== */
   #s-pay{--acc:#3FC358;--acc-ink:#1f9d57;--i9:#17181A;--i7:#3A3D42;--i6:#6B7075;--i4:#9096A0;--ln:#ECEEF0;--chip:#F2F4F5;--red:#E23B2E;background:#fff;font-variant-numeric:tabular-nums;padding-bottom:92px}
   #s-pay button{font-family:inherit}
@@ -1388,6 +1417,17 @@
   .hs-mv-txt b{font-size:15px;font-weight:800;color:var(--text-hi)}
   .hs-mv-txt span{font-size:12.5px;color:var(--text-mut)}
   .hs-mv-ar{width:20px;height:20px;color:var(--text-mut);flex:0 0 auto}
+
+  /* ===== 홈: 뒤 지도 + 위 시트(핸들 탭 토글) ===== */
+  #s-home{position:relative;overflow:hidden}
+  #home-map{position:absolute;inset:0;z-index:0;background:#e6ecee}
+  #home-map .leaflet-container{width:100%;height:100%;background:#e6ecee}
+  .home-sheet{position:absolute;inset:0;z-index:2;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#fff;transition:transform .34s cubic-bezier(.4,0,.2,1)}
+  #s-home.home-map-open .home-sheet{transform:translateY(58vh);border-radius:22px 22px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.14)}
+  .home-handle{position:sticky;top:0;z-index:6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:10px 0 8px;background:#fff;cursor:pointer;border-radius:22px 22px 0 0}
+  .home-grip{width:44px;height:5px;border-radius:3px;background:#cfd3d9;transition:background .2s}
+  #s-home.home-map-open .home-grip{background:#9aa0a8}
+  .home-handle-txt{font-size:11.5px;font-weight:700;color:var(--text-mut)}
   /* ===== 하루세탁 톤: 홈·상세 (큰 라운드·여백·플로팅 카드, 초록 유지) ===== */
   .phone[data-theme="light"]{ --bg:#eef1ee; }
   .h2-nav{ padding:12px 20px 6px; }
@@ -1532,6 +1572,7 @@
 
       <!-- ============ HOME ============ -->
       <section class="screen active" id="s-home">
+        <div class="home-sheet" id="home-sheet">
         <div class="home-white">
         <div class="hl-top">
           <div class="hl-logo">
@@ -1589,6 +1630,7 @@
 
         <div class="map-fab-wrap center"></div>
         <div style="height:8px"></div>
+        </div>
       </section>
 
 
@@ -1753,10 +1795,9 @@
               <button class="lr-chip" onclick="lrPickRegion('pyeongchang','평창',this)">평창</button>
               <button class="lr-chip" onclick="lrPickRegion('jeongseon','정선',this)">정선</button>
             </div>
-            <button class="lr-datefield" id="lr-datefield" onclick="lrPickDateDemo()">
+            <button class="lr-datefield" id="lr-datefield" onclick="openDatePicker()">
               <svg class="lr-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg>
               <span class="lr-date-main" id="lr-date-main">4월 12일 – 13일</span>
-              <span class="lr-date-sub" id="lr-date-sub">1박 2일</span>
               <span class="lr-date-change">변경</span>
             </button>
             <button class="lr-nodate" id="lr-nodate" onclick="lrSetNoDate(true)">날짜 미정으로 둘러볼래요</button>
@@ -2120,6 +2161,27 @@
         </div>
       </section>
 
+      <div class="scrim" id="datescrim" onclick="closeDatePicker()"></div>
+      <div class="sheet dp-sheet" id="datesheet">
+        <div class="rsv-grip"></div>
+        <div class="dp-head">
+          <div>
+            <div class="dp-title">날짜 선택</div>
+            <div class="dp-range" id="dp-range"></div>
+          </div>
+          <button class="dp-x" onclick="closeDatePicker()" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+        <div class="dp-monthbar">
+          <button class="dp-nav left" onclick="dpNav(-1)" aria-label="이전 달"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="dp-monthlabel" id="dp-monthlabel"></span>
+          <button class="dp-nav right" onclick="dpNav(1)" aria-label="다음 달"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <div class="dp-week"><span class="dp-wd sun">일</span><span class="dp-wd">월</span><span class="dp-wd">화</span><span class="dp-wd">수</span><span class="dp-wd">목</span><span class="dp-wd">금</span><span class="dp-wd">토</span></div>
+        <div class="dp-grid" id="dp-grid"></div>
+        <div class="dp-legend"><span class="dot"></span>축제·행사 있는 날 (10–14일 횡성한우축제)</div>
+        <button class="dp-apply" onclick="dpApply()">이 날짜로 볼래요</button>
+      </div>
+
       <div class="fab center show" id="fab-home" onclick="openMap()">🗺 지도보기</div>
       <div class="fab center" id="fab-route" onclick="openMap()">🗺 지도보기</div>
 
@@ -2303,7 +2365,7 @@
   }
   function go(id){
     _enter(id);
-    ['plscrim','plsheet','pkscrim','orsheet','dtsheet','sheet','rsvscrim','rsvsheet'].forEach(x=>{var e=document.getElementById(x);if(e)e.classList.remove('show');});
+    ['plscrim','plsheet','pkscrim','orsheet','dtsheet','sheet','rsvscrim','rsvsheet','datescrim','datesheet'].forEach(x=>{var e=document.getElementById(x);if(e)e.classList.remove('show');});
     document.getElementById('phone').classList.remove('detail');document.getElementById('phone').classList.remove('availdetail');document.getElementById('phone').classList.remove('routedetail');document.getElementById('phone').classList.remove('storedetail');document.getElementById('phone').classList.remove('paydetail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById('s-'+id).classList.add('active');
@@ -2782,7 +2844,58 @@
     lrRender();
   }
   function lrPickDuration(el,dur){lrState.duration=dur;el.parentNode.querySelectorAll('.lr-dchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');lrRender();}
-  function lrPickDateDemo(){/* 날짜 범위 선택(달력)은 다음 단계 연결 예정 */}
+  function lrPickDateDemo(){openDatePicker();}
+  /* ===== 날짜 선택 달력 ===== */
+  var dpYear=2026, dpMonth=3; // 0-index: 3=4월
+  var dpStart=new Date(2026,3,12), dpEnd=new Date(2026,3,13);
+  function _dpSame(a,y,m,d){return a&&a.getFullYear()===y&&a.getMonth()===m&&a.getDate()===d;}
+  function _dpFest(y,m,d){return y===2026&&m===3&&d>=10&&d<=14;}
+  function _dpInRange(y,m,d){if(!dpStart||!dpEnd)return false;var t=new Date(y,m,d).getTime();return t>=dpStart.getTime()&&t<=dpEnd.getTime();}
+  function _dpFmt(dt){return (dt.getMonth()+1)+'월 '+dt.getDate()+'일';}
+  function dpRangeText(){
+    if(dpStart&&dpEnd){var nights=Math.round((dpEnd-dpStart)/86400000);return _dpFmt(dpStart)+' – '+dpEnd.getDate()+'일 · '+(nights===0?'당일':nights+'박 '+(nights+1)+'일');}
+    if(dpStart)return _dpFmt(dpStart)+' · 당일';
+    return '날짜를 선택하세요';
+  }
+  function dpRender(){
+    document.getElementById('dp-monthlabel').textContent=dpYear+'년 '+(dpMonth+1)+'월';
+    document.getElementById('dp-range').textContent=dpRangeText();
+    var startWd=new Date(dpYear,dpMonth,1).getDay();
+    var daysIn=new Date(dpYear,dpMonth+1,0).getDate();
+    var prevDays=new Date(dpYear,dpMonth,0).getDate();
+    var cells=[];
+    for(var i=0;i<startWd;i++)cells.push({d:prevDays-startWd+1+i,cur:false});
+    for(var d=1;d<=daysIn;d++)cells.push({d:d,cur:true});
+    while(cells.length%7!==0)cells.push({d:cells.length-startWd-daysIn+1,cur:false});
+    var html='';
+    cells.forEach(function(c,i){
+      var wd=i%7;
+      if(!c.cur){html+='<button class="dp-cell" disabled><span class="dp-day out'+(wd===0?' sun':'')+'">'+c.d+'</span></button>';return;}
+      var isS=_dpSame(dpStart,dpYear,dpMonth,c.d), isE=_dpSame(dpEnd,dpYear,dpMonth,c.d);
+      var inR=_dpInRange(dpYear,dpMonth,c.d), fest=_dpFest(dpYear,dpMonth,c.d);
+      var cls='dp-cell'+(inR?' range':'')+(isS?' start':'')+(isE?' end':'');
+      var dcls='dp-day'+((isS||isE)?' on':'')+(wd===0?' sun':'');
+      html+='<button class="'+cls+'" onclick="dpTap('+c.d+')"><span class="'+dcls+'">'+c.d+'</span>'+((fest&&!isS&&!isE)?'<span class="dp-dot"></span>':'')+'</button>';
+    });
+    document.getElementById('dp-grid').innerHTML=html;
+  }
+  function dpTap(d){
+    var picked=new Date(dpYear,dpMonth,d);
+    if(!dpStart||(dpStart&&dpEnd)){dpStart=picked;dpEnd=null;}
+    else{ if(picked.getTime()>=dpStart.getTime())dpEnd=picked; else {dpEnd=dpStart;dpStart=picked;} }
+    dpRender();
+  }
+  function dpNav(dir){dpMonth+=dir;if(dpMonth<0){dpMonth=11;dpYear--;}if(dpMonth>11){dpMonth=0;dpYear++;}dpRender();}
+  function dpApply(){
+    if(!dpStart)return closeDatePicker();
+    var main = dpEnd ? (_dpFmt(dpStart)+' – '+dpEnd.getDate()+'일') : _dpFmt(dpStart);
+    document.getElementById('lr-date-main').textContent=main;
+    var badge=document.getElementById('lr-datebadge');
+    if(badge){ badge.textContent = dpEnd ? ((dpStart.getMonth()+1)+'.'+dpStart.getDate()+'–'+dpEnd.getDate()) : ((dpStart.getMonth()+1)+'.'+dpStart.getDate()); }
+    closeDatePicker();
+  }
+  function openDatePicker(){dpRender();document.getElementById('datescrim').classList.add('show');document.getElementById('datesheet').classList.add('show');}
+  function closeDatePicker(){document.getElementById('datescrim').classList.remove('show');document.getElementById('datesheet').classList.remove('show');}
   function lrBook(e,btn){e.stopPropagation();btn.classList.toggle('on');}
   function lrAdIco(k){
     if(k==='cal')return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg>';
@@ -2915,6 +3028,34 @@
   }
   function hsPickRegion(r,el){hsState.region=r;document.querySelectorAll('#hs-regions .hs-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');hsSaleList();}
   function hsToggleSort(){hsState.sort=hsState.sort==='마감임박순'?'할인율순':'마감임박순';var l=document.getElementById('hs-sort-label');if(l)l.textContent=hsState.sort;hsSaleList();}
+  /* ===== 홈 뒤 지도 (핸들 탭 토글) ===== */
+  let _homeMap=null,_homeLayer=null,homeMapOpen=false;
+  function initHomeMap(){
+    if(_homeMap)return;
+    var host=document.getElementById('home-map'); if(!host||typeof L==='undefined')return;
+    _homeMap=L.map(host,{zoomControl:false,attributionControl:false});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(_homeMap);
+    _homeLayer=L.layerGroup().addTo(_homeMap);
+    var pts=[];
+    try{ STORES.forEach(function(s){
+      var g=(typeof GEO!=='undefined')?GEO[s.key]:null; if(!g)return; var p=PLACES[s.key];
+      pts.push(g);
+      var icon=L.divIcon({className:'',html:'<div class="mk pk"><span>'+((p&&p.ic)?p.ic:'📍')+'</span></div>',iconSize:[34,42],iconAnchor:[17,38]});
+      L.marker(g,{icon}).addTo(_homeLayer).on('click',function(){openStoreByKey(s.key);});
+    }); }catch(e){}
+    _homeMap._pts=pts;
+    _homeMap.setView([37.49,128.45],10);
+  }
+  function toggleHomeMap(){
+    homeMapOpen=!homeMapOpen;
+    var home=document.getElementById('s-home');
+    home.classList.toggle('home-map-open',homeMapOpen);
+    var txt=document.getElementById('home-handle-txt'); if(txt)txt.textContent=homeMapOpen?'위로 목록 보기':'아래로 지도 보기';
+    if(homeMapOpen){
+      initHomeMap();
+      setTimeout(function(){ if(_homeMap){_homeMap.invalidateSize(); if(_homeMap._pts&&_homeMap._pts.length)_homeMap.fitBounds(_homeMap._pts,{padding:[45,45],maxZoom:12});} },360);
+    }
+  }
 
   hsSaleList();lrRender();setTimeout(hsSaleList,0);
   /* ===== 가게 상세 ===== */
