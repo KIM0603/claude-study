@@ -3,791 +3,478 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>헤어엠플 AI 크리에이티브 에이전트 v2</title>
+<title>진짜 숫자로 가계부를 점검한다</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap');
-  
-  * {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  }
-  
   body {
-    background: #0a0a0f;
-    background-image: 
-      radial-gradient(at 0% 0%, #1e1b4b 0px, transparent 50%),
-      radial-gradient(at 100% 100%, #312e81 0px, transparent 50%);
-    min-height: 100vh;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    background-color: #F9F5EC;
+    color: #1E293B;
   }
-  
-  .glass {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  
-  .glass-hover:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    transform: translateY(-2px);
+  .card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
     transition: all 0.3s ease;
   }
-  
-  .gradient-text {
-    background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.04);
+    transform: translateY(-2px);
   }
-  
   .progress-bar {
-    background: rgba(255, 255, 255, 0.05);
+    background: #E5E7EB;
+    border-radius: 9999px;
     overflow: hidden;
-    position: relative;
   }
-  
   .progress-fill {
-    background: linear-gradient(90deg, #6366f1 0%, #a855f7 100%);
     height: 100%;
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+    background: linear-gradient(90deg, #10B981 0%, #34D399 100%);
+    transition: width 1s ease-out;
   }
-  
-  .status-badge {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 9999px;
   }
-  
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    position: absolute;
+    left: -6px;
+    top: 6px;
   }
-  
-  .drag-over {
-    background: rgba(168, 85, 247, 0.1);
-    border: 2px dashed #a855f7;
+  .timeline-line {
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: -12px;
+    width: 1px;
+    background: #E5E7EB;
   }
-  
-  .card-enter {
-    animation: cardEnter 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  
-  @keyframes cardEnter {
-    from {
-      opacity: 0;
-      transform: translateY(20px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-  
-  .log-entry {
-    animation: slideIn 0.3s ease-out;
-  }
-  
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateX(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
-  }
-  
-  input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
-  }
-  
-  .modal-backdrop {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .animate-count {
+    animation: countUp 0.6s ease-out forwards;
   }
 </style>
 </head>
-<body class="text-gray-100">
-  <div class="min-h-screen p-4 md:p-6 lg:p-8">
+<body class="antialiased">
+  <div class="min-h-screen">
     <!-- Header -->
-    <header class="max-w-7xl mx-auto mb-6 md:mb-8">
-      <div class="glass rounded-2xl p-4 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <h1 class="text-2xl md:text-3xl font-bold mb-1">
-            <span class="gradient-text">헤어엠플</span> AI 크리에이티브 에이전트
-          </h1>
-          <p class="text-sm text-gray-400">v2.0 | 제품 이미지 기반 광고 자동 생성 시스템</p>
-        </div>
-        <div class="flex items-center gap-2 px-4 py-2 glass rounded-xl">
-          <div class="w-2 h-2 bg-green-400 rounded-full status-badge"></div>
-          <span class="text-sm font-medium">에이전트 활성</span>
+    <header class="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900">진짜 숫자로 가계부를 점검한다</h1>
+            <p class="mt-2 text-sm sm:text-base text-slate-600">내 월급, 지출, 고정비, 각종 내역을 읽고, 지금 가장 중요한 것이 무엇인지 알려준다.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button id="refreshBtn" class="flex items-center gap-2 px-4 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all active:scale-95">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              새로고침
+            </button>
+            <button class="flex items-center justify-center w-10 h-10 bg-white rounded-xl border border-slate-200 hover:bg-slate-50 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </header>
 
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-      <!-- Left Column: Project Setup + Agent Status -->
-      <div class="lg:col-span-1 space-y-4 md:space-y-6">
-        <!-- 1. 프로젝트 목표 카드 -->
-        <div class="glass rounded-2xl p-5 md:p-6">
-          <h2 class="text-lg font-bold mb-5 flex items-center gap-2">
-            <i class="fa-solid fa-sliders text-purple-400"></i>
-            프로젝트 목표
-          </h2>
-          
-          <!-- 웹사이트 URL -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-300 mb-2">웹사이트 URL <span class="text-gray-500 text-xs">(옵션)</span></label>
-            <input type="url" id="websiteUrl" placeholder="https://example.com" 
-              class="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500/50 text-sm placeholder-gray-500">
-          </div>
-
-          <!-- 제품 이미지 업로드 -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-300 mb-2">제품 이미지 업로드</label>
-            <div id="dropZone" class="border-2 border-dashed border-white/10 rounded-xl p-6 text-center cursor-pointer hover:border-purple-500/50 transition-all">
-              <i class="fa-solid fa-cloud-arrow-up text-3xl text-purple-400 mb-2"></i>
-              <p class="text-sm text-gray-400 mb-1">드래그 앤 드롭 또는 클릭</p>
-              <p class="text-xs text-gray-500">JPG, PNG, WEBP 지원</p>
-              <input type="file" id="productImages" multiple accept="image/jpeg,image/png,image/webp" class="hidden">
-            </div>
-            <div id="imagePreviewGrid" class="grid grid-cols-3 gap-2 mt-3"></div>
-          </div>
-
-          <!-- 스크립트 파일 -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-300 mb-2">스크립트 파일 <span class="text-gray-500 text-xs">(옵션)</span></label>
-            <label class="flex items-center gap-3 px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:bg-white/10 transition-all">
-              <i class="fa-regular fa-file-lines text-purple-400"></i>
-              <span id="scriptFileName" class="text-sm text-gray-400 truncate">TXT 파일 선택</span>
-              <input type="file" id="scriptFile" accept=".txt" class="hidden">
-            </label>
-          </div>
-
-          <!-- 광고 유형 -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-300 mb-3">광고 유형</label>
-            <div class="flex gap-3">
-              <label class="flex-1 flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:bg-white/10 transition-all">
-                <input type="checkbox" id="typeImage" checked class="w-4 h-4 accent-purple-500">
-                <span class="text-sm">이미지</span>
-              </label>
-              <label class="flex-1 flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:bg-white/10 transition-all">
-                <input type="checkbox" id="typeVideo" class="w-4 h-4 accent-purple-500">
-                <span class="text-sm">숏폼영상</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- 생성 수량 -->
-          <div class="mb-4">
-            <label class="block text-sm font-medium text-gray-300 mb-2">
-              생성 수량: <span id="quantityValue" class="text-purple-400 font-bold">4</span>개
-            </label>
-            <input type="range" id="quantity" min="1" max="10" value="4" 
-              class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer">
-          </div>
-
-          <!-- 톤앤매너 -->
-          <div class="mb-5">
-            <label class="block text-sm font-medium text-gray-300 mb-2">톤앤매너</label>
-            <select id="tone" class="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500/50 text-sm">
-              <option value="premium" class="bg-gray-900">프리미엄</option>
-              <option value="lively" class="bg-gray-900">발랄한</option>
-              <option value="minimal" class="bg-gray-900">미니멀</option>
-              <option value="emotional" class="bg-gray-900">감성적</option>
-            </select>
-          </div>
-
-          <!-- 생성 버튼 -->
-          <button id="startBtn" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl font-bold text-white hover:shadow-lg hover:shadow-purple-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-            <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
-            생성 시작
-          </button>
-        </div>
-
-        <!-- 2. 에이전트 상태 패널 -->
-        <div class="glass rounded-2xl p-5 md:p-6">
-          <h2 class="text-lg font-bold mb-5 flex items-center gap-2">
-            <i class="fa-solid fa-robot text-purple-400"></i>
-            에이전트 상태
-          </h2>
-          <div id="workflowSteps" class="space-y-3">
-            <!-- Steps will be populated by JS -->
-          </div>
-        </div>
-
-        <!-- 5. 에이전트 인사이트 로그 -->
-        <div class="glass rounded-2xl p-5 md:p-6">
-          <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-terminal text-purple-400"></i>
-            인사이트 로그
-          </h2>
-          <div id="insightLog" class="space-y-2 max-h-64 overflow-y-auto scrollbar-hide text-sm">
-            <div class="text-gray-500 text-center py-8">
-              <i class="fa-regular fa-clock text-2xl mb-2"></i>
-              <p>생성 대기 중...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Column: Canvas + Folders -->
-      <div class="lg:col-span-2 space-y-4 md:space-y-6">
-        <!-- 4. 폴더 시스템 -->
-        <div class="glass rounded-2xl p-5 md:p-6">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
-            <div class="flex gap-2 overflow-x-auto scrollbar-hide">
-              <button data-folder="review" class="folder-tab active flex items-center gap-2 px-4 py-2 bg-purple-600/30 border border-purple-500/50 rounded-xl text-sm font-medium whitespace-nowrap transition-all">
-                검토중
-                <span id="count-review" class="px-2 py-0.5 bg-purple-500/30 rounded-full text-xs">0</span>
-              </button>
-              <button data-folder="approved" class="folder-tab flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium whitespace-nowrap transition-all hover:bg-white/10">
-                승인됨
-                <span id="count-approved" class="px-2 py-0.5 bg-green-500/30 rounded-full text-xs">0</span>
-              </button>
-              <button data-folder="rejected" class="folder-tab flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium whitespace-nowrap transition-all hover:bg-white/10">
-                거절됨
-                <span id="count-rejected" class="px-2 py-0.5 bg-red-500/30 rounded-full text-xs">0</span>
-              </button>
-            </div>
-            <div id="folderActions" class="hidden flex gap-2">
-              <button id="downloadZip" class="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium hover:bg-white/10 transition-all">
-                <i class="fa-solid fa-file-zipper mr-2"></i>ZIP 다운로드
-              </button>
-              <button id="exportMeta" class="px-4 py-2 bg-blue-600/20 border border-blue-500/50 rounded-xl text-sm font-medium hover:bg-blue-600/30 transition-all">
-                <i class="fa-brands fa-meta mr-2"></i>Meta 내보내기
-              </button>
-            </div>
-          </div>
-
-          <!-- 3. 광고 검토 캔버스 -->
-          <div id="canvasDropZone" class="min-h-[500px]">
-            <div id="adGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div class="col-span-full text-center py-20 text-gray-500">
-                <i class="fa-regular fa-images text-5xl mb-4"></i>
-                <p class="text-sm">생성 시작 버튼을 눌러 광고를 생성하세요</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div id="adModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop bg-black/60">
-    <div class="glass rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-auto">
-      <div class="sticky top-0 glass p-4 flex items-center justify-between border-b border-white/10">
-        <h3 class="text-lg font-bold">광고 상세 보기</h3>
-        <button id="closeModal" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div id="modalContent" class="p-6"></div>
-    </div>
-  </div>
-
-  <script>
-    // State
-    let uploadedImages = [];
-    let generatedAds = [];
-    let currentFolder = 'review';
-    
-    const workflowSteps = [
-      { id: 'analyze', name: '제품 이미지 분석', icon: 'fa-magnifying-glass', progress: 0, status: 'pending' },
-      { id: 'crawl', name: '웹사이트 크롤링', icon: 'fa-globe', progress: 0, status: 'pending' },
-      { id: 'script', name: '스크립트 분석', icon: 'fa-file-lines', progress: 0, status: 'pending' },
-      { id: 'generate', name: '크리에이티브 생성', icon: 'fa-wand-magic-sparkles', progress: 0, status: 'pending' },
-      { id: 'quality', name: '퀄리티 검수', icon: 'fa-shield-check', progress: 0, status: 'pending' }
-    ];
-
-    const rejectionReasons = [
-      '제품 각도가 부자연스러움',
-      '브랜드 컬러 불일치',
-      '텍스트 가독성 저하',
-      '제품 비율 왜곡',
-      '배경과 제품 간 이질감',
-      '조명 효과 부자연스러움'
-    ];
-
-    // Initialize
-    function init() {
-      renderWorkflowSteps();
-      setupEventListeners();
-    }
-
-    // Render workflow steps
-    function renderWorkflowSteps() {
-      const container = document.getElementById('workflowSteps');
-      container.innerHTML = workflowSteps.map(step => `
-        <div class="step-item" data-step="${step.id}">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center gap-2">
-              <i class="fa-solid ${step.icon} text-purple-400 text-sm"></i>
-              <span class="text-sm font-medium">${step.name}</span>
-            </div>
-            <span class="step-badge text-xs px-2 py-0.5 rounded-full bg-gray-700 text-gray-400">
-              대기중
-            </span>
-          </div>
-          <div class="progress-bar h-1.5 rounded-full">
-            <div class="progress-fill rounded-full" style="width: ${step.progress}%"></div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Event Listeners
-    function setupEventListeners() {
-      // Quantity slider
-      document.getElementById('quantity').addEventListener('input', (e) => {
-        document.getElementById('quantityValue').textContent = e.target.value;
-      });
-
-      // File upload
-      const dropZone = document.getElementById('dropZone');
-      const fileInput = document.getElementById('productImages');
-      
-      dropZone.addEventListener('click', () => fileInput.click());
-      
-      dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('drag-over');
-      });
-      
-      dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('drag-over');
-      });
-      
-      dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('drag-over');
-        handleFiles(e.dataTransfer.files);
-      });
-      
-      fileInput.addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-      });
-
-      // Script file
-      document.getElementById('scriptFile').addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          document.getElementById('scriptFileName').textContent = file.name;
-        }
-      });
-
-      // Start button
-      document.getElementById('startBtn').addEventListener('click', startGeneration);
-
-      // Folder tabs
-      document.querySelectorAll('.folder-tab').forEach(tab => {
-        tab.addEventListener('click', () => switchFolder(tab.dataset.folder));
-      });
-
-      // Modal
-      document.getElementById('closeModal').addEventListener('click', closeModal);
-      document.getElementById('adModal').addEventListener('click', (e) => {
-        if (e.target.id === 'adModal') closeModal();
-      });
-
-      // Actions
-      document.getElementById('downloadZip').addEventListener('click', () => {
-        alert('ZIP 파일 다운로드가 시작됩니다.\n승인된 광고 ' + getAdsByFolder('approved').length + '개가 포함됩니다.');
-      });
-      
-      document.getElementById('exportMeta').addEventListener('click', () => {
-        alert('Meta 광고관리자로 내보내기\n승인된 광고 ' + getAdsByFolder('approved').length + '개를 내보냅니다.');
-      });
-    }
-
-    // Handle file upload
-    function handleFiles(files) {
-      Array.from(files).forEach(file => {
-        if (!file.type.match(/image\/(jpeg|png|webp)/)) return;
-        
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          uploadedImages.push({
-            id: Date.now() + Math.random(),
-            name: file.name,
-            url: e.target.result
-          });
-          renderImagePreviews();
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    // Render image previews
-    function renderImagePreviews() {
-      const grid = document.getElementById('imagePreviewGrid');
-      grid.innerHTML = uploadedImages.map(img => `
-        <div class="relative group">
-          <img src="${img.url}" alt="${img.name}" class="w-full h-20 object-cover rounded-lg border border-white/10">
-          <button onclick="removeImage('${img.id}')" class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
-            <i class="fa-solid fa-xmark text-xs"></i>
-          </button>
-        </div>
-      `).join('');
-    }
-
-    // Remove image
-    function removeImage(id) {
-      uploadedImages = uploadedImages.filter(img => img.id != id);
-      renderImagePreviews();
-    }
-
-    // Start generation process
-    async function startGeneration() {
-      if (uploadedImages.length === 0) {
-        alert('제품 이미지를 1개 이상 업로드해주세요.');
-        return;
-      }
-
-      const startBtn = document.getElementById('startBtn');
-      startBtn.disabled = true;
-      startBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>생성 중...';
-
-      document.getElementById('insightLog').innerHTML = '';
-      
-      // Simulate workflow
-      await simulateWorkflow();
-      
-      // Generate dummy ads
-      const quantity = parseInt(document.getElementById('quantity').value);
-      generateDummyAds(quantity);
-      
-      startBtn.disabled = false;
-      startBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>생성 시작';
-    }
-
-    // Simulate workflow progression
-    async function simulateWorkflow() {
-      const logs = [
-        `제품 이미지 ${uploadedImages.length}장 업로드됨: ${uploadedImages.map(i => i.name).join(', ')}`,
-        '웹사이트에서 브랜드 컬러 #2E2E2E, #C9A961 추출',
-        '스크립트에서 Hook "손상모 0%" 추출',
-        'AI 모델 초기화 완료',
-        '생성된 광고 ' + document.getElementById('quantity').value + '개: 제품 단독컷 2개, 사용컷 2개'
-      ];
-
-      for (let i = 0; i < workflowSteps.length; i++) {
-        const step = workflowSteps[i];
-        const stepEl = document.querySelector(`[data-step="${step.id}"]`);
-        const badge = stepEl.querySelector('.step-badge');
-        const progress = stepEl.querySelector('.progress-fill');
-        
-        badge.textContent = '진행중';
-        badge.className = 'step-badge text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400';
-        
-        // Animate progress
-        for (let p = 0; p <= 100; p += 10) {
-          progress.style.width = p + '%';
-          await sleep(50);
-        }
-        
-        badge.textContent = '완료';
-        badge.className = 'step-badge text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400';
-        
-        if (logs[i]) addLog(logs[i]);
-        await sleep(300);
-      }
-    }
-
-    // Generate dummy ads
-    function generateDummyAds(count) {
-      const tones = document.getElementById('tone').value;
-      const adTypes = [];
-      if (document.getElementById('typeImage').checked) adTypes.push('이미지');
-      if (document.getElementById('typeVideo').checked) adTypes.push('숏폼영상');
-
-      generatedAds = Array.from({ length: count }, (_, i) => {
-        const usedImages = uploadedImages.slice(0, Math.min(2, uploadedImages.length));
-        const hooks = ['손상모 0%', '48시간 지속', '1분에 1개 판매', '#헤어케어1위', '살롱급 관리', '극손상 복구'];
-        const ctr = (Math.random() * 2 + 1.5).toFixed(2);
-        const isRejected = Math.random() > 0.7;
-        
-        return {
-          id: Date.now() + i,
-          title: hooks[i % hooks.length],
-          type: adTypes[i % adTypes.length] || '이미지',
-          tone: tones,
-          usedImages: usedImages,
-          ctr: ctr,
-          status: 'review',
-          comment: isRejected ? rejectionReasons[Math.floor(Math.random() * rejectionReasons.length)] : null,
-          previewUrl: `https://images.unsplash.com/photo-${1580000000000 + i * 100000}?w=600&h=600&fit=crop`,
-          createdAt: new Date().toISOString()
-        };
-      });
-
-      renderAds();
-      updateCounts();
-      switchFolder('review');
-    }
-
-    // Render ads
-    function renderAds() {
-      const grid = document.getElementById('adGrid');
-      const ads = getAdsByFolder(currentFolder);
-      
-      if (ads.length === 0) {
-        grid.innerHTML = `
-          <div class="col-span-full text-center py-20 text-gray-500">
-            <i class="fa-regular fa-folder-open text-5xl mb-4"></i>
-            <p class="text-sm">이 폴더에 광고가 없습니다</p>
-          </div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = ads.map(ad => `
-        <div class="ad-card glass glass-hover rounded-xl overflow-hidden card-enter cursor-pointer" 
-             draggable="true" 
-             data-id="${ad.id}"
-             onclick="openModal('${ad.id}')">
-          <div class="relative">
-            <img src="${ad.previewUrl}" alt="${ad.title}" class="w-full h-48 object-cover">
-            <div class="absolute top-2 right-2 px-2 py-1 bg-black/60 rounded-lg text-xs font-medium backdrop-blur-sm">
-              <i class="fa-solid ${ad.type === '숏폼영상' ? 'fa-video' : 'fa-image'} mr-1"></i>
-              ${ad.type}
-            </div>
-            <div class="absolute top-2 left-2 px-2 py-1 bg-purple-600/80 rounded-lg text-xs font-bold backdrop-blur-sm">
-              CTR ${ad.ctr}%
-            </div>
-          </div>
-          <div class="p-4">
-            <h3 class="font-bold mb-2 line-clamp-1">${ad.title}</h3>
-            <div class="flex gap-1 mb-3 flex-wrap">
-              ${ad.usedImages.map(img => `
-                <span class="text-xs px-2 py-1 bg-white/5 rounded-md border border-white/10">
-                  ${img.name.substring(0, 10)}...
-                </span>
-              `).join('')}
-            </div>
-            ${ad.comment ? `
-              <div class="mb-3 p-2 bg-red-500/10 border border-red-500/20 rounded-lg text-xs text-red-300">
-                <i class="fa-solid fa-circle-exclamation mr-1"></i>
-                ${ad.comment}
-              </div>
-            ` : ''}
-            <div class="flex gap-2" onclick="event.stopPropagation()">
-              <button onclick="approveAd('${ad.id}')" class="flex-1 px-3 py-2 bg-green-600/20 border border-green-500/50 rounded-lg text-xs font-medium hover:bg-green-600/30 transition-all">
-                <i class="fa-solid fa-check mr-1"></i>승인
-              </button>
-              <button onclick="rejectAd('${ad.id}')" class="flex-1 px-3 py-2 bg-red-600/20 border border-red-500/50 rounded-lg text-xs font-medium hover:bg-red-600/30 transition-all">
-                <i class="fa-solid fa-xmark mr-1"></i>거절
-              </button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-
-      // Setup drag and drop
-      setupDragDrop();
-    }
-
-    // Drag and drop setup
-    function setupDragDrop() {
-      document.querySelectorAll('.ad-card').forEach(card => {
-        card.addEventListener('dragstart', (e) => {
-          e.dataTransfer.setData('adId', card.dataset.id);
-          card.style.opacity = '0.5';
-        });
-        
-        card.addEventListener('dragend', (e) => {
-          card.style.opacity = '1';
-        });
-      });
-    }
-
-    // Get ads by folder
-    function getAdsByFolder(folder) {
-      return generatedAds.filter(ad => ad.status === folder);
-    }
-
-    // Switch folder
-    function switchFolder(folder) {
-      currentFolder = folder;
-      
-      document.querySelectorAll('.folder-tab').forEach(tab => {
-        if (tab.dataset.folder === folder) {
-          tab.className = 'folder-tab active flex items-center gap-2 px-4 py-2 bg-purple-600/30 border border-purple-500/50 rounded-xl text-sm font-medium whitespace-nowrap transition-all';
-        } else {
-          tab.className = 'folder-tab flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium whitespace-nowrap transition-all hover:bg-white/10';
-        }
-      });
-
-      document.getElementById('folderActions').classList.toggle('hidden', folder !== 'approved');
-      renderAds();
-    }
-
-    // Approve ad
-    function approveAd(id) {
-      const ad = generatedAds.find(a => a.id == id);
-      if (ad) {
-        ad.status = 'approved';
-        ad.comment = null;
-        addLog(`광고 "${ad.title}" 승인됨`);
-        renderAds();
-        updateCounts();
-      }
-    }
-
-    // Reject ad
-    function rejectAd(id) {
-      const ad = generatedAds.find(a => a.id == id);
-      if (ad) {
-        ad.status = 'rejected';
-        if (!ad.comment) {
-          ad.comment = rejectionReasons[Math.floor(Math.random() * rejectionReasons.length)];
-        }
-        addLog(`광고 "${ad.title}" 거절됨: ${ad.comment}`);
-        renderAds();
-        updateCounts();
-      }
-    }
-
-    // Update counts
-    function updateCounts() {
-      ['review', 'approved', 'rejected'].forEach(folder => {
-        const count = getAdsByFolder(folder).length;
-        document.getElementById(`count-${folder}`).textContent = count;
-      });
-    }
-
-    // Open modal
-    function openModal(id) {
-      const ad = generatedAds.find(a => a.id == id);
-      if (!ad) return;
-
-      document.getElementById('modalContent').innerHTML = `
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <img src="${ad.previewUrl}" alt="${ad.title}" class="w-full rounded-xl">
-          </div>
-          <div class="space-y-4">
-            <div>
-              <h4 class="text-sm text-gray-400 mb-1">광고 제목</h4>
-              <p class="text-xl font-bold">${ad.title}</p>
-            </div>
-            <div>
-              <h4 class="text-sm text-gray-400 mb-1">AI 예측 CTR</h4>
-              <p class="text-2xl font-bold text-purple-400">${ad.ctr}%</p>
-            </div>
-            <div>
-              <h4 class="text-sm text-gray-400 mb-2">사용된 제품 이미지</h4>
-              <div class="grid grid-cols-2 gap-2">
-                ${ad.usedImages.map(img => `
-                  <div class="relative">
-                    <img src="${img.url}" alt="${img.name}" class="w-full h-24 object-cover rounded-lg border border-white/10">
-                    <p class="text-xs text-gray-400 mt-1 truncate">${img.name}</p>
+    <main class="px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="max-w-7xl mx-auto space-y-6 lg:space-y-8">
+        <!-- Top Summary Cards -->
+        <section>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            <!-- Card 1: 연결 상태 -->
+            <div class="card p-5 lg:p-6">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">Bank/카드 연결 상태</p>
+                  <div class="mt-3 flex items-center gap-2">
+                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <p class="text-lg font-bold text-slate-900">3개 연동됨</p>
                   </div>
-                `).join('')}
+                  <p class="mt-2 text-xs text-slate-500">신한카드, KB국민, 토스뱅크</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
               </div>
             </div>
-            <div>
-              <h4 class="text-sm text-gray-400 mb-1">광고 유형</h4>
-              <p class="font-medium">${ad.type} / ${ad.tone}</p>
-            </div>
-            ${ad.comment ? `
-              <div>
-                <h4 class="text-sm text-gray-400 mb-1">AI 검수 코멘트</h4>
-                <p class="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-300">
-                  <i class="fa-solid fa-circle-exclamation mr-1"></i>
-                  ${ad.comment}
-                </p>
+
+            <!-- Card 2: 이번 달 총 지출 -->
+            <div class="card p-5 lg:p-6">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">이번 달 총 지출</p>
+                  <p class="mt-3 text-2xl font-bold text-slate-900 animate-count">₩2,485,000</p>
+                  <div class="mt-2 flex items-center gap-1.5">
+                    <div class="flex items-center text-rose-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+                      <span class="text-xs font-semibold ml-0.5">+6.3%</span>
+                    </div>
+                    <span class="text-xs text-slate-500">지난달 대비</span>
+                  </div>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F43F5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
               </div>
-            ` : ''}
-            <div class="flex gap-2 pt-4">
-              <button onclick="approveAd('${ad.id}'); closeModal()" class="flex-1 px-4 py-3 bg-green-600/20 border border-green-500/50 rounded-xl font-medium hover:bg-green-600/30 transition-all">
-                <i class="fa-solid fa-check mr-2"></i>승인
-              </button>
-              <button onclick="rejectAd('${ad.id}'); closeModal()" class="flex-1 px-4 py-3 bg-red-600/20 border border-red-500/50 rounded-xl font-medium hover:bg-red-600/30 transition-all">
-                <i class="fa-solid fa-xmark mr-2"></i>거절
-              </button>
+            </div>
+
+            <!-- Card 3: 이번 달 예산 -->
+            <div class="card p-5 lg:p-6">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">이번 달 예산</p>
+                  <p class="mt-3 text-2xl font-bold text-slate-900 animate-count">₩2,600,000</p>
+                  <div class="mt-3">
+                    <div class="flex items-center justify-between text-xs mb-1.5">
+                      <span class="text-slate-600 font-medium">95.5% 사용</span>
+                      <span class="text-slate-500">₩115,000 남음</span>
+                    </div>
+                    <div class="progress-bar h-2">
+                      <div class="progress-fill" style="width: 95.5%"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12H9"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4: 저축률 -->
+            <div class="card p-5 lg:p-6">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <p class="text-xs font-medium text-slate-500 uppercase tracking-wider">저축률</p>
+                  <p class="mt-3 text-2xl font-bold text-slate-900 animate-count">22.3%</p>
+                  <div class="mt-2 flex items-center gap-1.5">
+                    <div class="flex items-center text-amber-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                      <span class="text-xs font-semibold ml-0.5">-7.7%</span>
+                    </div>
+                    <span class="text-xs text-slate-500">목표 30% 대비</span>
+                  </div>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      `;
-      
-      document.getElementById('adModal').classList.remove('hidden');
-      document.getElementById('adModal').classList.add('flex');
-    }
+        </section>
 
-    // Close modal
-    function closeModal() {
-      document.getElementById('adModal').classList.add('hidden');
-      document.getElementById('adModal').classList.remove('flex');
-    }
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <!-- Left Column: Focus + Chart -->
+          <div class="lg:col-span-2 space-y-6 lg:space-y-8">
+            <!-- 이번 달 Focus -->
+            <section class="card p-6 lg:p-8">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <h2 class="text-lg sm:text-xl font-bold text-slate-900">이번 달 Focus</h2>
+                  <p class="text-sm text-slate-500 mt-1">AI가 분석한 가장 중요한 개선 포인트 3가지</p>
+                </div>
+                <div class="badge bg-slate-900 text-white">7월</div>
+              </div>
+              <div class="space-y-4">
+                <!-- Focus Item 1 -->
+                <div class="group p-4 sm:p-5 rounded-xl border border-slate-200 hover:border-rose-200 hover:bg-rose-50/50 transition-all cursor-pointer">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-rose-100 flex items-center justify-center flex-shrink-0">
+                      <span class="text-lg">🍱</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-3">
+                        <h3 class="font-semibold text-slate-900">배달/외식 지출 28% 과다</h3>
+                        <span class="badge bg-rose-100 text-rose-700 whitespace-nowrap">긴급</span>
+                      </div>
+                      <p class="text-sm text-slate-600 mt-1.5">주 1회 제한 시 월 ₩285,000 절감 가능</p>
+                      <div class="mt-3 flex items-center gap-2">
+                        <div class="progress-bar h-1.5 flex-1">
+                          <div class="h-full bg-rose-500 rounded-full" style="width: 128%"></div>
+                        </div>
+                        <span class="text-xs font-medium text-rose-600">128%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-    // Add log entry
-    function addLog(message) {
-      const log = document.getElementById('insightLog');
-      const entry = document.createElement('div');
-      entry.className = 'log-entry flex items-start gap-2 p-2 bg-white/5 rounded-lg';
-      
-      const time = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      entry.innerHTML = `
-        <i class="fa-solid fa-circle-info text-purple-400 text-xs mt-0.5"></i>
-        <div class="flex-1 min-w-0">
-          <p class="text-xs text-gray-400">${time}</p>
-          <p class="text-sm text-gray-200 break-words">${message}</p>
+                <!-- Focus Item 2 -->
+                <div class="group p-4 sm:p-5 rounded-xl border border-slate-200 hover:border-amber-200 hover:bg-amber-50/50 transition-all cursor-pointer">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
+                      <span class="text-lg">📱</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-3">
+                        <h3 class="font-semibold text-slate-900">구독 서비스 4개 중복</h3>
+                        <span class="badge bg-amber-100 text-amber-700 whitespace-nowrap">권장</span>
+                      </div>
+                      <p class="text-sm text-slate-600 mt-1.5">해지 시 연 ₩205,200 절감 가능</p>
+                      <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="text-xs px-2 py-1 bg-white rounded-md border border-slate-200">넷플릭스</span>
+                        <span class="text-xs px-2 py-1 bg-white rounded-md border border-slate-200">디즈니+</span>
+                        <span class="text-xs px-2 py-1 bg-white rounded-md border border-slate-200">왓챠</span>
+                        <span class="text-xs px-2 py-1 bg-white rounded-md border border-slate-200">티빙</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Focus Item 3 -->
+                <div class="group p-4 sm:p-5 rounded-xl border border-slate-200 hover:border-blue-200 hover:bg-blue-50/50 transition-all cursor-pointer">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                      <span class="text-lg">🛍️</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-3">
+                        <h3 class="font-semibold text-slate-900">충동쇼핑 패턴 감지</h3>
+                        <span class="badge bg-blue-100 text-blue-700 whitespace-nowrap">제안</span>
+                      </div>
+                      <p class="text-sm text-slate-600 mt-1.5">자동이체로 차단하여 계획적 소비 유도</p>
+                      <div class="mt-3 text-xs text-slate-500">
+                        <span class="font-medium text-slate-700">패턴:</span> 주말 오후 2-5시 온라인 쇼핑 집중
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- 월별 지출 추이 -->
+            <section class="card p-6 lg:p-8">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <h2 class="text-lg sm:text-xl font-bold text-slate-900">월별 지출 추이</h2>
+                  <p class="text-sm text-slate-500 mt-1">최근 3개월 지출 변화</p>
+                </div>
+                <select class="text-sm px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-900">
+                  <option>3개월</option>
+                  <option>6개월</option>
+                  <option>1년</option>
+                </select>
+              </div>
+              <div class="h-64 sm:h-72">
+                <canvas id="spendingChart"></canvas>
+              </div>
+            </section>
+          </div>
+
+          <!-- Right Column: Timeline -->
+          <div class="lg:col-span-1">
+            <section class="card p-6 lg:p-8">
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <h2 class="text-lg sm:text-xl font-bold text-slate-900">90일 절약 로드맵</h2>
+                  <p class="text-sm text-slate-500 mt-1">단계별 실행 계획</p>
+                </div>
+                <span class="badge bg-emerald-100 text-emerald-700">40% 완료</span>
+              </div>
+              
+              <div class="relative pl-6 space-y-6">
+                <!-- Timeline Item 1: Completed -->
+                <div class="relative">
+                  <div class="timeline-line"></div>
+                  <div class="timeline-dot bg-emerald-500 ring-4 ring-emerald-100"></div>
+                  <div class="pb-2">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs font-semibold text-emerald-600">6/15</span>
+                      <span class="badge bg-emerald-100 text-emerald-700">완료</span>
+                    </div>
+                    <h3 class="font-semibold text-slate-900 text-sm">식비 점검</h3>
+                    <p class="text-xs text-slate-500 mt-1">주간 식비 상한 ₩150,000 설정</p>
+                  </div>
+                </div>
+
+                <!-- Timeline Item 2: Completed -->
+                <div class="relative">
+                  <div class="timeline-line"></div>
+                  <div class="timeline-dot bg-emerald-500 ring-4 ring-emerald-100"></div>
+                  <div class="pb-2">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs font-semibold text-emerald-600">6/30</span>
+                      <span class="badge bg-emerald-100 text-emerald-700">완료</span>
+                    </div>
+                    <h3 class="font-semibold text-slate-900 text-sm">통신비 변경</h3>
+                    <p class="text-xs text-slate-500 mt-1">알뜰요금제 변경으로 월 ₩23,000 절감</p>
+                  </div>
+                </div>
+
+                <!-- Timeline Item 3: In Progress -->
+                <div class="relative">
+                  <div class="timeline-line"></div>
+                  <div class="timeline-dot bg-blue-500 ring-4 ring-blue-100 animate-pulse"></div>
+                  <div class="pb-2">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs font-semibold text-blue-600">7/13</span>
+                      <span class="badge bg-blue-100 text-blue-700">진행중</span>
+                    </div>
+                    <h3 class="font-semibold text-slate-900 text-sm">커피값 줄이기</h3>
+                    <p class="text-xs text-slate-500 mt-1">홈카페 전환, 주 2회 외부 구매 제한</p>
+                    <div class="mt-2 progress-bar h-1.5">
+                      <div class="h-full bg-blue-500 rounded-full" style="width: 60%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Timeline Item 4: Upcoming -->
+                <div class="relative">
+                  <div class="timeline-line"></div>
+                  <div class="timeline-dot bg-slate-300 ring-4 ring-slate-100"></div>
+                  <div class="pb-2">
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs font-semibold text-slate-500">7/26</span>
+                      <span class="badge bg-slate-100 text-slate-600">예정</span>
+                    </div>
+                    <h3 class="font-semibold text-slate-700 text-sm">구독 해지</h3>
+                    <p class="text-xs text-slate-500 mt-1">미사용 OTT 서비스 2개 정리</p>
+                  </div>
+                </div>
+
+                <!-- Timeline Item 5: Upcoming -->
+                <div class="relative">
+                  <div class="timeline-dot bg-slate-300 ring-4 ring-slate-100"></div>
+                  <div>
+                    <div class="flex items-center gap-2 mb-1">
+                      <span class="text-xs font-semibold text-slate-500">8/9</span>
+                      <span class="badge bg-slate-100 text-slate-600">예정</span>
+                    </div>
+                    <h3 class="font-semibold text-slate-700 text-sm">배달앱 챌린지</h3>
+                    <p class="text-xs text-slate-500 mt-1">2주간 배달앱 사용 금지 챌린지</p>
+                  </div>
+                </div>
+              </div>
+
+              <button class="w-full mt-6 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-xl transition-all active:scale-95">
+                전체 로드맵 보기
+              </button>
+            </section>
+          </div>
         </div>
-      `;
-      
-      if (log.querySelector('.text-center')) {
-        log.innerHTML = '';
+      </div>
+    </main>
+  </div>
+
+<script>
+  // Chart.js Configuration
+  const ctx = document.getElementById('spendingChart');
+  const spendingChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['5월', '6월', '7월'],
+      datasets: [{
+        label: '월별 지출',
+        data: [2280000, 2340000, 2485000],
+        borderColor: '#1E293B',
+        backgroundColor: 'rgba(30, 41, 59, 0.05)',
+        borderWidth: 3,
+        tension: 0.4,
+        fill: true,
+        pointBackgroundColor: '#FFFFFF',
+        pointBorderColor: '#1E293B',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        pointHoverBackgroundColor: '#1E293B',
+        pointHoverBorderColor: '#FFFFFF',
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          backgroundColor: '#1E293B',
+          titleFont: {
+            family: 'Pretendard',
+            size: 13,
+            weight: '600'
+          },
+          bodyFont: {
+            family: 'Pretendard',
+            size: 14,
+            weight: '700'
+          },
+          padding: 12,
+          displayColors: false,
+          callbacks: {
+            label: function(context) {
+              return '₩' + context.parsed.y.toLocaleString('ko-KR');
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false,
+          ticks: {
+            callback: function(value) {
+              return '₩' + (value / 10000) + '만';
+            },
+            font: {
+              family: 'Pretendard',
+              size: 11
+            },
+            color: '#64748B'
+          },
+          grid: {
+            color: '#F1F5F9',
+            drawBorder: false
+          }
+        },
+        x: {
+          ticks: {
+            font: {
+              family: 'Pretendard',
+              size: 12,
+              weight: '500'
+            },
+            color: '#64748B'
+          },
+          grid: {
+            display: false,
+            drawBorder: false
+          }
+        }
       }
-      
-      log.insertBefore(entry, log.firstChild);
     }
+  });
 
-    // Sleep helper
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
+  // Refresh Button Animation
+  document.getElementById('refreshBtn').addEventListener('click', function() {
+    const svg = this.querySelector('svg');
+    svg.style.transform = 'rotate(360deg)';
+    svg.style.transition = 'transform 0.6s ease';
+    setTimeout(() => {
+      svg.style.transform = 'rotate(0deg)';
+      svg.style.transition = 'none';
+    }, 600);
+  });
 
-    // Expose functions to window
-    window.removeImage = removeImage;
-    window.approveAd = approveAd;
-    window.rejectAd = rejectAd;
-    window.openModal = openModal;
-    window.closeModal = closeModal;
-
-    // Initialize on load
-    init();
-  </script>
+  // Focus Items Click Handler
+  document.querySelectorAll('.group').forEach(item => {
+    item.addEventListener('click', function() {
+      this.style.transform = 'scale(0.98)';
+      setTimeout(() => {
+        this.style.transform = 'scale(1)';
+      }, 100);
+    });
+  });
+</script>
 <script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
 </body>
 </html>
