@@ -1432,6 +1432,33 @@
   .home-grip{width:44px;height:5px;border-radius:3px;background:#cfd3d9;transition:background .2s}
   #s-home.home-map-open .home-grip{background:#9aa0a8}
   .home-handle-txt{font-size:11.5px;font-weight:700;color:var(--text-mut)}
+  /* ===== 홈 지도 컨트롤 오버레이 (지도 열렸을 때만) ===== */
+  .hmc{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .25s ease}
+  #s-home.home-map-open .hmc{opacity:1}
+  #s-home.home-map-open .hmc>*{pointer-events:auto}
+  .hmc-pill{position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;gap:2px;background:#fff;border-radius:23px;padding:5px;box-shadow:0 3px 12px rgba(23,25,29,.2)}
+  .hmc-rg{border:none;background:transparent;color:var(--text-mut);font-size:14px;font-weight:800;padding:8px 14px;border-radius:18px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .hmc-rg.on{background:#3B3F45;color:#fff}
+  .hmc-chiprow{position:absolute;top:70px;left:0;right:0;display:flex;justify-content:center}
+  .hmc-chip{border:1px solid var(--border);background:#fff;color:var(--text-mut);font-size:12.5px;font-weight:800;padding:7px 14px;border-radius:999px;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(23,25,29,.12)}
+  .hmc-chip.on{background:#E6F4EA;border-color:#2f9e44;color:#2f9e44}
+  .hmc-loc{position:absolute;right:14px;bottom:272px;width:50px;height:50px;border-radius:50%;border:none;background:#fff;color:#17181d;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(23,25,29,.22)}
+  .hmc-loc svg{width:23px;height:23px}
+  .hmc-list{position:absolute;left:50%;transform:translateX(-50%);bottom:273px;z-index:2;display:flex;align-items:center;gap:9px;border:none;background:#fff;color:#17181d;font-size:16px;font-weight:800;padding:13px 22px;border-radius:25px;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(23,25,29,.24)}
+  .hmc-list svg{width:19px;height:19px}
+  .hmc-cards{position:absolute;left:0;right:0;bottom:130px;z-index:1;display:flex;gap:10px;overflow-x:auto;padding:0 14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-padding:0 14px}
+  .hmc-cards .mcard{flex:0 0 86%;scroll-snap-align:center;scroll-snap-stop:always}
+  .hmc-cards .mcard.on{border-color:#2f9e44;box-shadow:0 12px 28px -10px rgba(47,158,68,.45)}
+  .hmc-cards::-webkit-scrollbar{display:none}
+  .hmc-empty{flex:0 0 100%;text-align:center;color:#6B7075;font-weight:800;font-size:13.5px;background:#fff;border-radius:14px;padding:20px;box-shadow:0 10px 26px -10px rgba(0,0,0,.3)}
+  .hmc-cards .mc-nm{font-size:18px;font-weight:800;color:var(--text-hi);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hmc-cards .mc-sub{font-size:13px;font-weight:700;color:var(--text-mut)}
+  .hmc-cards .mc-sub b{color:#2f9e44;font-weight:800}
+  .hmc-cards .mc-sub .on{color:#2f9e44;font-weight:800}
+  .hmc-cards .mc-sub .off{color:var(--text-mut);font-weight:800}
+  .hmc-cards .mc-bot{display:flex;align-items:center;gap:8px}
+  .hmc-cards .mc-tag.more{color:#6B7075;background:#F2F4F5;border-color:var(--border)}
+  .hmc-cards .mc-time{color:#2f9e44;background:#E6F4EA;border-color:#cdeedb}
   /* 홈 지도 마커: 원형 배지 + 단순 2D 아이콘 (예약가능=초록 / 마감=회색) */
   .hmk{width:38px;height:38px;border-radius:50%;background:#fff;border:2.5px solid #2f9e44;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(23,25,29,.28);color:#2f9e44}
   .hmk svg{width:21px;height:21px;display:block}
@@ -1737,6 +1764,25 @@
       <!-- ============ HOME ============ -->
       <section class="screen active" id="s-home">
         <div id="home-map"></div>
+        <div class="hmc" id="hmc">
+          <div class="hmc-pill" id="hmc-regions">
+            <button class="hmc-rg on" onclick="hmRegion('전체',this)">전체</button>
+            <button class="hmc-rg" onclick="hmRegion('횡성',this)">횡성</button>
+            <button class="hmc-rg" onclick="hmRegion('평창',this)">평창</button>
+            <button class="hmc-rg" onclick="hmRegion('정선',this)">정선</button>
+          </div>
+          <div class="hmc-chiprow">
+            <button class="hmc-chip" id="hmc-avail" onclick="hmToggleAvail(this)">예약 가능만</button>
+          </div>
+          <button class="hmc-loc" onclick="hmLocate()" aria-label="현위치">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="1.9" fill="currentColor" stroke="none"/><path d="M12 1.8V5M12 19v3.2M1.8 12H5M19 12h3.2"/></svg>
+          </button>
+          <button class="hmc-list" onclick="hmBackToList()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="7" r="1.2" fill="currentColor" stroke="none"/><circle cx="5" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="5" cy="17" r="1.2" fill="currentColor" stroke="none"/><path d="M10 7h9M10 12h9M10 17h9"/></svg>
+            <span>목록보기</span>
+          </button>
+          <div class="hmc-cards" id="hmc-cards" onscroll="_hmCardsScroll()"></div>
+        </div>
         <div class="home-sheet" id="home-sheet">
         <div class="home-handle" id="home-handle" onpointerdown="homeHandleDown(event)">
           <div class="home-grip"></div>
@@ -3555,23 +3601,102 @@
     };
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(p[cat]||p.shop)+'</svg>';
   }
-  let _homeMap=null,_homeLayer=null,homeMapOpen=false;
+  let _homeMap=null,_homeLayer=null,homeMapOpen=false,_hmMarkers={},_hmRegion='전체',_hmAvail=false,_hmKey=null;
+  function hmStores(){
+    try{ return STORES.filter(function(s){
+      if(_hmRegion!=='전체' && s.rg!==_hmRegion) return false;
+      if(_hmAvail && s.off) return false;
+      return !!(typeof GEO!=='undefined' && GEO[s.key]);
+    }); }catch(e){ return []; }
+  }
   function initHomeMap(){
     if(_homeMap)return;
     var host=document.getElementById('home-map'); if(!host||typeof L==='undefined')return;
     _homeMap=L.map(host,{zoomControl:false,attributionControl:false});
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(_homeMap);
     _homeLayer=L.layerGroup().addTo(_homeMap);
-    var pts=[];
-    try{ STORES.forEach(function(s){
-      var g=(typeof GEO!=='undefined')?GEO[s.key]:null; if(!g)return;
-      pts.push(g);
-      var off=!!s.off, cat=_homeCat(s.cat);
-      var icon=L.divIcon({className:'',html:'<div class="mk pk'+(off?' off':'')+'"><span class="mkico">'+_homeIcon2D(cat)+'</span></div>',iconSize:[34,42],iconAnchor:[17,38]});
-      L.marker(g,{icon:icon}).addTo(_homeLayer).on('click',function(){openStoreByKey(s.key);});
-    }); }catch(e){}
-    _homeMap._pts=pts;
     _homeMap.setView([37.49,128.45],10);
+    hmRender();
+  }
+  function hmRender(){
+    var list=hmStores(), pts=[];
+    if(_homeMap&&_homeLayer){
+      _homeLayer.clearLayers(); _hmMarkers={};
+      list.forEach(function(s){
+        var g=GEO[s.key]; if(!g)return; pts.push(g);
+        var icon=L.divIcon({className:'',html:'<div class="mk pk'+(s.off?' off':'')+'"><span class="mkico">'+_homeIcon2D(_homeCat(s.cat))+'</span></div>',iconSize:[34,42],iconAnchor:[17,38]});
+        _hmMarkers[s.key]=L.marker(g,{icon:icon}).addTo(_homeLayer).on('click',function(){hmFocus(s.key);});
+      });
+      _homeMap._pts=pts;
+      if(pts.length)_homeMap.fitBounds(pts,{padding:[60,60],maxZoom:12});
+    }
+    hmRenderCards(list);
+  }
+  function hmRenderCards(list){
+    var wrap=document.getElementById('hmc-cards'); if(!wrap)return;
+    list=list||hmStores();
+    wrap.innerHTML=list.length?list.map(function(s){
+      var p=(typeof PLACES!=='undefined'&&PLACES[s.key])?PLACES[s.key]:{};
+      var nm=(p.nm||'').split(/—|·/).pop().trim()||s.key;
+      var tags=(s.tags||[]).slice(0,2).map(function(t){return '<span class="mc-tag">'+t+'</span>';}).join('')
+              +((s.tags&&s.tags.length>2)?'<span class="mc-tag more">+'+(s.tags.length-2)+'</span>':'');
+      var time=s.off?'영업 종료':((p.hours||'').replace('~',' ~ '));
+      return '<div class="mcard" data-key="'+s.key+'" onclick="openStoreByKey(\''+s.key+'\')">'
+        +'<div class="mc-top"><div class="mc-nm">'+nm+'</div><div class="mc-dist">'+(s.dist||'')+'</div></div>'
+        +'<div class="mc-sub"><b>'+s.cat+'</b> · ★ '+s.rate+' ('+s.rev+') · '+(s.off?'<span class="off">영업 종료</span>':'<span class="on">영업 중</span>')+'</div>'
+        +'<div class="mc-bot"><div class="mc-tags">'+tags+'</div><span class="mc-time'+(s.off?' off':'')+'">🕐 '+time+'</span></div>'
+        +'</div>';
+    }).join(''):'<div class="hmc-empty">조건에 맞는 매장이 없어요<br>필터를 바꿔보세요</div>';
+    wrap.scrollLeft=0;
+    _hmKey=null;
+    if(list.length)_hmSetActive(list[0].key,false);   // 첫 카드 활성 (지도 이동 없이 핀만 강조)
+  }
+  function hmFocus(key){
+    if(!GEO[key])return;
+    _hmSetActive(key,true);
+    var wrap=document.getElementById('hmc-cards');
+    if(wrap){var card=wrap.querySelector('.mcard[data-key="'+key+'"]');
+      if(card){var left=card.offsetLeft-(wrap.clientWidth-card.offsetWidth)/2; wrap.scrollTo({left:Math.max(0,left),behavior:'smooth'});}}
+  }
+  function hmRegion(rg,el){
+    _hmRegion=rg;
+    el.parentNode.querySelectorAll('.hmc-rg').forEach(function(b){b.classList.remove('on');});
+    el.classList.add('on');
+    hmRender();
+  }
+  function hmToggleAvail(el){ _hmAvail=!_hmAvail; el.classList.toggle('on',_hmAvail); hmRender(); }
+  function hmLocate(){ if(_homeMap)_homeMap.flyTo([37.4917,127.9850],12,{animate:true,duration:.6}); }  // 횡성 기준 현위치
+  function hmBackToList(){ _homeSnap(false); }
+  /* 카드 스와이프 → 가운데 카드의 핀 포커스 + 지도 이동 */
+  let _hmScrollT=null;
+  function _hmSetActive(key,pan){
+    if(!key)return;
+    _hmKey=key;
+    var wrap=document.getElementById('hmc-cards');
+    if(wrap)wrap.querySelectorAll('.mcard').forEach(function(c){ c.classList.toggle('on',c.dataset.key===key); });
+    Object.keys(_hmMarkers).forEach(function(k){
+      var el=_hmMarkers[k].getElement(), inner=el&&el.querySelector('.mk');
+      if(inner)inner.classList.toggle('active',k===key);
+      _hmMarkers[k].setZIndexOffset(k===key?1000:0);
+    });
+    if(pan&&_homeMap&&typeof GEO!=='undefined'&&GEO[key]){
+      var z=Math.max(_homeMap.getZoom(),11);
+      _homeMap.flyTo(GEO[key],z,{animate:true,duration:.5});
+    }
+  }
+  function _hmCenteredKey(){
+    var wrap=document.getElementById('hmc-cards'); if(!wrap)return null;
+    var cards=wrap.querySelectorAll('.mcard'); if(!cards.length)return null;
+    var mid=wrap.scrollLeft+wrap.clientWidth/2, best=null, bd=1e9;
+    cards.forEach(function(c){ var cc=c.offsetLeft+c.offsetWidth/2, d=Math.abs(cc-mid); if(d<bd){bd=d;best=c;} });
+    return best?best.dataset.key:null;
+  }
+  function _hmCardsScroll(){
+    clearTimeout(_hmScrollT);
+    _hmScrollT=setTimeout(function(){
+      var k=_hmCenteredKey();
+      if(k&&k!==_hmKey)_hmSetActive(k,true);
+    },110);
   }
   /* 핸들: 손가락을 따라 시트를 자유롭게 드래그, 놓으면 위치에 따라 열림/닫힘 스냅 (탭하면 토글) */
   let _hhDrag=false,_hhStartY=0,_hhStartOff=0,_hhOff=0,_hhMoved=false;
@@ -3586,7 +3711,7 @@
   function _homeSnap(open){
     homeMapOpen=open;
     _homeSetOff(open?_homeMaxOff():0,true);
-    if(open){ initHomeMap(); setTimeout(function(){ if(_homeMap){_homeMap.invalidateSize(); if(_homeMap._pts&&_homeMap._pts.length)_homeMap.fitBounds(_homeMap._pts,{padding:[45,45],maxZoom:12});} },360); }
+    if(open){ initHomeMap(); hmRenderCards(); setTimeout(function(){ if(_homeMap){_homeMap.invalidateSize(); if(_homeMap._pts&&_homeMap._pts.length)_homeMap.fitBounds(_homeMap._pts,{padding:[45,45],maxZoom:12});} },360); }
   }
   function toggleHomeMap(){ _homeSnap(!homeMapOpen); }
   function homeHandleDown(e){
