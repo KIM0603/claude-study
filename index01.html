@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>헤어엠플 AI 크리에이티브 에이전트</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0A0A0F;
+    --bg-secondary: #13131A;
+    --bg-tertiary: #1C1C26;
+    --border-primary: rgba(255,255,255,0.08);
+    --text-primary: #F5F5F7;
+    --text-secondary: #A1A1AA;
+    --accent: #8B5CF6;
+    --accent-hover: #7C3AED;
+    --success: #10B981;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+  }
+  
+  * {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  .glass {
+    background: rgba(28, 28, 38, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-primary);
+  }
+
+  .gradient-border {
+    position: relative;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.4), rgba(59,130,246,0.2), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .progress-step {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-step.active {
+    background: linear-gradient(135deg, var(--accent), #6366F1);
+    color: white;
+    box-shadow: 0 0 24px rgba(139, 92, 246, 0.4);
+  }
+
+  .progress-line {
+    height: 2px;
+    background: var(--border-primary);
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #6366F1);
+    transition: width 0.6s ease;
+  }
+
+  .progress-line.filled::after {
+    width: 100%;
+  }
+
+  .ad-card {
+    transition: all 0.3s ease;
+    cursor: grab;
+  }
+
+  .ad-card:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+  }
+
+  .ad-card.dragging {
+    opacity: 0.5;
+    transform: rotate(3deg);
+  }
+
+  .drop-zone {
+    border: 2px dashed transparent;
+    transition: all 0.3s ease;
+  }
+
+  .drop-zone.drag-over {
+    border-color: var(--accent);
+    background: rgba(139, 92, 246, 0.05);
+  }
+
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 3px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.5);
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .log-item {
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
+  }
+
+  .generating {
+    animation: pulse-glow 2s infinite;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+</style>
+</head>
+<body class="min-h-screen">
+<div class="max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8">
+  <!-- Header -->
+  <header class="mb-6 md:mb-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+            <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+          </div>
+          <h1 class="text-2xl md:text-3xl font-bold">헤어엠플 AI 크리에이티브 에이전트</h1>
+        </div>
+        <p class="text-sm text-zinc-400">웹사이트와 스크립트로 고성과 광고를 자동 생성하고 검수하세요</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="glass px-4 py-2 rounded-xl flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+          <span class="text-sm text-zinc-300">에이전트 활성</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+    <!-- Left Column: Control & Status -->
+    <div class="lg:col-span-4 space-y-5">
+      <!-- 1. 프로젝트 목표 카드 -->
+      <div class="gradient-border p-5 md:p-6">
+        <div class="flex items-center gap-2 mb-5">
+          <i data-lucide="target" class="w-5 h-5 text-violet-400"></i>
+          <h2 class="text-lg font-semibold">프로젝트 설정</h2>
+        </div>
+
+        <div class="space-y-4">
+          <!-- 브랜드명 -->
+          <div>
+            <label class="text-sm text-zinc-400 mb-2 block">타겟 브랜드</label>
+            <input type="text" value="헤어엠플" readonly 
+              class="w-full bg-zinc-900/50 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50">
+          </div>
+
+          <!-- 웹사이트 URL -->
+          <div>
+            <label class="text-sm text-zinc-400 mb-2 block">웹사이트 URL</label>
+            <div class="relative">
+              <i data-lucide="link" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500"></i>
+              <input type="url" id="websiteUrl" placeholder="https://haireample.com" value="https://haireample.com"
+                class="w-full bg-zinc-900/50 border border-zinc-800 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50">
+            </div>
+          </div>
+
+          <!-- 스크립트 파일 -->
+          <div>
+            <label class="text-sm text-zinc-400 mb-2 block">스크립트 파일</label>
+            <label for="scriptFile" class="w-full bg-zinc-900/50 border border-zinc-800 border-dashed rounded-lg px-4 py-3 text-sm cursor-pointer hover:border-violet-500/50 transition flex items-center justify-between">
+              <span id="fileName" class="text-zinc-400">파일을 선택하거나 드래그하세요</span>
+              <i data-lucide="upload" class="w-4 h-4 text-zinc-500"></i>
+            </label>
+            <input type="file" id="scriptFile" class="hidden" accept=".txt,.docx,.pdf">
+          </div>
+
+          <!-- 광고 유형 -->
+          <div>
+            <label class="text-sm text-zinc-400 mb-2 block">생성할 광고 유형</label>
+            <div class="flex gap-3">
+              <label class="flex items-center gap-2 bg-zinc-900/50 border border-zinc-800 rounded-lg px-4 py-2.5 cursor-pointer hover:border-violet-500/50 transition flex-1">
+                <input type="checkbox" id="imageType" checked class="w-4 h-4 rounded accent-violet-500">
+                <span class="text-sm">이미지</span>
+              </label>
+              <label class="flex items-center gap-2 bg-zinc-900/50 border border-zinc-800 rounded-lg px-4 py-2.5 cursor-pointer hover:border-violet-500/50 transition flex-1">
+                <input type="checkbox" id="videoType" checked class="w-4 h-4 rounded accent-violet-500">
+                <span class="text-sm">숏폼 영상</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 생성 수량 -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-sm text-zinc-400">동시 생성 수량</label>
+              <span id="countValue" class="text-sm font-semibold text-violet-400">8개</span>
+            </div>
+            <input type="range" id="genCount" min="1" max="20" value="8" 
+              class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer">
+          </div>
+
+          <!-- 톤앤매너 -->
+          <div>
+            <label class="text-sm text-zinc-400 mb-2 block">톤앤매너</label>
+            <select id="toneManner" 
+              class="w-full bg-zinc-900/50 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/50">
+              <option>프리미엄 + 감성적</option>
+              <option>트렌디 + 활기찬</option>
+              <option>전문적 + 신뢰감</option>
+              <option>친근한 + 일상적</option>
+            </select>
+          </div>
+
+          <!-- 생성 버튼 -->
+          <button id="startBtn" 
+            class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 flex items-center justify-center gap-2">
+            <i data-lucide="play-circle" class="w-5 h-5"></i>
+            <span>생성 시작</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. 에이전트 상태 패널 -->
+      <div class="gradient-border p-5 md:p-6">
+        <div class="flex items-center gap-2 mb-5">
+          <i data-lucide="activity" class="w-5 h-5 text-violet-400"></i>
+          <h2 class="text-lg font-semibold">에이전트 상태</h2>
+        </div>
+
+        <div class="space-y-3">
+          <div class="progress-step flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50" data-step="1">
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium">웹사이트 크롤링</p>
+              <p class="text-xs text-zinc-500">키워드, USP 추출</p>
+            </div>
+            <span class="status-badge text-xs px-2 py-1 rounded-md bg-zinc-800 text-zinc-400">대기</span>
+          </div>
+
+          <div class="flex items-center px-4">
+            <div class="progress-line" data-line="1"></div>
+          </div>
+
+          <div class="progress-step flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50" data-step="2">
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="file-text" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium">스크립트 분석</p>
+              <p class="text-xs text-zinc-500">Hook, 스토리라인 분석</p>
+            </div>
+            <span class="status-badge text-xs px-2 py-1 rounded-md bg-zinc-800 text-zinc-400">대기</span>
+          </div>
+
+          <div class="flex items-center px-4">
+            <div class="progress-line" data-line="2"></div>
+          </div>
+
+          <div class="progress-step flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50" data-step="3">
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="wand-2" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium">크리에이티브 생성</p>
+              <p class="text-xs text-zinc-500">이미지 + 영상 렌더링</p>
+            </div>
+            <span class="status-badge text-xs px-2 py-1 rounded-md bg-zinc-800 text-zinc-400">대기</span>
+          </div>
+
+          <div class="flex items-center px-4">
+            <div class="progress-line" data-line="3"></div>
+          </div>
+
+          <div class="progress-step flex items-center gap-3 p-3 rounded-xl bg-zinc-900/50" data-step="4">
+            <div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center flex-shrink-0">
+              <i data-lucide="shield-check" class="w-4 h-4"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium">퀄리티 검수</p>
+              <p class="text-xs text-zinc-500">CTR 예측, 가이드 체크</p>
+            </div>
+            <span class="status-badge text-xs px-2 py-1 rounded-md bg-zinc-800 text-zinc-400">대기</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 에이전트 인사이트 로그 -->
+      <div class="gradient-border p-5 md:p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <i data-lucide="terminal" class="w-5 h-5 text-violet-400"></i>
+            <h2 class="text-lg font-semibold">에이전트 로그</h2>
+          </div>
+          <button id="clearLog" class="text-xs text-zinc-500 hover:text-zinc-300">초기화</button>
+        </div>
+        <div id="logContainer" class="space-y-2 max-h-[320px] overflow-y-auto scrollbar-custom pr-2">
+          <div class="text-sm text-zinc-500 text-center py-8">생성을 시작하면 로그가 표시됩니다</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Canvas & Folders -->
+    <div class="lg:col-span-8 space-y-5">
+      <!-- 3. 광고 검토 캔버스 + 4. 폴더 시스템 -->
+      <div class="gradient-border p-5 md:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
+          <div class="flex items-center gap-2">
+            <i data-lucide="layout-grid" class="w-5 h-5 text-violet-400"></i>
+            <h2 class="text-lg font-semibold">광고 검토 캔버스</h2>
+          </div>
+          
+          <!-- 탭 -->
+          <div class="flex gap-2 bg-zinc-900/50 p-1 rounded-lg">
+            <button class="tab-btn active px-4 py-2 rounded-md text-sm font-medium transition" data-tab="review">
+              검토중 <span class="ml-1 px-1.5 py-0.5 bg-zinc-700 rounded text-xs" id="reviewCount">0</span>
+            </button>
+            <button class="tab-btn px-4 py-2 rounded-md text-sm font-medium transition text-zinc-400 hover:text-zinc-200" data-tab="approved">
+              승인됨 <span class="ml-1 px-1.5 py-0.5 bg-zinc-700 rounded text-xs" id="approvedCount">0</span>
+            </button>
+            <button class="tab-btn px-4 py-2 rounded-md text-sm font-medium transition text-zinc-400 hover:text-zinc-200" data-tab="rejected">
+              거절됨 <span class="ml-1 px-1.5 py-0.5 bg-zinc-700 rounded text-xs" id="rejectedCount">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 드롭존 힌트 -->
+        <div id="dropHint" class="hidden mb-4">
+          <div class="drop-zone grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="border-2 border-dashed border-emerald-500/30 bg-emerald-500/5 rounded-xl p-6 text-center">
+              <i data-lucide="check-circle" class="w-8 h-8 text-emerald-500 mx-auto mb-2"></i>
+              <p class="text-sm font-medium text-emerald-400">승인 폴더</p>
+              <p class="text-xs text-zinc-500 mt-1">여기로 드래그</p>
+            </div>
+            <div class="border-2 border-dashed border-rose-500/30 bg-rose-500/5 rounded-xl p-6 text-center">
+              <i data-lucide="x-circle" class="w-8 h-8 text-rose-500 mx-auto mb-2"></i>
+              <p class="text-sm font-medium text-rose-400">거절 폴더</p>
+              <p class="text-xs text-zinc-500 mt-1">여기로 드래그</p>
+            </div>
+            <div class="border-2 border-dashed border-amber-500/30 bg-amber-500/5 rounded-xl p-6 text-center">
+              <i data-lucide="clock" class="w-8 h-8 text-amber-500 mx-auto mb-2"></i>
+              <p class="text-sm font-medium text-amber-400">검토중</p>
+              <p class="text-xs text-zinc-500 mt-1">기본 위치</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 광고 그리드 -->
+        <div id="adGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div class="col-span-full text-center py-16 text-zinc-500">
+            <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+            <p class="text-sm">생성된 광고가 여기에 표시됩니다</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 모달: 광고 미리보기 -->
+<div id="previewModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="glass rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold">광고 미리보기</h3>
+        <button id="closeModal" class="w-8 h-8 rounded-lg hover:bg-zinc-800 flex items-center justify-center">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+
+  let ads = [];
+  let currentTab = 'review';
+  let draggedAd = null;
+  let isGenerating = false;
+
+  // 더미 광고 데이터 생성
+  const adTemplates = [
+    { type: 'image', title: '손상모 집중 케어', hook: '10년 미용사가 말하는 극손상모의 진실', ctr: 3.42 },
+    { type: 'video', title: '1분만에 윤기폭발', hook: '이걸 바른 후 머리결이 달라졌어요', ctr: 4.18 },
+    { type: 'image', title: '집에서 하는 클리닉', hook: '살롱 케어를 내 욕실에서', ctr: 2.95 },
+    { type: 'video', title: 'Before & After', hook: '단 3일만에 생긴 변화', ctr: 5.21 },
+    { type: 'image', title: '단백질 앰플의 힘', hook: '모발 속부터 채우는 영양', ctr: 3.87 },
+    { type: 'video', title: '찰랑임의 비밀', hook: '바람에 흩날리는 머리결', ctr: 4.63 },
+    { type: 'image', title: '탈모 고민 끝', hook: '풍성한 볼륨의 시작', ctr: 2.71 },
+    { type: 'video', title: '헤어 디자이너 추천', hook: '고객들이 재구매하는 이유', ctr: 3.94 },
+  ];
+
+  const rejectReasons = [
+    '모델 얼굴 표정이 브랜드 톤앤매너와 불일치',
+    '스크립트 Hook 대비 후킹 이미지 부재',
+    '텍스트 가독성 낮음: 배경 대비 부족',
+    '제품 노출 시간 2.1초로 권장 기준 미달',
+    '첫 3초 이탈률 예측 18%로 높음',
+    '웹사이트 USP 키워드 미반영'
+  ];
+
+  // 슬라이더 값 업데이트
+  document.getElementById('genCount').addEventListener('input', (e) => {
+    document.getElementById('countValue').textContent = e.target.value + '개';
+  });
+
+  // 파일 업로드
+  document.getElementById('scriptFile').addEventListener('change', (e) => {
+    const fileName = e.target.files[0]?.name || '파일을 선택하거나 드래그하세요';
+    document.getElementById('fileName').textContent = fileName;
+  });
+
+  // 탭 전환
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active', 'bg-violet-600');
+        b.classList.add('text-zinc-400');
+      });
+      btn.classList.add('active', 'bg-violet-600', 'text-white');
+      btn.classList.remove('text-zinc-400');
+      currentTab = btn.dataset.tab;
+      renderAds();
+    });
+  });
+
+  // 로그 초기화
+  document.getElementById('clearLog').addEventListener('click', () => {
+    document.getElementById('logContainer').innerHTML = '<div class="text-sm text-zinc-500 text-center py-8">로그가 초기화되었습니다</div>';
+  });
+
+  // 로그 추가
+  function addLog(message, type = 'info') {
+    const container = document.getElementById('logContainer');
+    if (container.querySelector('.text-zinc-500')) {
+      container.innerHTML = '';
+    }
+    const colors = {
+      info: 'text-zinc-300',
+      success: 'text-emerald-400',
+      warning: 'text-amber-400',
+      error: 'text-rose-400'
+    };
+    const icons = {
+      info: 'info',
+      success: 'check-circle',
+      warning: 'alert-triangle',
+      error: 'x-circle'
+    };
+    const logItem = document.createElement('div');
+    logItem.className = 'log-item flex items-start gap-2 text-sm';
+    logItem.innerHTML = `
+      <i data-lucide="${icons[type]}" class="w-4 h-4 ${colors[type]} flex-shrink-0 mt-0.5"></i>
+      <div class="flex-1">
+        <span class="${colors[type]}">${message}</span>
+        <span class="text-zinc-600 text-xs ml-2">${new Date().toLocaleTimeString('ko-KR')}</span>
+      </div>
+    `;
+    container.insertBefore(logItem, container.firstChild);
+    lucide.createIcons();
+  }
+
+  // 워크플로우 상태 업데이트
+  function updateStep(step, status) {
+    const stepEl = document.querySelector(`[data-step="${step}"]`);
+    const badge = stepEl.querySelector('.status-badge');
+    const line = document.querySelector(`[data-line="${step}"]`);
+    
+    stepEl.classList.remove('active');
+    if (status === 'processing') {
+      stepEl.classList.add('active');
+      badge.textContent = '진행중';
+      badge.className = 'status-badge text-xs px-2 py-1 rounded-md bg-violet-600 text-white';
+    } else if (status === 'complete') {
+      badge.textContent = '완료';
+      badge.className = 'status-badge text-xs px-2 py-1 rounded-md bg-emerald-600 text-white';
+      if (line) line.classList.add('filled');
+    } else {
+      badge.textContent = '대기';
+      badge.className = 'status-badge text-xs px-2 py-1 rounded-md bg-zinc-800 text-zinc-400';
+    }
+  }
+
+  // 생성 시작
+  document.getElementById('startBtn').addEventListener('click', async () => {
+    if (isGenerating) return;
+    
+    const count = parseInt(document.getElementById('genCount').value);
+    isGenerating = true;
+    ads = [];
+    renderAds();
+    
+    const btn = document.getElementById('startBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i><span>생성 중...</span>';
+    lucide.createIcons();
+
+    // 워크플로우 시뮬레이션
+    addLog('워크플로우 시작: 헤어엠플 브랜드 분석 개시', 'info');
+    updateStep(1, 'processing');
+    await sleep(1500);
+    addLog('웹사이트에서 손상모 케어 키워드 12회 추출', 'success');
+    addLog('핵심 USP: 단백질 앰플, 3분 클리닉, 극손상 특화', 'info');
+    updateStep(1, 'complete');
+
+    updateStep(2, 'processing');
+    await sleep(1200);
+    addLog('업로드된 스크립트 분석 완료', 'success');
+    addLog('스크립트 Hook 3초 구간 이탈률 예측 13%', 'warning');
+    addLog('스토리라인: 문제 제기 → 해결책 제시 → Before/After', 'info');
+    updateStep(2, 'complete');
+
+    updateStep(3, 'processing');
+    await sleep(1000);
+    addLog(`크리에이티브 ${count}개 생성 시작`, 'info');
+    
+    // 광고 카드 생성
+    for (let i = 0; i < count; i++) {
+      const template = adTemplates[i % adTemplates.length];
+      const ad = {
+        id: Date.now() + i,
+        type: template.type,
+        title: template.title,
+        hook: template.hook,
+        ctr: (template.ctr + (Math.random() - 0.5) * 0.5).toFixed(2),
+        status: 'review',
+        thumb: `https://picsum.photos/seed/${Date.now() + i}/400/500`,
+        rejectReason: null
+      };
+      ads.push(ad);
+      if (i % 3 === 0) {
+        await sleep(400);
+        addLog(`${i + 1}개 생성 완료...`, 'info');
+      }
+    }
+    
+    updateStep(3, 'complete');
+    updateStep(4, 'processing');
+    await sleep(1000);
+    addLog('AI 퀄리티 검수 진행 중...', 'info');
+    await sleep(800);
+    addLog(`전체 광고 평균 예측 CTR: 3.74%`, 'success');
+    updateStep(4, 'complete');
+    
+    addLog(`총 ${count}개 광고 생성 완료`, 'success');
+    
+    btn.disabled = false;
+    btn.innerHTML = '<i data-lucide="play-circle" class="w-5 h-5"></i><span>생성 시작</span>';
+    lucide.createIcons();
+    isGenerating = false;
+    renderAds();
+  });
+
+  // 광고 렌더링
+  function renderAds() {
+    const grid = document.getElementById('adGrid');
+    const filtered = ads.filter(ad => ad.status === currentTab);
+    
+    // 카운트 업데이트
+    document.getElementById('reviewCount').textContent = ads.filter(a => a.status === 'review').length;
+    document.getElementById('approvedCount').textContent = ads.filter(a => a.status === 'approved').length;
+    document.getElementById('rejectedCount').textContent = ads.filter(a => a.status === 'rejected').length;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="col-span-full text-center py-16 text-zinc-500">
+          <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+          <p class="text-sm">${currentTab === 'review' ? '생성된 광고가 여기에 표시됩니다' : '해당 폴더가 비어있습니다'}</p>
+        </div>
+      `;
+      lucide.createIcons();
+      return;
+    }
+
+    grid.innerHTML = filtered.map(ad => `
+      <div class="ad-card glass rounded-xl overflow-hidden" draggable="true" data-id="${ad.id}">
+        <div class="relative aspect-[4/5] bg-zinc-900">
+          <img src="${ad.thumb}" alt="${ad.title}" class="w-full h-full object-cover">
+          <div class="absolute top-2 left-2 flex gap-2">
+            <span class="px-2 py-1 rounded-md text-xs font-medium ${ad.type === 'video' ? 'bg-rose-600' : 'bg-blue-600'} text-white">
+              ${ad.type === 'video' ? '숏폼' : '이미지'}
+            </span>
+          </div>
+          <button onclick="openPreview(${ad.id})" class="absolute top-2 right-2 w-8 h-8 rounded-lg bg-black/50 backdrop-blur hover:bg-black/70 flex items-center justify-center">
+            <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+          </button>
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+            <div class="flex items-center gap-2 mb-1">
+              <i data-lucide="trending-up" class="w-4 h-4 text-emerald-400"></i>
+              <span class="text-sm font-semibold text-white">예측 CTR ${ad.ctr}%</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-3">
+          <h4 class="font-semibold text-sm mb-1 line-clamp-1">${ad.title}</h4>
+          <p class="text-xs text-zinc-400 line-clamp-2 mb-3">${ad.hook}</p>
+          ${ad.rejectReason ? `
+            <div class="mb-3 p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
+              <p class="text-xs text-rose-400"><i data-lucide="alert-circle" class="w-3 h-3 inline mr-1"></i>${ad.rejectReason}</p>
+            </div>
+          ` : ''}
+          ${ad.status === 'review' ? `
+            <div class="flex gap-2">
+              <button onclick="approveAd(${ad.id})" class="flex-1 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium transition flex items-center justify-center gap-1">
+                <i data-lucide="check" class="w-3.5 h-3.5"></i>승인
+              </button>
+              <button onclick="rejectAd(${ad.id})" class="flex-1 px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-medium transition flex items-center justify-center gap-1">
+                <i data-lucide="x" class="w-3.5 h-3.5"></i>거절
+              </button>
+            </div>
+          ` : ad.status === 'approved' ? `
+            <div class="px-3 py-2 rounded-lg bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 text-xs font-medium text-center">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 inline mr-1"></i>승인됨
+            </div>
+          ` : `
+            <div class="px-3 py-2 rounded-lg bg-rose-600/20 border border-rose-500/30 text-rose-400 text-xs font-medium text-center">
+              <i data-lucide="x-circle" class="w-3.5 h-3.5 inline mr-1"></i>거절됨
+            </div>
+          `}
+        </div>
+      </div>
+    `).join('');
+
+    // 드래그 이벤트
+    document.querySelectorAll('.ad-card').forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        draggedAd = parseInt(card.dataset.id);
+        card.classList.add('dragging');
+        document.getElementById('dropHint').classList.remove('hidden');
+      });
+      card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+        document.getElementById('dropHint').classList.add('hidden');
+      });
+    });
+
+    lucide.createIcons();
+  }
+
+  // 승인
+  window.approveAd = (id) => {
+    const ad = ads.find(a => a.id === id);
+    if (ad) {
+      ad.status = 'approved';
+      ad.rejectReason = null;
+      addLog(`"${ad.title}" 광고 승인 처리`, 'success');
+      renderAds();
+    }
+  };
+
+  // 거절
+  window.rejectAd = (id) => {
+    const ad = ads.find(a => a.id === id);
+    if (ad) {
+      ad.status = 'rejected';
+      ad.rejectReason = rejectReasons[Math.floor(Math.random() * rejectReasons.length)];
+      addLog(`"${ad.title}" 광고 거절: ${ad.rejectReason}`, 'error');
+      renderAds();
+    }
+  };
+
+  // 드롭존
+  document.getElementById('dropHint').addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  document.getElementById('dropHint').addEventListener('drop', (e) => {
+    e.preventDefault();
+    const rect = e.target.closest('.drop-zone').getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const zoneWidth = rect.width / 3;
+    
+    const ad = ads.find(a => a.id === draggedAd);
+    if (ad) {
+      if (x < zoneWidth) {
+        ad.status = 'approved';
+        ad.rejectReason = null;
+        addLog(`"${ad.title}" 드래그로 승인 처리`, 'success');
+      } else if (x < zoneWidth * 2) {
+        ad.status = 'rejected';
+        ad.rejectReason = rejectReasons[Math.floor(Math.random() * rejectReasons.length)];
+        addLog(`"${ad.title}" 드래그로 거절 처리`, 'error');
+      }
+      renderAds();
+    }
+  });
+
+  // 미리보기 모달
+  window.openPreview = (id) => {
+    const ad = ads.find(a => a.id === id);
+    if (!ad) return;
+    
+    const modal = document.getElementById('previewModal');
+    const content = document.getElementById('modalContent');
+    content.innerHTML = `
+      <img src="${ad.thumb}" alt="${ad.title}" class="w-full rounded-xl mb-4">
+      <div class="space-y-3">
+        <div>
+          <span class="px-2 py-1 rounded-md text-xs font-medium ${ad.type === 'video' ? 'bg-rose-600' : 'bg-blue-600'} text-white">
+            ${ad.type === 'video' ? '숏폼 영상' : '이미지 광고'}
+          </span>
+        </div>
+        <h4 class="text-lg font-semibold">${ad.title}</h4>
+        <p class="text-sm text-zinc-400">${ad.hook}</p>
+        <div class="flex items-center gap-2 p-3 rounded-lg bg-zinc-900/50">
+          <i data-lucide="trending-up" class="w-5 h-5 text-emerald-400"></i>
+          <div>
+            <p class="text-xs text-zinc-500">AI 예측 CTR</p>
+            <p class="text-lg font-bold text-emerald-400">${ad.ctr}%</p>
+          </div>
+        </div>
+      </div>
+    `;
+    modal.classList.remove('hidden');
+    lucide.createIcons();
+  };
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('previewModal').classList.add('hidden');
+  });
+
+  document.getElementById('previewModal').addEventListener('click', (e) => {
+    if (e.target.id === 'previewModal') {
+      document.getElementById('previewModal').classList.add('hidden');
+    }
+  });
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // 초기 렌더링
+  renderAds();
+</script>
+<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+</body>
+</html>
