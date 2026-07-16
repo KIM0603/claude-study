@@ -83,9 +83,13 @@ Error generating stack: `+o.message+`
         document.querySelectorAll('input').forEach(function(inp){
           if(!urlInput && inp.placeholder && inp.placeholder.indexOf('YouTube URL')!==-1) urlInput=inp;
         });
-        if(agentCard && resultHeader && urlInput && document.getElementById('blog-body-text')){
+        var startButton=null;
+        document.querySelectorAll('button').forEach(function(b){
+          if(!startButton && b.textContent.indexOf('플랜 시작')!==-1) startButton=b;
+        });
+        if(agentCard && resultHeader && urlInput && startButton && document.getElementById('blog-body-text')){
           clearInterval(iv);
-          fn(agentCard, resultHeader, urlInput);
+          fn(agentCard, resultHeader, urlInput, startButton);
         }
         if(tries>250){ clearInterval(iv); }
       },80);
@@ -403,42 +407,121 @@ Error generating stack: `+o.message+`
       return null;
     }
 
-    // ---------------- UI: research panel ----------------
-    function injectResearchPanel(urlInput){
-      var container=urlInput.parentElement.parentElement; // input -> .flex-1.relative -> row container
-      var panel=document.createElement('div');
-      panel.className='imgfeat-card';
-      panel.innerHTML =
-        '<span class="imgfeat-label">\uD83E\uDD16 \uC2E4\uC2DC\uAC04 \uB9AC\uC11C\uCE58 (Live · Claude API)</span>'+
-        '<div class="imgfeat-drop">'+
-          '<button type="button" class="imgfeat-genbtn" id="imgfeat-research-btn">AI\uB85C \uC2E4\uC81C \uC870\uC0AC + \uC791\uC131</button>'+
-          '<span class="imgfeat-status" id="imgfeat-research-status"></span>'+
-        '</div>'+
-        '<p class="imgfeat-hint">\uC704 URL \uC785\uB825\uCE78\uC5D0 \uC801\uC740 \uB9C1\uD06C/\uC8FC\uC81C\uB97C \uC2E4\uC81C\uB85C \uC6F9\uC11C\uCE58\uD574 \uC870\uC0AC\uD558\uACE0, \uADF8 \uB0B4\uC6A9\uC744 \uBC14\uD0D5\uC73C\uB85C \uBCF8\uBB38\uC744 \uC0C8\uB85C \uC791\uC131\uD574\uC694. \uC644\uB8CC\uB418\uBA74 \uC544\uB798 \uC774\uBBF8\uC9C0 \uC0DD\uC131\uB3C4 \uAC19\uC740 \uCEE8\uC149\uC73C\uB85C \uC790\uB3D9 \uC5F0\uACB0\uB3FC\uC694.</p>';
-      container.insertAdjacentElement('afterend', panel);
+    var isGenerating=false;
 
-      var btn=document.getElementById('imgfeat-research-btn');
-      var statusEl=document.getElementById('imgfeat-research-status');
-      btn.addEventListener('click', async function(){
-        var url=urlInput.value.trim();
-        if(!url){ alert('URL 또는 주제를 입력해주세요.'); return; }
-        btn.disabled=true;
-        var orig=btn.textContent;
-        btn.textContent='조사 중...';
-        statusEl.textContent='AI가 실제로 웹서치하며 조사 중이에요…';
+    async function generateImages(silent){
+      if(isGenerating) return;
+      isGenerating=true;
+      var genBtn=document.getElementById('imgfeat-genbtn');
+      var orig=genBtn ? genBtn.textContent : '';
+      if(genBtn) genBtn.disabled=true;
+      try{
+        if(concept && concept.imageConcept){
+          if(genBtn) genBtn.textContent='AI가 배너 그리는 중...';
+          targets.forEach(function(t){
+            var box=document.getElementById('imgfeat-box-'+t.key);
+            if(box) box.textContent='AI 배너 생성 중...';
+          });
+          var results=await Promise.all(targets.map(function(t){
+            return generateOneSvg(concept.imageConcept, t.w, t.h, t.label)
+              .then(function(raw){ return {key:t.key, raw:raw}; })
+              .catch(function(err){ return {key:t.key, error:err}; });
+          }));
+          for(var i=0;i<results.length;i++){
+            var r=results[i];
+            var t2=findTarget(r.key);
+            var box2=document.getElementById('imgfeat-box-'+r.key);
+            var dlBtn2=document.getElementById('imgfeat-dl-'+r.key);
+            if(r.error){
+              if(box2) box2.textContent='생성 실패';
+              continue;
+            }
+            var clean=sanitizeSvg(r.raw);
+            svgSource[r.key]=clean;
+            var dataUrl=await svgToPngDataUrl(clean, t2.w, t2.h);
+            generated[r.key]=dataUrl;
+            if(box2){
+              box2.innerHTML='';
+              var wrap=document.createElement('div');
+              wrap.style.cssText='width:100%;height:100%;';
+              wrap.innerHTML=clean;
+              var svgEl=wrap.querySelector('svg');
+              if(svgEl){ svgEl.style.width='100%'; svgEl.style.height='100%'; svgEl.style.display='block'; }
+              box2.appendChild(wrap);
+            }
+            if(dlBtn2){
+              dlBtn2.style.display='block';
+              dlBtn2.onclick=(function(url, filename){
+                return function(){ var a=document.createElement('a'); a.href=url; a.download=filename; a.click(); };
+              })(dataUrl, t2.filename);
+            }
+          }
+        } else if(refImg){
+          targets.forEach(function(t){
+            var canvas=drawCover(refImg, t.w, t.h, t.ox, t.oy, t.filter);
+            var dataUrl=canvas.toDataURL('image/png');
+            generated[t.key]=dataUrl;
+            var box=document.getElementById('imgfeat-box-'+t.key);
+            if(box){
+              box.textContent='';
+              var img=document.createElement('img');
+              img.src=dataUrl;
+              box.appendChild(img);
+            }
+            var dlBtn=document.getElementById('imgfeat-dl-'+t.key);
+            if(dlBtn){
+              dlBtn.style.display='block';
+              dlBtn.onclick=function(){
+                var a=document.createElement('a');
+                a.href=dataUrl; a.download=t.filename; a.click();
+              };
+            }
+          });
+        } else if(!silent){
+          alert('먼저 "플랜 시작"으로 실제 조사를 실행하거나, 참고 이미지를 업로드해주세요.');
+        }
+      }catch(err){
+        if(!silent) alert('이미지 생성 중 오류가 발생했어요: '+err.message);
+        throw err;
+      }finally{
+        isGenerating=false;
+        if(genBtn){ genBtn.disabled=false; genBtn.textContent=orig; }
+      }
+    }
+
+    // ---------------- Real flow: hook into the actual "플랜 시작" button ----------------
+    var isResearching=false;
+
+    function injectRealFlow(urlInput, startButton){
+      startButton.addEventListener('click', async function(){
+        var statusEl=document.getElementById('imgfeat-flow-status');
+        if(isResearching) return;
+        var url=urlInput.value.trim() || 'https://youtube.com/watch?v=example';
+        isResearching=true;
+        if(statusEl) statusEl.textContent='🤖 이 링크 기준으로 AI가 실제 조사 + 작성 중이에요… (최대 1분)';
         try{
           var parsed=await runRealResearch(url);
           concept=parsed;
           renderResearch(parsed);
-          var genBtn=document.getElementById('imgfeat-genbtn');
-          if(genBtn) genBtn.disabled=false;
-          statusEl.textContent='✓ 완료 — 실제 웹서치 기반 초안이 반영됐어요.';
+          // 이전에 생성했던 이미지가 있다면 새 컨셉과 맞지 않으니 비우고 새로 생성
+          generated={};
+          svgSource={};
+          targets.forEach(function(t){
+            var box=document.getElementById('imgfeat-box-'+t.key);
+            var dlBtn=document.getElementById('imgfeat-dl-'+t.key);
+            if(box) box.innerHTML='생성 대기';
+            if(dlBtn) dlBtn.style.display='none';
+          });
+          statusEl=document.getElementById('imgfeat-flow-status');
+          if(statusEl) statusEl.textContent='✓ 글 작성 완료. 이 컨셉에 맞는 이미지를 생성하는 중이에요…';
+          await generateImages(true);
+          statusEl=document.getElementById('imgfeat-flow-status');
+          if(statusEl) statusEl.textContent='✓ 이 링크 기준으로 글 + 이미지가 모두 완성됐어요.';
         }catch(err){
-          statusEl.textContent='';
-          alert('리서치 중 오류가 발생했어요: '+err.message);
+          statusEl=document.getElementById('imgfeat-flow-status');
+          if(statusEl) statusEl.textContent='⚠ 처리 중 오류가 발생했어요: '+err.message;
         }finally{
-          btn.disabled=false;
-          btn.textContent=orig;
+          isResearching=false;
         }
       });
     }
@@ -454,7 +537,7 @@ Error generating stack: `+o.message+`
           '<img id="imgfeat-thumb" class="imgfeat-thumb" style="display:none" />'+
           '<span id="imgfeat-filename" style="font-family:\'Geist Mono\',monospace;font-size:10px;color:#52525C;"></span>'+
         '</div>'+
-        '<p class="imgfeat-hint">위 리서치를 실행하면 그 컨셉에 맞춰 AI가 직접 SVG 배너를 그려줘요. 참고 이미지를 올리면 리서치 없이도 그 이미지 톤을 잘라서 배너로 만들 수 있어요.</p>';
+        '<p class="imgfeat-hint">"플랜 시작"을 누르면 그 컨셉에 맞춰 AI가 직접 SVG 배너를 그려줘요. 참고 이미지를 올리면 리서치 없이도 그 이미지 톤을 잘라서 배너로 만들 수 있어요.</p>';
       card.appendChild(box);
 
       document.getElementById('imgfeat-file').addEventListener('change', function(e){
@@ -513,6 +596,13 @@ Error generating stack: `+o.message+`
       topRow.appendChild(btnGroup);
       gallery.appendChild(topRow);
 
+      var statusEl=document.createElement('div');
+      statusEl.id='imgfeat-flow-status';
+      statusEl.className='imgfeat-status';
+      statusEl.style.cssText='width:100%;margin-bottom:10px;min-height:14px;';
+      statusEl.textContent='상단 URL을 입력하고 "플랜 시작"을 누르면 이 링크 기준으로 글과 이미지가 자동으로 생성돼요.';
+      gallery.appendChild(statusEl);
+
       var row=document.createElement('div');
       row.style.cssText='display:flex;gap:10px;flex-wrap:wrap;';
       targets.forEach(function(t){
@@ -540,73 +630,7 @@ Error generating stack: `+o.message+`
 
       headerRow.insertAdjacentElement('afterend', gallery);
 
-      genBtn.addEventListener('click', async function(){
-        genBtn.disabled=true;
-        var orig=genBtn.textContent;
-        try{
-          if(concept && concept.imageConcept){
-            genBtn.textContent='AI가 배너 그리는 중...';
-            targets.forEach(function(t){
-              var box=document.getElementById('imgfeat-box-'+t.key);
-              box.textContent='AI 배너 생성 중...';
-            });
-            var results=await Promise.all(targets.map(function(t){
-              return generateOneSvg(concept.imageConcept, t.w, t.h, t.label)
-                .then(function(raw){ return {key:t.key, raw:raw}; })
-                .catch(function(err){ return {key:t.key, error:err}; });
-            }));
-            for(var i=0;i<results.length;i++){
-              var r=results[i];
-              var t2=findTarget(r.key);
-              var box2=document.getElementById('imgfeat-box-'+r.key);
-              var dlBtn2=document.getElementById('imgfeat-dl-'+r.key);
-              if(r.error){
-                box2.textContent='생성 실패';
-                continue;
-              }
-              var clean=sanitizeSvg(r.raw);
-              svgSource[r.key]=clean;
-              var dataUrl=await svgToPngDataUrl(clean, t2.w, t2.h);
-              generated[r.key]=dataUrl;
-              box2.innerHTML='';
-              var wrap=document.createElement('div');
-              wrap.style.cssText='width:100%;height:100%;';
-              wrap.innerHTML=clean;
-              var svgEl=wrap.querySelector('svg');
-              if(svgEl){ svgEl.style.width='100%'; svgEl.style.height='100%'; svgEl.style.display='block'; }
-              box2.appendChild(wrap);
-              dlBtn2.style.display='block';
-              dlBtn2.onclick=(function(url, filename){
-                return function(){ var a=document.createElement('a'); a.href=url; a.download=filename; a.click(); };
-              })(dataUrl, t2.filename);
-            }
-          } else if(refImg){
-            targets.forEach(function(t){
-              var canvas=drawCover(refImg, t.w, t.h, t.ox, t.oy, t.filter);
-              var dataUrl=canvas.toDataURL('image/png');
-              generated[t.key]=dataUrl;
-              var box=document.getElementById('imgfeat-box-'+t.key);
-              box.textContent='';
-              var img=document.createElement('img');
-              img.src=dataUrl;
-              box.appendChild(img);
-              var dlBtn=document.getElementById('imgfeat-dl-'+t.key);
-              dlBtn.style.display='block';
-              dlBtn.onclick=function(){
-                var a=document.createElement('a');
-                a.href=dataUrl; a.download=t.filename; a.click();
-              };
-            });
-          } else {
-            alert('먼저 위에서 "AI로 실제 조사 + 작성"을 실행하거나, 참고 이미지를 업로드해주세요.');
-          }
-        }catch(err){
-          alert('이미지 생성 중 오류가 발생했어요: '+err.message);
-        }finally{
-          genBtn.disabled=false;
-          genBtn.textContent=orig;
-        }
-      });
+      genBtn.addEventListener('click', function(){ generateImages(); });
 
       dlAllBtn.addEventListener('click', function(){
         var files=[];
@@ -664,11 +688,11 @@ Error generating stack: `+o.message+`
       if(sections[sections.length-1]) sections[sections.length-1].insertAdjacentElement('afterend', makeMarker(markerTexts[2]));
     }
 
-    ready(function(agentCard, resultHeader, urlInput){
-      injectResearchPanel(urlInput);
+    ready(function(agentCard, resultHeader, urlInput, startButton){
       injectUploadUI(agentCard);
       injectGallery(resultHeader);
       injectMarkers();
+      injectRealFlow(urlInput, startButton);
     });
   })();
   </script>
