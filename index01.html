@@ -24,6 +24,12 @@
     .imgfeat-dlbtn{font-family:'Geist Mono',monospace;font-size:11px;padding:8px 14px;border-radius:8px;background:#18181B;border:1px solid #232326;color:#E4E4E7;cursor:pointer;transition:.15s;}
     .imgfeat-dlbtn:hover{border-color:#3A3A40;}
     .imgfeat-marker{display:inline-block;margin:12px 0;padding:7px 12px;border:1px dashed #FF6B35;border-radius:8px;background:rgba(255,107,53,.08);color:#FF8A65;font-family:'Geist Mono',monospace;font-size:11px;}
+    .imgfeat-status{font-family:'Geist Mono',monospace;font-size:10.5px;color:#FF8A65;}
+    .imgfeat-titlebtn{display:flex;align-items:flex-start;gap:8px;text-align:left;width:100%;background:#0A0A0B;border:1px solid #1E1E20;border-radius:10px;padding:10px 14px;color:#9F9FA9;font-size:13px;line-height:1.45;cursor:pointer;margin-bottom:8px;transition:.15s;font-family:inherit;}
+    .imgfeat-titlebtn:hover{border-color:#2A2A2E;}
+    .imgfeat-titlebtn-active{background:rgba(255,107,53,.1);border-color:rgba(255,107,53,.3);color:#F4F4F5;font-weight:500;}
+    .imgfeat-titlebadge{font-family:'Geist Mono',monospace;font-size:10px;padding:2px 6px;border-radius:5px;border:1px solid #232326;background:#18181B;color:#6B6B76;flex-shrink:0;}
+    .imgfeat-titlebtn-active .imgfeat-titlebadge{background:#FF6B35;color:#000;border-color:#FF6B35;font-weight:700;}
   </style>
 </head>
 <body>
@@ -73,24 +79,209 @@ Error generating stack: `+o.message+`
         document.querySelectorAll('h2').forEach(function(h){
           if(h.textContent.indexOf('최종 결과물')!==-1) resultHeader=h;
         });
-        if(agentCard && resultHeader && document.getElementById('blog-body-text')){
+        var urlInput=null;
+        document.querySelectorAll('input').forEach(function(inp){
+          if(!urlInput && inp.placeholder && inp.placeholder.indexOf('YouTube URL')!==-1) urlInput=inp;
+        });
+        if(agentCard && resultHeader && urlInput && document.getElementById('blog-body-text')){
           clearInterval(iv);
-          fn(agentCard, resultHeader);
+          fn(agentCard, resultHeader, urlInput);
         }
         if(tries>250){ clearInterval(iv); }
       },80);
     }
 
-    var refImg=null;
+    var refImg=null;   // uploaded reference image (Image element)
+    var concept=null;  // parsed research result: {titles, intro, sections, closing, keywords, imageConcept}
+    var generated={};  // rasterized PNG dataURLs keyed by target key
+    var svgSource={};  // raw sanitized SVG markup keyed by target key
 
-    var targets=[
-      {key:'thumb', label:'메인 썸네일', w:1920, h:600, ox:0.5, oy:0.5, filename:'thumbnail_1920x600.png'},
-      {key:'sub1', label:'서브 이미지 01', sub:'본문 중간 삽입용 배너', w:900, h:400, ox:0.15, oy:0.3, filename:'sub_image_01_900x400.png', filter:'brightness(0.95) saturate(1.05)'},
-      {key:'sub2', label:'서브 이미지 02', sub:'본문 중간 삽입용 배너', w:900, h:400, ox:0.5, oy:0.5, filename:'sub_image_02_900x400.png'},
-      {key:'sub3', label:'서브 이미지 03', sub:'본문 중간 삽입용 배너', w:900, h:400, ox:0.85, oy:0.7, filename:'sub_image_03_900x400.png', filter:'brightness(1.05) contrast(1.05)'}
-    ];
-    var generated={};
+    // ---------------- Anthropic API helper (no API key needed — proxied) ----------------
+    async function callClaude(system, userText, useWebSearch, maxTokens){
+      var body={
+        model: "claude-sonnet-4-6",
+        max_tokens: maxTokens || 1000,
+        system: system,
+        messages: [{ role:"user", content: userText }]
+      };
+      if(useWebSearch){
+        body.tools=[{ type:"web_search_20250305", name:"web_search" }];
+      }
+      var res=await fetch("https://api.anthropic.com/v1/messages", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify(body)
+      });
+      if(!res.ok){
+        var errText="";
+        try{ errText=await res.text(); }catch(e){}
+        throw new Error("API 오류 ("+res.status+") "+errText.slice(0,200));
+      }
+      var data=await res.json();
+      return (data.content||[])
+        .filter(function(b){ return b.type==="text"; })
+        .map(function(b){ return b.text; })
+        .join("\n");
+    }
 
+    function extractJson(text){
+      var start=text.indexOf('{');
+      var end=text.lastIndexOf('}');
+      if(start===-1||end===-1) throw new Error('JSON 응답을 찾을 수 없어요');
+      return JSON.parse(text.slice(start, end+1));
+    }
+
+    // ---------------- Real research + writing ----------------
+    async function runRealResearch(topicOrUrl){
+      var system =
+        "너는 한국어 테크 블로그 작가야. 아래 스타일 규칙을 반드시 지켜: "+
+        "도입부는 3줄 이내 훅으로 시작(질문 또는 반전). 말투는 ~해요, ~거든요, ~더라고요 같은 편안한 구어체. "+
+        "마무리는 질문으로 끝내서 댓글을 유도. 숫자·사례를 먼저 제시. 섹션은 정확히 5개, 각 섹션은 소제목+2~4문장 본문. "+
+        "웹서치 결과를 바탕으로 실제 정보를 반영해서 써. 반드시 순수 JSON 객체만 출력하고, 마크다운 코드펜스나 다른 설명 텍스트는 절대 넣지마. "+
+        "스키마: {\"titles\":[\"...\",\"...\",\"...\"],\"intro\":\"...\",\"sections\":[{\"heading\":\"...\",\"body\":\"...\"}],\"closing\":\"...\",\"keywords\":[\"...\"],\"imageConcept\":\"이 글의 시각적 컨셉을 색상/분위기/소재 위주로 짧게 영어로 묘사\"}";
+      var userText = "다음 URL 또는 주제에 대해 실제로 웹검색으로 조사한 뒤 블로그 글을 써줘: " + topicOrUrl;
+      var raw = await callClaude(system, userText, true, 1000);
+      return extractJson(raw);
+    }
+
+    function renderResearch(parsed){
+      // 1) title options
+      var titleLabel=null;
+      document.querySelectorAll('div').forEach(function(d){
+        if(!titleLabel && d.children.length===0 && d.textContent.indexOf('TITLE OPTIONS')===0) titleLabel=d;
+      });
+      if(titleLabel && titleLabel.nextElementSibling && parsed.titles && parsed.titles.length){
+        var titleContainer=titleLabel.nextElementSibling;
+        titleContainer.innerHTML='';
+        parsed.titles.forEach(function(t, idx){
+          var btn=document.createElement('button');
+          btn.type='button';
+          btn.className='imgfeat-titlebtn'+(idx===0?' imgfeat-titlebtn-active':'');
+          var badge=document.createElement('span');
+          badge.className='imgfeat-titlebadge';
+          badge.textContent='옵션 '+(idx+1);
+          var label=document.createElement('span');
+          label.textContent=t;
+          btn.appendChild(badge);
+          btn.appendChild(label);
+          btn.addEventListener('click', function(){
+            titleContainer.querySelectorAll('.imgfeat-titlebtn').forEach(function(b){ b.classList.remove('imgfeat-titlebtn-active'); });
+            btn.classList.add('imgfeat-titlebtn-active');
+            var h1=document.querySelector('#blog-body-text h1');
+            if(h1) h1.textContent=t;
+          });
+          titleContainer.appendChild(btn);
+        });
+      }
+
+      // 2) body content
+      var body=document.getElementById('blog-body-text');
+      if(!body) return;
+      body.innerHTML='';
+
+      var h1=document.createElement('h1');
+      h1.className='text-[19px] md:text-[21px] font-bold leading-[1.35] tracking-tight text-[#F4F4F5]';
+      h1.textContent=(parsed.titles && parsed.titles[0]) || '(제목 없음)';
+      body.appendChild(h1);
+
+      var metaRow=document.createElement('div');
+      metaRow.className='flex items-center gap-2 mono text-[11px] text-[#6B6B76] border-y border-[#1A1A1D] py-2.5';
+      metaRow.innerHTML='<span>AI 실시간 리서치 기반 초안</span><span class="w-1 h-1 rounded-full bg-[#2A2A2E]"></span><span>웹서치 반영</span>';
+      body.appendChild(metaRow);
+
+      if(parsed.intro){
+        var introBox=document.createElement('div');
+        introBox.className='rounded-[10px] bg-[#111113] border border-[#1E1E20] p-4';
+        var introP=document.createElement('p');
+        introP.className='text-[#9F9FA9]';
+        introP.textContent=parsed.intro;
+        introBox.appendChild(introP);
+        body.appendChild(introBox);
+      }
+
+      var sectionsWrap=document.createElement('div');
+      sectionsWrap.className='space-y-6';
+      (parsed.sections||[]).forEach(function(sec, idx){
+        var section=document.createElement('section');
+        var h3=document.createElement('h3');
+        h3.className='text-[15px] font-semibold text-[#F4F4F5] flex items-center gap-2';
+        var num=document.createElement('span');
+        num.className='w-6 h-6 rounded-[7px] bg-[#18181B] border border-[#232326] flex items-center justify-center text-[11px]';
+        num.textContent=(idx+1);
+        h3.appendChild(num);
+        h3.appendChild(document.createTextNode(sec.heading||''));
+        var p=document.createElement('p');
+        p.className='mt-2.5 text-[#B4B4BB]';
+        p.textContent=sec.body||'';
+        section.appendChild(h3);
+        section.appendChild(p);
+        sectionsWrap.appendChild(section);
+      });
+      body.appendChild(sectionsWrap);
+
+      if(parsed.closing){
+        var closingBox=document.createElement('div');
+        closingBox.className='rounded-[12px] bg-gradient-to-br from-[#FF6B35]/10 to-[#FF6B35]/[0.03] border border-[#FF6B35]/20 p-4 mt-2';
+        var cp=document.createElement('p');
+        cp.className='text-[13.5px] text-[#D4D4D8] font-medium';
+        cp.textContent=parsed.closing;
+        closingBox.appendChild(cp);
+        body.appendChild(closingBox);
+      }
+
+      injectMarkers();
+    }
+
+    // ---------------- concept-matched SVG banner generation via Claude ----------------
+    async function generateOneSvg(desc, w, h, label){
+      var system =
+        "너는 SVG 배너 디자이너야. 요청받은 사이즈에 맞는 추상적인 다크 테마 배너를 SVG로 그려. "+
+        "브랜드 컬러: 배경 #0A0A0B~#151517, 포인트 컬러 #FF6B35~#FF8A65(오렌지 그라디언트), 보조색 #E4E4E7,#9F9FA9. "+
+        "기하학적 도형, 은은한 그리드/노드/연결선 등 테크 느낌으로 구성하고, 텍스트는 넣지 마. "+
+        "반드시 viewBox=\"0 0 "+w+" "+h+"\" 인 <svg> 태그로 시작해서 </svg>로 끝나는 순수 SVG 코드만 출력해. 설명, 마크다운 코드펜스 금지.";
+      var userText = "배너 컨셉: " + desc + " / 용도: " + label + " (" + w + "x" + h + ")";
+      var raw = await callClaude(system, userText, false, 1000);
+      var start=raw.indexOf('<svg');
+      var end=raw.lastIndexOf('</svg>');
+      if(start===-1||end===-1) throw new Error('SVG 생성 실패');
+      return raw.slice(start, end+6);
+    }
+
+    function sanitizeSvg(svgText){
+      var doc=new DOMParser().parseFromString(svgText, 'image/svg+xml');
+      var svgEl=doc.documentElement;
+      if(!svgEl || svgEl.nodeName.toLowerCase()!=='svg') throw new Error('잘못된 SVG 응답');
+      svgEl.querySelectorAll('script').forEach(function(s){ s.remove(); });
+      svgEl.querySelectorAll('*').forEach(function(el){
+        [].slice.call(el.attributes).forEach(function(attr){
+          var n=attr.name.toLowerCase();
+          if(n.indexOf('on')===0 || (n==='href' && attr.value.trim().toLowerCase().indexOf('javascript:')===0)){
+            el.removeAttribute(attr.name);
+          }
+        });
+      });
+      return svgEl.outerHTML;
+    }
+
+    function svgToPngDataUrl(svgMarkup, w, h){
+      return new Promise(function(resolve, reject){
+        var blob=new Blob([svgMarkup], {type:'image/svg+xml;charset=utf-8'});
+        var url=URL.createObjectURL(blob);
+        var img=new Image();
+        img.onload=function(){
+          var canvas=document.createElement('canvas');
+          canvas.width=w; canvas.height=h;
+          var ctx=canvas.getContext('2d');
+          ctx.drawImage(img,0,0,w,h);
+          URL.revokeObjectURL(url);
+          resolve(canvas.toDataURL('image/png'));
+        };
+        img.onerror=function(e){ URL.revokeObjectURL(url); reject(e); };
+        img.src=url;
+      });
+    }
+
+    // ---------------- crop-fallback (uploaded reference image) ----------------
     function drawCover(img,w,h,ox,oy,filter){
       var canvas=document.createElement('canvas');
       canvas.width=w; canvas.height=h;
@@ -103,6 +294,7 @@ Error generating stack: `+o.message+`
       return canvas;
     }
 
+    // ---------------- ZIP bundling (pure JS, no deps) ----------------
     function dataUrlToBytes(dataUrl){
       var base64=dataUrl.split(',')[1];
       var bin=atob(base64);
@@ -110,7 +302,6 @@ Error generating stack: `+o.message+`
       for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
       return bytes;
     }
-
     var CRC_TABLE=(function(){
       var table=[];
       for(var n=0;n<256;n++){
@@ -122,20 +313,15 @@ Error generating stack: `+o.message+`
     })();
     function crc32(bytes){
       var crc=0xFFFFFFFF;
-      for(var i=0;i<bytes.length;i++){
-        crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
-      }
+      for(var i=0;i<bytes.length;i++){ crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8); }
       return (crc ^ 0xFFFFFFFF) >>> 0;
     }
-
     function dosDateTime(){
       var d=new Date();
       var time=((d.getHours()&0x1F)<<11) | ((d.getMinutes()&0x3F)<<5) | ((d.getSeconds()>>1)&0x1F);
       var date=(((d.getFullYear()-1980)&0x7F)<<9) | (((d.getMonth()+1)&0xF)<<5) | (d.getDate()&0x1F);
       return {time:time, date:date};
     }
-
-    // Minimal pure-JS ZIP writer (stored / no compression) — no external libs needed.
     function createZip(files){
       var dt=dosDateTime();
       var localParts=[], centralParts=[], offset=0;
@@ -159,7 +345,6 @@ Error generating stack: `+o.message+`
         lv.setUint16(26,nameBytes.length,true);
         lv.setUint16(28,0,true);
         local.set(nameBytes,30);
-
         localParts.push(local, data);
 
         var central=new Uint8Array(46+nameBytes.length);
@@ -205,6 +390,60 @@ Error generating stack: `+o.message+`
       return new Blob(allParts, {type:'application/zip'});
     }
 
+    // ---------------- image targets ----------------
+    var targets=[
+      {key:'thumb', label:'메인 썸네일', w:1920, h:600, ox:0.5, oy:0.5, filename:'thumbnail_1920x600.png'},
+      {key:'sub1', label:'서브 이미지 01', sub:'본문 중간 삽입용 배너', w:900, h:400, ox:0.15, oy:0.3, filename:'sub_image_01_900x400.png', filter:'brightness(0.95) saturate(1.05)'},
+      {key:'sub2', label:'서브 이미지 02', sub:'본문 중간 삽입용 배너', w:900, h:400, ox:0.5, oy:0.5, filename:'sub_image_02_900x400.png'},
+      {key:'sub3', label:'서브 이미지 03', sub:'본문 중간 삽입용 배너', w:900, h:400, ox:0.85, oy:0.7, filename:'sub_image_03_900x400.png', filter:'brightness(1.05) contrast(1.05)'}
+    ];
+
+    function findTarget(key){
+      for(var i=0;i<targets.length;i++){ if(targets[i].key===key) return targets[i]; }
+      return null;
+    }
+
+    // ---------------- UI: research panel ----------------
+    function injectResearchPanel(urlInput){
+      var container=urlInput.parentElement.parentElement; // input -> .flex-1.relative -> row container
+      var panel=document.createElement('div');
+      panel.className='imgfeat-card';
+      panel.innerHTML =
+        '<span class="imgfeat-label">\uD83E\uDD16 \uC2E4\uC2DC\uAC04 \uB9AC\uC11C\uCE58 (Live · Claude API)</span>'+
+        '<div class="imgfeat-drop">'+
+          '<button type="button" class="imgfeat-genbtn" id="imgfeat-research-btn">AI\uB85C \uC2E4\uC81C \uC870\uC0AC + \uC791\uC131</button>'+
+          '<span class="imgfeat-status" id="imgfeat-research-status"></span>'+
+        '</div>'+
+        '<p class="imgfeat-hint">\uC704 URL \uC785\uB825\uCE78\uC5D0 \uC801\uC740 \uB9C1\uD06C/\uC8FC\uC81C\uB97C \uC2E4\uC81C\uB85C \uC6F9\uC11C\uCE58\uD574 \uC870\uC0AC\uD558\uACE0, \uADF8 \uB0B4\uC6A9\uC744 \uBC14\uD0D5\uC73C\uB85C \uBCF8\uBB38\uC744 \uC0C8\uB85C \uC791\uC131\uD574\uC694. \uC644\uB8CC\uB418\uBA74 \uC544\uB798 \uC774\uBBF8\uC9C0 \uC0DD\uC131\uB3C4 \uAC19\uC740 \uCEE8\uC149\uC73C\uB85C \uC790\uB3D9 \uC5F0\uACB0\uB3FC\uC694.</p>';
+      container.insertAdjacentElement('afterend', panel);
+
+      var btn=document.getElementById('imgfeat-research-btn');
+      var statusEl=document.getElementById('imgfeat-research-status');
+      btn.addEventListener('click', async function(){
+        var url=urlInput.value.trim();
+        if(!url){ alert('URL 또는 주제를 입력해주세요.'); return; }
+        btn.disabled=true;
+        var orig=btn.textContent;
+        btn.textContent='조사 중...';
+        statusEl.textContent='AI가 실제로 웹서치하며 조사 중이에요…';
+        try{
+          var parsed=await runRealResearch(url);
+          concept=parsed;
+          renderResearch(parsed);
+          var genBtn=document.getElementById('imgfeat-genbtn');
+          if(genBtn) genBtn.disabled=false;
+          statusEl.textContent='✓ 완료 — 실제 웹서치 기반 초안이 반영됐어요.';
+        }catch(err){
+          statusEl.textContent='';
+          alert('리서치 중 오류가 발생했어요: '+err.message);
+        }finally{
+          btn.disabled=false;
+          btn.textContent=orig;
+        }
+      });
+    }
+
+    // ---------------- UI: reference image upload ----------------
     function injectUploadUI(card){
       var box=document.createElement('div');
       box.className='imgfeat-card';
@@ -215,7 +454,7 @@ Error generating stack: `+o.message+`
           '<img id="imgfeat-thumb" class="imgfeat-thumb" style="display:none" />'+
           '<span id="imgfeat-filename" style="font-family:\'Geist Mono\',monospace;font-size:10px;color:#52525C;"></span>'+
         '</div>'+
-        '<p class="imgfeat-hint">프롬프트 스타일이 매번 달라질 때, 참고 이미지를 올리면 그 스타일 톤에 맞춰 썸네일 · 배너 이미지를 만들어 드려요.</p>';
+        '<p class="imgfeat-hint">위 리서치를 실행하면 그 컨셉에 맞춰 AI가 직접 SVG 배너를 그려줘요. 참고 이미지를 올리면 리서치 없이도 그 이미지 톤을 잘라서 배너로 만들 수 있어요.</p>';
       card.appendChild(box);
 
       document.getElementById('imgfeat-file').addEventListener('change', function(e){
@@ -239,6 +478,7 @@ Error generating stack: `+o.message+`
       });
     }
 
+    // ---------------- UI: preview gallery + download ----------------
     function injectGallery(header){
       var headerRow=header.parentElement.parentElement;
       var gallery=document.createElement('div');
@@ -300,24 +540,72 @@ Error generating stack: `+o.message+`
 
       headerRow.insertAdjacentElement('afterend', gallery);
 
-      genBtn.addEventListener('click', function(){
-        if(!refImg) return;
-        targets.forEach(function(t){
-          var canvas=drawCover(refImg, t.w, t.h, t.ox, t.oy, t.filter);
-          var dataUrl=canvas.toDataURL('image/png');
-          generated[t.key]=dataUrl;
-          var box=document.getElementById('imgfeat-box-'+t.key);
-          box.textContent='';
-          var img=document.createElement('img');
-          img.src=dataUrl;
-          box.appendChild(img);
-          var dlBtn=document.getElementById('imgfeat-dl-'+t.key);
-          dlBtn.style.display='block';
-          dlBtn.onclick=function(){
-            var a=document.createElement('a');
-            a.href=dataUrl; a.download=t.filename; a.click();
-          };
-        });
+      genBtn.addEventListener('click', async function(){
+        genBtn.disabled=true;
+        var orig=genBtn.textContent;
+        try{
+          if(concept && concept.imageConcept){
+            genBtn.textContent='AI가 배너 그리는 중...';
+            targets.forEach(function(t){
+              var box=document.getElementById('imgfeat-box-'+t.key);
+              box.textContent='AI 배너 생성 중...';
+            });
+            var results=await Promise.all(targets.map(function(t){
+              return generateOneSvg(concept.imageConcept, t.w, t.h, t.label)
+                .then(function(raw){ return {key:t.key, raw:raw}; })
+                .catch(function(err){ return {key:t.key, error:err}; });
+            }));
+            for(var i=0;i<results.length;i++){
+              var r=results[i];
+              var t2=findTarget(r.key);
+              var box2=document.getElementById('imgfeat-box-'+r.key);
+              var dlBtn2=document.getElementById('imgfeat-dl-'+r.key);
+              if(r.error){
+                box2.textContent='생성 실패';
+                continue;
+              }
+              var clean=sanitizeSvg(r.raw);
+              svgSource[r.key]=clean;
+              var dataUrl=await svgToPngDataUrl(clean, t2.w, t2.h);
+              generated[r.key]=dataUrl;
+              box2.innerHTML='';
+              var wrap=document.createElement('div');
+              wrap.style.cssText='width:100%;height:100%;';
+              wrap.innerHTML=clean;
+              var svgEl=wrap.querySelector('svg');
+              if(svgEl){ svgEl.style.width='100%'; svgEl.style.height='100%'; svgEl.style.display='block'; }
+              box2.appendChild(wrap);
+              dlBtn2.style.display='block';
+              dlBtn2.onclick=(function(url, filename){
+                return function(){ var a=document.createElement('a'); a.href=url; a.download=filename; a.click(); };
+              })(dataUrl, t2.filename);
+            }
+          } else if(refImg){
+            targets.forEach(function(t){
+              var canvas=drawCover(refImg, t.w, t.h, t.ox, t.oy, t.filter);
+              var dataUrl=canvas.toDataURL('image/png');
+              generated[t.key]=dataUrl;
+              var box=document.getElementById('imgfeat-box-'+t.key);
+              box.textContent='';
+              var img=document.createElement('img');
+              img.src=dataUrl;
+              box.appendChild(img);
+              var dlBtn=document.getElementById('imgfeat-dl-'+t.key);
+              dlBtn.style.display='block';
+              dlBtn.onclick=function(){
+                var a=document.createElement('a');
+                a.href=dataUrl; a.download=t.filename; a.click();
+              };
+            });
+          } else {
+            alert('먼저 위에서 "AI로 실제 조사 + 작성"을 실행하거나, 참고 이미지를 업로드해주세요.');
+          }
+        }catch(err){
+          alert('이미지 생성 중 오류가 발생했어요: '+err.message);
+        }finally{
+          genBtn.disabled=false;
+          genBtn.textContent=orig;
+        }
       });
 
       dlAllBtn.addEventListener('click', function(){
@@ -352,9 +640,11 @@ Error generating stack: `+o.message+`
       });
     }
 
+    // ---------------- body markers ----------------
     function injectMarkers(){
       var body=document.getElementById('blog-body-text');
       if(!body) return;
+      if(body.querySelector('.imgfeat-marker')) return; // already inserted
       var markerTexts=['(이미지 01 삽입구역)','(이미지 02 삽입구역)','(이미지 03 삽입구역)'];
       function makeMarker(t){
         var d=document.createElement('div');
@@ -369,11 +659,13 @@ Error generating stack: `+o.message+`
       if(quoteBox) quoteBox.insertAdjacentElement('afterend', makeMarker(markerTexts[0]));
 
       var sections=body.querySelectorAll('section');
-      if(sections[2]) sections[2].insertAdjacentElement('afterend', makeMarker(markerTexts[1]));
-      if(sections[5]) sections[5].insertAdjacentElement('afterend', makeMarker(markerTexts[2]));
+      var mid=Math.floor(sections.length/2);
+      if(sections[mid]) sections[mid].insertAdjacentElement('afterend', makeMarker(markerTexts[1]));
+      if(sections[sections.length-1]) sections[sections.length-1].insertAdjacentElement('afterend', makeMarker(markerTexts[2]));
     }
 
-    ready(function(agentCard, resultHeader){
+    ready(function(agentCard, resultHeader, urlInput){
+      injectResearchPanel(urlInput);
       injectUploadUI(agentCard);
       injectGallery(resultHeader);
       injectMarkers();
