@@ -3208,7 +3208,9 @@
   const FARM_SHOTS={'01':[1,2,3,4,5,6],'02':[1,2,3,4,5],'03':[1,2,3,4,5],'04':[1,2,3,4,5,6,7],'05':[1,2,3,4,5,6,8],'06':[1,2,3,4,5],'07':[1,2,3,4,5],'08':[1,2,3,4],'09':[1,2,3,4,5,6],'10':[1,2,3,4],'11':[1,2,3,4,5],'12':[1,2,3,4,5],'13':[1,2,3,4,5],'14':[1,2,3,4,5],'15':[1,2,3,4],'16':[1,2,3,4],'17':[1,2,3,4,5],'18':[1,2,3,4,5],'19':[1,2,3,4],'20':[1,2,3,4,5]};
   PL.forEach((p,i)=>{ p.fid=String(i+1).padStart(2,"0"); });
   function farmImg(fid,n){return `images/farms/farm${fid}_${n}.jpg`;}
-  function storeImg(key){return `images/farms/store_${key}.jpg`;}
+  const STORE_SHOTS={pk_hanwoo:[1,2,3,4,5,6],pk_plaza:[1,2,3,4,5,6],pk_bread:[1,2,3,4,5,6],pk_namul:[1,2,3,4,5,6],pk_deodeok:[1,2,3,4,5,6],pk_potato:[1],pk_local:[1],pk_pc_trout:[1],pk_pc_buck:[1],pk_js_gondre:[1],pk_js_surichi:[1],pk_js_hwanggi:[1]};
+  function storeImgs(key){return (STORE_SHOTS[key]||[1]).map(n=>`images/farms/store_${key}_${n}.jpg`);}
+  function storeImg(key){return storeImgs(key)[0];}
   let plFilter='직거래 최저가';
   function plCardHTML(p,first){
     const shots=p.fid?FARM_SHOTS[p.fid]:null;
@@ -3595,9 +3597,10 @@
     var grp=HS_REGION_GROUP[hsState.region]||[hsState.region]; var items=[];
     PL.forEach(function(p){ if(grp.indexOf(p.region)<0)return;
       var img=(p.fid&&FARM_SHOTS[p.fid])?farmImg(p.fid,FARM_SHOTS[p.fid][0]):null;
+      var imgs=(p.fid&&FARM_SHOTS[p.fid])?FARM_SHOTS[p.fid].map(n=>farmImg(p.fid,n)):null;
       items.push({name:p.name,prod:p.prod,was:p.was,now:p.now,stock:_hsStockTxt(p.tag),
         pickup:p.mode==='pre'?('선예약 · '+(p.predate||'')):('픽업 '+(p.hours||'').replace(/\s*~\s*/,'\u2013')),
-        end:p.mode==='pre'?9999:_hsEndFromHours(p.hours), img:img,
+        end:p.mode==='pre'?9999:_hsEndFromHours(p.hours), img:img, imgs:imgs,
         shop:p.name, rating:'4.8', rev:p.rate||0,
         date:'오늘 · 4월 12일 (토)',
         time:(p.hours||'').replace(/\s*~\s*/,' \u2013 ')||'픽업 시간 문의',
@@ -3609,7 +3612,7 @@
       if(grp.indexOf(s.rg)<0)return; var pl=PLACES[s.key]; if(!pl||!pl.was||!pl.now)return;
       items.push({name:pl.nm,prod:pl.product||pl.desc||'',was:pl.was,now:pl.now,stock:_hsStockTxt(pl.remain),
         pickup:'픽업 '+(pl.hours||'').replace(/\s*~\s*/,'\u2013'),
-        end:_hsEndFromHours(pl.hours), img:storeImg(s.key),
+        end:_hsEndFromHours(pl.hours), img:storeImg(s.key), imgs:storeImgs(s.key),
         shop:pl.nm, rating:pl.rate||'4.8', rev:pl.rev||0,
         date:'오늘 · 4월 12일 (토)',
         time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
@@ -3900,7 +3903,7 @@
       shop:pl.nm, rating:s.rate||pl.rate||'4.8', rev:s.rev||pl.rev||0,
       date:'오늘 · 4월 12일 (토)', time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
       place:s.addr||(s.rg+'군 픽업지'), desc:pl.desc||'현지에서 당일 준비되는 상품이에요.',
-      max:_hsMax(pl.remain), img:storeImg(s.key)};
+      max:_hsMax(pl.remain), img:storeImg(s.key), imgs:storeImgs(s.key)};
   }
   function openStore(idx){ openStoreItem((window._hsList||[])[idx]); }
   function openStoreByKey(key){
@@ -3939,8 +3942,20 @@
       desc:(it.why?(it.region+' 제철 · '+it.why+'. '):'')+it.prod+'를 산지에서 직거래로 픽업해요.',
       max:5,img:null};
   }
+  function buildSdHero(it){
+    var box=document.querySelector('#s-store-detail .sd-hero-img'); if(!box)return;
+    var imgs=(it&&it.imgs&&it.imgs.length)?it.imgs:(it&&it.img?[it.img]:[]);
+    if(imgs.length){
+      box.innerHTML='<div class="sd-hero-scroll" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;height:100%;width:100%">'
+        +imgs.map(function(u){return '<div style="flex:0 0 100%;height:100%;scroll-snap-align:center;background-image:url(\''+u+'\');background-size:cover;background-position:center"></div>';}).join('')
+        +'</div>';
+    } else {
+      box.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.6" cy="9" r="1.7"/><path d="M4 16.5l4.5-4 3.5 2.6 3-2.2L21 17"/></svg>';
+    }
+  }
   function openStoreItem(it){
     if(!it)return; sdItem=it;
+    buildSdHero(it);
     document.getElementById('sd-stock').textContent=it.stock;
     document.getElementById('sd-title').textContent=it.prod||it.name;
     document.getElementById('sd-sub').innerHTML=(it.shop||it.name)+' · <b>'+(it.rating||'4.8')+'</b> ('+(it.rev||0)+')';
