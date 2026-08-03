@@ -51,6 +51,10 @@
     background:var(--bg);position:relative;overflow:hidden;
     display:flex;flex-direction:column;color:var(--text);
     transition:background .35s ease, color .35s ease;
+    /* 공통 하단 CTA 바(.ad-cta/.sd-cta/.rd2-cta 등)가 각 화면 섹션 밖(형제)에 있어
+       섹션에 스코프된 --acc 등 변수를 상속받지 못하던 문제를 막기 위한 공통 기본값 */
+    --acc:#3FC358; --acc-ink:#1f9d57; --acc-tint:#E7F4EC;
+    --ln:#ECEEF0; --chip:#F2F4F5; --i9:#17181A; --i7:#3A3D42; --i6:#6B7075; --i4:#9096A0;
   }
   .notch{display:none}
   .statusbar{height:46px;flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 6px;font-size:12.5px;font-weight:700;color:var(--text-hi);z-index:20}
@@ -1498,6 +1502,7 @@
   .dt-like.on{ color:#e0506a; border-color:#f2c9d2; }
   .dt-act .btn{ flex:1; }
   .phone.detail .tabbar{ display:none; }
+  .phone:has(#datesheet.show) .tabbar{ display:none; }
   .phone.detail .fab{ display:none !important; }
   /* ===== PICAPlay 스타일 메인 (초록) ===== */
   .hl-top{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px 6px; }
@@ -1723,6 +1728,10 @@
   #mc2-list .mc2-course{ margin:6px 16px 12px; }
   .mc-resv-code{ font-size:14px; color:#0F766E; font-weight:700; margin-top:12px; }
   .mc-resv-code b{ font-weight:800; }
+  .hs-stock-badge.muted{ color:#6B7075; }
+  .mc-course-foot.saved{ color:#9096A0; font-weight:600; }
+  .mc-course-foot.upcoming{ color:#0F766E; }
+  .mc-course-foot.active{ color:#1f9d57; }
   .mc3-empty{ text-align:center; color:#9096A0; font-size:13.5px; padding:60px 24px; line-height:1.7; }
   .mc3-empty b{ color:#17181A; display:block; font-size:15px; margin-bottom:6px; font-weight:800; }
   /* 여행 중 hero 카드 */
@@ -1745,7 +1754,11 @@
   .mc3-up-thumb.green{ background:#DCE5E0; color:#A9B7AE; }
   .mc3-up-thumb svg{ width:32px; height:32px; }
   .mc3-up-body{ flex:1; min-width:0; padding:16px 16px 15px; }
-  .mc3-up-tags{ display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .mc3-up-tags{ display:flex; align-items:center; gap:6px; margin-bottom:8px; flex-wrap:wrap; }
+  .mc3-type-chip{ display:inline-flex; align-items:center; gap:4px; font-size:11.5px; font-weight:800; border-radius:6px; padding:3px 7px 3px 6px; }
+  .mc3-type-chip svg{ width:12px; height:12px; }
+  .mc3-type-chip.route{ color:#1f9d57; background:#E7F4EC; }
+  .mc3-type-chip.spot{ color:#C2410C; background:#FBEBE1; }
   .mc3-up-dday{ font-size:12px; font-weight:800; color:#C2410C; background:#FDEEE6; border-radius:6px; padding:3px 8px; }
   .mc3-up-flag{ font-size:12px; font-weight:800; color:#6B7075; background:#EEF0F2; border-radius:6px; padding:3px 8px; }
   .mc3-up-meta{ font-size:13px; font-weight:600; color:#9096A0; }
@@ -2263,8 +2276,8 @@
       </section>
 
       <div class="ad-cta" id="ad-cta">
+        <button class="ad-cta-main" onclick="lrAddAvailCourse(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>코스에 담기</button>
         <button class="ad-cta-ic" onclick="lrBook(event,this)" aria-label="북마크"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg></button>
-        <button class="ad-cta-main" onclick="go('route')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>코스에 담기</button>
       </div>
 
       <section class="screen" id="s-route-detail">
@@ -2274,7 +2287,6 @@
             <button class="rd2-ovbtn" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
             <div class="rd2-top-right">
               <button class="rd2-ovbtn" aria-label="공유"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></button>
-              <button class="rd2-ovbtn" onclick="lrBook(event,this)" aria-label="북마크"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg></button>
             </div>
           </div>
         </div>
@@ -2295,8 +2307,8 @@
       </section>
 
       <div class="rd2-cta" id="rd2-cta">
-        <button class="rd2-cta-ic" onclick="openMap()" aria-label="지도"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.4v13.2L9 17l6 2.6 6-2.6V6.4L15 6.6 9 4z"/><path d="M9 4v13M15 6.6v13"/></svg></button>
         <button class="rd2-cta-main" onclick="lrAddCourse(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>코스에 담기</button>
+        <button class="rd2-cta-ic" onclick="lrBook(event,this)" aria-label="북마크"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v16l-6-4-6 4z"/></svg></button>
       </div>
 
       <section class="screen" id="s-store-detail">
@@ -2649,9 +2661,9 @@
     var cc=document.getElementById('my2-coupon-count'); if(cc){ cc.textContent=coupons>0?(coupons+'장'):''; cc.style.display=coupons>0?'':'none'; }
   }
   let MY_COURSES=[
-    {kind:'active', title:'한우 먹고 숲 걷는 하루', region:'횡성', date:'오늘 4.12 (토)', pickDone:1, pickTotal:2, spots:5, pickups:2, dist:'28km'},
-    {kind:'upcoming', dday:'D-6', title:'대관령 목장 힐링 코스', region:'평창', date:'4.18', foot:'픽업 2곳 · 결제완료'},
-    {kind:'saved', title:'아리랑 5일장 나들이', region:'정선', date:'날짜 미정', foot:'아직 예약 전 · 날짜를 정해보세요'}
+    {kind:'active', type:'route', title:'한우 먹고 숲 걷는 하루', region:'횡성', date:'오늘 4.12 (토)', pickDone:1, pickTotal:2, spots:5, pickups:2, dist:'28km'},
+    {kind:'upcoming', type:'route', dday:'D-6', title:'대관령 목장 힐링 코스', region:'평창', date:'4.18', foot:'픽업 2곳 · 결제완료'},
+    {kind:'saved', type:'route', title:'아리랑 5일장 나들이', region:'정선', date:'날짜 미정', spots:4, foot:'아직 예약 전 · 날짜를 정해보세요'}
   ];
   let mcTab='pickup';
   function mcPickTab(t,el){mcTab=t;el.parentNode.querySelectorAll('.mc3-tab').forEach(function(b){b.classList.remove('on');});el.classList.add('on');renderMyCourse();}
@@ -2704,35 +2716,55 @@
       var act=MY_COURSES.filter(function(c){return c.kind==='active';});
       var up=MY_COURSES.filter(function(c){return c.kind!=='active';});
       var h='';
-      if(act.length){ h+='<div class="mc3-sec">여행 중</div>'+act.map(_mcHeroHTML).join(''); }
-      if(up.length){ h+='<div class="mc3-sec" style="padding-top:22px">예정</div>'+up.map(_mcUpHTML).join(''); }
+      if(act.length){ h+='<div class="mc3-sec">확정</div>'+act.map(_mcCourseCardHTML).join(''); }
+      if(up.length){ h+='<div class="mc3-sec" style="padding-top:22px">예정</div>'+up.map(_mcCourseCardHTML).join(''); }
       host.innerHTML=h;
     }
   }
-  function _mcHeroHTML(c){
-    var pct=c.pickTotal?Math.round((c.pickDone||0)/c.pickTotal*100):0;
-    return '<div class="mc3-hero" onclick="openRoute(0)">'
-      +'<div class="mc3-hero-img"><span class="mc3-hero-badge">여행 중</span>'+lrImgIco()+'</div>'
-      +'<div class="mc3-hero-body">'
-      +'<div class="mc3-hero-meta">'+(c.region?c.region+' · ':'')+(c.date||'')+'</div>'
-      +'<div class="mc3-hero-title">'+c.title+'</div>'
-      +'<div class="mc3-prog-row"><span class="mc3-prog-label">픽업 진행</span><span class="mc3-prog-count">'+(c.pickDone||0)+' / '+(c.pickTotal||0)+'</span></div>'
-      +'<div class="mc3-prog-bar"><div class="mc3-prog-fill" style="width:'+pct+'%"></div></div>'
-      +'<div class="mc3-hero-foot">스팟 '+(c.spots||0)+'곳 · 픽업 '+(c.pickups||0)+'곳 · '+(c.dist||'')+'</div>'
+  function _mcCourseCardHTML(c){
+    var idx=MY_COURSES.indexOf(c);
+    var badgeTxt = c.kind==='active' ? '확정' : (c.kind==='upcoming' ? (c.dday||'예정') : '담기만 함');
+    var badgeCls = c.kind==='saved' ? ' muted' : '';
+    var sub=(c.region?c.region+' · ':'')+(c.date||'');
+    var footTxt, footCls;
+    if(c.kind==='active'){
+      footTxt='스팟 '+(c.spots||0)+'곳 · 픽업 '+(c.pickDone||0)+'/'+(c.pickTotal||0)+(c.dist?(' · '+c.dist):'');
+      footCls='active';
+    } else if(c.kind==='upcoming'){
+      footTxt=c.foot||''; footCls='upcoming';
+    } else {
+      footTxt=c.foot||'아직 예약 전 · 날짜를 정해보세요'; footCls='saved';
+    }
+    return '<div class="hs-sale-card" onclick="mcOpenSaved('+idx+')">'
+      +'<div class="hs-sale-thumb"><span class="hs-stock-badge'+badgeCls+'">'+badgeTxt+'</span>'+lrImgIco()+'</div>'
+      +'<div class="hs-sale-body">'
+      +_mcTypeChip(c)
+      +'<div class="hs-sale-nm" style="margin-top:7px">'+c.title+'</div>'
+      +'<div class="hs-sale-prod">'+sub+'</div>'
+      +'<div class="hs-sale-div"></div>'
+      +'<div class="mc-resv-code mc-course-foot '+footCls+'">'+footTxt+'</div>'
       +'</div></div>';
   }
-  function _mcUpHTML(c){
-    var saved=(c.kind==='saved');
-    var badge=saved?'<span class="mc3-up-flag">담기만 함</span>':'<span class="mc3-up-dday">'+(c.dday||'예정')+'</span>';
-    var foot=saved?'<div class="mc3-up-foot muted">'+(c.foot||'아직 예약 전 · 날짜를 정해보세요')+'</div>'
-                  :'<div class="mc3-up-foot">'+mcBagIco()+'<span>'+(c.foot||'')+'</span></div>';
-    return '<div class="mc3-up" onclick="goTab(\'route\')">'
-      +'<div class="mc3-up-thumb'+(saved?' green':'')+'">'+lrImgIco()+'</div>'
-      +'<div class="mc3-up-body">'
-      +'<div class="mc3-up-tags">'+badge+'<span class="mc3-up-meta">'+(c.region?c.region+' · ':'')+(c.date||'')+'</span></div>'
-      +'<div class="mc3-up-title">'+c.title+'</div>'
-      +foot
-      +'</div></div>';
+  /* 코스(여러 스팟 묶음) vs 스팟(축제·장소 하나만 담은 것) 구분 배지 */
+  function _mcTypeChip(c){
+    if(c.type==='spot'){
+      var t=(c._spot&&c._spot.type)||'';
+      var lab=t==='축제'?'축제':'스팟';
+      return '<span class="mc3-type-chip spot">'+mcPinIco()+lab+'</span>';
+    }
+    return '<span class="mc3-type-chip route">'+mcRouteIco()+'코스'+(c.spots?(' · '+c.spots+'곳'):'')+'</span>';
+  }
+  function mcPinIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2"/></svg>';}
+  function mcRouteIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.4v13.2L9 17l6 2.6 6-2.6V6.4L15 6.6 9 4z"/><path d="M9 4v13M15 6.6v13"/></svg>';}
+  /* 저장한 코스/스팟 카드를 눌렀을 때, 실제로 저장했던 원본 코스·축제 상세로 되돌아가도록 함 */
+  function mcOpenSaved(idx){
+    var c=MY_COURSES[idx]; if(!c)return;
+    if(c.type==='spot'&&c._spot){
+      if(c._spot._cal2Id){ cal2OpenFestival(c._spot._cal2Id); return; }
+      openAvailObj(c._spot); return;
+    }
+    if(c.type==='route'&&c._route){ openRouteObj(c._route); return; }
+    goTab('route');
   }
   function mcBagIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l-1 11.5H7.5z"/><path d="M9 8V6.3a3 3 0 016 0V8"/></svg>';}
   /* ===== 제철 캘린더 v2 (spec 구현) ===== */
@@ -2921,6 +2953,8 @@
     var nb=_cal2NearbyStore(f.region), nbSec=document.getElementById('ad-nearby-sec');
     if(nb){nbSec.style.display='';document.getElementById('ad-store').innerHTML='<div class="ad-store-thumb">'+lrImgIco()+'</div><div class="ad-store-body"><div class="ad-store-tag">'+nb.tag+'</div><div class="ad-store-nm">'+nb.nm+'</div><div class="ad-store-price"><s>'+nb.was+'</s> <b>'+nb.price+'</b> 원</div><div class="ad-store-meta">'+lrPin()+nb.meta+'</div></div>';}
     else{nbSec.style.display='none';}
+    window._lrCurAvail={nm:f.name,_cal2Id:f.id};
+    var adCta2=document.querySelector('.ad-cta-main');if(adCta2){adCta2.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>코스에 담기';adCta2.style.background='';adCta2.disabled=false;}
     _enter('availdetail');
     document.getElementById('phone').classList.add('availdetail');
     document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
@@ -3174,7 +3208,6 @@
   const FARM_SHOTS={'01':[1,2,3,4,5,6],'02':[1,2,3,4,5],'03':[1,2,3,4,5],'04':[1,2,3,4,5,6,7],'05':[1,2,3,4,5,6,8],'06':[1,2,3,4,5],'07':[1,2,3,4,5],'08':[1,2,3,4],'09':[1,2,3,4,5,6],'10':[1,2,3,4],'11':[1,2,3,4,5],'12':[1,2,3,4,5],'13':[1,2,3,4,5],'14':[1,2,3,4,5],'15':[1,2,3,4],'16':[1,2,3,4],'17':[1,2,3,4,5],'18':[1,2,3,4,5],'19':[1,2,3,4],'20':[1,2,3,4,5]};
   PL.forEach((p,i)=>{ p.fid=String(i+1).padStart(2,"0"); });
   function farmImg(fid,n){return `images/farms/farm${fid}_${n}.jpg`;}
-  function storeImg(key){return `images/farms/store_${key}.jpg`;}
   let plFilter='직거래 최저가';
   function plCardHTML(p,first){
     const shots=p.fid?FARM_SHOTS[p.fid]:null;
@@ -3477,7 +3510,10 @@
   }
   function openAvail(idx){
     const d=LR_DATA[lrState.region]; if(!d||!d.avail[idx])return;
-    const a=d.avail[idx];
+    openAvailObj(d.avail[idx]);
+  }
+  function openAvailObj(a){
+    if(!a)return;
     document.getElementById('ad-type').textContent=a.type;
     document.getElementById('ad-fit').innerHTML=lrFitIco(a.fitKind)+a.fit;
     document.getElementById('ad-deadline').textContent=a.deadline||'';
@@ -3489,11 +3525,15 @@
     var nbSec=document.getElementById('ad-nearby-sec'),nb=a.nearby;
     if(nb){nbSec.style.display='';document.getElementById('ad-store').innerHTML='<div class="ad-store-thumb">'+lrImgIco()+'</div><div class="ad-store-body"><div class="ad-store-tag">'+nb.tag+'</div><div class="ad-store-nm">'+nb.nm+'</div><div class="ad-store-price"><s>'+nb.was+'</s> <b>'+nb.price+'</b> 원</div><div class="ad-store-meta">'+lrPin()+nb.meta+'</div></div>';}
     else{nbSec.style.display='none';}
+    window._lrCurAvail=a;
+    var adCta=document.querySelector('.ad-cta-main');if(adCta){adCta.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>코스에 담기';adCta.style.background='';adCta.disabled=false;}
     _enter('availdetail');
     document.getElementById('phone').classList.add('availdetail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     var el=document.getElementById('s-avail-detail');el.classList.add('active');el.scrollTop=0;
   }
+  function lrAddAvailCourse(btn){btn.innerHTML='코스에 담겼어요 ✓';btn.style.background='#2B8A3D';btn.disabled=true;
+    try{ var a=window._lrCurAvail; if(a){ MY_COURSES.push({kind:'saved',type:'spot',title:a.nm,region:(lrState&&lrState.region)||'',date:'날짜 미정',foot:'아직 예약 전 · 날짜를 정해보세요',_spot:a}); } }catch(e){} }
   function rd2Chevron(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';}
   function rd2TransIco(m){
     if(m==='car')return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.6-4.4A2 2 0 018.5 5.3h7A2 2 0 0117.4 6.6L19 11m-14 0h14v5H5zM6.5 16v2m11-2v2"/><circle cx="8" cy="13.5" r="1"/><circle cx="16" cy="13.5" r="1"/></svg>';
@@ -3516,7 +3556,10 @@
   }
   function openRoute(idx){
     const d=LR_DATA[lrState.region]; if(!d||!d.routes[idx])return;
-    const r=d.routes[idx];
+    openRouteObj(d.routes[idx]);
+  }
+  function openRouteObj(r){
+    if(!r)return;
     var pk=r.pickup?'<span class="lr-pickup">픽업 '+r.pickup+'곳</span>':'';
     document.getElementById('rd2-tags').innerHTML='<span class="lr-dur">'+r.dur+'</span><span class="lr-mood">'+r.mood+'</span>'+pk;
     document.getElementById('rd2-title').textContent=r.title;
@@ -3534,7 +3577,7 @@
     var rel=document.getElementById('s-route-detail');rel.classList.add('active');rel.scrollTop=0;
   }
   function lrAddCourse(btn){btn.innerHTML='코스에 담겼어요 ✓';btn.style.background='#2B8A3D';btn.disabled=true;
-    try{ var r=window._lrCurRoute; if(r){ MY_COURSES.push({kind:'saved',title:r.title,region:(r.region||''),date:'날짜 미정',foot:'아직 예약 전 · 날짜를 정해보세요'}); } }catch(e){} }
+    try{ var r=window._lrCurRoute; if(r){ MY_COURSES.push({kind:'saved',type:'route',title:r.title,region:(r.region||''),date:'날짜 미정',foot:'아직 예약 전 · 날짜를 정해보세요',spots:(r.stops||[]).length,_route:r}); } }catch(e){} }
   /* ===== 세일 홈 (메인배너 아래) ===== */
   function _hsDiscOf(it){var w=parseInt((it.was||'').replace(/[^0-9]/g,''))||0,n=parseInt((it.now||'').replace(/[^0-9]/g,''))||0;return w?Math.round((w-n)/w*100):0;}
   function _hsStockTxt(t){var m=(t||'').match(/(\d+)\s*(팩|개입|개|명)/);return m?(m[1]+(m[2]==='개입'?'개':m[2])+' 남음'):'예약 가능';}
@@ -3565,7 +3608,7 @@
       if(grp.indexOf(s.rg)<0)return; var pl=PLACES[s.key]; if(!pl||!pl.was||!pl.now)return;
       items.push({name:pl.nm,prod:pl.product||pl.desc||'',was:pl.was,now:pl.now,stock:_hsStockTxt(pl.remain),
         pickup:'픽업 '+(pl.hours||'').replace(/\s*~\s*/,'\u2013'),
-        end:_hsEndFromHours(pl.hours), img:storeImg(s.key),
+        end:_hsEndFromHours(pl.hours), img:null,
         shop:pl.nm, rating:pl.rate||'4.8', rev:pl.rev||0,
         date:'오늘 · 4월 12일 (토)',
         time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
@@ -3856,7 +3899,7 @@
       shop:pl.nm, rating:s.rate||pl.rate||'4.8', rev:s.rev||pl.rev||0,
       date:'오늘 · 4월 12일 (토)', time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
       place:s.addr||(s.rg+'군 픽업지'), desc:pl.desc||'현지에서 당일 준비되는 상품이에요.',
-      max:_hsMax(pl.remain), img:storeImg(s.key)};
+      max:_hsMax(pl.remain), img:null};
   }
   function openStore(idx){ openStoreItem((window._hsList||[])[idx]); }
   function openStoreByKey(key){
