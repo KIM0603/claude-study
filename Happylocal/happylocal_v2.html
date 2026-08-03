@@ -3839,7 +3839,7 @@
     var grid=document.getElementById('sd-photo-grid');if(!grid)return;
     var html='';
     for(var k=0;k<n && sdPhotoLoaded<SD_PHOTO_TOTAL;k++){
-      html+='<div class="sd-photo tone'+(sdPhotoLoaded%3)+'">'+lrImgIco()+'</div>'; sdPhotoLoaded++;
+      html+='<div class="sd-photo" style="background-image:url(\''+rvImg(sdPhotoLoaded)+'\');background-size:cover;background-position:center" onclick="openPV('+(sdPhotoLoaded%REVIEW_IMG_COUNT)+')"></div>'; sdPhotoLoaded++;
     }
     if(html) grid.insertAdjacentHTML('beforeend',html);
     var sent=document.getElementById('sd-photo-sentinel');
