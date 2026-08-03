@@ -3174,6 +3174,7 @@
   const FARM_SHOTS={'01':[1,2,3,4,5,6],'02':[1,2,3,4,5],'03':[1,2,3,4,5],'04':[1,2,3,4,5,6,7],'05':[1,2,3,4,5,6,8],'06':[1,2,3,4,5],'07':[1,2,3,4,5],'08':[1,2,3,4],'09':[1,2,3,4,5,6],'10':[1,2,3,4],'11':[1,2,3,4,5],'12':[1,2,3,4,5],'13':[1,2,3,4,5],'14':[1,2,3,4,5],'15':[1,2,3,4],'16':[1,2,3,4],'17':[1,2,3,4,5],'18':[1,2,3,4,5],'19':[1,2,3,4],'20':[1,2,3,4,5]};
   PL.forEach((p,i)=>{ p.fid=String(i+1).padStart(2,"0"); });
   function farmImg(fid,n){return `images/farms/farm${fid}_${n}.jpg`;}
+  function storeImg(key){return `images/farms/store_${key}.jpg`;}
   let plFilter='직거래 최저가';
   function plCardHTML(p,first){
     const shots=p.fid?FARM_SHOTS[p.fid]:null;
@@ -3564,7 +3565,7 @@
       if(grp.indexOf(s.rg)<0)return; var pl=PLACES[s.key]; if(!pl||!pl.was||!pl.now)return;
       items.push({name:pl.nm,prod:pl.product||pl.desc||'',was:pl.was,now:pl.now,stock:_hsStockTxt(pl.remain),
         pickup:'픽업 '+(pl.hours||'').replace(/\s*~\s*/,'\u2013'),
-        end:_hsEndFromHours(pl.hours), img:null,
+        end:_hsEndFromHours(pl.hours), img:storeImg(s.key),
         shop:pl.nm, rating:pl.rate||'4.8', rev:pl.rev||0,
         date:'오늘 · 4월 12일 (토)',
         time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
@@ -3855,7 +3856,7 @@
       shop:pl.nm, rating:s.rate||pl.rate||'4.8', rev:s.rev||pl.rev||0,
       date:'오늘 · 4월 12일 (토)', time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
       place:s.addr||(s.rg+'군 픽업지'), desc:pl.desc||'현지에서 당일 준비되는 상품이에요.',
-      max:_hsMax(pl.remain), img:null};
+      max:_hsMax(pl.remain), img:storeImg(s.key)};
   }
   function openStore(idx){ openStoreItem((window._hsList||[])[idx]); }
   function openStoreByKey(key){
