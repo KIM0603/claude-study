@@ -1813,13 +1813,10 @@
         </div>
 
         <!-- hero banner (single) -->
-        <div class="h2-hero">
-          <div class="h2-slide hero-img" onclick="go('routebuild')" role="img" aria-label="이런 루트 어때요? · 세일 픽업까지 묶은 추천코스" style="background-image:url('images/farms/banner-main01.jpg')">
-            <div class="h2-banner-txt">
-              <div class="h2-banner-t1">이런 루트 어때요?</div>
-              <div class="h2-banner-t2">세일 픽업까지 묶은 추천코스</div>
-            </div>
-          </div>
+        <div class="h2-hero" id="h2-hero">
+          <div class="h2-slide hero-img" onclick="go('routebuild')" role="img" aria-label="배너 1" style="background-image:url('images/farms/banner-main01.jpg')"></div>
+          <div class="h2-slide hero-img" onclick="go('routebuild')" role="img" aria-label="배너 2" style="background-image:url('images/farms/banner-main02.jpg')"></div>
+          <div class="h2-slide hero-img" onclick="go('routebuild')" role="img" aria-label="배너 3" style="background-image:url('images/farms/banner-main03.jpg')"></div>
         </div>
 
         <div class="hs-below">
@@ -1839,21 +1836,7 @@
             <button class="hs-sort" onclick="hsToggleSort()"><span id="hs-sort-label">마감임박순</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
           </div>
           <div id="hs-sale-list"></div>
-          <button class="hs-mapview" onclick="openMap()">
-            <div class="hs-mv-map">
-              <span class="hs-mv-pin" style="left:20%;top:56%"></span>
-              <span class="hs-mv-pin" style="left:38%;top:38%"></span>
-              <span class="hs-mv-pin big" style="left:54%;top:28%"></span>
-              <span class="hs-mv-pin" style="left:70%;top:48%"></span>
-              <span class="hs-mv-pin" style="left:33%;top:72%"></span>
-              <span class="hs-mv-pin" style="left:78%;top:66%"></span>
-              <span class="hs-mv-badge">주변 매장 18곳</span>
-            </div>
-            <div class="hs-mv-foot">
-              <span class="hs-mv-txt"><b>지도로 보기</b><span>가까운 픽업 매장을 지도에서 찾아보세요</span></span>
-              <svg class="hs-mv-ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-            </div>
-          </button>
+          <div id="hs-sale-loader" class="hs-sale-loader" style="display:none;text-align:center;padding:14px 0;color:var(--sub,#9a9a9a);font-size:13px;">더 많은 매장 불러오는 중…</div>
         </div>
         </div>
 
@@ -3637,14 +3620,49 @@
       +'<button class="hs-heart" onclick="event.stopPropagation();this.classList.toggle(\'on\')" aria-label="찜">'+hsHeart()+'</button>'
       +'</div>';
   }
+  const HS_BATCH=6;
+  function hsRenderBatch(reset){
+    var host=document.getElementById('hs-sale-list'); if(!host)return;
+    var items=window._hsBaseList||[];
+    if(!items.length)return;
+    var start=hsState.loadedCount||0, end=start+HS_BATCH, html='';
+    for(var k=start;k<end;k++){ var it=items[k%items.length]; html+=hsSaleCardHTML(it,k%items.length); }
+    if(reset) host.innerHTML=html; else host.insertAdjacentHTML('beforeend',html);
+    hsState.loadedCount=end;
+  }
   function hsSaleList(){
     var host=document.getElementById('hs-sale-list');if(!host)return;
     var items=hsItems();
     if(hsState.sort==='할인율순') items.sort(function(a,b){return _hsDiscOf(b)-_hsDiscOf(a);});
     else items.sort(function(a,b){return a.end-b.end;});
-    window._hsList=items;
-    host.innerHTML=items.length?items.map(hsSaleCardHTML).join(''):'<div class="lr-empty">이 지역에 예약 가능한 세일이 아직 없어요.</div>';
+    window._hsList=items; window._hsBaseList=items; hsState.loadedCount=0;
+    if(!items.length){ host.innerHTML='<div class="lr-empty">이 지역에 예약 가능한 세일이 아직 없어요.</div>'; return; }
+    hsRenderBatch(true);
   }
+  function _hsInfiniteScroll(){
+    var el=document.getElementById('s-home'); if(!el||!el.classList.contains('active'))return;
+    var items=window._hsBaseList||[]; if(!items.length)return;
+    if((hsState.loadedCount||0)>400)return; // 데모 안전장치: 과도한 DOM 누적 방지
+    if(el.scrollTop+el.clientHeight >= el.scrollHeight-260){ hsRenderBatch(false); }
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    var el=document.getElementById('s-home'); if(el) el.addEventListener('scroll',_hsInfiniteScroll,{passive:true});
+  });
+  (function(){
+    var idx=0, timer=null;
+    function hero(){return document.getElementById('h2-hero');}
+    function goTo(i){var el=hero();if(!el||!el.children.length)return;idx=((i%el.children.length)+el.children.length)%el.children.length;el.scrollTo({left:idx*el.clientWidth,behavior:'smooth'});}
+    function tick(){goTo(idx+1);}
+    function start(){stop();timer=setInterval(tick,3000);}
+    function stop(){if(timer){clearInterval(timer);timer=null;}}
+    document.addEventListener('DOMContentLoaded',function(){
+      var el=hero(); if(!el)return;
+      start();
+      el.addEventListener('touchstart',stop,{passive:true});
+      el.addEventListener('pointerdown',stop);
+      el.addEventListener('scroll',function(){idx=Math.round(el.scrollLeft/Math.max(1,el.clientWidth));},{passive:true});
+    });
+  })();
   function hsPickRegion(r,el){hsState.region=r;document.querySelectorAll('#hs-regions .hs-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');hsSaleList();}
   function hsToggleSort(){hsState.sort=hsState.sort==='마감임박순'?'할인율순':'마감임박순';var l=document.getElementById('hs-sort-label');if(l)l.textContent=hsState.sort;hsSaleList();}
   /* ===== 홈 뒤 지도 (핸들 탭 토글) ===== */
