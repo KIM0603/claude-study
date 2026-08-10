@@ -1191,7 +1191,7 @@
   /* ===== 세일 홈 (메인배너 아래) ===== */
   .hs-below{padding:8px 16px 14px}
   .hs-below button{font-family:inherit}
-  .hs-progress{width:100%;display:flex;align-items:center;gap:10px;background:#EAF6EE;border:1px solid #D3EBD9;border-radius:12px;padding:14px;cursor:pointer}
+  .hs-progress{width:100%;display:flex;align-items:center;gap:10px;background:var(--brand-soft);border:1px solid #c8eed8;border-radius:12px;padding:14px;cursor:pointer}
   .hs-progress-ic{color:var(--brand);display:flex;flex:0 0 auto}
   .hs-progress-ic svg{width:22px;height:22px}
   .hs-progress-txt{font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;text-align:left}
@@ -1199,6 +1199,55 @@
   .hs-progress-pk{font-size:13px;font-weight:800;color:#2B8A3D;flex:0 0 auto}
   .hs-progress-ar{color:var(--text-mut);display:flex;flex:0 0 auto}
   .hs-progress-ar svg{width:18px;height:18px}
+  .trip-float{position:absolute;left:12px;right:12px;bottom:88px;z-index:120;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.74);border:1px solid var(--border);border-radius:16px;padding:16px 16px;cursor:pointer;box-shadow:0 10px 26px rgba(23,25,29,.18);font-family:inherit}
+  .trip-float .tf-ic{color:var(--brand);display:flex;flex:0 0 auto}
+  .trip-float .tf-ic svg{width:26px;height:26px}
+  .trip-float .tf-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;text-align:left}
+  .trip-float .tf-title{font-size:16px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .trip-float .tf-title b{font-weight:800;color:var(--text-hi)}
+  .trip-float .tf-sub{font-size:14px;font-weight:700;color:#2B8A3D}
+  .trip-float .tf-ar{color:var(--text-mut);display:flex;flex:0 0 auto}
+  .trip-float .tf-ar svg{width:20px;height:20px}
+  .trip-float .tf-x{position:absolute;top:-8px;right:-8px;width:26px;height:26px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--text-mut);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(23,25,29,.18)}
+  .trip-float .tf-x svg{width:14px;height:14px}
+  .phone.detail .trip-float,.phone.paydetail .trip-float,.phone.storedetail .trip-float,.phone.routedetail .trip-float,.phone.availdetail .trip-float{display:none}
+  .phone:has(#datesheet.show) .trip-float{display:none}
+  .trip-sheet{padding:10px 0 0;max-height:86dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;--sale:#C2410C}
+  .ts-top{padding:22px 24px 22px;position:relative}
+  .ts-emoji{position:absolute;top:20px;right:24px;font-size:34px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+  .ts-eyebrow{font-size:13px;font-weight:800;color:#2B8A3D;margin-bottom:10px}
+  .ts-title{font-size:23px;font-weight:800;color:var(--text-hi);line-height:1.32;letter-spacing:-.3px;padding-right:56px}
+  .ts-sub{margin-top:9px;font-size:14.5px;color:var(--text-mut);font-weight:600}
+  .ts-section{background:var(--surface-1);border-top:1px solid var(--border);padding:22px 24px 34px}
+  .ts-section-head{display:flex;align-items:baseline;justify-content:space-between}
+  .ts-seclabel{font-size:18px;font-weight:800;color:var(--text-hi)}
+  .ts-seccount{font-size:13.5px;font-weight:700;color:var(--text-mut)}
+  .ts-timeline{margin-top:20px}
+  .ts-stop{display:flex;gap:16px}
+  .ts-rail{display:flex;flex-direction:column;align-items:center;flex:0 0 30px}
+  .ts-badge{width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid var(--border-2);color:var(--text-mut);font-size:13.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .ts-badge.done{background:#2B8A3D;border-color:#2B8A3D;color:#fff}
+  .ts-badge svg{width:15px;height:15px}
+  .ts-line{width:2px;flex:1;background:var(--border-2);margin:4px 0;min-height:24px}
+  .ts-stop:last-child .ts-line{display:none}
+  .ts-stopbody{flex:1;min-width:0;padding-bottom:24px;display:flex;flex-direction:column;gap:6px}
+  .ts-stop:last-child .ts-stopbody{padding-bottom:8px}
+  .ts-stopname{font-size:16.5px;font-weight:800;color:var(--text-hi);display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+  .ts-stopprod{font-size:14px;font-weight:500;color:var(--text-mut)}
+  .ts-statuspill{font-size:11px;font-weight:700;color:var(--text-mut);background:#fff;border:1px solid var(--border);border-radius:999px;padding:3px 9px}
+  .ts-statuspill.done{color:#2B8A3D;background:var(--brand-soft);border-color:#c8eed8}
+  .ts-stop.pk .ts-stopbody{cursor:pointer}
+  .ts-stop.pk .ts-stopprod{color:#2B8A3D;font-weight:700}
+  .phone.tripopen .tabbar{display:none}
+  .my-trip-banner{width:calc(100% - 32px);margin:14px 16px 0;display:flex;align-items:center;gap:12px;background:var(--brand-soft);border:1px solid #c8eed8;border-radius:14px;padding:14px;cursor:pointer;font-family:inherit}
+  .my-trip-banner .mtb-ic{color:var(--brand);display:flex;flex:0 0 auto}
+  .my-trip-banner .mtb-ic svg{width:22px;height:22px}
+  .my-trip-banner .mtb-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;text-align:left}
+  .my-trip-banner .mtb-title{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .my-trip-banner .mtb-title b{font-weight:800;color:var(--text-hi)}
+  .my-trip-banner .mtb-sub{font-size:12.5px;font-weight:700;color:#2B8A3D}
+  .my-trip-banner .mtb-ar{color:var(--text-mut);display:flex;flex:0 0 auto}
+  .my-trip-banner .mtb-ar svg{width:18px;height:18px}
   .hs-regions{display:flex;gap:8px;margin:16px 0 4px}
   .hs-chip{padding:11px 22px;border-radius:999px;border:1px solid var(--border-2);background:#fff;font-size:15px;font-weight:600;color:var(--text);cursor:pointer}
   .hs-chip.on{border-color:var(--brand);background:var(--brand-soft);color:#1f9d57;font-weight:700;box-shadow:0 0 0 1px var(--brand) inset}
@@ -1291,9 +1340,9 @@
   .rsv-sub b{color:var(--text-hi);font-weight:700}
   .rsv-notes{margin-top:22px;display:flex;flex-direction:column;gap:16px;text-align:left;max-width:340px;margin-left:auto;margin-right:auto}
   .rsv-note{display:flex;gap:11px;font-size:14px;line-height:1.55;color:var(--text)}
-  .rsv-note svg{width:22px;height:22px;color:#3c9f5a;flex:0 0 auto;margin-top:1px}
+  .rsv-note svg{width:22px;height:22px;color:#1f9d57;flex:0 0 auto;margin-top:1px}
   .rsv-note b{font-weight:800;color:var(--text-hi)}
-  .rsv-agree{width:100%;display:flex;align-items:center;justify-content:center;gap:11px;background:#EAF6EE;border:1px solid #D3EBD9;border-radius:12px;padding:15px 14px;margin-top:22px;cursor:pointer;text-align:left;font-family:inherit;font-size:14px;color:var(--text-hi);font-weight:600}
+  .rsv-agree{width:100%;display:flex;align-items:center;justify-content:center;gap:11px;background:var(--brand-soft);border:1px solid #c8eed8;border-radius:12px;padding:15px 14px;margin-top:22px;cursor:pointer;text-align:left;font-family:inherit;font-size:14px;color:var(--text-hi);font-weight:600}
   .rsv-check{width:26px;height:26px;border-radius:8px;border:1.5px solid #c4c9cf;background:#fff;flex:0 0 auto;display:flex;align-items:center;justify-content:center;color:#fff}
   .rsv-check svg{width:16px;height:16px;opacity:0}
   .rsv-agree.on .rsv-check{background:var(--brand);border-color:var(--brand)}
@@ -1449,26 +1498,26 @@
   .hmc-rg.on{background:#3B3F45;color:#fff}
   .hmc-chiprow{position:absolute;top:70px;left:0;right:0;display:flex;justify-content:center}
   .hmc-chip{border:1px solid var(--border);background:#fff;color:var(--text-mut);font-size:12.5px;font-weight:800;padding:7px 14px;border-radius:999px;cursor:pointer;font-family:inherit;box-shadow:0 2px 8px rgba(23,25,29,.12)}
-  .hmc-chip.on{background:#E6F4EA;border-color:#2f9e44;color:#2f9e44}
+  .hmc-chip.on{background:#E7F4EC;border-color:#1f9d57;color:#1f9d57}
   .hmc-loc{position:absolute;right:14px;bottom:272px;width:50px;height:50px;border-radius:50%;border:none;background:#fff;color:#17181d;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 12px rgba(23,25,29,.22)}
   .hmc-loc svg{width:23px;height:23px}
   .hmc-list{position:absolute;left:50%;transform:translateX(-50%);bottom:273px;z-index:2;display:flex;align-items:center;gap:9px;border:none;background:#fff;color:#17181d;font-size:16px;font-weight:800;padding:13px 22px;border-radius:25px;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(23,25,29,.24)}
   .hmc-list svg{width:19px;height:19px}
   .hmc-cards{position:absolute;left:0;right:0;bottom:130px;z-index:1;display:flex;gap:10px;overflow-x:auto;padding:0 14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scroll-padding:0 14px}
   .hmc-cards .mcard{flex:0 0 86%;scroll-snap-align:center;scroll-snap-stop:always}
-  .hmc-cards .mcard.on{border-color:#2f9e44;box-shadow:0 12px 28px -10px rgba(47,158,68,.45)}
+  .hmc-cards .mcard.on{border-color:#1f9d57;box-shadow:0 12px 28px -10px rgba(31,157,87,.45)}
   .hmc-cards::-webkit-scrollbar{display:none}
   .hmc-empty{flex:0 0 100%;text-align:center;color:#6B7075;font-weight:800;font-size:13.5px;background:#fff;border-radius:14px;padding:20px;box-shadow:0 10px 26px -10px rgba(0,0,0,.3)}
   .hmc-cards .mc-nm{font-size:18px;font-weight:800;color:var(--text-hi);letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .hmc-cards .mc-sub{font-size:13px;font-weight:700;color:var(--text-mut)}
-  .hmc-cards .mc-sub b{color:#2f9e44;font-weight:800}
-  .hmc-cards .mc-sub .on{color:#2f9e44;font-weight:800}
+  .hmc-cards .mc-sub b{color:#1f9d57;font-weight:800}
+  .hmc-cards .mc-sub .on{color:#1f9d57;font-weight:800}
   .hmc-cards .mc-sub .off{color:var(--text-mut);font-weight:800}
   .hmc-cards .mc-bot{display:flex;align-items:center;gap:8px}
   .hmc-cards .mc-tag.more{color:#6B7075;background:#F2F4F5;border-color:var(--border)}
-  .hmc-cards .mc-time{color:#2f9e44;background:#E6F4EA;border-color:#cdeedb}
+  .hmc-cards .mc-time{color:#1f9d57;background:#E7F4EC;border-color:#cdeedb}
   /* 홈 지도 마커: 원형 배지 + 단순 2D 아이콘 (예약가능=초록 / 마감=회색) */
-  .hmk{width:38px;height:38px;border-radius:50%;background:#fff;border:2.5px solid #2f9e44;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(23,25,29,.28);color:#2f9e44}
+  .hmk{width:38px;height:38px;border-radius:50%;background:#fff;border:2.5px solid #1f9d57;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(23,25,29,.28);color:#1f9d57}
   .hmk svg{width:21px;height:21px;display:block}
   .hmk.off{border-color:#9aa0a8;color:#9aa0a8;background:#f5f6f7}
   /* ===== 하루세탁 톤: 홈·상세 (큰 라운드·여백·플로팅 카드, 초록 유지) ===== */
@@ -1512,7 +1561,7 @@
   .hl-logo .word{ font-size:20px; font-weight:800; letter-spacing:-.3px; color:var(--brand); }
   .hl-logo-img{ height:30px; width:auto; display:block; }
   .hl-bell{ color:#222222; cursor:pointer; display:flex; }
-  .hl-stats{ margin:7px 16px 0; background:#069a47; border-radius:8px; padding:18px 8px; display:flex; align-items:center; }
+  .hl-stats{ margin:7px 16px 0; background:var(--brand); border-radius:8px; padding:18px 8px; display:flex; align-items:center; }
   .hl-stats .hs{ flex:1; text-align:center; }
   .hl-stats .hs-k{ font-size:12px; color:rgba(255,255,255,.72); font-weight:600; }
   .hl-stats .hs-v{ font-size:21px; font-weight:800; color:#fff; margin-top:7px; }
@@ -1606,7 +1655,7 @@
 
   /* ===== 제철 캘린더 v2 (spec) ===== */
   #s-cal{ background:#FAFAFA; }
-  .cal2{ --c-accent:#0F766E; --c-accent-tint:#E7F3F0; --c-fest:#C2410C; --c-fest-tint:#FDEEE6; --c-sun:#DC2626;
+  .cal2{ --c-accent:#1f9d57; --c-accent-tint:#E7F4EC; --c-fest:#C2410C; --c-fest-tint:#FDEEE6; --c-sun:#DC2626;
     --c-ink900:#17181A; --c-ink600:#6B7075; --c-ink400:#9096A0; --c-surface:#fff; --c-line:#ECEEF0;
     background:#FAFAFA; padding-bottom:8px; }
   .cal2-top{ display:flex; align-items:center; justify-content:space-between; padding:18px 20px 8px; }
@@ -1662,7 +1711,7 @@
 
   /* ===== MY 페이지 v2 (spec) ===== */
   #s-my{ background:#FAFAFA; }
-  .my2{ --c-accent:#0F766E; --c-accent-tint:#E7F3F0; --c-warm:#C2410C; --c-ink900:#17181A; --c-ink600:#6B7075; --c-ink400:#9096A0; --c-line:#ECEEF0;
+  .my2{ --c-accent:#1f9d57; --c-accent-tint:#E7F4EC; --c-warm:#C2410C; --c-ink900:#17181A; --c-ink600:#6B7075; --c-ink400:#9096A0; --c-line:#ECEEF0;
     background:#FAFAFA; padding-bottom:8px; font-feature-settings:"tnum"; }
   .my2-head{ background:#fff; }
   .my2-top{ display:flex; align-items:center; justify-content:space-between; padding:18px 20px 4px; }
@@ -1696,15 +1745,61 @@
   .my2-right{ display:flex; align-items:center; gap:8px; }
   .my2-badge{ font-size:14px; font-weight:800; color:var(--c-warm); font-variant-numeric:tabular-nums; }
   .my2-count{ font-size:14px; font-weight:600; color:var(--c-ink400); font-variant-numeric:tabular-nums; }
+
+  /* 내가 쓴 후기 */
+  .myrv-list{padding:16px 20px 24px;display:flex;flex-direction:column;gap:14px}
+  .myrv-card{border:1px solid var(--border);border-radius:14px;padding:16px}
+  .myrv-top{display:flex;align-items:center;justify-content:space-between}
+  .myrv-shop{font-size:15px;font-weight:800;color:var(--text-hi)}
+  .myrv-date{font-size:12px;color:var(--text-mut);font-weight:600}
+  .myrv-stars{margin-top:6px;color:#F2A93B;font-size:14px;letter-spacing:1px}
+  .myrv-txt{margin-top:8px;font-size:13.5px;color:var(--text);line-height:1.55}
+  .myrv-photos{margin-top:10px;display:flex;gap:6px}
+  .myrv-photos span{width:64px;height:64px;border-radius:10px;background-size:cover;background-position:center;flex:0 0 auto}
+
+  /* 쿠폰함 */
+  .mycp-list{padding:16px 20px 24px;display:flex;flex-direction:column;gap:12px}
+  .mycp-card{display:flex;align-items:center;gap:14px;border:1px solid var(--border);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+  .mycp-card.used{opacity:.45}
+  .mycp-pct{flex:0 0 auto;font-size:20px;font-weight:800;color:var(--brand);background:var(--brand-soft);border-radius:12px;padding:10px 12px;min-width:56px;text-align:center}
+  .mycp-body{flex:1;min-width:0}
+  .mycp-nm{font-size:14.5px;font-weight:800;color:var(--text-hi)}
+  .mycp-cond{font-size:12.5px;color:var(--text-mut);margin-top:4px}
+  .mycp-exp{font-size:12px;color:var(--text-mut);margin-top:6px;font-weight:600}
+  .mycp-tag{position:absolute;top:10px;right:12px;font-size:11px;font-weight:800;color:#fff;background:var(--text-mut);border-radius:999px;padding:3px 9px}
+
+  /* 친구 초대 */
+  .inv-wrap{padding:36px 24px 32px;text-align:center}
+  .inv-hero{font-size:52px;line-height:1}
+  .inv-h1{margin-top:18px;font-size:22px;font-weight:800;color:var(--text-hi);line-height:1.4}
+  .inv-sub{margin-top:10px;font-size:14px;color:var(--text-mut);line-height:1.6}
+  .inv-code{margin-top:26px;display:flex;align-items:center;gap:10px;background:var(--surface-1);border:1.5px dashed var(--border-2);border-radius:12px;padding:14px 16px}
+  .inv-code-txt{flex:1;font-size:16px;font-weight:800;color:var(--text-hi);letter-spacing:1px}
+  .inv-copy{flex:0 0 auto;background:var(--brand);color:#fff;border:none;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit}
+  .inv-share{width:100%;margin-top:16px;padding:16px;border-radius:14px;border:none;background:var(--text-hi);color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
+  .inv-notice{margin-top:14px;font-size:12px;color:var(--text-mut)}
+
+  /* 알림 설정 */
+  .ntf-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-top:.5px solid var(--c-line)}
+  .my2-group .ntf-row:first-of-type{border-top:none}
+  .ntf-label{font-size:14.5px;font-weight:700;color:var(--text-hi);display:flex;flex-direction:column;gap:4px}
+  .ntf-desc{font-size:12px;font-weight:500;color:var(--text-mut)}
+  .ntf-tog{flex:0 0 auto;width:46px;height:27px;border-radius:999px;border:none;background:#D8DBDF;position:relative;cursor:pointer}
+  .ntf-tog::after{content:"";position:absolute;top:2.5px;left:2.5px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .18s ease}
+  .ntf-tog.on{background:var(--brand)}
+  .ntf-tog.on::after{left:21.5px}
+
+  /* 고객센터 */
+  .sup-ver{text-align:center;font-size:12px;color:var(--text-mut);font-weight:600;margin-top:26px}
   .my2-chev{ color:#C7CBD1; display:flex; }
   .my2-chev svg{ width:20px; height:20px; }
 
   /* ===== 제철 → 가게 리스트 ===== */
   #s-seasonal{ background:#FAFAFA; }
-  .seasonal-banner{ display:flex; align-items:center; gap:10px; background:#E7F3F0; padding:15px 20px; }
-  .seasonal-banner .sb-ic{ color:#0F766E; display:flex; flex:0 0 auto; }
+  .seasonal-banner{ display:flex; align-items:center; gap:10px; background:#E7F4EC; padding:15px 20px; }
+  .seasonal-banner .sb-ic{ color:#1f9d57; display:flex; flex:0 0 auto; }
   .seasonal-banner .sb-ic svg{ width:22px; height:22px; }
-  .seasonal-banner .sb-txt{ flex:1; min-width:0; font-size:15px; font-weight:800; color:#0F766E; letter-spacing:-.01em; }
+  .seasonal-banner .sb-txt{ flex:1; min-width:0; font-size:15px; font-weight:800; color:#1f9d57; letter-spacing:-.01em; }
   .seasonal-banner .sb-region{ font-size:14px; font-weight:700; color:#6B7075; flex:0 0 auto; }
   .seasonal-head{ display:flex; align-items:center; justify-content:space-between; padding:16px 20px 6px; }
   .seasonal-count-txt{ font-size:16px; font-weight:700; color:#6B7075; }
@@ -1720,18 +1815,18 @@
   .mc3-tabs{ display:flex; background:#fff; padding:0 20px; border-bottom:1px solid #ECEEF0; }
   .mc3-tab{ position:relative; background:none; border:none; padding:18px 2px 15px; margin-right:26px; font-size:18px; font-weight:800; color:#9096A0; cursor:pointer; letter-spacing:-.02em; font-family:inherit; }
   .mc3-tab.on{ color:#17181A; }
-  .mc3-tab.on::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2.5px; background:#0F766E; border-radius:2px; }
+  .mc3-tab.on::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2.5px; background:#1f9d57; border-radius:2px; }
   .mc3-cnt{ font-size:16px; font-weight:800; color:#9096A0; margin-left:5px; font-variant-numeric:tabular-nums; }
   .mc3-tab.on .mc3-cnt{ color:#C2410C; }
   .mc3-sec{ font-size:16px; font-weight:800; color:#6B7075; padding:18px 20px 4px; letter-spacing:-.01em; }
   #mc2-list{ padding-top:2px; }
   #mc2-list .hs-sale-card{ margin:6px 16px 12px; }
   #mc2-list .mc2-course{ margin:6px 16px 12px; }
-  .mc-resv-code{ font-size:14px; color:#0F766E; font-weight:700; margin-top:12px; }
+  .mc-resv-code{ font-size:14px; color:#1f9d57; font-weight:700; margin-top:12px; }
   .mc-resv-code b{ font-weight:800; }
   .hs-stock-badge.muted{ color:#6B7075; }
   .mc-course-foot.saved{ color:#9096A0; font-weight:600; }
-  .mc-course-foot.upcoming{ color:#0F766E; }
+  .mc-course-foot.upcoming{ color:#1f9d57; }
   .mc-course-foot.active{ color:#1f9d57; }
   .mc3-empty{ text-align:center; color:#9096A0; font-size:13.5px; padding:60px 24px; line-height:1.7; }
   .mc3-empty b{ color:#17181A; display:block; font-size:15px; margin-bottom:6px; font-weight:800; }
@@ -1739,15 +1834,15 @@
   .mc3-hero{ margin:6px 16px 4px; background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 1px 3px rgba(23,25,29,.06), 0 8px 22px -16px rgba(23,25,29,.25); cursor:pointer; }
   .mc3-hero-img{ position:relative; height:200px; background:#DCE5E0; display:flex; align-items:center; justify-content:center; color:#A9B7AE; }
   .mc3-hero-img svg{ width:44px; height:44px; }
-  .mc3-hero-badge{ position:absolute; top:16px; left:16px; background:#0F766E; color:#fff; font-size:13px; font-weight:800; padding:7px 14px; border-radius:999px; }
+  .mc3-hero-badge{ position:absolute; top:16px; left:16px; background:#1f9d57; color:#fff; font-size:13px; font-weight:800; padding:7px 14px; border-radius:999px; }
   .mc3-hero-body{ padding:18px 18px 20px; }
   .mc3-hero-meta{ font-size:13.5px; font-weight:600; color:#9096A0; }
   .mc3-hero-title{ font-size:22px; font-weight:800; color:#17181A; margin-top:6px; letter-spacing:-.02em; }
   .mc3-prog-row{ display:flex; align-items:center; justify-content:space-between; margin-top:18px; }
   .mc3-prog-label{ font-size:14.5px; font-weight:700; color:#4A4F57; }
-  .mc3-prog-count{ font-size:15px; font-weight:800; color:#0F766E; font-variant-numeric:tabular-nums; }
+  .mc3-prog-count{ font-size:15px; font-weight:800; color:#1f9d57; font-variant-numeric:tabular-nums; }
   .mc3-prog-bar{ height:8px; border-radius:5px; background:#E7ECEA; margin-top:10px; overflow:hidden; }
-  .mc3-prog-fill{ height:100%; border-radius:5px; background:#0F766E; }
+  .mc3-prog-fill{ height:100%; border-radius:5px; background:#1f9d57; }
   .mc3-hero-foot{ font-size:13.5px; font-weight:600; color:#9096A0; margin-top:14px; }
   /* 예정 카드 */
   .mc3-up{ display:flex; margin:6px 16px 12px; background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 1px 3px rgba(23,25,29,.06), 0 8px 20px -16px rgba(23,25,29,.22); cursor:pointer; }
@@ -1764,7 +1859,7 @@
   .mc3-up-flag{ font-size:12px; font-weight:800; color:#6B7075; background:#EEF0F2; border-radius:6px; padding:3px 8px; }
   .mc3-up-meta{ font-size:13px; font-weight:600; color:#9096A0; }
   .mc3-up-title{ font-size:17px; font-weight:800; color:#17181A; letter-spacing:-.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .mc3-up-foot{ font-size:13.5px; font-weight:700; color:#0F766E; margin-top:10px; display:flex; align-items:center; gap:5px; }
+  .mc3-up-foot{ font-size:13.5px; font-weight:700; color:#1f9d57; margin-top:10px; display:flex; align-items:center; gap:5px; }
   .mc3-up-foot.muted{ color:#9096A0; font-weight:600; }
   .mc3-up-foot svg{ width:15px; height:15px; flex:0 0 auto; }
 </style>
@@ -1820,12 +1915,6 @@
         </div>
 
         <div class="hs-below">
-          <button class="hs-progress" onclick="openRoute(0)">
-            <span class="hs-progress-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19V7a3 3 0 016 0 3 3 0 006 0"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/></svg></span>
-            <span class="hs-progress-txt">여행 중 · <b>한우 먹고 숲 걷는 하루</b></span>
-            <span class="hs-progress-pk">픽업 1/2</span>
-            <span class="hs-progress-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-          </button>
           <div class="hs-regions" id="hs-regions">
             <button class="hs-chip on" onclick="hsPickRegion('횡성',this)">횡성</button>
             <button class="hs-chip" onclick="hsPickRegion('평창',this)">평창</button>
@@ -2146,6 +2235,15 @@
             </div>
           </div>
 
+          <button class="my-trip-banner" id="my-trip-banner" onclick="openTripSheet()" style="display:none">
+            <span class="mtb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19V7a3 3 0 016 0 3 3 0 006 0"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/></svg></span>
+            <span class="mtb-body">
+              <span class="mtb-title">여행 중 · <b id="mtb-name">한우 먹고 숲 걷는 하루</b></span>
+              <span class="mtb-sub" id="mtb-sub">픽업 1/2 진행 중</span>
+            </span>
+            <span class="mtb-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+          </button>
+
           <div class="my2-gap"></div>
           <div class="my2-group">
             <div class="my2-glabel">예약 · 픽업</div>
@@ -2154,14 +2252,9 @@
               <span class="my2-label">예약 내역</span>
               <span class="my2-right"><span class="my2-badge" id="my2-resv-badge">픽업 예정 2</span><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
             </div>
-            <div class="my2-item">
+            <div class="my2-item" onclick="go('reviews')">
               <span class="my2-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.15 1 5.85L12 17.9l-5.25 2.7 1-5.85L3.5 9.7l5.9-.9z"/></svg></span>
               <span class="my2-label">내가 쓴 후기</span>
-              <span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
-            </div>
-            <div class="my2-item">
-              <span class="my2-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-9C1.3 8 3 4.5 6.4 4.5c2 0 3.2 1.1 4 2.2.8-1.1 2-2.2 4-2.2 3.4 0 5.1 3.5 3.6 6.5C19 15.4 12 20 12 20z"/></svg></span>
-              <span class="my2-label">찜한 가게 · 코스</span>
               <span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
             </div>
           </div>
@@ -2169,12 +2262,12 @@
           <div class="my2-gap"></div>
           <div class="my2-group">
             <div class="my2-glabel">혜택</div>
-            <div class="my2-item">
+            <div class="my2-item" onclick="go('coupons')">
               <span class="my2-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5A1.5 1.5 0 015.5 6h13A1.5 1.5 0 0120 7.5V10a2 2 0 100 4v2.5A1.5 1.5 0 0118.5 18h-13A1.5 1.5 0 014 16.5V14a2 2 0 100-4V7.5z"/><path d="M13.5 6.5v11" stroke-dasharray="1.5 2.2"/></svg></span>
               <span class="my2-label">쿠폰함</span>
               <span class="my2-right"><span class="my2-count" id="my2-coupon-count">3장</span><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
             </div>
-            <div class="my2-item">
+            <div class="my2-item" onclick="go('invite')">
               <span class="my2-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M2.5 9h19M12 9v11"/><path d="M12 9S9.5 3.5 7 5.2 8.8 9 12 9zM12 9s2.5-5.5 5-3.8S15.2 9 12 9z"/></svg></span>
               <span class="my2-label">친구 초대</span>
               <span class="my2-right"><span class="my2-badge">쿠폰 받기</span><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
@@ -2183,12 +2276,12 @@
 
           <div class="my2-gap"></div>
           <div class="my2-group">
-            <div class="my2-item">
+            <div class="my2-item" onclick="go('notif')">
               <span class="my2-ic gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.6a6 6 0 0112 0c0 3.9 1.4 5.4 1.9 6.1.4.5 0 1.3-.7 1.3H4.8c-.7 0-1.1-.8-.7-1.3.5-.7 1.9-2.2 1.9-6.1z"/><path d="M10 20a2 2 0 004 0"/></svg></span>
               <span class="my2-label">알림 설정</span>
               <span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
             </div>
-            <div class="my2-item">
+            <div class="my2-item" onclick="go('support')">
               <span class="my2-ic gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 014.85.9c0 1.7-2.45 2.1-2.45 3.9"/><circle cx="12" cy="17.2" r=".9" fill="currentColor" stroke="none"/></svg></span>
               <span class="my2-label">고객센터 · 이용약관</span>
               <span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
@@ -2196,6 +2289,98 @@
           </div>
           <div style="height:16px"></div>
         </div>
+      </section>
+
+      <!-- ============ 내가 쓴 후기 ============ -->
+      <section class="screen" id="s-reviews">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">내가 쓴 후기</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div id="myrv-list" class="myrv-list"></div>
+      </section>
+
+      <!-- ============ 쿠폰함 ============ -->
+      <section class="screen" id="s-coupons">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">쿠폰함</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div id="mycp-list" class="mycp-list"></div>
+      </section>
+
+      <!-- ============ 친구 초대 ============ -->
+      <section class="screen" id="s-invite">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">친구 초대</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="inv-wrap">
+          <div class="inv-hero">🎁</div>
+          <div class="inv-h1">친구를 초대하면<br>둘 다 5,000원 쿠폰!</div>
+          <div class="inv-sub">내 코드로 친구가 가입하면 친구도 나도 픽업 5,000원 할인 쿠폰을 받아요.</div>
+          <div class="inv-code">
+            <span class="inv-code-txt" id="inv-code">HAPPY-9F82K</span>
+            <button class="inv-copy" onclick="inviteCopy()">복사</button>
+          </div>
+          <button class="inv-share" onclick="inviteCopy()">초대 링크 공유하기</button>
+          <div class="inv-notice">쿠폰은 친구가 첫 픽업을 완료하면 자동으로 지급돼요.</div>
+        </div>
+      </section>
+
+      <!-- ============ 알림 설정 ============ -->
+      <section class="screen" id="s-notif">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">알림 설정</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="my2-gap"></div>
+        <div class="my2-group">
+          <div class="my2-glabel">픽업 · 예약</div>
+          <div class="ntf-row"><span class="ntf-label">픽업 임박 알림<span class="ntf-desc">픽업 시간 1시간 전 알려드려요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+          <div class="ntf-row"><span class="ntf-label">예약 상태 변경<span class="ntf-desc">예약 확정·취소 시 알려드려요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+        </div>
+        <div class="my2-gap"></div>
+        <div class="my2-group">
+          <div class="my2-glabel">마케팅</div>
+          <div class="ntf-row"><span class="ntf-label">신규 세일 알림<span class="ntf-desc">관심 지역 신규 세일 소식</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+          <div class="ntf-row"><span class="ntf-label">쿠폰 · 이벤트<span class="ntf-desc">쿠폰 발급, 이벤트 소식</span></span><button class="ntf-tog" onclick="ntfToggle(this)"></button></div>
+        </div>
+        <div class="my2-gap"></div>
+        <div class="my2-group">
+          <div class="my2-glabel">야간 알림 끄기</div>
+          <div class="ntf-row"><span class="ntf-label">21:00 ~ 08:00<span class="ntf-desc">이 시간엔 알림을 보내지 않아요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+        </div>
+        <div style="height:20px"></div>
+      </section>
+
+      <!-- ============ 고객센터 · 이용약관 ============ -->
+      <section class="screen" id="s-support">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">고객센터 · 이용약관</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="my2-gap"></div>
+        <div class="my2-group">
+          <div class="my2-glabel">고객센터</div>
+          <div class="my2-item"><span class="my2-label">자주 묻는 질문</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item"><span class="my2-label">1:1 문의하기</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item"><span class="my2-label">공지사항</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+        </div>
+        <div class="my2-gap"></div>
+        <div class="my2-group">
+          <div class="my2-glabel">약관 · 정책</div>
+          <div class="my2-item"><span class="my2-label">이용약관</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item"><span class="my2-label">개인정보 처리방침</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+        </div>
+        <div class="my2-gap"></div>
+        <div class="sup-ver">해피로컬 v2.0.0</div>
+        <div style="height:20px"></div>
       </section>
 
       <!-- ============ STORE MAP (지도보기) ============ -->
@@ -2472,6 +2657,33 @@
         </div>
       </div>
 
+      <button class="trip-float" id="trip-float" onclick="openTripSheet()">
+        <span class="tf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19V7a3 3 0 016 0 3 3 0 006 0"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/></svg></span>
+        <span class="tf-body">
+          <span class="tf-title">여행 중 · <b id="tf-name">한우 먹고 숲 걷는 하루</b></span>
+          <span class="tf-sub" id="tf-sub">픽업 1/2 진행 중</span>
+        </span>
+        <span class="tf-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
+      </button>
+
+      <div class="scrim" id="tripscrim" onclick="closeTripSheet()"></div>
+      <div class="sheet trip-sheet" id="tripsheet">
+        <div class="rsv-grip"></div>
+        <div class="ts-top">
+          <span class="ts-emoji" aria-hidden="true">🐮</span>
+          <div class="ts-eyebrow" id="ts-eyebrow">여행자님은 여행중</div>
+          <div class="ts-title" id="ts-title">한우 먹고 숲 걷는 하루</div>
+          <div class="ts-sub" id="ts-sub">횡성 · 오늘 · 픽업 2곳</div>
+        </div>
+        <div class="ts-section">
+          <div class="ts-section-head">
+            <span class="ts-seclabel">오늘의 루트</span>
+            <span class="ts-seccount" id="ts-seccount">2곳</span>
+          </div>
+          <div class="ts-timeline" id="ts-list"></div>
+        </div>
+      </div>
+
     </div>
 
     <div class="tabbar">
@@ -2642,13 +2854,19 @@
     _set('my2-pending',pending); _set('my2-completed',completed); _set('my2-coupon',coupons);
     var rb=document.getElementById('my2-resv-badge'); if(rb){ rb.textContent=pending>0?('픽업 예정 '+pending):''; rb.style.display=pending>0?'':'none'; }
     var cc=document.getElementById('my2-coupon-count'); if(cc){ cc.textContent=coupons>0?(coupons+'장'):''; cc.style.display=coupons>0?'':'none'; }
+    updateMyTripBanner();
   }
   let MY_COURSES=[
-    {kind:'active', type:'route', title:'한우 먹고 숲 걷는 하루', region:'횡성', date:'오늘 4.12 (토)', pickDone:1, pickTotal:2, spots:5, pickups:2, dist:'28km'},
+    {kind:'active', type:'route', title:'한우 먹고 숲 걷는 하루', region:'횡성', date:'오늘 4.12 (토)', pickDone:1, pickTotal:2, spots:5, pickups:2, dist:'28km', routeRegion:'hoengseong', routeIdx:0},
     {kind:'upcoming', type:'route', dday:'D-6', title:'대관령 목장 힐링 코스', region:'평창', date:'4.18', foot:'픽업 2곳 · 결제완료'},
     {kind:'saved', type:'route', title:'아리랑 5일장 나들이', region:'정선', date:'날짜 미정', spots:4, foot:'아직 예약 전 · 날짜를 정해보세요'}
   ];
   let mcTab='pickup';
+  function openActiveTrip(){
+    go('mycourse'); mcTab='course';
+    document.querySelectorAll('#s-mycourse .mc3-tab').forEach(function(b,i){b.classList.toggle('on', i===1);});
+    renderMyCourse();
+  }
   function mcPickTab(t,el){mcTab=t;el.parentNode.querySelectorAll('.mc3-tab').forEach(function(b){b.classList.remove('on');});el.classList.add('on');renderMyCourse();}
   function _mcResvCardHTML(p,i){
     return '<div class="hs-sale-card" onclick="openMyResv('+i+')">'
@@ -2951,10 +3169,83 @@
     } }catch(e){}
     return null;
   }
+  let tripFloatDismissed=false;
+  function dismissTripFloat(e){ if(e){e.stopPropagation();} tripFloatDismissed=true; var el=document.getElementById('trip-float'); if(el) el.style.display='none'; }
+  function updateTripFloat(currentId){
+    var el=document.getElementById('trip-float'); if(!el)return;
+    var act=(typeof MY_COURSES!=='undefined')?MY_COURSES.find(function(c){return c.kind==='active';}):null;
+    if(!act || currentId==='mycourse' || tripFloatDismissed){ el.style.display='none'; return; }
+    var nm=document.getElementById('tf-name'); if(nm) nm.textContent=act.title;
+    var sub=document.getElementById('tf-sub'); if(sub) sub.textContent='픽업 '+(act.pickDone||0)+'/'+(act.pickTotal||0)+' 진행 중';
+    el.style.display='flex';
+  }
+  function _tsActiveCourse(){ return (typeof MY_COURSES!=='undefined')?MY_COURSES.find(function(c){return c.kind==='active';}):null; }
+  function renderTripSheet(){
+    var act=_tsActiveCourse(); var eyeEl=document.getElementById('ts-eyebrow'), titleEl=document.getElementById('ts-title'), subEl=document.getElementById('ts-sub'), countEl=document.getElementById('ts-seccount'), listEl=document.getElementById('ts-list');
+    if(!act||!titleEl||!listEl)return;
+    if(eyeEl) eyeEl.textContent=(MY_USER.name||'여행자')+'님은 여행중';
+    titleEl.textContent=act.title;
+    var route=(act.routeRegion&&LR_DATA[act.routeRegion]&&LR_DATA[act.routeRegion].routes[act.routeIdx])||null;
+    var stops=route?route.stops:null;
+    subEl.textContent=(act.region||'')+' · 오늘 · 픽업 '+(act.pickTotal||MY_PICKUPS.length)+'곳';
+    if(stops&&stops.length){
+      if(countEl) countEl.textContent=stops.length+' 스팟';
+      var n=stops.length, pkSeen=0;
+      listEl.innerHTML=stops.map(function(s,i){
+        var last=(i===n-1), pk=(s.t==='pickup'), status='';
+        if(pk){ pkSeen++; status = (pkSeen<=(act.pickDone||0)) ? '픽업완료' : '예약완료'; }
+        var sub=pk?(s.shop.product+' · '+s.shop.price+'원'):(s.chip||'');
+        var clickAttr=pk?(' onclick="closeTripSheet();openStoreEnc(\''+_sdEnc(_itemFromStop(s))+'\')"'):'';
+        return '<div class="ts-stop'+(pk?' pk':'')+'">'
+          +'<div class="ts-rail"><span class="ts-badge'+(pk?' done':'')+'">'+(i+1)+'</span>'+(last?'':'<span class="ts-line"></span>')+'</div>'
+          +'<div class="ts-stopbody"'+clickAttr+'>'
+            +'<div class="ts-stopname">'+s.nm+(status?' <span class="ts-statuspill'+(status==='픽업완료'?' done':'')+'">'+status+'</span>':'')+'</div>'
+            +(sub?'<div class="ts-stopprod">'+sub+'</div>':'')
+          +'</div>'
+        +'</div>';
+      }).join('');
+      return;
+    }
+    if(countEl) countEl.textContent=(act.pickTotal||MY_PICKUPS.length)+'곳';
+    var n=MY_PICKUPS.length;
+    listEl.innerHTML=MY_PICKUPS.map(function(p,i){
+      var done=p.status==='픽업완료', last=(i===n-1);
+      var badgeInner=done?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>':String(i+1);
+      return '<div class="ts-stop">'
+        +'<div class="ts-rail"><span class="ts-badge'+(done?' done':'')+'">'+badgeInner+'</span>'+(last?'':'<span class="ts-line"></span>')+'</div>'
+        +'<div class="ts-stopbody">'
+          +'<div class="ts-stopname">'+p.shop+'</div>'
+          +'<div class="ts-stopprod">'+p.prod+'</div>'
+          +'<span class="ts-statuspill'+(done?' done':'')+'">'+(done?'픽업완료':'픽업대기')+'</span>'
+        +'</div>'
+      +'</div>';
+    }).join('');
+  }
+  function openTripSheet(){
+    if(!_tsActiveCourse())return;
+    renderTripSheet();
+    var sc=document.getElementById('tripscrim'), sh=document.getElementById('tripsheet');
+    if(sc)sc.classList.add('show'); if(sh)sh.classList.add('show');
+    var ph=document.getElementById('phone'); if(ph) ph.classList.add('tripopen');
+  }
+  function closeTripSheet(){
+    var sc=document.getElementById('tripscrim'), sh=document.getElementById('tripsheet');
+    if(sc)sc.classList.remove('show'); if(sh)sh.classList.remove('show');
+    var ph=document.getElementById('phone'); if(ph) ph.classList.remove('tripopen');
+  }
+  function updateMyTripBanner(){
+    var el=document.getElementById('my-trip-banner'); if(!el)return;
+    var act=_tsActiveCourse();
+    if(!act){ el.style.display='none'; return; }
+    var nm=document.getElementById('mtb-name'); if(nm) nm.textContent=act.title;
+    var sub=document.getElementById('mtb-sub'); if(sub) sub.textContent='픽업 '+(act.pickDone||0)+'/'+(act.pickTotal||0)+' 진행 중';
+    el.style.display='flex';
+  }
   function go(id){
     _enter(id);
-    ['plscrim','plsheet','pkscrim','orsheet','dtsheet','sheet','rsvscrim','rsvsheet','datescrim','datesheet'].forEach(x=>{var e=document.getElementById(x);if(e)e.classList.remove('show');});
-    document.getElementById('phone').classList.remove('detail');document.getElementById('phone').classList.remove('availdetail');document.getElementById('phone').classList.remove('routedetail');document.getElementById('phone').classList.remove('storedetail');document.getElementById('phone').classList.remove('paydetail');
+    updateTripFloat(id);
+    ['plscrim','plsheet','pkscrim','orsheet','dtsheet','sheet','rsvscrim','rsvsheet','datescrim','datesheet','tripscrim','tripsheet'].forEach(x=>{var e=document.getElementById(x);if(e)e.classList.remove('show');});
+    document.getElementById('phone').classList.remove('detail');document.getElementById('phone').classList.remove('availdetail');document.getElementById('phone').classList.remove('routedetail');document.getElementById('phone').classList.remove('storedetail');document.getElementById('phone').classList.remove('paydetail');document.getElementById('phone').classList.remove('tripopen');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById('s-'+id).classList.add('active');
     document.querySelectorAll('.screen').forEach(s=>s.scrollTop=0);
@@ -3647,6 +3938,9 @@
   }
   document.addEventListener('DOMContentLoaded',function(){
     var el=document.getElementById('s-home'); if(el) el.addEventListener('scroll',_hsInfiniteScroll,{passive:true});
+    updateTripFloat('home');
+    var ts=document.getElementById('ts-list');
+    if(ts) ts.addEventListener('click',function(e){ if(e.target.closest('.rd2-pk')) closeTripSheet(); }, true);
   });
   (function(){
     var idx=0, timer=null;
@@ -4147,7 +4441,7 @@
     potato:'<svg viewBox="0 0 24 24"><path d="M7.5 6.5c2.2-2 6-2.6 8.8-.6s3.4 6 1.4 9.4-6.4 4.4-9.6 2.4S5 9 7.5 6.5z" fill="#bb8a52"/><ellipse cx="10.2" cy="10" rx="1" ry="1.3" fill="#8a6238"/><ellipse cx="14" cy="13" rx="1" ry="1.3" fill="#8a6238"/></svg>',
     corn:'<svg viewBox="0 0 24 24"><path d="M14.5 3c-7 2-9 10-7 17-3.2-1-5.2-5.2-4-10.4C4.7 4.4 9.6 1.2 14.5 3z" fill="#79bf4d"/><path d="M14.5 3c4 2 5 7.4 3 12.4s-7 6.8-10 4.6C5 13.4 7.5 5 14.5 3z" fill="#ffce3a"/></svg>',
     buck:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 21V9" stroke="#5f9a3f" stroke-width="1.8" stroke-linecap="round"/><g fill="#fff" stroke="#e7d9c2" stroke-width="0.5"><circle cx="12" cy="5" r="1.7"/><circle cx="8.5" cy="7" r="1.5"/><circle cx="15.5" cy="7" r="1.5"/></g><g fill="#f3aec0"><circle cx="12" cy="5" r="0.5"/><circle cx="8.5" cy="7" r="0.5"/><circle cx="15.5" cy="7" r="0.5"/></g></svg>',
-    greens:'<svg viewBox="0 0 24 24" fill="none"><path d="M9.2 21h5.6l-1-3.4H10.2z" fill="#c99a5a"/><path d="M12 18C12 13 11 7 8 4 6.8 9 8 14 12 18z" fill="#2f9e44"/><path d="M12 18C12 13 13 7 16 4 17.2 9 16 14 12 18z" fill="#40c057"/><path d="M12 18C12 14 8.8 9 5.3 7 5.3 12 8 16 12 18z" fill="#37b24d"/></svg>',
+    greens:'<svg viewBox="0 0 24 24" fill="none"><path d="M9.2 21h5.6l-1-3.4H10.2z" fill="#c99a5a"/><path d="M12 18C12 13 11 7 8 4 6.8 9 8 14 12 18z" fill="#1f9d57"/><path d="M12 18C12 13 13 7 16 4 17.2 9 16 14 12 18z" fill="#40c057"/><path d="M12 18C12 14 8.8 9 5.3 7 5.3 12 8 16 12 18z" fill="#37b24d"/></svg>',
     root:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 9C10 7 10 5 11 4c1 1 1 3 1 5z" fill="#40c057"/><path d="M12 9C14 7 14 5 13 4c-1 1-1 3-1 5z" fill="#37b24d"/><path d="M12 8c2.2 0 3.2 2 3.2 4.2 0 2.6-1 3.8-1.1 5.6-.1 1.4-2.2 1.4-2.2 0 0-1.3-1.4-1.6-2.1-3.5C8.6 11.6 9 8 12 8z" fill="#e4d4ae"/></svg>',
     fish:'<svg viewBox="0 0 24 24"><path d="M9 12c0-3.4 3-6.2 7-6.2 3.2 0 5.2 2.2 5.2 6.2s-2 6.2-5.2 6.2c-4 0-7-2.8-7-6.2z" fill="#4dafce"/><path d="M9 12 2.5 8v8z" fill="#3f9bb6"/><circle cx="17.6" cy="10.6" r="1" fill="#fff"/></svg>',
     bun:'<svg viewBox="0 0 24 24"><path d="M4 16.2c0-5 3.6-9 8-9s8 4 8 9c0 .7-.5 1.2-1.2 1.2H5.2C4.5 17.4 4 16.9 4 16.2z" fill="#f3ece1"/><path d="M4.2 17.2h15.6c-.1 1-.9 1.8-1.9 1.8H6.1c-1 0-1.8-.8-1.9-1.8z" fill="#e6dac6"/></svg>',
@@ -4651,7 +4945,41 @@
     if(/운영|영업/.test(r))return {t:'재고 넉넉',c:'#3FC358'};
     return {t:'방문 픽업 가능',c:'#3FC358'};
   }
+  const MY_REVIEWS=[
+    {shop:'우천한우 직매장',prod:'횡성한우 채끝 400g',stars:5,date:'2026.03.28',txt:'고기 상태가 정말 좋았어요. 픽업도 시간 딱 맞춰서 기다림 없이 받았습니다.',photos:[1,2]},
+    {shop:'안흥찐빵 본가',prod:'안흥찐빵 20개입',stars:4,date:'2026.03.15',txt:'따뜻할 때 바로 받아서 그런지 맛있었어요. 다음에 또 주문할게요.',photos:[3]},
+    {shop:'아라리 산나물 조합',prod:'정선 곤드레나물 1kg',stars:5,date:'2026.02.02',txt:'향이 진하고 신선했어요. 포장도 깔끔했습니다.',photos:[]}
+  ];
+  function renderMyReviews(){
+    var host=document.getElementById('myrv-list'); if(!host)return;
+    if(!MY_REVIEWS.length){ host.innerHTML='<div class="lr-empty">아직 작성한 후기가 없어요.</div>'; return; }
+    host.innerHTML=MY_REVIEWS.map(function(r){
+      return '<div class="myrv-card">'
+        +'<div class="myrv-top"><span class="myrv-shop">'+r.shop+'</span><span class="myrv-date">'+r.date+'</span></div>'
+        +'<div class="myrv-stars">'+('★'.repeat(r.stars))+('☆'.repeat(5-r.stars))+'</div>'
+        +'<div class="myrv-txt">'+r.txt+'</div>'
+        +(r.photos.length?'<div class="myrv-photos">'+r.photos.map(function(i){return '<span style="background-image:url(\''+rvImg(i)+'\')"></span>';}).join('')+'</div>':'')
+      +'</div>';
+    }).join('');
+  }
+  const MY_COUPONS=[
+    {pct:'20%',nm:'첫 픽업 20% 할인',cond:'전 지역 · 최대 8,000원 할인',exp:'2026.05.31까지'},
+    {pct:'5천',nm:'친구 초대 감사 쿠폰',cond:'5,000원 즉시 할인 · 3만원 이상',exp:'2026.06.30까지'},
+    {pct:'10%',nm:'횡성 지역 픽업 쿠폰',cond:'횡성 매장 전용',exp:'2026.04.30까지'}
+  ];
+  function renderMyCoupons(){
+    var host=document.getElementById('mycp-list'); if(!host)return;
+    host.innerHTML=MY_COUPONS.map(function(c){
+      return '<div class="mycp-card"><span class="mycp-pct">'+c.pct+'</span><span class="mycp-body"><span class="mycp-nm">'+c.nm+'</span><div class="mycp-cond">'+c.cond+'</div><div class="mycp-exp">'+c.exp+'</div></span></div>';
+    }).join('');
+  }
+  function ntfToggle(btn){ btn.classList.toggle('on'); }
+  function inviteCopy(){
+    var code=document.getElementById('inv-code'); if(!code)return;
+    try{ navigator.clipboard&&navigator.clipboard.writeText(code.textContent); }catch(e){}
+  }
   renderCalStores();renderList();renderMonths();paintCal();paintRouteCal();renderCal2();renderMy();renderCartBadge();
+  renderMyReviews();renderMyCoupons();
 </script>
 </body>
 </html>
