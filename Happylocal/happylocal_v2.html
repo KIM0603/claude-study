@@ -3672,8 +3672,8 @@
       ]}
   };
   /* ===== 로컬루트 이미지 경로 헬퍼 (images/farms/ 단일 폴더, avail_/route_ 접두어로 구분) ===== */
-  function availImg(slug,n){ return n==='thumb' ? 'images/farms/avail_'+slug+'_thumb.jpg' : 'images/farms/avail_'+slug+' ('+n+').jpg'; }
-  function routeImg(slug,n){ return n==='thumb' ? 'images/farms/route_'+slug+'_thumb.jpg' : 'images/farms/route_'+slug+' ('+n+').jpg'; }
+  function availImg(slug,n){ return n==='thumb' ? 'images/farms/'+slug+'_thumb.jpg' : 'images/farms/'+slug+' ('+n+').jpg'; }
+  function routeImg(slug,n){ return n==='thumb' ? 'images/farms/'+slug+'_thumb.jpg' : 'images/farms/'+slug+' ('+n+').jpg'; }
   function availPhotos(slug){ var a=[]; for(var i=1;i<=6;i++)a.push(availImg(slug,i)); return a; }
   function routePhotos(slug){ var a=[]; for(var i=1;i<=6;i++)a.push(routeImg(slug,i)); return a; }
   function _availSlugByName(nm){
