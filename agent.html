@@ -584,24 +584,24 @@
       <div class="stat-tile a">
         <div class="tile-icon">🏦</div>
         <div class="tile-body">
-          <div class="label">부부통장</div>
-          <div class="value">₩1,515,000</div>
-          <div class="foot blue">이번달 입금 ₩1,500,000</div>
+          <div class="label">부부통장(달러)</div>
+          <div class="value" id="tile-couple-value">₩0</div>
+          <div class="foot blue" id="tile-couple-foot">이번달 입금 ₩0</div>
         </div>
       </div>
       <div class="stat-tile b">
         <div class="tile-icon">💵</div>
         <div class="tile-body">
-          <div class="label">달러통장</div>
-          <div class="value">$1,250</div>
-          <div class="foot blue">이번달 입금 $200</div>
+          <div class="label">현금보유</div>
+          <div class="value" id="tile-cash2-value">₩0</div>
+          <div class="foot blue" id="tile-cash2-foot">이번달 입금 ₩0</div>
         </div>
       </div>
       <div class="stat-tile c">
         <div class="tile-icon">📉</div>
         <div class="tile-body">
           <div class="label">월말 현금</div>
-          <div class="value red">₩-5,262,000</div>
+          <div class="value" id="tile-endcash-value">₩0</div>
           <div class="foot">수입·지출·저축</div>
         </div>
       </div>
@@ -609,8 +609,8 @@
         <div class="tile-icon">📈</div>
         <div class="tile-body">
           <div class="label">주식누적</div>
-          <div class="value">₩12,350,000</div>
-          <div class="foot">매입원금 ₩10,000,000</div>
+          <div class="value" id="tile-stock-value">₩0</div>
+          <div class="foot" id="tile-stock-foot">매입원금 ₩0</div>
         </div>
       </div>
     </div>
@@ -621,7 +621,7 @@
         <div class="total-label">총 합계</div>
         <div class="total-foot">원화 기준 환산</div>
       </div>
-      <div class="total-value">₩13,202,500</div>
+      <div class="total-value" id="tile-total-value">₩0</div>
     </div>
   </div>
 
@@ -631,20 +631,20 @@
         <span class="badge blue">남편 지출</span>
         <div class="salary-field">
           <label for="husband-salary">월급</label>
-          <input type="text" id="husband-salary" placeholder="0" value="">
+          <input type="text" id="husband-salary" placeholder="0" value="3229730">
         </div>
       </div>
 
       <table class="cat-table" data-total="husband-total" data-color="blue">
         <tbody>
           <tr class="group-row"><td colspan="2">고정비 (자동이체)</td></tr>
-          <tr class="item-row"><td class="name">전기세</td><td class="amt-cell"><input type="text" value=""></td></tr>
-          <tr class="item-row"><td class="name">가스비</td><td class="amt-cell"><input type="text" value=""></td></tr>
+          <tr class="item-row"><td class="name">전기세</td><td class="amt-cell"><input type="text" value="132070"></td></tr>
+          <tr class="item-row"><td class="name">가스비</td><td class="amt-cell"><input type="text" value="57770"></td></tr>
           <tr class="item-row"><td class="name">관리비</td><td class="amt-cell"><input type="text" value="70000"></td></tr>
           <tr class="item-row"><td class="name">핸드폰</td><td class="amt-cell"><input type="text" value="36300"></td></tr>
-          <tr class="item-row"><td class="name">보험료</td><td class="amt-cell"><input type="text" value=""></td></tr>
-          <tr class="item-row"><td class="name">건강보험료</td><td class="amt-cell"><input type="text" value="166034"></td></tr>
-          <tr class="item-row"><td class="name">교통카드</td><td class="amt-cell"><input type="text" value="180000"></td></tr>
+          <tr class="item-row"><td class="name">보험료</td><td class="amt-cell"><input type="text" value="166033"></td></tr>
+          <tr class="item-row"><td class="name">건강보험료</td><td class="amt-cell"><input type="text" value="302610"></td></tr>
+          <tr class="item-row"><td class="name">교통카드</td><td class="amt-cell"><input type="text" value="55000"></td></tr>
           <tr class="item-row"><td class="name">식권비</td><td class="amt-cell"><input type="text" value="200000"></td></tr>
           <tr class="item-row"><td class="name">데이트통장</td><td class="amt-cell"><input type="text" value="100000"></td></tr>
           <tr class="item-row"><td class="name">그외</td><td class="amt-cell"><input type="text" value="964314"></td></tr>
@@ -675,23 +675,23 @@
         <span class="badge pink">아내 지출</span>
         <div class="salary-field">
           <label for="wife-salary">월급</label>
-          <input type="text" id="wife-salary" placeholder="0" value="">
+          <input type="text" id="wife-salary" placeholder="0" value="2796138">
         </div>
       </div>
 
       <table class="cat-table" data-total="wife-total" data-color="pink">
         <tbody>
           <tr class="group-row"><td colspan="2">고정비 (자동이체)</td></tr>
-          <tr class="item-row"><td class="name">전기세</td><td class="amt-cell"><input type="text" value=""></td></tr>
+          <tr class="item-row"><td class="name">전기세</td><td class="amt-cell"><input type="text" value="200000"></td></tr>
           <tr class="item-row"><td class="name">가스비</td><td class="amt-cell"><input type="text" value=""></td></tr>
           <tr class="item-row"><td class="name">관리비</td><td class="amt-cell"><input type="text" value=""></td></tr>
-          <tr class="item-row"><td class="name">핸드폰</td><td class="amt-cell"><input type="text" value="50000"></td></tr>
-          <tr class="item-row"><td class="name">보험료</td><td class="amt-cell"><input type="text" value=""></td></tr>
+          <tr class="item-row"><td class="name">핸드폰</td><td class="amt-cell"><input type="text" value="116010"></td></tr>
+          <tr class="item-row"><td class="name">보험료</td><td class="amt-cell"><input type="text" value="320000"></td></tr>
           <tr class="item-row"><td class="name">건강보험료</td><td class="amt-cell"><input type="text" value=""></td></tr>
           <tr class="item-row"><td class="name">교통카드</td><td class="amt-cell"><input type="text" value=""></td></tr>
           <tr class="item-row"><td class="name">식권비</td><td class="amt-cell"><input type="text" value=""></td></tr>
-          <tr class="item-row"><td class="name">데이트통장</td><td class="amt-cell"><input type="text" value=""></td></tr>
-          <tr class="item-row"><td class="name">그외</td><td class="amt-cell"><input type="text" value="120000"></td></tr>
+          <tr class="item-row"><td class="name">데이트통장</td><td class="amt-cell"><input type="text" value="300000"></td></tr>
+          <tr class="item-row"><td class="name">그외</td><td class="amt-cell"><input type="text" value="530000"></td></tr>
 
           <tr class="group-row"><td colspan="2">대출 / 상환</td></tr>
           <tr class="item-row"><td class="name">전세자금대출</td><td class="amt-cell"><input type="text" value=""></td></tr>
@@ -699,11 +699,11 @@
           <tr class="item-row no-total"><td class="name">대출원금</td><td class="amt-cell"><input type="text" value=""></td></tr>
 
           <tr class="group-row"><td colspan="2">구독 / 서비스</td></tr>
-          <tr class="item-row"><td class="name">구독료</td><td class="amt-cell"><input type="text" value=""></td></tr>
+          <tr class="item-row"><td class="name">구독료</td><td class="amt-cell"><input type="text" value="31000"></td></tr>
 
           <tr class="group-row"><td colspan="2">생활 / 미용 / 기타</td></tr>
-          <tr class="item-row"><td class="name">미용</td><td class="amt-cell"><input type="text" value="250000"></td></tr>
-          <tr class="item-row"><td class="name">건강</td><td class="amt-cell"><input type="text" value=""></td></tr>
+          <tr class="item-row"><td class="name">미용</td><td class="amt-cell"><input type="text" value=""></td></tr>
+          <tr class="item-row"><td class="name">건강</td><td class="amt-cell"><input type="text" value="110000"></td></tr>
           <tr class="item-row"><td class="name">경조사</td><td class="amt-cell"><input type="text" value=""></td></tr>
         </tbody>
       </table>
@@ -813,8 +813,8 @@
           <td class="total">₩0</td>
         </tr>
         <tr>
-          <td class="label">달러통장($)</td>
-          <td><input value="0"></td><td><input value="0"></td>
+          <td class="label">유정현금보유</td>
+          <td><input value="14778472"></td><td><input value="0"></td>
           <td><input value="0"></td><td><input value="0"></td><td><input value="0"></td><td><input value="0"></td>
           <td class="total">$0</td>
         </tr>
@@ -826,7 +826,7 @@
         </tr>
         <tr>
           <td class="label">주식매입(아내)</td>
-          <td><input value="0"></td><td><input value="0"></td>
+          <td><input value="8067303"></td><td><input value="0"></td>
           <td><input value="0"></td><td><input value="0"></td><td><input value="0"></td><td><input value="0"></td>
           <td class="total">₩0</td>
         </tr>
@@ -870,11 +870,92 @@
     }
 
     inputs.forEach(function(inp){
-      inp.addEventListener('input', recalcTotal);
+      inp.addEventListener('input', function(){
+        recalcTotal();
+        updateSummaryCard();
+      });
     });
 
     recalcTotal();
   });
+
+  /* ---- 상단 "현금 현황" 카드: 아래 입력값 기준으로 자동 계산 ---- */
+  function parseNum(raw){
+    const v = parseFloat(String(raw == null ? '' : raw).replace(/[^0-9.-]/g, ''));
+    return isNaN(v) ? 0 : v;
+  }
+
+  function catTableSum(dataTotalId){
+    const table = document.querySelector('.cat-table[data-total="' + dataTotalId + '"]');
+    if(!table) return 0;
+    let sum = 0;
+    table.querySelectorAll('.item-row:not(.no-total) input').forEach(function(inp){
+      sum += parseNum(inp.value);
+    });
+    return sum;
+  }
+
+  function getAssetRowValues(labelText){
+    const rows = document.querySelectorAll('table.asset tbody tr');
+    for(let i = 0; i < rows.length; i++){
+      const labelEl = rows[i].querySelector('td.label');
+      const label = labelEl ? labelEl.textContent.trim() : '';
+      if(label === labelText){
+        const inputs = Array.from(rows[i].querySelectorAll('td:not(.label):not(.total) input'));
+        const values = inputs.map(function(inp){ return parseNum(inp.value); });
+        const total = values.reduce(function(a,b){ return a+b; }, 0);
+        const first = values.length ? values[0] : 0;
+        return { total: total, first: first };
+      }
+    }
+    return { total: 0, first: 0 };
+  }
+
+  function updateSummaryCard(){
+    const husbandSalary = parseNum(document.getElementById('husband-salary') && document.getElementById('husband-salary').value);
+    const wifeSalary = parseNum(document.getElementById('wife-salary') && document.getElementById('wife-salary').value);
+    const husbandExpense = catTableSum('husband-total');
+    const wifeExpense = catTableSum('wife-total');
+
+    const couple = getAssetRowValues('부부통장(원)');
+    const cash2 = getAssetRowValues('유정현금보유');
+    const stockH = getAssetRowValues('주식매입(남편)');
+    const stockW = getAssetRowValues('주식매입(아내)');
+
+    const stockTotal = stockH.total + stockW.total;
+    const stockPrincipal = stockH.first + stockW.first;
+    const endCash = (husbandSalary + wifeSalary) - (husbandExpense + wifeExpense);
+    const grandTotal = couple.total + cash2.total + stockTotal;
+
+    const coupleValueEl = document.getElementById('tile-couple-value');
+    const coupleFootEl = document.getElementById('tile-couple-foot');
+    if(coupleValueEl) coupleValueEl.textContent = formatWon(couple.total);
+    if(coupleFootEl) coupleFootEl.textContent = '이번달 입금 ' + formatWon(couple.first);
+
+    const cash2ValueEl = document.getElementById('tile-cash2-value');
+    const cash2FootEl = document.getElementById('tile-cash2-foot');
+    if(cash2ValueEl) cash2ValueEl.textContent = formatWon(cash2.total);
+    if(cash2FootEl) cash2FootEl.textContent = '이번달 입금 ' + formatWon(cash2.first);
+
+    const endCashEl = document.getElementById('tile-endcash-value');
+    if(endCashEl){
+      endCashEl.textContent = formatWon(endCash);
+      endCashEl.classList.toggle('red', endCash < 0);
+    }
+
+    const stockValueEl = document.getElementById('tile-stock-value');
+    const stockFootEl = document.getElementById('tile-stock-foot');
+    if(stockValueEl) stockValueEl.textContent = formatWon(stockTotal);
+    if(stockFootEl) stockFootEl.textContent = '매입원금 ' + formatWon(stockPrincipal);
+
+    const totalValueEl = document.getElementById('tile-total-value');
+    if(totalValueEl) totalValueEl.textContent = formatWon(grandTotal);
+  }
+
+  const husbandSalaryInput = document.getElementById('husband-salary');
+  if(husbandSalaryInput) husbandSalaryInput.addEventListener('input', updateSummaryCard);
+  const wifeSalaryInput = document.getElementById('wife-salary');
+  if(wifeSalaryInput) wifeSalaryInput.addEventListener('input', updateSummaryCard);
 
   /* ---- 이번 달 Focus: 입력된 지출을 분석해 맞춤 제안 생성 ---- */
   const DISCRETIONARY = ['구독료','미용','건강','경조사','식권비','데이트통장','그외'];
@@ -1069,11 +1150,17 @@
       });
       totalTd.textContent = isDollar ? ('$' + Math.round(sum).toLocaleString('en-US')) : formatWon(sum);
     }
-    monthInputs.forEach(function(inp){ inp.addEventListener('input', recalc); });
+    monthInputs.forEach(function(inp){
+      inp.addEventListener('input', function(){
+        recalc();
+        updateSummaryCard();
+      });
+    });
     recalc();
   }
 
   document.querySelectorAll('table.asset tbody tr').forEach(initAssetRow);
+  updateSummaryCard();
 
   const addRowBtn = document.getElementById('add-row-btn');
   if(addRowBtn){
