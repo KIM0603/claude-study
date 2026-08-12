@@ -1694,7 +1694,7 @@
   .cal2-divider{ height:8px; background:#F1F2F4; margin-top:10px; }
   .cal2-hl-head{ font-size:19px; font-weight:800; color:var(--c-ink900); padding:20px 20px 4px; letter-spacing:-.01em; }
   .cal2-hl-card{ display:flex; align-items:center; gap:14px; width:100%; text-align:left; background:transparent; border:none; border-bottom:1px solid var(--c-line); padding:15px 20px; cursor:pointer; }
-  .cal2-hl-thumb{ width:66px; height:66px; flex:0 0 auto; border-radius:12px; background:#EAEEF0; display:flex; align-items:center; justify-content:center; color:#B9C0C7; }
+  .cal2-hl-thumb{ width:66px; height:66px; flex:0 0 auto; border-radius:12px; background:#EAEEF0; display:flex; align-items:center; justify-content:center; color:#B9C0C7; position:relative; overflow:hidden; }
   .cal2-hl-thumb.warm{ background:#F0E7E1; color:#C9B7A9; }
   .cal2-hl-thumb svg{ width:26px; height:26px; }
   .cal2-hl-body{ flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
@@ -2870,9 +2870,11 @@
     renderMyCourse();
   }
   function mcPickTab(t,el){mcTab=t;el.parentNode.querySelectorAll('.mc3-tab').forEach(function(b){b.classList.remove('on');});el.classList.add('on');renderMyCourse();}
+  function _plFidByName(nm){ for(var i=0;i<PL.length;i++){ if(PL[i].name===nm) return PL[i].fid; } return null; }
   function _mcResvCardHTML(p,i){
+    var fid=_plFidByName(p.shop), img=(fid&&FARM_SHOTS[fid])?farmImg(fid,FARM_SHOTS[fid][0]):null;
     return '<div class="hs-sale-card" onclick="openMyResv('+i+')">'
-      +'<div class="hs-sale-thumb"><span class="hs-stock-badge">'+p.stock+'</span>'+lrImgIco()+'</div>'
+      +'<div class="hs-sale-thumb"><span class="hs-stock-badge">'+p.stock+'</span>'+lrImgIco()+(img?lrThumbImg(img):'')+'</div>'
       +'<div class="hs-sale-body">'
       +'<div class="hs-sale-nm">'+p.shop+'</div>'
       +'<div class="hs-sale-prod">'+p.prod+'</div>'
@@ -2885,9 +2887,10 @@
   }
   function openMyResv(i){
     var p=MY_PICKUPS[i]; if(!p)return;
+    var fid=_plFidByName(p.shop), imgs=(fid&&FARM_SHOTS[fid])?FARM_SHOTS[fid].map(function(n){return farmImg(fid,n);}):null;
     var it={name:p.shop,prod:p.prod,was:p.was+'원',now:p.now,stock:p.stock,shop:p.shop,rating:'4.8',rev:0,
       date:'오늘 · 4월 12일 (토)',time:'예약코드 '+p.code,place:'예약 완료 · 픽업 대기',
-      desc:'예약이 완료된 상품이에요. 픽업지에서 예약코드 "'+p.code+'"를 보여주세요.',max:_hsMax(p.stock),img:null};
+      desc:'예약이 완료된 상품이에요. 픽업지에서 예약코드 "'+p.code+'"를 보여주세요.',max:_hsMax(p.stock),img:imgs?imgs[0]:null,imgs:imgs};
     openStoreItem(it);
   }
   /* ===== 공통 앱바: 장바구니 ===== */
@@ -2972,26 +2975,26 @@
   function mcBagIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l-1 11.5H7.5z"/><path d="M9 8V6.3a3 3 0 016 0V8"/></svg>';}
   /* ===== 제철 캘린더 v2 (spec 구현) ===== */
   const CAL2_SEASONAL=[
-    {id:'봄나물',region:'횡성',bar:'봄나물·곤드레',name:'봄나물 세트',months:[4,5],shops:4},
-    {id:'산더덕',region:'횡성',bar:'산더덕·두릅',name:'산더덕·두릅',months:[4],shops:3},
-    {id:'수리취',region:'정선',bar:'정선 수리취',name:'수리취',months:[5,6],shops:2},
-    {id:'감자',region:'평창',bar:'대관령 감자',name:'대관령 햇감자',months:[6,7,8],shops:5},
-    {id:'옥수수',region:'평창',bar:'대관령 찰옥수수',name:'찰옥수수',months:[7,8],shops:4},
-    {id:'한우',region:'횡성',bar:'횡성한우',name:'횡성한우',months:[10,11],shops:6},
+    {id:'봄나물',region:'횡성',bar:'봄나물·곤드레',name:'봄나물 세트',months:[4,5],shops:4,fid:'06'},
+    {id:'산더덕',region:'횡성',bar:'산더덕·두릅',name:'산더덕·두릅',months:[4],shops:3,fid:'04'},
+    {id:'수리취',region:'정선',bar:'정선 수리취',name:'수리취',months:[5,6],shops:2,fid:'16'},
+    {id:'감자',region:'평창',bar:'대관령 감자',name:'대관령 햇감자',months:[6,7,8],shops:5,fid:'07'},
+    {id:'옥수수',region:'평창',bar:'대관령 찰옥수수',name:'찰옥수수',months:[7,8],shops:4,fid:'11'},
+    {id:'한우',region:'횡성',bar:'횡성한우',name:'횡성한우',months:[10,11],shops:6,fid:'02'},
     {id:'사과',region:'평창',bar:'고랭지 사과',name:'평창 사과',months:[10,11],shops:4},
-    {id:'더덕',region:'정선',bar:'정선 더덕',name:'정선 더덕',months:[11,12],shops:3},
-    {id:'황태',region:'횡성',bar:'황태 덕장',name:'횡성 황태',months:[12,1,2],shops:3},
-    {id:'송어',region:'평창',bar:'오대천 송어',name:'평창 송어',months:[12,1],shops:3}
+    {id:'더덕',region:'정선',bar:'정선 더덕',name:'정선 더덕',months:[11,12],shops:3,fid:'17'},
+    {id:'황태',region:'횡성',bar:'황태 덕장',name:'횡성 황태',months:[12,1,2],shops:3,fid:'12'},
+    {id:'송어',region:'평창',bar:'오대천 송어',name:'평창 송어',months:[12,1],shops:3,fid:'09'}
   ];
   const CAL2_FESTIVAL=[
-    {id:'f-hanwoo',region:'횡성',name:'횡성한우축제',start:'2026-04-10',end:'2026-04-14',place:'섬강둔치',placeKey:'fest_hanwoo'},
-    {id:'f-namul',region:'정선',name:'정선 봄나물 장터',start:'2026-04-19',end:'2026-04-21',place:'아리랑시장'},
-    {id:'f-surichi',region:'정선',name:'정선 수리취떡 축제',start:'2026-05-15',end:'2026-05-17',place:'화암면'},
-    {id:'f-memil',region:'평창',name:'봉평 메밀꽃축제',start:'2026-09-05',end:'2026-09-23',place:'봉평면',placeKey:'fest_pc_memil'},
-    {id:'f-arari',region:'정선',name:'정선아리랑제',start:'2026-09-24',end:'2026-09-27',place:'정선읍'},
-    {id:'f-hanwoo-oct',region:'횡성',name:'횡성한우축제(가을)',start:'2026-10-22',end:'2026-10-26',place:'섬강둔치',placeKey:'fest_hanwoo'},
-    {id:'f-bread',region:'횡성',name:'안흥찐빵 축제',start:'2026-11-07',end:'2026-11-09',place:'안흥면',placeKey:'fest_bread'},
-    {id:'f-trout',region:'평창',name:'평창송어축제',start:'2026-12-19',end:'2027-01-11',place:'진부면',placeKey:'fest_pc_trout'}
+    {id:'f-hanwoo',region:'횡성',name:'횡성한우축제',start:'2026-04-10',end:'2026-04-14',place:'섬강둔치',placeKey:'fest_hanwoo',slug:'hoengseong_hanwoo-festival'},
+    {id:'f-namul',region:'정선',name:'정선 봄나물 장터',start:'2026-04-19',end:'2026-04-21',place:'아리랑시장',slug:'jeongseon_bomnamul-market'},
+    {id:'f-surichi',region:'정선',name:'정선 수리취떡 축제',start:'2026-05-15',end:'2026-05-17',place:'화암면',slug:'jeongseon_surichitteok-festival'},
+    {id:'f-memil',region:'평창',name:'봉평 메밀꽃축제',start:'2026-09-05',end:'2026-09-23',place:'봉평면',placeKey:'fest_pc_memil',slug:'pyeongchang_bongpyeong-memil-festival'},
+    {id:'f-arari',region:'정선',name:'정선아리랑제',start:'2026-09-24',end:'2026-09-27',place:'정선읍',slug:'jeongseon_arirang-festival'},
+    {id:'f-hanwoo-oct',region:'횡성',name:'횡성한우축제(가을)',start:'2026-10-22',end:'2026-10-26',place:'섬강둔치',placeKey:'fest_hanwoo',slug:'hoengseong_hanwoo-festival'},
+    {id:'f-bread',region:'횡성',name:'안흥찐빵 축제',start:'2026-11-07',end:'2026-11-09',place:'안흥면',placeKey:'fest_bread',slug:'hoengseong_anheung-bread-festival'},
+    {id:'f-trout',region:'평창',name:'평창송어축제',start:'2026-12-19',end:'2027-01-11',place:'진부면',placeKey:'fest_pc_trout',slug:'pyeongchang_trout-festival'}
   ];
   let cal2State={year:2026,month:4,region:'전체'};
   const CAL2_TODAY={year:2026,month:4,day:12};              // 데모 기준 오늘
@@ -3042,15 +3045,17 @@
     mf.sort(function(a,b){var sa=_cal2FestStatus(a)==='진행 중'?0:1,sb=_cal2FestStatus(b)==='진행 중'?0:1;
       if(sa!==sb)return sa-sb;return _cal2V(_cal2P(a.end))-_cal2V(_cal2P(b.end));});
     var out='';
-    seas.forEach(function(s){out+='<button class="cal2-hl-card" onclick="cal2OpenSeasonal(\''+s.id+'\')">'
-      +'<span class="cal2-hl-thumb">'+cal2ImgIco()+'</span><span class="cal2-hl-body">'
+    seas.forEach(function(s){var simg=s.fid?farmImg(s.fid,(FARM_SHOTS[s.fid]||[1])[0]):null;
+      out+='<button class="cal2-hl-card" onclick="cal2OpenSeasonal(\''+s.id+'\')">'
+      +'<span class="cal2-hl-thumb">'+cal2ImgIco()+(simg?lrThumbImg(simg):'')+'</span><span class="cal2-hl-body">'
       +'<span class="cal2-hl-tags"><span class="cal2-tag seasonal">제철</span><span class="cal2-hl-meta">'+_cal2Range(s.months)+' · '+s.region+'</span></span>'
       +'<span class="cal2-hl-nm">'+s.name+'</span><span class="cal2-hl-sub">지금 예약 가능한 가게 '+s.shops+'곳</span>'
       +'</span><span class="cal2-hl-ch">'+cal2Chev()+'</span></button>';});
     mf.forEach(function(f){var st=_cal2FestStatus(f),sd=_cal2P(f.start),ed=_cal2P(f.end);
       var range=sd.m+'.'+sd.d+'–'+(sd.m===ed.m?ed.d:(ed.m+'.'+ed.d));
+      var fimg=f.slug?availImg(f.slug,'thumb'):null;
       out+='<button class="cal2-hl-card" onclick="cal2OpenFestival(\''+f.id+'\')">'
-      +'<span class="cal2-hl-thumb warm">'+cal2ImgIco()+'</span><span class="cal2-hl-body">'
+      +'<span class="cal2-hl-thumb warm">'+cal2ImgIco()+(fimg?lrThumbImg(fimg):'')+'</span><span class="cal2-hl-body">'
       +'<span class="cal2-hl-tags"><span class="cal2-tag festival">축제</span><span class="cal2-hl-meta">'+range+' · '+f.region+'</span></span>'
       +'<span class="cal2-hl-nm">'+f.name+'</span><span class="cal2-hl-sub">'+f.place+' · '+st+'</span>'
       +'</span><span class="cal2-hl-ch">'+cal2Chev()+'</span></button>';});
@@ -3156,8 +3161,7 @@
     var nb=_cal2NearbyStore(f.region), nbSec=document.getElementById('ad-nearby-sec');
     if(nb){nbSec.style.display='';document.getElementById('ad-store').innerHTML='<div class="ad-store-thumb">'+lrImgIco()+'</div><div class="ad-store-body"><div class="ad-store-tag">'+nb.tag+'</div><div class="ad-store-nm">'+nb.nm+'</div><div class="ad-store-price"><s>'+nb.was+'</s> <b>'+nb.price+'</b> 원</div><div class="ad-store-meta">'+lrPin()+nb.meta+'</div></div>';}
     else{nbSec.style.display='none';}
-    var _slug=_availSlugByName(f.name);
-    buildHeroGallery('ad-hero-img','ad-hero-dots', _slug?availPhotos(_slug):null);
+    buildHeroGallery('ad-hero-img','ad-hero-dots', f.slug?availPhotos(f.slug):null);
     window._lrCurAvail={nm:f.name,_cal2Id:f.id};
     var adCta2=document.querySelector('.ad-cta-main');if(adCta2){adCta2.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>코스에 담기';adCta2.style.background='';adCta2.disabled=false;}
     _enter('availdetail');
@@ -3178,7 +3182,7 @@
   function updateTripFloat(currentId){
     var el=document.getElementById('trip-float'); if(!el)return;
     var act=(typeof MY_COURSES!=='undefined')?MY_COURSES.find(function(c){return c.kind==='active';}):null;
-    if(!act || currentId==='mycourse' || tripFloatDismissed){ el.style.display='none'; return; }
+    if(!act || currentId!=='home' || tripFloatDismissed){ el.style.display='none'; return; }
     var nm=document.getElementById('tf-name'); if(nm) nm.textContent=act.title;
     var sub=document.getElementById('tf-sub'); if(sub) sub.textContent='픽업 '+(act.pickDone||0)+'/'+(act.pickTotal||0)+' 진행 중';
     el.style.display='flex';
