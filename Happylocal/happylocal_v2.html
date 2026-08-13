@@ -1214,7 +1214,8 @@
   .phone:has(#datesheet.show) .trip-float{display:none}
   .trip-sheet{padding:10px 0 0;max-height:86dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;--sale:#C2410C}
   .ts-top{padding:22px 24px 22px;position:relative}
-  .ts-emoji{position:absolute;top:20px;right:24px;font-size:34px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+  .ts-emoji{position:absolute;top:20px;right:24px;width:38px;height:38px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+  .ts-emoji svg{width:100%;height:100%;display:block}
   .ts-eyebrow{font-size:13px;font-weight:800;color:#2B8A3D;margin-bottom:10px}
   .ts-title{font-size:23px;font-weight:800;color:var(--text-hi);line-height:1.32;letter-spacing:-.3px;padding-right:56px}
   .ts-sub{margin-top:9px;font-size:14.5px;color:var(--text-mut);font-weight:600}
@@ -1759,18 +1760,25 @@
 
   /* 쿠폰함 */
   .mycp-list{padding:16px 20px 24px;display:flex;flex-direction:column;gap:12px}
-  .mycp-card{display:flex;align-items:center;gap:14px;border:1px solid var(--border);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+  #s-coupons{background:var(--page-gray,#F2F3F5)}
+  .phone[data-theme="dark"] #s-coupons{--page-gray:#101113}
+  .mycp-list{background:transparent;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px 24px}
+  .mycp-card{position:relative;background:var(--surface-1,#fff);border-radius:18px;padding:16px;overflow:hidden;box-shadow:0 2px 10px rgba(23,25,29,.06)}
   .mycp-card.used{opacity:.45}
-  .mycp-pct{flex:0 0 auto;font-size:20px;font-weight:800;color:var(--brand);background:var(--brand-soft);border-radius:12px;padding:10px 12px;min-width:56px;text-align:center}
-  .mycp-body{flex:1;min-width:0}
-  .mycp-nm{font-size:14.5px;font-weight:800;color:var(--text-hi)}
-  .mycp-cond{font-size:12.5px;color:var(--text-mut);margin-top:4px}
-  .mycp-exp{font-size:12px;color:var(--text-mut);margin-top:6px;font-weight:600}
+  .mycp-top{padding-right:64px}
+  .mycp-nm{font-size:14px;font-weight:800;color:var(--text-hi);line-height:1.4}
+  .mycp-giftico{position:absolute;top:16px;right:14px;width:60px;height:53px;pointer-events:none}
+  .mycp-giftico img{width:100%;height:100%;display:block;object-fit:contain}
+  .mycp-amt{margin-top:14px;background:#36A84B;border-radius:12px;padding:14px 16px;color:#fff;font-size:21px;font-weight:800;letter-spacing:-.2px}
+  .mycp-body{margin-top:10px;display:flex;flex-direction:column;gap:2px}
+  .mycp-cond{font-size:11.5px;color:var(--text-mut);line-height:1.4}
+  .mycp-exp{font-size:12.5px;color:var(--text-hi);font-weight:800}
   .mycp-tag{position:absolute;top:10px;right:12px;font-size:11px;font-weight:800;color:#fff;background:var(--text-mut);border-radius:999px;padding:3px 9px}
 
   /* 친구 초대 */
   .inv-wrap{padding:36px 24px 32px;text-align:center}
-  .inv-hero{font-size:52px;line-height:1}
+  .inv-hero{width:64px;height:64px;margin:0 auto}
+  .inv-hero svg{width:100%;height:100%;display:block}
   .inv-h1{margin-top:18px;font-size:22px;font-weight:800;color:var(--text-hi);line-height:1.4}
   .inv-sub{margin-top:10px;font-size:14px;color:var(--text-mut);line-height:1.6}
   .inv-code{margin-top:26px;display:flex;align-items:center;gap:10px;background:var(--surface-1);border:1.5px dashed var(--border-2);border-radius:12px;padding:14px 16px}
@@ -2247,7 +2255,7 @@
           <div class="my2-gap"></div>
           <div class="my2-group">
             <div class="my2-glabel">예약 · 픽업</div>
-            <div class="my2-item" onclick="goTab('mycourse')">
+            <div class="my2-item" onclick="go('mycourse');renderMyCourse();">
               <span class="my2-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h14v17l-2.3-1.4-2.3 1.4-2.4-1.4-2.3 1.4-2.4-1.4L5 20.5z"/><path d="M9 8.5h6M9 12.5h6"/></svg></span>
               <span class="my2-label">예약 내역</span>
               <span class="my2-right"><span class="my2-badge" id="my2-resv-badge">픽업 예정 2</span><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
@@ -2319,7 +2327,13 @@
           <span class="ab-sp"></span>
         </div>
         <div class="inv-wrap">
-          <div class="inv-hero">🎁</div>
+          <div class="inv-hero"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="26" width="44" height="32" rx="5" fill="var(--brand)"/>
+            <rect x="6" y="16" width="52" height="12" rx="4" fill="var(--brand-press)"/>
+            <rect x="28" y="16" width="8" height="42" fill="var(--brand-press)"/>
+            <circle cx="24" cy="12" r="9" fill="var(--brand-press)"/>
+            <circle cx="40" cy="12" r="9" fill="var(--brand-press)"/>
+          </svg></div>
           <div class="inv-h1">친구를 초대하면<br>둘 다 5,000원 쿠폰!</div>
           <div class="inv-sub">내 코드로 친구가 가입하면 친구도 나도 픽업 5,000원 할인 쿠폰을 받아요.</div>
           <div class="inv-code">
@@ -2672,7 +2686,18 @@
       <div class="sheet trip-sheet" id="tripsheet">
         <div class="rsv-grip"></div>
         <div class="ts-top">
-          <span class="ts-emoji" aria-hidden="true">🐮</span>
+          <span class="ts-emoji" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="18" cy="9" rx="4" ry="7" fill="#D8CBB4" transform="rotate(-25 18 9)"/>
+            <ellipse cx="46" cy="9" rx="4" ry="7" fill="#D8CBB4" transform="rotate(25 46 9)"/>
+            <ellipse cx="9" cy="28" rx="9" ry="6" fill="#A9702F" transform="rotate(-20 9 28)"/>
+            <ellipse cx="55" cy="28" rx="9" ry="6" fill="#A9702F" transform="rotate(20 55 28)"/>
+            <rect x="12" y="14" width="40" height="34" rx="16" fill="#C4884A"/>
+            <ellipse cx="20" cy="20" rx="5" ry="4" fill="#A9702F" opacity=".5"/>
+            <ellipse cx="44" cy="26" rx="4" ry="3" fill="#A9702F" opacity=".5"/>
+            <rect x="16" y="38" width="32" height="20" rx="10" fill="#F1E4CE"/>
+            <circle cx="25" cy="47" r="3.2" fill="#6E4A2A"/>
+            <circle cx="39" cy="47" r="3.2" fill="#6E4A2A"/>
+          </svg></span>
           <div class="ts-eyebrow" id="ts-eyebrow">여행자님은 여행중</div>
           <div class="ts-title" id="ts-title">한우 먹고 숲 걷는 하루</div>
           <div class="ts-sub" id="ts-sub">횡성 · 오늘 · 픽업 2곳</div>
@@ -5004,14 +5029,20 @@
     }).join('');
   }
   const MY_COUPONS=[
-    {pct:'20%',nm:'첫 픽업 20% 할인',cond:'전 지역 · 최대 8,000원 할인',exp:'2026.05.31까지'},
-    {pct:'5천',nm:'친구 초대 감사 쿠폰',cond:'5,000원 즉시 할인 · 3만원 이상',exp:'2026.06.30까지'},
-    {pct:'10%',nm:'횡성 지역 픽업 쿠폰',cond:'횡성 매장 전용',exp:'2026.04.30까지'}
+    {pct:'20%',nm:'첫 픽업<br>20% 할인',cond:'전 지역 · 최대 8,000원 할인',exp:'2026.05.31까지'},
+    {pct:'5,000원',nm:'친구 초대<br>감사 쿠폰',cond:'5,000원 즉시 할인 · 3만원 이상',exp:'2026.05.31까지'},
+    {pct:'20%',nm:'횡성 지역<br>픽업 쿠폰',cond:'횡성 매장 전용',exp:'2026.05.31까지'}
   ];
   function renderMyCoupons(){
     var host=document.getElementById('mycp-list'); if(!host)return;
+    var gift='<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACDCAYAAABr7zL3AAAE9ElEQVR4nO3dTUgcdxjH8WdLWkpFmr0IvmBgiwa0epDQrg2GBNpD2oKXgFZCL43Y9JTSQ0huuZjemh5KCJYeQmK1ycU0ICSFtNkWLZgcfNmDokHZuOih6ws2AQ/TQ/pCEtOd3f3t/mfW7wc8COPOQ+brf2aHdRLxPM8AlZdcD4DyQlCQIihIERSkCApSBAUpgoIUQUGKoCBFUJAiKEgRFKQIClIEBSmCghRBQYqgIEVQkCIoSBEUpAgKUgQFKYKCFEFBiqAgtcf1APmaXJ7xEvPjNplO2lQ6aeuPNmwxk3pqm33ROqv/+6u1usk63ohba01zhDmLJxKmP0VPzI95PyZv2dWJ67b+eCOv16iP1llHLG7HDxyzjlh7UQ5aWOYshlAElZgf8/p/umCJhXHp67bWNNlnBz+x4weOSQ5YWOYspkAHVawD9Kz6aJ2N9g3bvmhdXgcsLHOWQmCDOn3jnPfNb9+VdJ9n3ztlZ9/9PKeDFZY5SyVwQS1mUt6nP3xR9N/2F2mtabLvPx7IugqEZc5SC1RQi5mUd/RSly098y6o1LKdWsIypwuBuQ8VlINkZraUSdnRS122mEk999sWljldCUxQ3Zd7A3GQ/rGUSdlHl3tt/fHGUwcrLHO6EoigTt84500tJ12P8ZzJ5aT1377w7/dhmdMl59dQk8sz3jtfv+90hmxG+4bt9VcrLQxzdsTiTq+nnAfV9OVBL0inkJ10xOK2mEkF6lS3k45Y3Eb7hp0G5fSUd2XiWuBjMjNLLIwHPiazJ3MmFsadrhBOg7p677rL3Zel/ttfOd2/s6AWMynP1U3BcpZYGHf6js9ZUIn5MVe7LntXJq4527ezoG4mb7naddmbdHhrw1lQS38E/yI3rH51eCnh8hrK1a7L3lqeH+pTcBZUvp9kRHbrj9z92+Z9Y/Pe6pT3y8Nxu5sas/Sfq+KxSm/m/lRBP9/c1iKaxL2GvTFrjMast7nHqiuqcrpRmnNQm9tb3sD0oA3PjuT0c0FHUDvrbuy0E2/2WOXLFb7CyumUt7m95Z28c6bsYsKLDc2O2Mk7Z2xze8vXypNTUAPTgzaXWchvMoTWXGbBvp0e9LWt76DSWyseK9PuNTQ7YvdXp7KuUr6DGvBZKMrXzw+z39/yHdTs2oOChkH43VUGNbfGtdNul95aybpNID4CjPJBUJAiKEgRFKQIClIEBSmCghRBQYqgIEVQkCIoSBEUpAgKUgQFKYKCFEFBiqAgRVCQIihIERSkCApSBAUpgoKU76CqX6sq5hwIgca9sazb+A7qUF17QcMg/BqiwqAO18YLGgbh19vck3Ub30G1VbVEuho7CxoI4dW9v9PX0+xyuijvbe6xBh/nUZSXhmjMTvhYncxyDKrylYrIxSPnjZVq9+je32kXj5z3/UjEvB/amt5a8QamB2127UFZPJmFZ2z+p7qiyg7Vttvh2ri1VbUU96GtwP/hxiakCApSBAUpgoIUQUFqj+qF3h7+MNRvF7lt8MTvXTcL+k+wWaEgRVCQIihIERSkCApSBAUpgoIUQUGKoCBFUJAiKEgRFKQIClIEBSmCghRBQYqgIEVQkCIoSBEUpAgKUgQFKYKCFEFBiqAgRVCQIihIERSkCApSBAUpgoIUQUGKoCBFUJAiKEjJnrEZduXyjEzXWKEgRVCQIihIRd4a+iDUzxdHsPwF6ZfYEX5oKu8AAAAASUVORK5CYII=" alt="" />';
     host.innerHTML=MY_COUPONS.map(function(c){
-      return '<div class="mycp-card"><span class="mycp-pct">'+c.pct+'</span><span class="mycp-body"><span class="mycp-nm">'+c.nm+'</span><div class="mycp-cond">'+c.cond+'</div><div class="mycp-exp">'+c.exp+'</div></span></div>';
+      return '<div class="mycp-card">'
+        +'<div class="mycp-giftico">'+gift+'</div>'
+        +'<div class="mycp-top"><div class="mycp-nm">'+c.nm+'</div></div>'
+        +'<div class="mycp-amt">'+c.pct+'</div>'
+        +'<div class="mycp-body"><div class="mycp-cond">'+c.cond+'</div><div class="mycp-exp">'+c.exp+'</div></div>'
+      +'</div>';
     }).join('');
   }
   function ntfToggle(btn){ btn.classList.toggle('on'); }
