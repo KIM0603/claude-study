@@ -628,10 +628,9 @@
   .ad-store-price b{font-size:17px;font-weight:800;color:var(--i9)}
   .ad-store-meta{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--i4);margin-top:6px}
   .ad-store-meta svg{width:12px;height:12px;flex:0 0 auto}
-  .ad-cta{position:absolute;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none;gap:10px;align-items:center}
+  .ad-cta{position:absolute;left:0;right:0;bottom:74px;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none;gap:10px;align-items:center}
   .phone.availdetail .ad-cta{display:flex}
-  .phone.availdetail .tabbar{display:none}
-  .phone.availdetail .fab{display:none!important}
+    .phone.availdetail .fab{display:none!important}
   .ad-cta-ic{width:52px;height:52px;flex:0 0 auto;border-radius:12px;border:1px solid var(--ln);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--i7);cursor:pointer}
   .ad-cta-ic svg{width:22px;height:22px}
   .ad-cta-ic.on{color:var(--acc-ink);border-color:var(--acc)}
@@ -691,10 +690,14 @@
   .rd2-pk-pickup{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--acc-ink);font-weight:600;margin-top:9px}
   .rd2-pk-pickup svg{width:14px;height:14px}
   /* 하단 CTA */
-  .rd2-cta{position:absolute;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none;gap:10px;align-items:center}
+  .rd2-cta{position:absolute;left:0;right:0;bottom:74px;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none;gap:10px;align-items:center}
   .phone.routedetail .rd2-cta{display:flex}
-  .phone.routedetail .tabbar,.phone.availdetail .tabbar{display:none}
   .phone.routedetail .fab,.phone.availdetail .fab{display:none!important}
+  .phone.availdetail #s-avail-detail,
+  .phone.routedetail #s-route-detail,
+  .phone.storedetail #s-store-detail,
+  .phone.paydetail #s-pay,
+  .phone.detail #s-detail{ padding-bottom:170px; }
   .rd2-cta-ic{width:52px;height:52px;flex:0 0 auto;border-radius:12px;border:1px solid var(--ln);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--i7);cursor:pointer}
   .rd2-cta-ic svg{width:22px;height:22px}
   .rd2-cta-main{flex:1;height:52px;border:none;border-radius:12px;background:var(--acc);color:#fff;font-size:16px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
@@ -1212,7 +1215,7 @@
   .trip-float .tf-x svg{width:14px;height:14px}
   .phone.detail .trip-float,.phone.paydetail .trip-float,.phone.storedetail .trip-float,.phone.routedetail .trip-float,.phone.availdetail .trip-float{display:none}
   .phone:has(#datesheet.show) .trip-float{display:none}
-  .trip-sheet{padding:10px 0 0;max-height:86dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;--sale:#C2410C}
+  .trip-sheet{padding:10px 0 90px;max-height:86dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;--sale:#C2410C}
   .ts-top{padding:22px 24px 22px;position:relative}
   .ts-emoji{position:absolute;top:20px;right:24px;width:38px;height:38px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
   .ts-emoji svg{width:100%;height:100%;display:block}
@@ -1239,8 +1242,7 @@
   .ts-statuspill.done{color:#2B8A3D;background:var(--brand-soft);border-color:#c8eed8}
   .ts-stop.pk .ts-stopbody{cursor:pointer}
   .ts-stop.pk .ts-stopprod{color:#2B8A3D;font-weight:700}
-  .phone.tripopen .tabbar{display:none}
-  .my-trip-banner{width:calc(100% - 32px);margin:14px 16px 0;display:flex;align-items:center;gap:12px;background:var(--brand-soft);border:1px solid #c8eed8;border-radius:14px;padding:14px;cursor:pointer;font-family:inherit}
+    .my-trip-banner{width:calc(100% - 32px);margin:14px 16px 0;display:flex;align-items:center;gap:12px;background:var(--brand-soft);border:1px solid #c8eed8;border-radius:14px;padding:14px;cursor:pointer;font-family:inherit}
   .my-trip-banner .mtb-ic{color:var(--brand);display:flex;flex:0 0 auto}
   .my-trip-banner .mtb-ic svg{width:22px;height:22px}
   .my-trip-banner .mtb-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;text-align:left}
@@ -1324,10 +1326,9 @@
   .sd-photo svg{width:26px;height:26px}
   .sd-photo-sentinel{height:40px;display:flex;align-items:center;justify-content:center;margin-top:10px}
   .sd-loading{font-size:12.5px;color:var(--i4)}
-  .sd-cta{position:absolute;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none;gap:10px;align-items:center}
+  .sd-cta{position:absolute;left:0;right:0;bottom:74px;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none;gap:10px;align-items:center}
   .phone.storedetail .sd-cta{display:flex}
-  .phone.storedetail .tabbar{display:none}
-  .phone.storedetail .fab{display:none!important}
+    .phone.storedetail .fab{display:none!important}
   .sd-cta-ic{width:52px;height:52px;flex:0 0 auto;border-radius:12px;border:1px solid var(--ln);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--i7);cursor:pointer}
   .sd-cta-ic svg{width:22px;height:22px}
   .sd-cta-ic.on{color:#e0526b;border-color:#f3c0c9}
@@ -1355,7 +1356,7 @@
   .rsv-done-ic svg{width:34px;height:34px}
 
   /* ===== 날짜 선택 달력 ===== */
-  .dp-sheet{padding:8px 18px 24px}
+  .dp-sheet{padding:8px 18px 96px}
   .dp-head{display:flex;align-items:flex-start;justify-content:space-between;margin-top:6px}
   .dp-title{font-size:21px;font-weight:800;color:var(--text-hi)}
   .dp-range{font-size:15px;font-weight:700;color:#2B8A3D;margin-top:8px}
@@ -1429,10 +1430,9 @@
   .pay-check svg{width:15px;height:15px;opacity:0}
   .pay-agree.on .pay-check{background:var(--acc);border-color:var(--acc)}
   .pay-agree.on .pay-check svg{opacity:1}
-  .pay-cta{position:absolute;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none}
+  .pay-cta{position:absolute;left:0;right:0;bottom:74px;z-index:60;background:#fff;border-top:1px solid var(--ln);padding:12px 16px 18px;display:none}
   .phone.paydetail .pay-cta{display:block}
-  .phone.paydetail .tabbar{display:none}
-  .phone.paydetail .fab{display:none!important}
+    .phone.paydetail .fab{display:none!important}
   .pay-cta-main{width:100%;height:54px;border:none;border-radius:14px;background:#2B8A3D;color:#fff;font-size:16.5px;font-weight:800;cursor:pointer}
   .pay-cta-main:disabled{background:#c4ccc7;cursor:default}
 
@@ -1545,16 +1545,14 @@
   .cta-bar{ padding:14px 16px 20px; }
   #s-detail{ padding-bottom:132px; }
   .phone[data-theme="light"] #s-detail{ background:#fff; }
-  .dt-bar{ position:absolute; left:0; right:0; bottom:0; z-index:55; background:#fff; border-top:1px solid var(--border); padding:10px 16px 16px; display:none; }
+  .dt-bar{ position:absolute; left:0; right:0; bottom:74px; z-index:55; background:#fff; border-top:1px solid var(--border); padding:10px 16px 16px; display:none; }
   .phone.detail .dt-bar{ display:block; }
   .dt-note{ font-size:12.5px; color:var(--text-mut); font-weight:700; display:flex; align-items:center; gap:6px; padding:4px 2px 9px; }
   .dt-act{ display:flex; gap:10px; align-items:center; }
   .dt-like{ width:54px; height:54px; flex:0 0 auto; border-radius:8px; border:1px solid var(--border); background:#fff; font-size:22px; color:var(--text-mut); cursor:pointer; }
   .dt-like.on{ color:#e0506a; border-color:#f2c9d2; }
   .dt-act .btn{ flex:1; }
-  .phone.detail .tabbar{ display:none; }
-  .phone:has(#datesheet.show) .tabbar{ display:none; }
-  .phone.detail .fab{ display:none !important; }
+      .phone.detail .fab{ display:none !important; }
   /* ===== PICAPlay 스타일 메인 (초록) ===== */
   .hl-top{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px 6px; }
   .hl-logo{ display:flex; align-items:center; gap:4px; color:var(--brand); }
@@ -3042,16 +3040,16 @@
   function mcBagIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l-1 11.5H7.5z"/><path d="M9 8V6.3a3 3 0 016 0V8"/></svg>';}
   /* ===== 제철 캘린더 v2 (spec 구현) ===== */
   const CAL2_SEASONAL=[
-    {id:'봄나물',region:'횡성',bar:'봄나물·곤드레',name:'봄나물 세트',months:[4,5],shops:4,fid:'06',pre:'2026-03-28'},
-    {id:'산더덕',region:'횡성',bar:'산더덕·두릅',name:'산더덕·두릅',months:[4],shops:3,fid:'04',pre:'2026-03-25'},
-    {id:'수리취',region:'정선',bar:'정선 수리취',name:'수리취',months:[5,6],shops:2,fid:'16',pre:'2026-04-28'},
-    {id:'감자',region:'평창',bar:'대관령 감자',name:'대관령 햇감자',months:[6,7,8],shops:5,fid:'07',pre:'2026-05-25'},
-    {id:'옥수수',region:'평창',bar:'대관령 찰옥수수',name:'찰옥수수',months:[7,8],shops:4,fid:'11',pre:'2026-06-25'},
-    {id:'한우',region:'횡성',bar:'횡성한우',name:'횡성한우',months:[10,11],shops:6,fid:'02',pre:'2026-09-25'},
-    {id:'사과',region:'평창',bar:'고랭지 사과',name:'평창 사과',months:[10,11],shops:4,pre:'2026-09-28'},
-    {id:'더덕',region:'정선',bar:'정선 더덕',name:'정선 더덕',months:[11,12],shops:3,fid:'17',pre:'2026-10-25'},
-    {id:'황태',region:'횡성',bar:'황태 덕장',name:'횡성 황태',months:[12,1,2],shops:3,fid:'12',pre:'2026-11-25'},
-    {id:'송어',region:'평창',bar:'오대천 송어',name:'평창 송어',months:[12,1],shops:3,fid:'09',pre:'2026-11-28'}
+    {id:'봄나물',region:'횡성',bar:'봄나물·곤드레',name:'봄나물 세트',months:[4,5],shops:4,fid:'06',fids:['06','14','16','19'],pre:'2026-03-28'},
+    {id:'산더덕',region:'횡성',bar:'산더덕·두릅',name:'산더덕·두릅',months:[4],shops:3,fid:'04',fids:['04','15','17'],pre:'2026-03-25'},
+    {id:'수리취',region:'정선',bar:'정선 수리취',name:'수리취',months:[5,6],shops:2,fid:'16',fids:['16','06'],pre:'2026-04-28'},
+    {id:'감자',region:'평창',bar:'대관령 감자',name:'대관령 햇감자',months:[6,7,8],shops:5,fid:'07',fids:['07','11'],pre:'2026-05-25'},
+    {id:'옥수수',region:'평창',bar:'대관령 찰옥수수',name:'찰옥수수',months:[7,8],shops:4,fid:'11',fids:['11','07'],pre:'2026-06-25'},
+    {id:'한우',region:'횡성',bar:'횡성한우',name:'횡성한우',months:[10,11],shops:6,fid:'02',fids:['02','01','03','08'],pre:'2026-09-25'},
+    {id:'사과',region:'평창',bar:'고랭지 사과',name:'평창 사과',months:[10,11],shops:4,fid:'13',fids:['13'],pre:'2026-09-28'},
+    {id:'더덕',region:'정선',bar:'정선 더덕',name:'정선 더덕',months:[11,12],shops:3,fid:'17',fids:['17','04','15'],pre:'2026-10-25'},
+    {id:'황태',region:'횡성',bar:'황태 덕장',name:'횡성 황태',months:[12,1,2],shops:3,fid:'12',fids:['12','09'],pre:'2026-11-25'},
+    {id:'송어',region:'평창',bar:'오대천 송어',name:'평창 송어',months:[12,1],shops:3,fid:'09',fids:['09','12'],pre:'2026-11-28'}
   ];
   const CAL2_FESTIVAL=[
     {id:'f-hanwoo',region:'횡성',name:'횡성한우축제',start:'2026-04-10',end:'2026-04-14',place:'섬강둔치',placeKey:'fest_hanwoo',slug:'hoengseong_hanwoo-festival'},
@@ -3168,11 +3166,13 @@
     {sfx:'제철 직거래장',disc:22,now:'23,000',was:'29,500',pickup:'08:00–14:00',stock:'4개 남음',end:840}
   ];
   function _cal2ShopsOf(item){
-    if(CAL2_SHOP_LISTS[item.id])return CAL2_SHOP_LISTS[item.id];
+    var rot=(item.fids&&item.fids.length)?item.fids:(item.fid?[item.fid]:[]);
+    var pick=function(i){ return rot.length?rot[i%rot.length]:null; };
+    if(CAL2_SHOP_LISTS[item.id]) return CAL2_SHOP_LISTS[item.id].map(function(s,i){ var s2=Object.assign({},s); s2.fid=pick(i); return s2; });
     var base=(item.bar||item.name).split('·')[0].trim();
     var n=Math.max(1,item.shops||3), arr=[];
     for(var i=0;i<n;i++){var t=_CAL2_SHOP_TPL[i%_CAL2_SHOP_TPL.length];
-      arr.push({shop:item.region+' '+base+' '+t.sfx,prod:item.name,disc:t.disc,now:t.now,was:t.was,pickup:t.pickup,stock:t.stock,end:t.end});}
+      arr.push({shop:item.region+' '+base+' '+t.sfx,prod:item.name,disc:t.disc,now:t.now,was:t.was,pickup:t.pickup,stock:t.stock,end:t.end,fid:pick(i)});}
     return arr;
   }
   let _seasonalItem=null,_seasonalSort='마감임박순';
@@ -3220,8 +3220,9 @@
     document.getElementById('seasonal-list').innerHTML=shops.map(_seasonalCardHTML).join('');
   }
   function _seasonalCardHTML(s,i){
+    var simg=s.fid?farmImg(s.fid,(FARM_SHOTS[s.fid]||[1])[0]):null;
     return '<div class="hs-sale-card" onclick="openSeasonalStore('+i+')">'
-      +'<div class="hs-sale-thumb"><span class="hs-stock-badge">'+s.stock+'</span>'+lrImgIco()+'</div>'
+      +'<div class="hs-sale-thumb"><span class="hs-stock-badge">'+s.stock+'</span>'+lrImgIco()+(simg?lrThumbImg(simg):'')+'</div>'
       +'<div class="hs-sale-body">'
       +'<div class="hs-sale-nm">'+s.shop+'</div>'
       +'<div class="hs-sale-prod">'+s.prod+'</div>'
@@ -3236,9 +3237,10 @@
   function openSeasonalStore(i){
     var s=(window._seasonalShops||[])[i]; if(!s)return;
     var rg=_seasonalItem?_seasonalItem.region:'';
+    var imgs=(s.fid&&FARM_SHOTS[s.fid])?FARM_SHOTS[s.fid].map(function(n){return farmImg(s.fid,n);}):null;
     var it={name:s.shop,prod:s.prod,was:s.was+'원',now:s.now,stock:s.stock,shop:s.shop,rating:'4.8',rev:0,
       date:'오늘 · 4월 12일 (토)',time:s.pickup.replace('–',' – '),place:rg+'군 로컬 픽업지',
-      desc:(rg?rg+' 제철 ':'')+s.prod+'을(를) 산지에서 당일 준비해 픽업으로 받아요.',max:_hsMax(s.stock),img:null};
+      desc:(rg?rg+' 제철 ':'')+s.prod+'을(를) 산지에서 당일 준비해 픽업으로 받아요.',max:_hsMax(s.stock),img:imgs?imgs[0]:null,imgs:imgs};
     openStoreItem(it);
   }
   function cal2OpenFestival(id){
@@ -4252,6 +4254,7 @@
     sheet.style.transform='translateY('+px+'px)';
     _hhOff=px;
     var home=document.getElementById('s-home'); if(home)home.classList.toggle('home-map-open',px>2);
+    updateTripFloat(px>2?'home-map':'home');
   }
   function _homeSnap(open){
     homeMapOpen=open;
