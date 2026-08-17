@@ -3196,6 +3196,7 @@
     document.getElementById('cal2dsheet').classList.add('show');
   }
   function cal2OpenSeasonal(id){
+    updateTripFloat('seasonal');
     var item=null;for(var i=0;i<CAL2_SEASONAL.length;i++){if(CAL2_SEASONAL[i].id===id){item=CAL2_SEASONAL[i];break;}}
     if(!item)return;
     _seasonalItem=item; _seasonalSort='마감임박순';
@@ -3241,6 +3242,7 @@
     openStoreItem(it);
   }
   function cal2OpenFestival(id){
+    updateTripFloat('festival');
     var f=null;for(var i=0;i<CAL2_FESTIVAL.length;i++){if(CAL2_FESTIVAL[i].id===id){f=CAL2_FESTIVAL[i];break;}}
     if(!f)return;
     var pl=(f.placeKey&&typeof PLACES!=='undefined')?PLACES[f.placeKey]:null;
@@ -3385,6 +3387,7 @@
     g.scrollLeft=0;
   }
   function openDetail(fid){
+    updateTripFloat('detail');
     buildDetailGallery(fid);
     _enter('detail');
     document.getElementById('phone').classList.add('detail');document.getElementById('phone').classList.remove('availdetail');document.getElementById('phone').classList.remove('routedetail');document.getElementById('phone').classList.remove('storedetail');document.getElementById('phone').classList.remove('paydetail');
@@ -3942,6 +3945,7 @@
     openAvailObj(d.avail[idx]);
   }
   function openAvailObj(a){
+    updateTripFloat('availdetail');
     if(!a)return;
     document.getElementById('ad-type').textContent=a.type;
     document.getElementById('ad-fit').innerHTML=lrFitIco(a.fitKind)+a.fit;
@@ -3990,6 +3994,7 @@
     openRouteObj(d.routes[idx]);
   }
   function openRouteObj(r){
+    updateTripFloat('routedetail');
     if(!r)return;
     var pk=r.pickup?'<span class="lr-pickup">픽업 '+r.pickup+'곳</span>':'';
     document.getElementById('rd2-tags').innerHTML='<span class="lr-dur">'+r.dur+'</span><span class="lr-mood">'+r.mood+'</span>'+pk;
@@ -4422,6 +4427,7 @@
     }
   }
   function openStoreItem(it){
+    updateTripFloat('storedetail');
     if(!it)return; sdItem=it;
     buildSdHero(it);
     document.getElementById('sd-stock').textContent=it.stock;
@@ -4847,6 +4853,7 @@
   let _smap=null,_stile=null,_slayer=null,_smarkers={};
   function openMap(){
     _enter('map');
+    updateTripFloat('map');
     document.getElementById('phone').classList.remove('detail');document.getElementById('phone').classList.remove('availdetail');document.getElementById('phone').classList.remove('routedetail');document.getElementById('phone').classList.remove('storedetail');document.getElementById('phone').classList.remove('paydetail');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById('s-map').classList.add('active');
