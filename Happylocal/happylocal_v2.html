@@ -1264,7 +1264,7 @@
   .hs-sale-body{flex:1;min-width:0;padding:16px 16px 15px}
   .hs-sale-nm{font-size:16.5px;font-weight:700;color:var(--text-hi);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:28px}
   .hs-sale-prod{font-size:13.5px;color:var(--text-mut);margin-top:4px}
-  .hs-sale-price{margin-top:14px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+  .hs-sale-price{margin-top:14px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;letter-spacing:1.6px}
   .hs-sale-price .disc{font-size:19px;font-weight:800;color:#E23B2E}
   .hs-sale-price .now{font-size:20px;font-weight:800;color:var(--text-hi)}
   .hs-sale-price .won{font-size:13px;font-weight:600;color:var(--text-hi);margin-left:-3px}
@@ -1685,9 +1685,12 @@
   .cal2-dnum{ width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:14.5px; font-weight:600; color:var(--c-ink900); font-variant-numeric:tabular-nums; line-height:1; }
   .cal2-cell.sun .cal2-dnum{ color:var(--c-sun); }
   .cal2-cell.out .cal2-dnum{ color:#C7CBD1; }
-  .cal2-cell.today .cal2-dnum{ background:var(--c-accent); color:#fff; font-weight:800; }
+  .cal2-cell.clickable{ cursor:pointer; }
+  .cal2-cell.today .cal2-dnum{ background:#8BC34A; color:#fff; font-weight:800; }
   .cal2-dot{ width:5px; height:5px; border-radius:50%; background:var(--c-fest); margin-top:4px; }
-  .cal2-cell.today .cal2-dot{ display:none; }
+  .cal2-dot.pre{ background:var(--c-accent); }
+  .cal2-dots{ display:flex; gap:3px; margin-top:4px; }
+  .cal2-cell.today .cal2-dots{ display:none; }
   .cal2-legend{ display:flex; gap:20px; padding:14px 20px 4px; }
   .cal2-lg{ display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; color:var(--c-ink600); }
   .cal2-lg-bar{ width:15px; height:9px; border-radius:4px; border:1.5px solid var(--c-accent); background:var(--c-accent-tint); }
@@ -1703,10 +1706,14 @@
   .cal2-tag{ font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px; }
   .cal2-tag.seasonal{ background:var(--c-accent-tint); color:var(--c-accent); }
   .cal2-tag.festival{ background:var(--c-fest-tint); color:var(--c-fest); }
+  .cal2-tag.preorder{ background:var(--c-accent-tint); color:var(--c-accent); }
   .cal2-hl-meta{ font-size:12.5px; font-weight:600; color:var(--c-ink400); font-variant-numeric:tabular-nums; }
   .cal2-hl-nm{ font-size:16px; font-weight:800; color:var(--c-ink900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .cal2-hl-sub{ font-size:13px; font-weight:600; color:var(--c-ink600); }
   .cal2-hl-ch{ color:var(--c-ink400); display:flex; flex:0 0 auto; }
+  .cal2d-item{ display:flex; flex-direction:column; align-items:flex-start; gap:5px; width:100%; text-align:left; background:var(--c-accent-tint,#F4F6F5); border:none; border-radius:12px; padding:14px 16px; cursor:pointer; margin-bottom:10px; }
+  .cal2d-nm{ font-size:15px; font-weight:800; color:var(--c-ink900); }
+  .cal2d-sub{ font-size:12.5px; font-weight:600; color:var(--c-ink600); }
   .cal2-hl-ch svg{ width:20px; height:20px; }
   .cal2-empty{ padding:34px 20px; text-align:center; color:var(--c-ink400); font-weight:700; font-size:13.5px; line-height:1.6; }
 
@@ -1829,6 +1836,7 @@
   .mc3-sec{ font-size:16px; font-weight:800; color:#6B7075; padding:18px 20px 4px; letter-spacing:-.01em; }
   #mc2-list{ padding-top:2px; }
   #mc2-list .hs-sale-card{ margin:6px 16px 12px; }
+  #cart-list .hs-sale-card{ margin:6px 16px 12px; }
   #mc2-list .mc2-course{ margin:6px 16px 12px; }
   .mc-resv-code{ font-size:14px; color:#1f9d57; font-weight:700; margin-top:12px; }
   .mc-resv-code b{ font-weight:800; }
@@ -2187,6 +2195,7 @@
           <div class="cal2-grid" id="cal2-grid"></div>
           <div class="cal2-legend">
             <span class="cal2-lg"><span class="cal2-lg-dot"></span>축제·행사</span>
+            <span class="cal2-lg"><span class="cal2-lg-dot" style="background:var(--c-accent)"></span>예약오픈</span>
           </div>
           <div class="cal2-divider"></div>
           <div class="cal2-hl-head" id="cal2-hl-head">4월에 놓치면 아쉬운 것</div>
@@ -2195,7 +2204,19 @@
         </div>
       </section>
 
-      <!-- ============ SEASONAL STORE LIST (제철 → 가게 리스트) ============ -->
+      <div class="scrim" id="cal2dscrim" onclick="closeCal2Day()"></div>
+      <div class="sheet dp-sheet" id="cal2dsheet">
+        <div class="rsv-grip"></div>
+        <div class="dp-head">
+          <div>
+            <div class="dp-title" id="cal2d-title">날짜 정보</div>
+          </div>
+          <button class="dp-x" onclick="closeCal2Day()" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+        <div id="cal2d-list"></div>
+      </div>
+
+
       <section class="screen" id="s-seasonal">
         <div class="appbar">
           <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -2502,7 +2523,7 @@
             <button class="sd-ovbtn" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
             <div class="sd-top-right">
               <button class="sd-ovbtn" aria-label="공유"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></button>
-              <button class="sd-ovbtn" onclick="lrBook(event,this)" aria-label="찜"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-9C1.3 8 3 4.5 6.4 4.5c2 0 3.2 1.1 4 2.2.8-1.1 2-2.2 4-2.2 3.4 0 5.1 3.5 3.6 6.5C19 15.4 12 20 12 20z"/></svg></button>
+              <button class="sd-ovbtn" onclick="lrBook(event,this)" aria-label="찜"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
             </div>
           </div>
         </div>
@@ -2539,7 +2560,7 @@
       </section>
 
       <div class="sd-cta" id="sd-cta">
-        <button class="sd-cta-ic" onclick="lrBook(event,this)" aria-label="찜"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-9C1.3 8 3 4.5 6.4 4.5c2 0 3.2 1.1 4 2.2.8-1.1 2-2.2 4-2.2 3.4 0 5.1 3.5 3.6 6.5C19 15.4 12 20 12 20z"/></svg></button>
+        <button class="sd-cta-ic" onclick="lrBook(event,this)" aria-label="찜"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
         <button class="sd-cta-main" onclick="sdReserve(this)">픽업 예약하기</button>
       </div>
 
@@ -2643,6 +2664,20 @@
         </div>
       </section>
 
+      <section class="screen" id="s-cart">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">장바구니</span>
+          <div class="ab-acts"></div>
+        </div>
+        <div class="mc3">
+          <div class="mc3-sec" id="cart-sec-label">담긴 상품 <span class="mc3-cnt" id="cart-total-count">0</span></div>
+          <div id="cart-list"></div>
+          <div style="height:14px"></div>
+        </div>
+      </section>
+
+
       <div class="scrim" id="datescrim" onclick="closeDatePicker()"></div>
       <div class="sheet dp-sheet" id="datesheet">
         <div class="rsv-grip"></div>
@@ -2660,7 +2695,7 @@
         </div>
         <div class="dp-week"><span class="dp-wd sun">일</span><span class="dp-wd">월</span><span class="dp-wd">화</span><span class="dp-wd">수</span><span class="dp-wd">목</span><span class="dp-wd">금</span><span class="dp-wd">토</span></div>
         <div class="dp-grid" id="dp-grid"></div>
-        <div class="dp-legend"><span class="dot"></span>축제·행사 있는 날 (10–14일 횡성한우축제)</div>
+        <div class="dp-legend"><span class="dot"></span>축제·행사 있는 날</div>
         <button class="dp-apply" onclick="dpApply()">이 날짜로 볼래요</button>
       </div>
 
@@ -2927,7 +2962,14 @@
       b.classList.toggle('on',n>0);
     });
   }
-  function openCart(){ goTab('mycourse'); }
+  function openCart(){ go('cart'); renderCart(); }
+  function renderCart(){
+    var host=document.getElementById('cart-list'); if(!host)return;
+    var active=MY_PICKUPS.filter(function(p){return p.status!=='픽업완료'&&p.status!=='취소';});
+    var cnt=document.getElementById('cart-total-count'); if(cnt)cnt.textContent=active.length;
+    if(!active.length){ host.innerHTML='<div class="mc3-empty"><b>담긴 상품이 없어요</b>매장을 둘러보고 픽업 예약을 진행해보세요.</div>'; return; }
+    host.innerHTML=active.map(function(p){return _mcResvCardHTML(p,MY_PICKUPS.indexOf(p));}).join('');
+  }
   function renderMyCourse(){
     var pk=document.getElementById('mc2-pk-count'), co=document.getElementById('mc2-co-count'), host=document.getElementById('mc2-list');
     if(!host)return;
@@ -3000,26 +3042,30 @@
   function mcBagIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l-1 11.5H7.5z"/><path d="M9 8V6.3a3 3 0 016 0V8"/></svg>';}
   /* ===== 제철 캘린더 v2 (spec 구현) ===== */
   const CAL2_SEASONAL=[
-    {id:'봄나물',region:'횡성',bar:'봄나물·곤드레',name:'봄나물 세트',months:[4,5],shops:4,fid:'06'},
-    {id:'산더덕',region:'횡성',bar:'산더덕·두릅',name:'산더덕·두릅',months:[4],shops:3,fid:'04'},
-    {id:'수리취',region:'정선',bar:'정선 수리취',name:'수리취',months:[5,6],shops:2,fid:'16'},
-    {id:'감자',region:'평창',bar:'대관령 감자',name:'대관령 햇감자',months:[6,7,8],shops:5,fid:'07'},
-    {id:'옥수수',region:'평창',bar:'대관령 찰옥수수',name:'찰옥수수',months:[7,8],shops:4,fid:'11'},
-    {id:'한우',region:'횡성',bar:'횡성한우',name:'횡성한우',months:[10,11],shops:6,fid:'02'},
-    {id:'사과',region:'평창',bar:'고랭지 사과',name:'평창 사과',months:[10,11],shops:4},
-    {id:'더덕',region:'정선',bar:'정선 더덕',name:'정선 더덕',months:[11,12],shops:3,fid:'17'},
-    {id:'황태',region:'횡성',bar:'황태 덕장',name:'횡성 황태',months:[12,1,2],shops:3,fid:'12'},
-    {id:'송어',region:'평창',bar:'오대천 송어',name:'평창 송어',months:[12,1],shops:3,fid:'09'}
+    {id:'봄나물',region:'횡성',bar:'봄나물·곤드레',name:'봄나물 세트',months:[4,5],shops:4,fid:'06',pre:'2026-03-28'},
+    {id:'산더덕',region:'횡성',bar:'산더덕·두릅',name:'산더덕·두릅',months:[4],shops:3,fid:'04',pre:'2026-03-25'},
+    {id:'수리취',region:'정선',bar:'정선 수리취',name:'수리취',months:[5,6],shops:2,fid:'16',pre:'2026-04-28'},
+    {id:'감자',region:'평창',bar:'대관령 감자',name:'대관령 햇감자',months:[6,7,8],shops:5,fid:'07',pre:'2026-05-25'},
+    {id:'옥수수',region:'평창',bar:'대관령 찰옥수수',name:'찰옥수수',months:[7,8],shops:4,fid:'11',pre:'2026-06-25'},
+    {id:'한우',region:'횡성',bar:'횡성한우',name:'횡성한우',months:[10,11],shops:6,fid:'02',pre:'2026-09-25'},
+    {id:'사과',region:'평창',bar:'고랭지 사과',name:'평창 사과',months:[10,11],shops:4,pre:'2026-09-28'},
+    {id:'더덕',region:'정선',bar:'정선 더덕',name:'정선 더덕',months:[11,12],shops:3,fid:'17',pre:'2026-10-25'},
+    {id:'황태',region:'횡성',bar:'황태 덕장',name:'횡성 황태',months:[12,1,2],shops:3,fid:'12',pre:'2026-11-25'},
+    {id:'송어',region:'평창',bar:'오대천 송어',name:'평창 송어',months:[12,1],shops:3,fid:'09',pre:'2026-11-28'}
   ];
   const CAL2_FESTIVAL=[
     {id:'f-hanwoo',region:'횡성',name:'횡성한우축제',start:'2026-04-10',end:'2026-04-14',place:'섬강둔치',placeKey:'fest_hanwoo',slug:'hoengseong_hanwoo-festival'},
     {id:'f-namul',region:'정선',name:'정선 봄나물 장터',start:'2026-04-19',end:'2026-04-21',place:'아리랑시장',slug:'jeongseon_bomnamul-market'},
     {id:'f-surichi',region:'정선',name:'정선 수리취떡 축제',start:'2026-05-15',end:'2026-05-17',place:'화암면',slug:'jeongseon_surichitteok-festival'},
+    {id:'f-gamja',region:'평창',name:'평창 감자꽃 축제',start:'2026-06-12',end:'2026-06-14',place:'봉평면',placeKey:'fest_pc_memil',slug:'pyeongchang_bongpyeong-memil-festival'},
+    {id:'f-yaksu',region:'정선',name:'정선 여름 약초축제',start:'2026-07-18',end:'2026-07-20',place:'화암면',slug:'jeongseon_surichitteok-festival'},
+    {id:'f-arari-summer',region:'정선',name:'정선 여름 아리랑제',start:'2026-08-14',end:'2026-08-16',place:'정선읍',slug:'jeongseon_arirang-festival'},
     {id:'f-memil',region:'평창',name:'봉평 메밀꽃축제',start:'2026-09-05',end:'2026-09-23',place:'봉평면',placeKey:'fest_pc_memil',slug:'pyeongchang_bongpyeong-memil-festival'},
     {id:'f-arari',region:'정선',name:'정선아리랑제',start:'2026-09-24',end:'2026-09-27',place:'정선읍',slug:'jeongseon_arirang-festival'},
     {id:'f-hanwoo-oct',region:'횡성',name:'횡성한우축제(가을)',start:'2026-10-22',end:'2026-10-26',place:'섬강둔치',placeKey:'fest_hanwoo',slug:'hoengseong_hanwoo-festival'},
     {id:'f-bread',region:'횡성',name:'안흥찐빵 축제',start:'2026-11-07',end:'2026-11-09',place:'안흥면',placeKey:'fest_bread',slug:'hoengseong_anheung-bread-festival'},
-    {id:'f-trout',region:'평창',name:'평창송어축제',start:'2026-12-19',end:'2027-01-11',place:'진부면',placeKey:'fest_pc_trout',slug:'pyeongchang_trout-festival'}
+    {id:'f-trout',region:'평창',name:'평창송어축제',start:'2026-12-19',end:'2027-01-11',place:'진부면',placeKey:'fest_pc_trout',slug:'pyeongchang_trout-festival'},
+    {id:'f-hanwoo-feb',region:'횡성',name:'횡성눈꽃한우축제',start:'2026-02-12',end:'2026-02-15',place:'섬강둔치',placeKey:'fest_hanwoo',slug:'hoengseong_hanwoo-festival'}
   ];
   let cal2State={year:2026,month:4,region:'전체'};
   const CAL2_TODAY={year:2026,month:4,day:12};              // 데모 기준 오늘
@@ -3049,16 +3095,24 @@
     barHost.style.display=bars.length?'':'none';
     // 달력 그리드
     var first=new Date(y,m-1,1).getDay(), dim=new Date(y,m,0).getDate(), prevDim=new Date(y,m-1,0).getDate();
-    var fests=_cal2Filter(CAL2_FESTIVAL), cells='', i, d;
+    var fests=_cal2Filter(CAL2_FESTIVAL), seasAll=_cal2Filter(CAL2_SEASONAL), cells='', i, d;
     for(i=0;i<first;i++){cells+='<div class="cal2-cell out"><span class="cal2-dnum">'+(prevDim-first+1+i)+'</span></div>';}
     for(d=1;d<=dim;d++){
       var dow=new Date(y,m-1,d).getDay();
       var isToday=(y===CAL2_TODAY.year&&m===CAL2_TODAY.month&&d===CAL2_TODAY.day);
       var df=fests.filter((function(dd){return function(f){return _cal2InFest(y,m,dd,f);};})(d));
+      var dp=seasAll.filter((function(dd){return function(s){if(!s.pre)return false;var p=_cal2P(s.pre);return p.y===y&&p.m===m&&p.d===dd;};})(d));
       var cls='cal2-cell'+(dow===0?' sun':'')+(isToday?' today':'');
-      var dot=df.length?'<span class="cal2-dot"></span>':'';
-      var lbl=m+'월 '+d+'일'+(df.length?', '+df.map(function(f){return f.name;}).join(', '):'')+(isToday?' (오늘)':'');
-      cells+='<div class="'+cls+'" role="button" aria-label="'+lbl+'"><span class="cal2-dnum">'+d+'</span>'+dot+'</div>';
+      var dots='';
+      if(df.length||dp.length){
+        dots='<span class="cal2-dots">'+(df.length?'<span class="cal2-dot"></span>':'')+(dp.length?'<span class="cal2-dot pre"></span>':'')+'</span>';
+      }
+      var lblParts=[];
+      if(df.length)lblParts.push(df.map(function(f){return f.name;}).join(', '));
+      if(dp.length)lblParts.push(dp.map(function(s){return s.bar+' 예약오픈';}).join(', '));
+      var lbl=m+'월 '+d+'일'+(lblParts.length?', '+lblParts.join(', '):'')+(isToday?' (오늘)':'');
+      var clickable=(df.length||dp.length);
+      cells+='<div class="'+cls+(clickable?' clickable':'')+'" role="button" aria-label="'+lbl+'"'+(clickable?' onclick="cal2DayClick('+y+','+m+','+d+')"':'')+'><span class="cal2-dnum">'+d+'</span>'+dots+'</div>';
     }
     var trail=(7-((first+dim)%7))%7;
     for(i=1;i<=trail;i++){cells+='<div class="cal2-cell out"><span class="cal2-dnum">'+i+'</span></div>';}
@@ -3066,6 +3120,10 @@
     // 하이라이트 리스트
     var head=document.getElementById('cal2-hl-head');if(head)head.textContent=m+'월에 놓치면 아쉬운 것';
     var seas=_cal2Filter(CAL2_SEASONAL).filter(function(s){return s.months.indexOf(m)>=0;});
+    var preItems=_cal2Filter(CAL2_SEASONAL).filter(function(s){
+      if(!s.pre||s.months.indexOf(m)>=0)return false;
+      var p=_cal2P(s.pre);return p.y===y&&p.m===m;
+    });
     var mf=fests.filter(function(f){var s=_cal2P(f.start),e=_cal2P(f.end);return (s.y*100+s.m)<=(y*100+m)&&(e.y*100+e.m)>=(y*100+m);});
     mf.sort(function(a,b){var sa=_cal2FestStatus(a)==='진행 중'?0:1,sb=_cal2FestStatus(b)==='진행 중'?0:1;
       if(sa!==sb)return sa-sb;return _cal2V(_cal2P(a.end))-_cal2V(_cal2P(b.end));});
@@ -3075,6 +3133,12 @@
       +'<span class="cal2-hl-thumb">'+cal2ImgIco()+(simg?lrThumbImg(simg):'')+'</span><span class="cal2-hl-body">'
       +'<span class="cal2-hl-tags"><span class="cal2-tag seasonal">제철</span><span class="cal2-hl-meta">'+_cal2Range(s.months)+' · '+s.region+'</span></span>'
       +'<span class="cal2-hl-nm">'+s.name+'</span><span class="cal2-hl-sub">지금 예약 가능한 가게 '+s.shops+'곳</span>'
+      +'</span><span class="cal2-hl-ch">'+cal2Chev()+'</span></button>';});
+    preItems.forEach(function(s){var simg=s.fid?farmImg(s.fid,(FARM_SHOTS[s.fid]||[1])[0]):null;var pd=_cal2P(s.pre);
+      out+='<button class="cal2-hl-card" onclick="cal2OpenSeasonal(\''+s.id+'\')">'
+      +'<span class="cal2-hl-thumb">'+cal2ImgIco()+(simg?lrThumbImg(simg):'')+'</span><span class="cal2-hl-body">'
+      +'<span class="cal2-hl-tags"><span class="cal2-tag preorder">예약오픈</span><span class="cal2-hl-meta">'+pd.m+'.'+pd.d+' · '+s.region+'</span></span>'
+      +'<span class="cal2-hl-nm">'+s.name+'</span><span class="cal2-hl-sub">'+_cal2Range(s.months)+' 제철, 미리 예약해두세요</span>'
       +'</span><span class="cal2-hl-ch">'+cal2Chev()+'</span></button>';});
     mf.forEach(function(f){var st=_cal2FestStatus(f),sd=_cal2P(f.start),ed=_cal2P(f.end);
       var range=sd.m+'.'+sd.d+'–'+(sd.m===ed.m?ed.d:(ed.m+'.'+ed.d));
@@ -3112,6 +3176,25 @@
     return arr;
   }
   let _seasonalItem=null,_seasonalSort='마감임박순';
+  function closeCal2Day(){document.getElementById('cal2dscrim').classList.remove('show');document.getElementById('cal2dsheet').classList.remove('show');}
+  function cal2DayClick(y,m,d){
+    var df=_cal2Filter(CAL2_FESTIVAL).filter(function(f){return _cal2InFest(y,m,d,f);});
+    var dp=_cal2Filter(CAL2_SEASONAL).filter(function(s){if(!s.pre)return false;var p=_cal2P(s.pre);return p.y===y&&p.m===m&&p.d===d;});
+    if(!df.length&&!dp.length)return;
+    document.getElementById('cal2d-title').textContent=m+'월 '+d+'일';
+    var html='';
+    df.forEach(function(f){
+      var sd=_cal2P(f.start),ed=_cal2P(f.end);
+      var range=sd.m+'.'+sd.d+'–'+(sd.m===ed.m?ed.d:(ed.m+'.'+ed.d));
+      html+='<button class="cal2d-item" onclick="closeCal2Day();cal2OpenFestival(\''+f.id+'\')"><span class="cal2-tag festival">축제</span><span class="cal2d-nm">'+f.name+'</span><span class="cal2d-sub">'+f.place+' · '+range+'</span></button>';
+    });
+    dp.forEach(function(s){
+      html+='<button class="cal2d-item" onclick="closeCal2Day();cal2OpenSeasonal(\''+s.id+'\')"><span class="cal2-tag preorder">예약오픈</span><span class="cal2d-nm">'+s.name+'</span><span class="cal2d-sub">'+_cal2Range(s.months)+' 제철 · '+s.region+'</span></button>';
+    });
+    document.getElementById('cal2d-list').innerHTML=html;
+    document.getElementById('cal2dscrim').classList.add('show');
+    document.getElementById('cal2dsheet').classList.add('show');
+  }
   function cal2OpenSeasonal(id){
     var item=null;for(var i=0;i<CAL2_SEASONAL.length;i++){if(CAL2_SEASONAL[i].id===id){item=CAL2_SEASONAL[i];break;}}
     if(!item)return;
@@ -3277,7 +3360,7 @@
   function go(id){
     _enter(id);
     updateTripFloat(id);
-    ['plscrim','plsheet','pkscrim','orsheet','dtsheet','sheet','rsvscrim','rsvsheet','datescrim','datesheet','tripscrim','tripsheet'].forEach(x=>{var e=document.getElementById(x);if(e)e.classList.remove('show');});
+    ['plscrim','plsheet','pkscrim','orsheet','dtsheet','sheet','rsvscrim','rsvsheet','datescrim','datesheet','tripscrim','tripsheet','cal2dscrim','cal2dsheet'].forEach(x=>{var e=document.getElementById(x);if(e)e.classList.remove('show');});
     document.getElementById('phone').classList.remove('detail');document.getElementById('phone').classList.remove('availdetail');document.getElementById('phone').classList.remove('routedetail');document.getElementById('phone').classList.remove('storedetail');document.getElementById('phone').classList.remove('paydetail');document.getElementById('phone').classList.remove('tripopen');
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById('s-'+id).classList.add('active');
@@ -3793,7 +3876,14 @@
   var dpYear=2026, dpMonth=3; // 0-index: 3=4월
   var dpStart=new Date(2026,3,12), dpEnd=new Date(2026,3,13);
   function _dpSame(a,y,m,d){return a&&a.getFullYear()===y&&a.getMonth()===m&&a.getDate()===d;}
-  function _dpFest(y,m,d){return y===2026&&m===3&&d>=10&&d<=14;}
+  function _dpFest(y,m,d){
+    var t=new Date(y,m,d).getTime();
+    for(var i=0;i<CAL2_FESTIVAL.length;i++){
+      var f=CAL2_FESTIVAL[i], s=new Date(f.start).getTime(), e=new Date(f.end).getTime();
+      if(t>=s&&t<=e)return true;
+    }
+    return false;
+  }
   function _dpInRange(y,m,d){if(!dpStart||!dpEnd)return false;var t=new Date(y,m,d).getTime();return t>=dpStart.getTime()&&t<=dpEnd.getTime();}
   function _dpFmt(dt){return (dt.getMonth()+1)+'월 '+dt.getDate()+'일';}
   function dpRangeText(){
@@ -3924,7 +4014,7 @@
   function _hsDiscOf(it){var w=parseInt((it.was||'').replace(/[^0-9]/g,''))||0,n=parseInt((it.now||'').replace(/[^0-9]/g,''))||0;return w?Math.round((w-n)/w*100):0;}
   function _hsStockTxt(t){var m=(t||'').match(/(\d+)\s*(팩|개입|개|명)/);return m?(m[1]+(m[2]==='개입'?'개':m[2])+' 남음'):'예약 가능';}
   function _hsEndFromHours(h){var m=(h||'').match(/(\d{1,2}):(\d{2})\s*[~\u2013-]\s*(\d{1,2}):(\d{2})/);return m?(+m[3])*60+(+m[4]):9999;}
-  function hsHeart(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-9C1.3 8 3 4.5 6.4 4.5c2 0 3.2 1.1 4 2.2.8-1.1 2-2.2 4-2.2 3.4 0 5.1 3.5 3.6 6.5C19 15.4 12 20 12 20z"/></svg>';}
+  function hsHeart(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';}
   let hsState={region:'횡성',sort:'마감임박순'};
   const HS_REGION_GROUP={
     '횡성':['횡성','횡성읍','우천면','갑천면','서원면','안흥면','둔내면'],
