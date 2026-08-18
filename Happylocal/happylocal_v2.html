@@ -55,6 +55,7 @@
        섹션에 스코프된 --acc 등 변수를 상속받지 못하던 문제를 막기 위한 공통 기본값 */
     --acc:#3FC358; --acc-ink:#1f9d57; --acc-tint:#E7F4EC;
     --ln:#ECEEF0; --chip:#F2F4F5; --i9:#17181A; --i7:#3A3D42; --i6:#6B7075; --i4:#9096A0;
+    --c-ink900:#17181A; --c-ink600:#6B7075; --c-ink400:#9096A0; --c-surface:#fff; --c-line:#ECEEF0;
   }
   .notch{display:none}
   .statusbar{height:46px;flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 6px;font-size:12.5px;font-weight:700;color:var(--text-hi);z-index:20}
@@ -623,7 +624,7 @@
   .ad-store-body{flex:1;min-width:0}
   .ad-store-tag{font-size:12.5px;font-weight:800;color:var(--warm)}
   .ad-store-nm{font-size:15px;font-weight:700;color:var(--i9);margin-top:3px}
-  .ad-store-price{margin-top:3px;font-size:13px;color:var(--i4)}
+  .ad-store-price{margin-top:3px;font-size:13px;color:var(--i4);letter-spacing:-.3px}
   .ad-store-price s{color:var(--i4)}
   .ad-store-price b{font-size:17px;font-weight:800;color:var(--i9)}
   .ad-store-meta{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--i4);margin-top:6px}
@@ -684,7 +685,7 @@
   .rd2-pk-arrow svg{width:18px;height:18px}
   .rd2-pk-nm{font-size:15px;font-weight:800;color:var(--i9);margin-top:7px}
   .rd2-pk-prod{font-size:13px;color:var(--i6);margin-top:2px}
-  .rd2-pk-price{margin-top:6px;font-size:13px;color:var(--i4)}
+  .rd2-pk-price{margin-top:6px;font-size:13px;color:var(--i4);letter-spacing:-.3px}
   .rd2-pk-price s{color:var(--i4)}
   .rd2-pk-price b{font-size:17px;font-weight:800;color:var(--i9)}
   .rd2-pk-pickup{display:flex;align-items:center;gap:5px;font-size:12.5px;color:var(--acc-ink);font-weight:600;margin-top:9px}
@@ -811,7 +812,7 @@
   .cc-store{font-size:12.5px;font-weight:700;color:var(--text);margin-top:5px}
   .cc-sub{font-size:11.5px;color:var(--text-mut);font-weight:600;margin-top:2px}
   .cc-foot{display:flex;align-items:center;gap:8px;margin-top:9px;flex-wrap:wrap}
-  .cc-price{font-size:13px}
+  .cc-price{font-size:13px;letter-spacing:-.3px}
   .cc-price s{color:var(--text-mut);font-weight:600;margin-right:5px}
   .cc-price b{color:var(--text-hi);font-weight:800}
   .cc-bell{background:none;border:none;padding:3px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-mut);line-height:0}
@@ -1101,7 +1102,7 @@
   .pl-day{font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-soft);padding:3px 7px;border-radius:4px;line-height:1}
   .pl-day.pre{color:#e0962a;background:rgba(224,150,42,.16)}
   .pl-hours{font-size:14px;font-weight:600;color:var(--text-hi);letter-spacing:-.02em}
-  .pl-price{margin-left:auto;display:flex;align-items:baseline;gap:8px}
+  .pl-price{margin-left:auto;display:flex;align-items:baseline;gap:8px;letter-spacing:-.3px}
   .pl-price s{font-size:12.5px;color:var(--text-mut)}
   .pl-price b{font-size:17px;font-weight:800;color:var(--text-hi)}
 
@@ -1266,7 +1267,7 @@
   .hs-sale-body{flex:1;min-width:0;padding:16px 16px 15px}
   .hs-sale-nm{font-size:16.5px;font-weight:700;color:var(--text-hi);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:28px}
   .hs-sale-prod{font-size:13.5px;color:var(--text-mut);margin-top:4px}
-  .hs-sale-price{margin-top:14px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;letter-spacing:1.6px}
+  .hs-sale-price{margin-top:14px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;letter-spacing:-.3px}
   .hs-sale-price .disc{font-size:19px;font-weight:800;color:#E23B2E}
   .hs-sale-price .now{font-size:20px;font-weight:800;color:var(--text-hi)}
   .hs-sale-price .won{font-size:13px;font-weight:600;color:var(--text-hi);margin-left:-3px}
@@ -1293,7 +1294,7 @@
   .sd-title{font-size:20px;font-weight:800;color:var(--i9);letter-spacing:-.02em;margin-top:12px}
   .sd-sub{font-size:13.5px;color:var(--i6);margin-top:6px}
   .sd-sub b{color:var(--i7);font-weight:700}
-  .sd-price{margin-top:12px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+  .sd-price{margin-top:12px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;letter-spacing:-.3px}
   .sd-price .disc{font-size:22px;font-weight:800;color:var(--red)}
   .sd-price .now{font-size:23px;font-weight:800;color:var(--i9)}
   .sd-price .won{font-size:14px;font-weight:600;color:var(--i9);margin-left:-3px}
@@ -1804,6 +1805,55 @@
 
   /* 고객센터 */
   .sup-ver{text-align:center;font-size:12px;color:var(--text-mut);font-weight:600;margin-top:26px}
+  /* ===== 자주 묻는 질문 ===== */
+  .faq-tabs{ display:flex; gap:8px; padding:14px 20px 10px; overflow-x:auto; }
+  .faq-tabs::-webkit-scrollbar{display:none}
+  .faq-tab{ flex:0 0 auto; padding:8px 14px; border-radius:20px; border:1px solid var(--c-line); background:#fff; color:var(--text-mut); font-size:13.5px; font-weight:700; }
+  .faq-tab.on{ background:#17181A; color:#fff; border-color:#17181A; }
+  .faq-list{ padding:2px 20px 0; }
+  .faq-item{ border-bottom:.5px solid var(--c-line); }
+  .faq-q{ display:flex; align-items:flex-start; gap:12px; padding:16px 2px; cursor:pointer; }
+  .faq-q-mark{ flex:0 0 auto; width:22px; height:22px; border-radius:50%; background:#F2F4F5; color:#6B7075; font-size:12.5px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .faq-q-txt{ flex:1; font-size:15px; font-weight:700; color:var(--c-ink900); letter-spacing:-.01em; line-height:1.4; }
+  .faq-q-chev{ flex:0 0 auto; color:#C7CBD1; transition:transform .2s; margin-top:2px; }
+  .faq-item.open .faq-q-chev{ transform:rotate(90deg); }
+  .faq-a{ display:none; padding:0 2px 18px 34px; font-size:14px; line-height:1.6; color:var(--text-mut); }
+  .faq-item.open .faq-a{ display:block; }
+  /* ===== 공지사항 ===== */
+  .ntc-list{ padding:6px 20px 0; }
+  .ntc-item{ border-bottom:.5px solid var(--c-line); }
+  .ntc-head{ display:flex; align-items:flex-start; gap:10px; padding:16px 2px; cursor:pointer; }
+  .ntc-badge{ flex:0 0 auto; font-size:11px; font-weight:800; padding:3px 7px; border-radius:6px; background:#EEF0F2; color:#6B7075; margin-top:2px; }
+  .ntc-badge.new{ background:#E7F4EC; color:#1f9d57; }
+  .ntc-body{ flex:1; min-width:0; }
+  .ntc-title{ font-size:15px; font-weight:700; color:var(--c-ink900); letter-spacing:-.01em; line-height:1.4; }
+  .ntc-date{ font-size:12.5px; color:#9096A0; font-weight:600; margin-top:3px; }
+  .ntc-chev{ flex:0 0 auto; color:#C7CBD1; margin-top:4px; transition:transform .2s; }
+  .ntc-item.open .ntc-chev{ transform:rotate(90deg); }
+  .ntc-detail{ display:none; padding:0 2px 18px; font-size:14px; line-height:1.65; color:var(--text-mut); white-space:pre-line; }
+  .ntc-item.open .ntc-detail{ display:block; }
+  /* ===== 이용약관 / 개인정보 처리방침 ===== */
+  .lg-wrap{ padding:20px 20px 0; }
+  .lg-updated{ font-size:12.5px; color:#9096A0; font-weight:600; margin-bottom:18px; }
+  .lg-sec{ margin-bottom:22px; }
+  .lg-sec-title{ font-size:15.5px; font-weight:800; color:var(--c-ink900); margin-bottom:8px; letter-spacing:-.01em; }
+  .lg-sec-body{ font-size:14px; line-height:1.7; color:var(--text-mut); white-space:pre-line; }
+  /* ===== 1:1 문의하기 ===== */
+  .iq-wrap{ padding:18px 20px 40px; }
+  .iq-hint{ font-size:13px; color:#6B7075; background:#F5F6F7; border-radius:10px; padding:12px 14px; line-height:1.5; margin-bottom:22px; }
+  .iq-field{ margin-bottom:20px; }
+  .iq-label{ font-size:13.5px; font-weight:800; color:var(--c-ink900); margin-bottom:9px; }
+  .iq-chips{ display:flex; gap:8px; flex-wrap:wrap; }
+  .iq-chip{ padding:9px 14px; border-radius:20px; border:1px solid var(--c-line); background:#fff; color:var(--text-mut); font-size:13.5px; font-weight:700; }
+  .iq-chip.on{ background:#17181A; color:#fff; border-color:#17181A; }
+  .iq-input{ width:100%; border:1px solid var(--c-line); border-radius:12px; padding:14px; font-size:14.5px; outline:none; background:#fff; color:var(--c-ink900); }
+  .iq-textarea{ width:100%; min-height:130px; border:1px solid var(--c-line); border-radius:12px; padding:14px; font-size:14.5px; outline:none; resize:vertical; background:#fff; color:var(--c-ink900); font-family:inherit; line-height:1.5; }
+  .iq-submit{ width:100%; height:54px; border:none; border-radius:14px; background:#2B8A3D; color:#fff; font-size:16px; font-weight:800; margin-top:6px; }
+  .iq-done{ display:flex; flex-direction:column; align-items:center; text-align:center; padding:100px 32px 0; }
+  .iq-done-ic{ margin-bottom:18px; }
+  .iq-done-title{ font-size:19px; font-weight:800; color:var(--c-ink900); margin-bottom:10px; }
+  .iq-done-sub{ font-size:14px; color:#6B7075; line-height:1.6; margin-bottom:28px; }
+  .iq-done-btn{ width:100%; height:52px; border:none; border-radius:14px; background:#F2F4F5; color:var(--c-ink900); font-size:15px; font-weight:800; }
   .my2-chev{ color:#C7CBD1; display:flex; }
   .my2-chev svg{ width:20px; height:20px; }
 
@@ -2401,19 +2451,111 @@
         <div class="my2-gap"></div>
         <div class="my2-group">
           <div class="my2-glabel">고객센터</div>
-          <div class="my2-item"><span class="my2-label">자주 묻는 질문</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
-          <div class="my2-item"><span class="my2-label">1:1 문의하기</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
-          <div class="my2-item"><span class="my2-label">공지사항</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item" onclick="renderFAQ();go('faq')"><span class="my2-label">자주 묻는 질문</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item" onclick="iqReset();go('inquiry')"><span class="my2-label">1:1 문의하기</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item" onclick="renderNotice();go('notice')"><span class="my2-label">공지사항</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
         </div>
         <div class="my2-gap"></div>
         <div class="my2-group">
           <div class="my2-glabel">약관 · 정책</div>
-          <div class="my2-item"><span class="my2-label">이용약관</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
-          <div class="my2-item"><span class="my2-label">개인정보 처리방침</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item" onclick="renderLegal('terms');go('terms')"><span class="my2-label">이용약관</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
+          <div class="my2-item" onclick="renderLegal('privacy');go('privacy')"><span class="my2-label">개인정보 처리방침</span><span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span></div>
         </div>
         <div class="my2-gap"></div>
         <div class="sup-ver">해피로컬 v2.0.0</div>
         <div style="height:20px"></div>
+      </section>
+
+      <!-- ============ 자주 묻는 질문 ============ -->
+      <section class="screen" id="s-faq">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">자주 묻는 질문</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="faq-tabs" id="faq-tabs">
+          <button class="faq-tab on" onclick="faqFilter('전체',this)">전체</button>
+          <button class="faq-tab" onclick="faqFilter('예약·픽업',this)">예약·픽업</button>
+          <button class="faq-tab" onclick="faqFilter('결제·취소',this)">결제·취소</button>
+          <button class="faq-tab" onclick="faqFilter('코스·루트',this)">코스·루트</button>
+          <button class="faq-tab" onclick="faqFilter('회원',this)">회원</button>
+        </div>
+        <div class="faq-list" id="faq-list"></div>
+        <div style="height:24px"></div>
+      </section>
+
+      <!-- ============ 1:1 문의하기 ============ -->
+      <section class="screen" id="s-inquiry">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">1:1 문의하기</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="iq-wrap" id="iq-form">
+          <div class="iq-hint">문의 내용은 영업일 기준 1~2일 내에 등록하신 연락처로 답변드려요.</div>
+          <div class="iq-field">
+            <div class="iq-label">문의 유형</div>
+            <div class="iq-chips">
+              <button class="iq-chip on" onclick="iqPick('예약/픽업',this)">예약/픽업</button>
+              <button class="iq-chip" onclick="iqPick('결제/취소',this)">결제/취소</button>
+              <button class="iq-chip" onclick="iqPick('코스/루트',this)">코스/루트</button>
+              <button class="iq-chip" onclick="iqPick('가게 제휴',this)">가게 제휴</button>
+              <button class="iq-chip" onclick="iqPick('기타',this)">기타</button>
+            </div>
+          </div>
+          <div class="iq-field">
+            <div class="iq-label">제목</div>
+            <input class="iq-input" id="iq-title" placeholder="문의 제목을 입력해주세요" maxlength="40">
+          </div>
+          <div class="iq-field">
+            <div class="iq-label">내용</div>
+            <textarea class="iq-textarea" id="iq-body" placeholder="문의하실 내용을 자세히 적어주세요" maxlength="1000"></textarea>
+          </div>
+          <div class="iq-field">
+            <div class="iq-label">답변받을 연락처</div>
+            <input class="iq-input" id="iq-contact" placeholder="이메일 또는 휴대폰 번호">
+          </div>
+          <button class="iq-submit" onclick="iqSubmit()">문의 등록하기</button>
+        </div>
+        <div class="iq-done" id="iq-done" style="display:none">
+          <div class="iq-done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2B8A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
+          <div class="iq-done-title">문의가 접수됐어요</div>
+          <div class="iq-done-sub">빠르게 확인하고 답변드릴게요.<br>답변은 등록하신 연락처로 안내돼요.</div>
+          <button class="iq-done-btn" onclick="goBack()">고객센터로 돌아가기</button>
+        </div>
+      </section>
+
+      <!-- ============ 공지사항 ============ -->
+      <section class="screen" id="s-notice">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">공지사항</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="ntc-list" id="ntc-list"></div>
+        <div style="height:24px"></div>
+      </section>
+
+      <!-- ============ 이용약관 ============ -->
+      <section class="screen" id="s-terms">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">이용약관</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="lg-wrap" id="lg-terms"></div>
+        <div style="height:24px"></div>
+      </section>
+
+      <!-- ============ 개인정보 처리방침 ============ -->
+      <section class="screen" id="s-privacy">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">개인정보 처리방침</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="lg-wrap" id="lg-privacy"></div>
+        <div style="height:24px"></div>
       </section>
 
       <!-- ============ STORE MAP (지도보기) ============ -->
@@ -2883,6 +3025,7 @@
     if(view.indexOf('place:')===0){openPlaceMap(view.slice(6));return;}
     if(view==='seasonal'){ if(_seasonalItem){cal2OpenSeasonal(_seasonalItem.id);} else {go('cal');} return; }
     if(['home','routebuild','route','cal','my'].indexOf(view)>=0){go(view);return;}
+    if(document.getElementById('s-'+view)){go(view);return;}
     go('home');
   }
   function goBack(){
@@ -2905,6 +3048,108 @@
   const MY_USER={name:'여행자',emailMasked:'hong****@naver.com',isLoggedIn:true};
   const MY_STATS={completed:14,coupons:3};
   /* ===== MY 페이지 v2 (spec 구현) ===== */
+  /* ===== 고객센터: 자주 묻는 질문 ===== */
+  const FAQ_DATA=[
+    {cat:'예약·픽업',q:'픽업 시간에 못 갈 것 같으면 어떻게 하나요?',a:'픽업 시간 변경은 예약한 매장에 직접 연락해 조율할 수 있어요. \'내 코스 > 예약한 매장\'에서 예약코드와 매장 연락처를 확인할 수 있어요. 무단으로 픽업하지 않으면 다음 예약에 제한이 있을 수 있어요.'},
+    {cat:'예약·픽업',q:'예약코드는 어디서 확인하나요?',a:'하단 탭 \'내 코스 > 예약한 매장\'에서 각 상품 카드 하단에 예약코드가 표시돼요. 픽업 시 매장에 이 코드를 보여주시면 돼요.'},
+    {cat:'예약·픽업',q:'재고가 매진되면 다시 열리나요?',a:'매장에서 물량을 추가하면 다시 열릴 수 있어요. 관심 있는 상품은 하트(찜) 버튼을 눌러두면 재입고 시 더 빠르게 확인할 수 있어요.'},
+    {cat:'결제·취소',q:'예약을 취소하고 싶어요.',a:'픽업 24시간 전까지는 \'내 코스 > 예약한 매장\'에서 무료로 취소할 수 있어요. 24시간 이내 취소는 매장 사정에 따라 수수료가 발생할 수 있어요.'},
+    {cat:'결제·취소',q:'환불은 며칠 걸리나요?',a:'취소가 확정되면 결제수단 기준으로 영업일 3~5일 이내에 환불이 처리돼요. 카드사에 따라 실제 반영일은 다를 수 있어요.'},
+    {cat:'결제·취소',q:'현장 결제도 가능한가요?',a:'대부분의 픽업 상품은 앱 내 사전결제 상품이에요. 일부 축제·체험 상품은 현장결제를 지원하며, 상세페이지에 표시돼 있어요.'},
+    {cat:'코스·루트',q:'\'코스에 담기\'와 \'예약\'은 뭐가 다른가요?',a:'\'코스에 담기\'는 관심 있는 스팟·루트를 저장해두는 기능으로 결제가 필요 없어요. 실제 픽업 상품을 확정하려면 매장 상세에서 예약(결제)까지 진행해야 해요.'},
+    {cat:'코스·루트',q:'저장한 루트를 수정할 수 있나요?',a:'현재는 저장한 루트를 그대로 보관하는 형태만 지원돼요. 스팟을 바꾸고 싶다면 새로운 루트를 담아 비교해보시는 걸 추천해요.'},
+    {cat:'회원',q:'회원 탈퇴는 어떻게 하나요?',a:'MY 탭 > 설정에서 회원 탈퇴를 진행할 수 있어요. 탈퇴 시 예약 내역과 저장한 코스는 모두 삭제되며 복구할 수 없어요.'},
+    {cat:'회원',q:'비밀번호를 잊어버렸어요.',a:'로그인 화면의 \'비밀번호 찾기\'에서 가입 시 등록한 이메일 또는 휴대폰 번호로 재설정 링크를 받을 수 있어요.'}
+  ];
+  function renderFAQ(cat){
+    cat=cat||'전체';
+    var list=FAQ_DATA.filter(function(f){return cat==='전체'||f.cat===cat;});
+    document.getElementById('faq-list').innerHTML=list.map(function(f,i){
+      return '<div class="faq-item" id="faq-item-'+i+'"><div class="faq-q" onclick="faqToggle('+i+')">'
+        +'<span class="faq-q-mark">Q</span><span class="faq-q-txt">'+f.q+'</span>'
+        +'<span class="faq-q-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>'
+        +'</div><div class="faq-a">'+f.a+'</div></div>';
+    }).join('') || '<div style="padding:40px 2px;text-align:center;color:#9096A0;font-size:14px">해당 카테고리에 등록된 질문이 없어요.</div>';
+  }
+  function faqFilter(cat,btn){
+    document.querySelectorAll('#faq-tabs .faq-tab').forEach(function(b){b.classList.remove('on');});
+    if(btn)btn.classList.add('on');
+    renderFAQ(cat);
+  }
+  function faqToggle(i){
+    var el=document.getElementById('faq-item-'+i); if(!el)return;
+    var wasOpen=el.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(function(o){o.classList.remove('open');});
+    if(!wasOpen)el.classList.add('open');
+  }
+  /* ===== 고객센터: 공지사항 ===== */
+  const NOTICE_DATA=[
+    {tag:'NEW',date:'2026.04.10',title:'횡성한우축제 기간 픽업 혼잡 안내',body:'4월 10일~14일 횡성한우축제 기간 동안 축제장 인근 매장의 픽업이 몰릴 수 있어요. 가능하면 오전 시간대 픽업을 이용해주세요. 축제장 주변 임시 주차 안내는 앱 내 지도 탭에서 확인할 수 있어요.'},
+    {tag:'NEW',date:'2026.04.02',title:'제철 캘린더 기능이 새로 생겼어요',body:'이제 캘린더 탭에서 지역별 제철 특산물과 축제 일정을 한눈에 볼 수 있어요. 예약 가능한 가게도 함께 확인해보세요.'},
+    {tag:'공지',date:'2026.03.20',title:'앱 이용약관 및 개인정보 처리방침 개정 안내',body:'2026년 4월 1일부터 개정된 이용약관 및 개인정보 처리방침이 적용돼요. 주요 변경사항은 결제 대행사 관련 조항 추가입니다. 자세한 내용은 약관·정책 메뉴에서 확인해주세요.'},
+    {tag:'공지',date:'2026.03.05',title:'설 연휴 고객센터 운영시간 안내',body:'고객센터는 평일 09:00~18:00 (점심시간 12:30~13:30 제외) 운영돼요. 주말·공휴일 문의는 다음 영업일에 순차적으로 답변드려요.'},
+    {tag:'점검',date:'2026.02.18',title:'서버 점검으로 인한 일시 접속 제한 안내',body:'서비스 안정화를 위해 매주 수요일 새벽 3시~4시 사이 짧은 접속 제한이 있을 수 있어요. 이용에 불편을 드려 죄송합니다.'}
+  ];
+  function renderNotice(){
+    document.getElementById('ntc-list').innerHTML=NOTICE_DATA.map(function(n,i){
+      return '<div class="ntc-item" id="ntc-item-'+i+'"><div class="ntc-head" onclick="ntcToggle('+i+')">'
+        +'<span class="ntc-badge'+(n.tag==='NEW'?' new':'')+'">'+n.tag+'</span>'
+        +'<span class="ntc-body"><span class="ntc-title">'+n.title+'</span><span class="ntc-date">'+n.date+'</span></span>'
+        +'<span class="ntc-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>'
+        +'</div><div class="ntc-detail">'+n.body+'</div></div>';
+    }).join('');
+  }
+  function ntcToggle(i){
+    var el=document.getElementById('ntc-item-'+i); if(!el)return;
+    var wasOpen=el.classList.contains('open');
+    document.querySelectorAll('.ntc-item.open').forEach(function(o){o.classList.remove('open');});
+    if(!wasOpen)el.classList.add('open');
+  }
+  /* ===== 고객센터: 이용약관 / 개인정보 처리방침 (임시 텍스트) ===== */
+  const LEGAL_DATA={
+    terms:{updated:'2026.03.20 개정 · 2026.04.01 시행',
+      secs:[
+        {t:'제1조 (목적)',b:'이 약관은 해피로컬(이하 "회사")이 제공하는 로컬 픽업·투어 중개 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원 간의 권리, 의무 및 책임사항을 정하는 것을 목적으로 합니다.'},
+        {t:'제2조 (정의)',b:'① "서비스"란 회원이 지역 농가·매장의 상품을 예약하고, 로컬 루트·축제 정보를 확인할 수 있도록 회사가 제공하는 모든 서비스를 의미합니다.\n② "회원"이란 이 약관에 동의하고 서비스를 이용하는 자를 의미합니다.'},
+        {t:'제3조 (약관의 효력 및 변경)',b:'회사는 필요한 경우 관련 법령을 위배하지 않는 범위에서 이 약관을 개정할 수 있으며, 개정 시 앱 내 공지사항을 통해 사전 안내합니다.'},
+        {t:'제4조 (서비스의 제공 및 변경)',b:'회사는 회원에게 픽업 예약, 로컬 루트 추천, 제철·축제 캘린더 등의 서비스를 제공합니다. 서비스의 내용은 회사 사정에 따라 변경될 수 있습니다.'},
+        {t:'제5조 (예약 및 취소)',b:'회원은 픽업 예정 시각 24시간 전까지 무료로 예약을 취소할 수 있습니다. 이후 취소, 노쇼(무단 미픽업)의 경우 매장 정책에 따라 수수료가 발생하거나 서비스 이용이 제한될 수 있습니다.'},
+        {t:'제6조 (면책조항)',b:'회사는 천재지변, 회원의 귀책사유 등 회사가 통제할 수 없는 사유로 인한 서비스 중단에 대해 책임을 지지 않습니다. 회사는 매장이 제공하는 상품의 품질에 대한 직접적인 책임을 지지 않으며, 문제 발생 시 중개자로서 조정을 지원합니다.'}
+      ]},
+    privacy:{updated:'2026.03.20 개정 · 2026.04.01 시행',
+      secs:[
+        {t:'1. 수집하는 개인정보 항목',b:'회사는 회원가입, 예약, 고객센터 문의 시 아래 정보를 수집합니다.\n- 필수: 이름, 휴대폰 번호, 이메일\n- 선택: 프로필 이미지, 관심 지역\n- 자동 수집: 서비스 이용기록, 접속 로그, 기기정보'},
+        {t:'2. 개인정보의 수집 및 이용목적',b:'① 회원 가입 및 관리\n② 픽업 예약 처리 및 매장과의 중개\n③ 고객 문의 응대 및 공지사항 전달\n④ 부정 이용 방지 및 서비스 개선을 위한 통계 분석'},
+        {t:'3. 개인정보의 보유 및 이용기간',b:'회원 탈퇴 시 지체 없이 파기하는 것을 원칙으로 하되, 전자상거래법 등 관련 법령에 따라 일정 기간(예: 계약 또는 청약철회 기록 5년, 대금결제 기록 5년) 보관할 수 있습니다.'},
+        {t:'4. 개인정보의 제3자 제공',b:'회사는 원칙적으로 회원의 개인정보를 외부에 제공하지 않습니다. 다만 픽업 예약 이행을 위해 최소한의 정보(이름, 연락처, 예약코드)를 해당 매장에 제공할 수 있습니다.'},
+        {t:'5. 이용자의 권리',b:'회원은 언제든지 자신의 개인정보를 조회, 수정, 삭제, 처리정지를 요청할 수 있으며 MY 탭의 설정 메뉴 또는 고객센터를 통해 요청할 수 있습니다.'},
+        {t:'6. 개인정보 보호책임자',b:'회사는 개인정보 처리에 관한 문의, 불만 처리를 위해 개인정보 보호책임자를 지정하여 운영하고 있으며, 1:1 문의하기를 통해 연락하실 수 있습니다.'}
+      ]}
+  };
+  function renderLegal(kind){
+    var d=LEGAL_DATA[kind]; if(!d)return;
+    var host=document.getElementById('lg-'+kind); if(!host)return;
+    host.innerHTML='<div class="lg-updated">'+d.updated+'</div>'
+      +d.secs.map(function(s){return '<div class="lg-sec"><div class="lg-sec-title">'+s.t+'</div><div class="lg-sec-body">'+s.b+'</div></div>';}).join('');
+  }
+  /* ===== 고객센터: 1:1 문의하기 ===== */
+  let _iqType='예약/픽업';
+  function iqPick(v,btn){ _iqType=v; document.querySelectorAll('#iq-form .iq-chip').forEach(function(c){c.classList.remove('on');}); if(btn)btn.classList.add('on'); }
+  function iqReset(){
+    _iqType='예약/픽업';
+    document.getElementById('iq-form').style.display='';
+    document.getElementById('iq-done').style.display='none';
+    document.getElementById('iq-title').value='';
+    document.getElementById('iq-body').value='';
+    document.getElementById('iq-contact').value='';
+    document.querySelectorAll('#iq-form .iq-chip').forEach(function(c,i){c.classList.toggle('on',i===0);});
+  }
+  function iqSubmit(){
+    var title=(document.getElementById('iq-title')||{}).value||'';
+    if(!title.trim()){ alert('문의 제목을 입력해주세요.'); return; }
+    document.getElementById('iq-form').style.display='none';
+    document.getElementById('iq-done').style.display='flex';
+  }
   function renderMy(){
     if(!document.getElementById('my2-name'))return;
     var pending=MY_PICKUPS.filter(function(p){return p.status!=='픽업완료'&&p.status!=='취소';}).length;
