@@ -1,0 +1,43 @@
+{
+  "name": "happylocal-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "HappyLocal API server - Korea Tourism Organization (TourAPI) proxy + local pickup/order store",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "mock": "node src/mock-start.js",
+    "seed": "node extract-seed.mjs",
+    "test": "npm run test:mock && npm run test:api && npm run test:front",
+    "test:mock": "node src/mocktest.js",
+    "test:api": "node src/selftest.js",
+    "test:front": "node src/fronttest.js",
+    "test:browser": "node src/browsertest.js",
+    "test:all": "npm run test && npm run test:vercel && npm run test:browser && npm run test:e2e && npm run test:logic && npm run test:ui-logic && npm run test:role && npm run test:admin && npm run test:account && npm run test:login && npm run test:scenario",
+    "test:vercel": "node src/vercetest.js",
+    "test:e2e": "node src/e2etest.js",
+    "test:logic": "node src/logictest.js",
+    "test:ui-logic": "node src/uilogictest.js",
+    "test:role": "node src/roletest.js",
+    "test:admin": "node src/admintest.js",
+    "manual": "node src/manual.mjs",
+    "seed:accounts": "node src/seed-accounts.mjs",
+    "test:account": "node src/accounttest.js",
+    "test:login": "node src/logintest.js",
+    "test:scenario": "node src/scenariotest.js",
+    "manual:ops": "node src/ops-manual.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "@vercel/kv": "^3.0.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.47.0"
+  }
+}

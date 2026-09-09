@@ -1,0 +1,11 @@
+**/node_modules
+server/.env
+server/data/db.json
+*.bak
+.git
+.gitignore
+README.md
+*.predead
+happylocal-manual.html
+server/shots
+docs

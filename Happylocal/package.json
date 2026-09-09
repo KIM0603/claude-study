@@ -1,0 +1,16 @@
+{
+  "name": "happylocal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "HappyLocal - Vercel 배포용 매니페스트. 로컬 개발은 server/package.json 을 씁니다.",
+  "engines": {
+    "node": ">=18"
+  },
+  "//": "server/package.json 의 dependencies 와 동일하게 유지해야 합니다.",
+  "dependencies": {
+    "@vercel/kv": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

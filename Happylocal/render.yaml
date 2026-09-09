@@ -1,0 +1,41 @@
+# Render 배포 설정 (무료 플랜으로 시작 가능)
+#
+#   1. 이 저장소를 GitHub 에 올립니다
+#   2. render.com > New > Blueprint > 저장소 선택
+#   3. TOUR_API_KEY / KAKAO_JS_KEY 를 대시보드에서 입력 (sync:false 항목)
+#   4. 배포 후 카카오 개발자 콘솔의 사이트 도메인에 배포 URL 을 추가하세요
+#
+# 주의: 무료 플랜은 디스크가 휘발성이라 재배포하면 db.json(주문·후기)이
+# 초기화됩니다. 유지가 필요하면 유료 플랜의 Persistent Disk 를
+# /opt/render/project/src/server/data 에 마운트하세요.
+
+services:
+  - type: web
+    name: happylocal
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8787
+      - key: NODE_ENV
+        value: production
+      # 아래는 대시보드에서 직접 입력합니다 (저장소에 키를 커밋하지 마세요).
+      - key: TOUR_API_KEY
+        sync: false
+      - key: KAKAO_JS_KEY
+        sync: false
+      # 카카오 로그인. 없으면 로그인 버튼이 숨겨집니다.
+      - key: KAKAO_REST_KEY
+        sync: false
+      # 배포 주소. Redirect URI 를 만드는 데 씁니다.
+      - key: APP_ORIGIN
+        sync: false
+      # 첫 최고관리자. 없으면 운영 화면(/admin.html)에 아무도 못 들어갑니다.
+      # 배포에서는 개발용 로그인이 막혀 있어 이 값이 유일한 통로입니다.
+      - key: SUPER_ADMIN_EMAILS
+        sync: false
+      - key: CACHE_TTL_SECONDS
+        value: 3600

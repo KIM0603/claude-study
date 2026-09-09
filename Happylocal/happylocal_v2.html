@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images/farms/logo.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>해피로컬 — 강원 로컬 루트 (Surfit 톤)</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <style>
@@ -739,6 +740,115 @@
   .mk.pk{background:var(--brand);border-color:#fff}
   .mk.active{transform:rotate(-45deg) scale(1.28);border-color:#fff;background:var(--brand-press)}
   .mk.off{background:#adb3ba;border-color:#fff}
+  .mk.fest{background:#ff922b;border-color:#fff}
+  .ps-photo{width:100%;height:150px;border-radius:12px;background:#e9ecef center/cover no-repeat;margin:12px 0 4px}
+  .ps-gal{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:10px}
+  .ps-gal span{aspect-ratio:1/1;border-radius:7px;background:#e9ecef center/cover no-repeat}
+  .ps-src{margin-top:12px;font-size:11px;font-weight:700;color:var(--text-mut);text-align:right}
+  .ab-write{border:none;background:none;font-family:inherit;font-size:14.5px;font-weight:800;color:var(--brand);cursor:pointer;padding:6px 4px}
+  .my2-val{font-size:13px;font-weight:800;color:var(--text-mut);margin-right:6px}
+  .lg-or{display:flex;align-items:center;gap:10px;margin:18px 0 14px;
+    color:var(--text-mut);font-size:12px;font-weight:700}
+  .lg-or::before,.lg-or::after{content:"";flex:1;height:1px;background:var(--border)}
+  .lg-form{display:flex;flex-direction:column;text-align:left}
+  .lg-lab{font-size:12px;font-weight:800;color:var(--text-mut);margin:0 0 5px 2px}
+  .lg-in{width:100%;padding:12px 13px;margin-bottom:12px;border-radius:11px;
+    border:1px solid var(--border);background:var(--surface);color:var(--text-hi);
+    font-family:inherit;font-size:15px}
+  .lg-in:focus{outline:2px solid var(--brand);outline-offset:1px}
+  .lg-err{margin:0 0 10px;padding:9px 12px;border-radius:9px;background:#fdeceb;
+    color:#c0392b;font-size:12.5px;font-weight:700}
+  .lg-submit{width:100%;padding:14px;border:0;border-radius:12px;background:var(--brand);
+    color:#fff;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer}
+  .lg-submit:disabled{opacity:.6;cursor:default}
+  .lg-swap{margin:13px 0 0;font-size:13px;font-weight:600;color:var(--text-mut);text-align:center}
+  .lg-swap b{color:var(--brand);cursor:pointer;margin-left:5px}
+  .pv-wrap{text-align:center;padding:6px 2px 2px}
+  .pv-lab{font-size:13px;font-weight:700;color:var(--text-mut)}
+  .pv-code{font-size:38px;font-weight:800;letter-spacing:.06em;color:var(--brand);
+    margin:10px 0 4px;font-variant-numeric:tabular-nums;word-break:break-all}
+  .pv-prod{font-size:16px;font-weight:700;color:var(--text-hi)}
+  .pv-meta{font-size:13px;font-weight:600;color:var(--text-mut);margin-top:5px}
+  .pv-note{font-size:12.5px;font-weight:600;color:var(--text-mut);margin-top:16px;
+    padding:11px 13px;border-radius:10px;background:var(--surface-2,#f3f4f2);text-align:left;line-height:1.6}
+  .mc-pass-btn{margin-top:9px;padding:7px 13px;border-radius:9px;border:1px solid var(--brand);
+    background:transparent;color:var(--brand);font-family:inherit;font-size:12.5px;font-weight:800;cursor:pointer}
+  .cp-pick-title{font-size:18px;font-weight:800;color:var(--text-hi);margin:2px 0 4px}
+  .cp-pick-sub{font-size:13px;font-weight:600;color:var(--text-mut);margin-bottom:14px}
+  .cp-pick-list{display:flex;flex-direction:column;gap:9px;max-height:44vh;overflow-y:auto}
+  .cp-opt{display:flex;align-items:center;gap:12px;width:100%;padding:14px 15px;border-radius:12px;
+    border:1px solid var(--border);background:var(--surface);font-family:inherit;cursor:pointer;text-align:left}
+  .cp-opt.on{border-color:var(--brand);background:var(--brand-soft,#e7f7ee)}
+  .cp-opt:disabled{opacity:.55;cursor:default}
+  .cp-opt .amt{font-size:16px;font-weight:800;color:var(--brand);flex:0 0 auto;min-width:74px}
+  .cp-opt:disabled .amt{color:var(--text-mut)}
+  .cp-opt .info{flex:1;min-width:0}
+  .cp-opt .nm{font-size:14px;font-weight:700;color:var(--text-hi)}
+  .cp-opt .cd{font-size:12px;font-weight:600;color:var(--text-mut);margin-top:3px}
+
+  .my2-prow{cursor:pointer;border-radius:12px;transition:background .15s}
+  .my2-prow:active{background:var(--surface-2)}
+  .my2-prow:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .ac-head{display:flex;align-items:center;gap:13px;margin:4px 0 18px}
+  .ac-ava{width:52px;height:52px;border-radius:50%;background:var(--brand-soft,#e7f7ee);flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;font-size:22px;background-size:cover;background-position:center}
+  .ac-name{font-size:19px;font-weight:800;color:var(--text-hi)}
+  .ac-sub{font-size:13px;font-weight:600;color:var(--text-mut);margin-top:3px}
+  .ac-rows{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .ac-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;
+    border-bottom:1px solid var(--border);font-size:14px}
+  .ac-row:last-child{border-bottom:0}
+  .ac-row .k{color:var(--text-mut);font-weight:600;flex:0 0 auto}
+  .ac-row .v{color:var(--text-hi);font-weight:700;text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  .smp-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:800;letter-spacing:.02em;
+    color:#8a6d3b;background:#fdf3e3;border:1px solid #f0dcbd;border-radius:5px;padding:1px 5px;margin-left:6px;
+    vertical-align:middle}
+  .phone[data-theme="dark"] .smp-tag{color:#e8c98a;background:#2e2617;border-color:#4a3d24}
+  /* ---- 로그인 ---- */
+  .lg-body{padding:30px 24px 40px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .lg-logo{width:78px;height:78px;margin-bottom:18px}
+  .lg-title{font-size:22px;font-weight:800;line-height:1.42;color:var(--text-hi);margin:0}
+  .lg-sub{font-size:14px;color:var(--text-mut);font-weight:600;margin:11px 0 0;line-height:1.6}
+  .lg-benefits{width:100%;margin:26px 0 24px;display:flex;flex-direction:column;gap:11px}
+  .lg-bi{display:flex;align-items:center;gap:11px;text-align:left;font-size:14.5px;font-weight:600;
+    color:var(--text);background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:13px 15px}
+  .lg-bic{font-size:19px;flex:0 0 auto}
+  .lg-kakao{width:100%;height:54px;border:none;border-radius:13px;background:#FEE500;color:#191600;
+    font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;gap:9px;transition:transform .12s}
+  .lg-kakao:active{transform:scale(.985)}
+  .lg-kakao:disabled{background:var(--chip);color:var(--text-mut);cursor:default}
+  .lg-kico{display:flex}.lg-kico svg{width:20px;height:20px}
+  .lg-dev{width:100%;height:46px;margin-top:10px;border:1px solid var(--border);border-radius:13px;
+    background:var(--surface);color:var(--text-mut);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
+  .lg-note{font-size:12.5px;font-weight:700;color:#e03131;margin:12px 0 0;min-height:16px}
+  .lg-terms{font-size:11.5px;color:var(--text-mut);margin:18px 0 0;line-height:1.7}
+  .lg-terms b{color:var(--text);text-decoration:underline;cursor:pointer}
+  /* ---- MY: 비로그인 ---- */
+  .my2-signin{display:flex;align-items:center;gap:12px;width:100%;padding:16px 4px;background:none;
+    border:none;font-family:inherit;cursor:pointer;text-align:left}
+  .my2-signin .t{flex:1;min-width:0}
+  .my2-signin .t b{display:block;font-size:18px;font-weight:800;color:var(--text-hi)}
+  .my2-signin .t span{display:block;font-size:13.5px;font-weight:600;color:var(--text-mut);margin-top:3px}
+  .my2-logout{margin-top:10px;width:100%;height:44px;border:1px solid var(--border);border-radius:12px;
+    background:var(--surface);color:var(--text-mut);font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+
+  .hs-cancel{position:absolute;right:12px;bottom:12px;border:1px solid var(--border);background:var(--surface);
+    color:var(--text-mut);font-family:inherit;font-size:11.5px;font-weight:800;border-radius:999px;
+    padding:6px 11px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+  .hs-cancel:active{background:#ffe3e3;color:#e03131;border-color:#ffc9c9}
+  .wr-title{font-size:18px;font-weight:800;color:var(--text-hi);margin:2px 0 14px}
+  .wr-label{display:block;font-size:12.5px;font-weight:800;color:var(--text-mut);margin:14px 0 7px}
+  .wr-select,.wr-text{width:100%;border:1px solid var(--border);border-radius:11px;padding:12px;
+    font-family:inherit;font-size:14.5px;background:var(--surface);color:var(--text-hi);outline:none}
+  .wr-text{min-height:100px;resize:vertical;line-height:1.5}
+  .wr-stars{display:flex;gap:6px}
+  .wr-star{font-size:29px;line-height:1;cursor:pointer;color:#d4d8dd;transition:color .12s,transform .12s;user-select:none}
+  .wr-star.on{color:#ffb800}
+  .wr-star:active{transform:scale(1.18)}
+  .wr-err{min-height:17px;margin-top:9px;font-size:12.5px;font-weight:700;color:#e03131}
+  .mk.tour{background:#7c6df2;border-color:#fff}
   .mk>.mkico{filter:none;color:#fff;transform:rotate(45deg);display:flex;align-items:center;justify-content:center}
   .mk>.mkico svg{width:19px;height:19px;display:block;stroke:#fff}
   .tl-card{cursor:pointer}
@@ -896,6 +1006,21 @@
   .map-chip.on{border-color:var(--brand);color:var(--brand)}
   /* 픽업일(전체/오늘/내일): 흰 캡슐 안의 세그먼트 토글 (선택 항목만 다크 알약) */
   .map-seg{align-self:center;display:inline-flex;gap:2px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:2px}
+  /* 카테고리 칩: 항목이 늘어 한 줄을 넘칠 수 있어 가로 스크롤 */
+  .map-cats{display:flex;gap:6px;overflow-x:auto;padding:0 14px 2px;scrollbar-width:none;-ms-overflow-style:none}
+  .map-cats::-webkit-scrollbar{display:none}
+  .map-cat{flex:0 0 auto;border:1px solid var(--border);background:#fff;color:#5b6068;cursor:pointer;
+    font-family:inherit;height:32px;padding:0 13px;border-radius:999px;font-size:12.5px;font-weight:800;
+    display:inline-flex;align-items:center;gap:5px;line-height:1;transition:background .18s,color .18s,border-color .18s;
+    box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .map-cat .n{font-size:11px;font-weight:800;opacity:.72}
+  .map-cat.on{background:#3c3e42;color:#fff;border-color:#3c3e42}
+  .map-cat.on .n{opacity:.85}
+  .map-cat.c-fest.on{background:#ff922b;border-color:#ff922b}
+  .map-cat.c-tour.on{background:#7c6df2;border-color:#7c6df2}
+  .map-cat.c-pk.on{background:var(--brand);border-color:var(--brand)}
+  .map-daywrap{display:flex;justify-content:center;margin-top:7px}
+  .map-daywrap.hide{display:none}
   .map-seg-btn{border:none;background:none;cursor:pointer;font-family:inherit;height:32px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:700;color:#5b6068;line-height:1;display:inline-flex;align-items:center;justify-content:center;transition:background .18s,color .18s}
   .map-seg-btn.on{background:#3c3e42;color:#fff}
   .map-list-btn{position:absolute;bottom:226px;left:50%;transform:translateX(-50%);z-index:500;background:#17191d;color:#fff;border-radius:999px;padding:11px 20px;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px -4px rgba(0,0,0,.4)}
@@ -2223,6 +2348,7 @@
           <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
           <span class="ab-title">제철 캘린더</span>
           <div class="ab-acts">
+            <button class="ab-ic" onclick="openStores()" aria-label="내 주변 매장"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></button>
             <button class="ab-ic ab-cart" onclick="openCart()" aria-label="장바구니"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3.5h2.3l2 11a1.4 1.4 0 001.4 1.1h8.3a1.4 1.4 0 001.4-1.1L19.6 7H6.2"/></svg><span class="ab-badge" data-cart-badge></span></button>
           </div>
         </div>
@@ -2265,6 +2391,80 @@
       </div>
 
 
+            <!-- ============ 로그인 ============ -->
+      <section class="screen" id="s-login">
+        <div class="appbar">
+          <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="ab-title">로그인</span>
+          <span class="ab-sp"></span>
+        </div>
+        <div class="lg-body">
+          <img src="images/farms/logo.svg" class="lg-logo" alt="해피로컬">
+          <h2 class="lg-title">산지에서 바로 받는<br>로컬 픽업을 시작해요</h2>
+          <p class="lg-sub" id="lg-reason">로그인하면 예약 내역과 여행 계획이 저장돼요.</p>
+
+          <div class="lg-benefits">
+            <div class="lg-bi"><span class="lg-bic">🧺</span>픽업 예약과 예약코드 관리</div>
+            <div class="lg-bi"><span class="lg-bic">🗺️</span>내가 만든 여행 계획 저장</div>
+            <div class="lg-bi"><span class="lg-bic">🎟️</span>신규 가입 쿠폰 3장 즉시 지급</div>
+          </div>
+
+          <button class="lg-kakao" id="lg-kakao" onclick="loginWithKakao()">
+            <span class="lg-kico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.9 3 2.8 6.2 2.8 10.2c0 2.6 1.7 4.8 4.3 6.1l-1 3.6c-.1.3.2.6.5.4l4.3-2.8c.4 0 .7.1 1.1.1 5.1 0 9.2-3.2 9.2-7.4S17.1 3 12 3z"/></svg></span>카카오로 3초 만에 시작하기</button>
+          <button class="lg-dev" id="lg-dev" onclick="loginDev()" hidden>둘러보기용 임시 로그인</button>
+
+          <div class="lg-or"><span>또는</span></div>
+
+          <form class="lg-form" id="lg-form" onsubmit="return lgSubmit(event)">
+            <label class="lg-lab" for="lg-id">아이디</label>
+            <input class="lg-in" id="lg-id" type="text" autocomplete="username"
+              placeholder="영문 소문자·숫자 4~20자" autocapitalize="none" spellcheck="false">
+
+            <label class="lg-lab" for="lg-pw">비밀번호</label>
+            <input class="lg-in" id="lg-pw" type="password" autocomplete="current-password"
+              placeholder="8자 이상">
+
+            <div class="lg-signup-only" id="lg-extra" hidden>
+              <label class="lg-lab" for="lg-nick">닉네임</label>
+              <input class="lg-in" id="lg-nick" type="text" placeholder="화면에 표시될 이름" maxlength="20">
+            </div>
+
+            <p class="lg-err" id="lg-err" hidden></p>
+            <button class="lg-submit" id="lg-submit" type="submit">로그인</button>
+          </form>
+
+          <p class="lg-swap">
+            <span id="lg-swap-txt">아직 계정이 없나요?</span>
+            <b id="lg-swap-btn" onclick="lgToggleMode()">회원가입</b>
+          </p>
+          <p class="lg-note" id="lg-note"></p>
+          <p class="lg-terms">계속하면 <b onclick="renderLegal('terms');go('terms')">이용약관</b>과 
+            <b onclick="renderLegal('privacy');go('privacy')">개인정보 처리방침</b>에 동의하는 것으로 봅니다.</p>
+        </div>
+      </section>
+
+      <!-- ============ 내 주변 매장 ============ -->
+      <section class="screen" id="s-stores">
+        <div class="st-head">
+          <button class="st-back" onclick="goBack()" aria-label="뒤로">&lsaquo;</button>
+          <span class="st-title">내 주변 매장</span>
+          <button class="st-srch" onclick="toggleStSearch()" aria-label="검색"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+        </div>
+        <div class="st-tabs">
+          <div class="st-tab on" onclick="pickStTab(this,'near')">가까운 순</div>
+          <div class="st-tab" onclick="pickStTab(this,'soon')">마감 임박</div>
+          <div class="st-tab" onclick="pickStTab(this,'rate')">평점 높은 순</div>
+        </div>
+        <div class="st-searchbar" id="st-searchbar">
+          <input id="st-search" type="search" autocomplete="off" placeholder="매장 · 지역 · 업종 검색"
+            oninput="renderCalStores()">
+        </div>
+        <div class="st-sub">
+          <span id="st-count"></span>
+          <span class="st-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.3"/></svg>현위치 기준</span>
+        </div>
+        <div class="st-list" id="st-list"></div>
+      </section>
       <section class="screen" id="s-seasonal">
         <div class="appbar">
           <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -2296,7 +2496,8 @@
         <div class="my2">
           <div class="my2-head">
             <div class="my2-prof">
-              <div class="my2-prow">
+              <div class="my2-prow" role="button" tabindex="0" onclick="openProfile()"
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProfile();}">
                 <div class="my2-ava"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c0-3.6 3.1-5.5 7-5.5s7 1.9 7 5.5"/></svg></div>
                 <div class="my2-pinfo">
                   <div class="my2-name" id="my2-name">여행자님</div>
@@ -2358,6 +2559,11 @@
               <span class="my2-label">알림 설정</span>
               <span class="my2-right"><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
             </div>
+            <div class="my2-item" onclick="toggleTheme()">
+              <span class="my2-ic gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8.5 8.5 0 019.5 3.5a8.5 8.5 0 1011 11z"/></svg></span>
+              <span class="my2-label">화면 테마</span>
+              <span class="my2-right"><span class="my2-val" id="ttoggle">라이트</span><span class="my2-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></span>
+            </div>
             <div class="my2-item" onclick="go('support')">
               <span class="my2-ic gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 014.85.9c0 1.7-2.45 2.1-2.45 3.9"/><circle cx="12" cy="17.2" r=".9" fill="currentColor" stroke="none"/></svg></span>
               <span class="my2-label">고객센터 · 이용약관</span>
@@ -2373,7 +2579,7 @@
         <div class="appbar">
           <button class="ab-back" onclick="goBack()" aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
           <span class="ab-title">내가 쓴 후기</span>
-          <span class="ab-sp"></span>
+          <button class="ab-write" onclick="openWriteReview()">쓰기</button>
         </div>
         <div id="myrv-list" class="myrv-list"></div>
       </section>
@@ -2424,19 +2630,19 @@
         <div class="my2-gap"></div>
         <div class="my2-group">
           <div class="my2-glabel">픽업 · 예약</div>
-          <div class="ntf-row"><span class="ntf-label">픽업 임박 알림<span class="ntf-desc">픽업 시간 1시간 전 알려드려요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
-          <div class="ntf-row"><span class="ntf-label">예약 상태 변경<span class="ntf-desc">예약 확정·취소 시 알려드려요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+          <div class="ntf-row" data-ntf="pickupReminder"><span class="ntf-label">픽업 임박 알림<span class="ntf-desc">픽업 시간 1시간 전 알려드려요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+          <div class="ntf-row" data-ntf="orderStatus"><span class="ntf-label">예약 상태 변경<span class="ntf-desc">예약 확정·취소 시 알려드려요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
         </div>
         <div class="my2-gap"></div>
         <div class="my2-group">
           <div class="my2-glabel">마케팅</div>
-          <div class="ntf-row"><span class="ntf-label">신규 세일 알림<span class="ntf-desc">관심 지역 신규 세일 소식</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
-          <div class="ntf-row"><span class="ntf-label">쿠폰 · 이벤트<span class="ntf-desc">쿠폰 발급, 이벤트 소식</span></span><button class="ntf-tog" onclick="ntfToggle(this)"></button></div>
+          <div class="ntf-row" data-ntf="saleAlert"><span class="ntf-label">신규 세일 알림<span class="ntf-desc">관심 지역 신규 세일 소식</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+          <div class="ntf-row" data-ntf="couponEvent"><span class="ntf-label">쿠폰 · 이벤트<span class="ntf-desc">쿠폰 발급, 이벤트 소식</span></span><button class="ntf-tog" onclick="ntfToggle(this)"></button></div>
         </div>
         <div class="my2-gap"></div>
         <div class="my2-group">
           <div class="my2-glabel">야간 알림 끄기</div>
-          <div class="ntf-row"><span class="ntf-label">21:00 ~ 08:00<span class="ntf-desc">이 시간엔 알림을 보내지 않아요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
+          <div class="ntf-row" data-ntf="nightMute"><span class="ntf-label">21:00 ~ 08:00<span class="ntf-desc">이 시간엔 알림을 보내지 않아요</span></span><button class="ntf-tog on" onclick="ntfToggle(this)"></button></div>
         </div>
         <div style="height:20px"></div>
       </section>
@@ -2562,10 +2768,13 @@
       <section class="screen" id="s-map">
         <div id="smap"></div>
         <div class="map-top">
-          <div class="map-seg">
-            <button class="map-seg-btn on" onclick="pickMapDay(this,'전체')">전체</button>
-            <button class="map-seg-btn" onclick="pickMapDay(this,'오늘')">오늘</button>
-            <button class="map-seg-btn" onclick="pickMapDay(this,'내일')">내일</button>
+          <div class="map-cats" id="map-cats"></div>
+          <div class="map-daywrap" id="map-daywrap">
+            <div class="map-seg">
+              <button class="map-seg-btn on" onclick="pickMapDay(this,'전체')">전체</button>
+              <button class="map-seg-btn" onclick="pickMapDay(this,'오늘')">오늘</button>
+              <button class="map-seg-btn" onclick="pickMapDay(this,'내일')">내일</button>
+            </div>
           </div>
         </div>
         <div class="map-loc" onclick="mapLocate()" title="현위치">
@@ -2752,7 +2961,7 @@
             </div>
           </div>
           <div class="pay-gap"></div>
-          <button class="pay-sec pay-coupon">
+          <button class="pay-sec pay-coupon" onclick="openCouponPicker()">
             <span class="pay-sectitle" style="margin:0">쿠폰</span>
             <span class="pay-coupon-val">첫 픽업 3,000원 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
           </button>
@@ -2965,6 +3174,59 @@
       <button class="btn soft" style="margin-top:18px" onclick="closeReview()">닫기</button>
     </div>
 
+    <div class="scrim" id="pvscrim" onclick="closePickupPass()"></div>
+    <div class="sheet" id="pvsheet">
+      <div class="grab"></div>
+      <div class="pv-wrap">
+        <div class="pv-lab">픽업지에서 이 코드를 보여주세요</div>
+        <div class="pv-code" id="pv-code">—</div>
+        <div class="pv-prod" id="pv-prod"></div>
+        <div class="pv-meta" id="pv-meta"></div>
+        <div class="pv-note" id="pv-note"></div>
+      </div>
+      <button class="btn soft" style="margin-top:14px" onclick="closePickupPass()">닫기</button>
+    </div>
+
+    <div class="scrim" id="cpscrim" onclick="closeCouponPicker()"></div>
+    <div class="sheet" id="cpsheet">
+      <div class="grab"></div>
+      <div class="cp-pick-title">쿠폰 선택</div>
+      <div class="cp-pick-sub" id="cp-pick-sub"></div>
+      <div class="cp-pick-list" id="cp-pick-list"></div>
+      <button class="btn soft" style="margin-top:12px" onclick="closeCouponPicker()">닫기</button>
+    </div>
+
+    <div class="scrim" id="acscrim" onclick="closeProfile()"></div>
+    <div class="sheet" id="acsheet">
+      <div class="grab"></div>
+      <div class="ac-head">
+        <div class="ac-ava" id="ac-ava"></div>
+        <div>
+          <div class="ac-name" id="ac-name"></div>
+          <div class="ac-sub" id="ac-sub"></div>
+        </div>
+      </div>
+      <div class="ac-rows" id="ac-rows"></div>
+      <button class="btn soft" style="margin-top:14px" onclick="closeProfile();doLogout();">로그아웃</button>
+      <button class="btn soft" style="margin-top:8px" onclick="closeProfile()">닫기</button>
+    </div>
+
+    <div class="scrim" id="wrscrim" onclick="closeWriteReview()"></div>
+    <div class="sheet" id="wrsheet">
+      <div class="grab"></div>
+      <div class="wr-title">후기 쓰기</div>
+      <label class="wr-label">어떤 픽업이었나요?</label>
+      <select class="wr-select" id="wr-shop"></select>
+      <label class="wr-label">별점</label>
+      <div class="wr-stars" id="wr-stars"></div>
+      <label class="wr-label">후기</label>
+      <textarea class="wr-text" id="wr-text" maxlength="1000"
+        placeholder="상품 상태, 픽업 경험을 남겨주세요"></textarea>
+      <div class="wr-err" id="wr-err"></div>
+      <button class="btn primary" style="margin-top:14px" id="wr-submit" onclick="submitReview()">등록하기</button>
+      <button class="btn soft" style="margin-top:8px" onclick="closeWriteReview()">취소</button>
+    </div>
+
     <div class="scrim" id="plscrim" onclick="closePlace()"></div>
     <div class="sheet" id="plsheet">
       <div class="grab"></div>
@@ -3155,7 +3417,15 @@
     var pending=MY_PICKUPS.filter(function(p){return p.status!=='픽업완료'&&p.status!=='취소';}).length;
     var completed=MY_STATS.completed, coupons=MY_STATS.coupons;
     function _set(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
-    _set('my2-name',MY_USER.name+'님'); _set('my2-email',MY_USER.emailMasked);
+    // 로그인 상태에 따라 프로필 영역이 달라집니다.
+    if(hlLoggedIn()){
+      _set('my2-name',(HL_USER.nickname||'여행자')+'님');
+      _set('my2-email',HL_USER.email||('카카오 계정으로 로그인됨'));
+    } else {
+      _set('my2-name','로그인이 필요해요');
+      _set('my2-email','로그인하고 예약·여행 계획을 저장하세요');
+    }
+    hlRenderAuthRow();
     _set('my2-pending',pending); _set('my2-completed',completed); _set('my2-coupon',coupons);
     var rb=document.getElementById('my2-resv-badge'); if(rb){ rb.textContent=pending>0?('픽업 예정 '+pending):''; rb.style.display=pending>0?'':'none'; }
     var cc=document.getElementById('my2-coupon-count'); if(cc){ cc.textContent=coupons>0?(coupons+'장'):''; cc.style.display=coupons>0?'':'none'; }
@@ -3167,15 +3437,14 @@
     {kind:'saved', type:'route', title:'아리랑 5일장 나들이', region:'정선', date:'날짜 미정', spots:4, foot:'아직 예약 전 · 날짜를 정해보세요'}
   ];
   let mcTab='pickup';
-  function openActiveTrip(){
-    go('mycourse'); mcTab='course';
-    document.querySelectorAll('#s-mycourse .mc3-tab').forEach(function(b,i){b.classList.toggle('on', i===1);});
-    renderMyCourse();
-  }
+
   function mcPickTab(t,el){mcTab=t;el.parentNode.querySelectorAll('.mc3-tab').forEach(function(b){b.classList.remove('on');});el.classList.add('on');renderMyCourse();}
   function _plFidByName(nm){ for(var i=0;i<PL.length;i++){ if(PL[i].name===nm) return PL[i].fid; } return null; }
   function _mcResvCardHTML(p,i){
     var fid=_plFidByName(p.shop), img=(fid&&FARM_SHOTS[fid])?farmImg(fid,FARM_SHOTS[fid][0]):null;
+    var pass=(p.status==='결제완료')
+      ? '<button class="mc-pass-btn" onclick="event.stopPropagation();openPickupPass('+i+')">픽업 코드 보기</button>'
+      : '';
     return '<div class="hs-sale-card" onclick="openMyResv('+i+')">'
       +'<div class="hs-sale-thumb"><span class="hs-stock-badge">'+p.stock+'</span>'+lrImgIco()+(img?lrThumbImg(img):'')+'</div>'
       +'<div class="hs-sale-body">'
@@ -3184,15 +3453,19 @@
       +'<div class="hs-sale-price"><span class="disc">'+p.disc+'%</span><span class="now">'+p.now+'</span><span class="won">원</span><span class="was">'+p.was+'</span></div>'
       +'<div class="hs-sale-div"></div>'
       +'<div class="mc-resv-code">예약코드 : <b>'+p.code+'</b></div>'
+      +pass
       +'</div>'
       +'<button class="hs-heart" onclick="event.stopPropagation();this.classList.toggle(\'on\')" aria-label="찜">'+hsHeart()+'</button>'
+      +(p.orderId&&p.status!=='픽업완료'
+        ? '<button class="hs-cancel" onclick="event.stopPropagation();askCancelResv(\''+p.orderId+'\')">예약 취소</button>'
+        : '')
       +'</div>';
   }
   function openMyResv(i){
     var p=MY_PICKUPS[i]; if(!p)return;
     var fid=_plFidByName(p.shop), imgs=(fid&&FARM_SHOTS[fid])?FARM_SHOTS[fid].map(function(n){return farmImg(fid,n);}):null;
     var it={name:p.shop,prod:p.prod,was:p.was+'원',now:p.now,stock:p.stock,shop:p.shop,rating:'4.8',rev:0,
-      date:'오늘 · 4월 12일 (토)',time:'예약코드 '+p.code,place:'예약 완료 · 픽업 대기',
+      date:_hlTodayLong(),time:'예약코드 '+p.code,place:'예약 완료 · 픽업 대기',
       desc:'예약이 완료된 상품이에요. 픽업지에서 예약코드 "'+p.code+'"를 보여주세요.',max:_hsMax(p.stock),img:imgs?imgs[0]:null,imgs:imgs};
     openStoreItem(it);
   }
@@ -3282,7 +3555,7 @@
     if(c.type==='route'&&c._route){ openRouteObj(c._route); return; }
     goTab('route');
   }
-  function mcBagIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l-1 11.5H7.5z"/><path d="M9 8V6.3a3 3 0 016 0V8"/></svg>';}
+
   /* ===== 제철 캘린더 v2 (spec 구현) ===== */
   const CAL2_SEASONAL=[
     {id:'봄나물',region:'횡성',bar:'봄나물·곤드레',name:'봄나물 세트',months:[4,5],shops:4,fid:'06',fids:['06','14','16','19'],pre:'2026-03-28'},
@@ -3310,6 +3583,7 @@
     {id:'f-trout',region:'평창',name:'평창송어축제',start:'2026-12-19',end:'2027-01-11',place:'진부면',placeKey:'fest_pc_trout',slug:'pyeongchang_trout-festival'},
     {id:'f-hanwoo-feb',region:'횡성',name:'횡성눈꽃한우축제',start:'2026-02-12',end:'2026-02-15',place:'섬강둔치',placeKey:'fest_hanwoo',slug:'hoengseong_hanwoo-festival'}
   ];
+  // 기준 월은 부팅 시 CAL2_TODAY(실제 오늘)로 맞춥니다. 아래 값은 로드 전 임시값입니다.
   let cal2State={year:2026,month:4,region:'전체'};
   const CAL2_TODAY={year:2026,month:4,day:12};              // 데모 기준 오늘
   function _cal2P(s){var p=s.split('-');return {y:+p[0],m:+p[1],d:+p[2]};}
@@ -3484,7 +3758,7 @@
     var rg=_seasonalItem?_seasonalItem.region:'';
     var imgs=(s.fid&&FARM_SHOTS[s.fid])?FARM_SHOTS[s.fid].map(function(n){return farmImg(s.fid,n);}):null;
     var it={name:s.shop,prod:s.prod,was:s.was+'원',now:s.now,stock:s.stock,shop:s.shop,rating:'4.8',rev:0,
-      date:'오늘 · 4월 12일 (토)',time:s.pickup.replace('–',' – '),place:rg+'군 로컬 픽업지',
+      date:_hlTodayLong(),time:s.pickup.replace('–',' – '),place:rg+'군 로컬 픽업지',
       desc:(rg?rg+' 제철 ':'')+s.prod+'을(를) 산지에서 당일 준비해 픽업으로 받아요.',max:_hsMax(s.stock),img:imgs?imgs[0]:null,imgs:imgs};
     openStoreItem(it);
   }
@@ -3535,7 +3809,7 @@
     return null;
   }
   let tripFloatDismissed=false;
-  function dismissTripFloat(e){ if(e){e.stopPropagation();} tripFloatDismissed=true; var el=document.getElementById('trip-float'); if(el) el.style.display='none'; }
+
   function updateTripFloat(currentId){
     var el=document.getElementById('trip-float'); if(!el)return;
     var act=(typeof MY_COURSES!=='undefined')?MY_COURSES.find(function(c){return c.kind==='active';}):null;
@@ -3618,6 +3892,8 @@
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===tabKey));
     document.getElementById('fab-home').classList.toggle('show', id==='home');
     document.getElementById('fab-route').classList.toggle('show', id==='routebuild');
+    if(id==='notif'){ try { hlLoadNotif(); } catch(e){} }
+    if(id==='invite'){ try { hlLoadInvite(); } catch(e){} }
     if(id==='route'){curCourse=null;styleSel=0;document.querySelectorAll('.pk-chip').forEach(c=>c.classList.toggle('on',+c.dataset.v===0));document.getElementById('route-detail').style.display='none';document.getElementById('route-list').style.display='block';renderList();}
   }
   function buildDetailGallery(fid){
@@ -3648,21 +3924,216 @@
     const d=document.getElementById('s-place');d.classList.add('active');d.scrollTop=0;
     buildPlaceMap(key||'pk_hanwoo');
   }
+  /* ============================================================
+     지도 추상화 계층 (카카오맵 / Leaflet)
+     ------------------------------------------------------------
+     이 앱에는 지도가 4개 있습니다 (홈 / 장소상세 / 코스 / 지도화면).
+     백엔드를 갈아끼울 때마다 네 곳을 각각 고치지 않도록, 실제로 쓰는
+     동작만 추린 공통 API 로 감쌉니다.
+
+       HLMapCreate(host, opts) -> handle | null
+         handle.clear()                      오버레이 전부 제거
+         handle.addMarker(g, html, onClick)  -> { el, setZ() }
+         handle.addPolyline(pts, style)
+         handle.fitBounds(pts, padPx)
+         handle.setView(g, z)  / panTo(g) / flyTo(g, z) / panBy(dx, dy)
+         handle.relayout()                   컨테이너 크기 변경 반영
+         handle.size()                       -> {x, y} 픽셀
+
+     카카오 JS 키가 있으면 카카오맵, 없으면 기존 Leaflet 으로 자동 폴백합니다.
+     ============================================================ */
+  var HL_KAKAO_KEY = '';
+  var _hlKakaoLoad = null;
+
+  /** 카카오 SDK 를 동적으로 로드합니다. 성공 여부를 boolean 으로 resolve. */
+  function hlLoadKakao(key) {
+    if (_hlKakaoLoad) return _hlKakaoLoad;
+    if (!key) { _hlKakaoLoad = Promise.resolve(false); return _hlKakaoLoad; }
+
+    _hlKakaoLoad = new Promise(function (resolve) {
+      var s = document.createElement('script');
+      // autoload=false + kakao.maps.load() 로 초기화 시점을 우리가 제어합니다.
+      s.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + encodeURIComponent(key) + '&autoload=false';
+      s.async = true;
+      s.onload = function () {
+        try {
+          window.kakao.maps.load(function () { resolve(true); });
+        } catch (e) {
+          console.warn('[HappyLocal] 카카오맵 초기화 실패 — Leaflet 으로 폴백합니다.', e);
+          resolve(false);
+        }
+      };
+      s.onerror = function () {
+        console.warn('[HappyLocal] 카카오맵 SDK 를 불러오지 못했습니다. '
+          + 'JS 키가 맞는지, developers.kakao.com 에서 이 도메인('
+          + location.origin + ')을 등록했는지 확인하세요. Leaflet 으로 폴백합니다.');
+        resolve(false);
+      };
+      document.head.appendChild(s);
+    });
+    return _hlKakaoLoad;
+  }
+
+  function hlMapBackend() {
+    if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.Map) return 'kakao';
+    if (typeof L !== 'undefined') return 'leaflet';
+    return null;
+  }
+
+  /** Leaflet 줌(작을수록 넓음) -> 카카오 레벨(작을수록 확대). 방향이 반대입니다. */
+  function _hlZ2Level(z) {
+    return Math.max(1, Math.min(14, Math.round(19 - (z == null ? 13 : z))));
+  }
+
+  function _hlMarkerEl(html, onClick) {
+    var wrap = document.createElement('div');
+    wrap.innerHTML = html;
+    var inner = wrap.firstElementChild || wrap;
+    if (onClick) {
+      inner.style.cursor = 'pointer';
+      inner.addEventListener('click', function (e) { e.stopPropagation(); onClick(); });
+    }
+    return { wrap: wrap, inner: inner };
+  }
+
+  function _hlKakaoMap(host, opts) {
+    var c = opts.center || [37.49, 128.2];
+    var map = new kakao.maps.Map(host, {
+      center: new kakao.maps.LatLng(c[0], c[1]),
+      level: _hlZ2Level(opts.zoom)
+    });
+    var overlays = [];
+
+    return {
+      backend: 'kakao',
+      raw: map,
+      clear: function () {
+        overlays.forEach(function (o) { try { o.setMap(null); } catch (e) {} });
+        overlays = [];
+      },
+      addMarker: function (g, html, onClick) {
+        var m = _hlMarkerEl(html, onClick);
+        var ov = new kakao.maps.CustomOverlay({
+          position: new kakao.maps.LatLng(g[0], g[1]),
+          content: m.wrap, yAnchor: 1, xAnchor: 0.5, clickable: true
+        });
+        ov.setMap(map);
+        overlays.push(ov);
+        return { el: m.inner, setZ: function (z) { try { ov.setZIndex(z); } catch (e) {} } };
+      },
+      addPolyline: function (pts, style) {
+        style = style || {};
+        var line = new kakao.maps.Polyline({
+          path: pts.map(function (p) { return new kakao.maps.LatLng(p[0], p[1]); }),
+          strokeWeight: style.weight || 4,
+          strokeColor: style.color || '#3FC358',
+          strokeOpacity: style.opacity == null ? 0.95 : style.opacity,
+          strokeStyle: 'solid'
+        });
+        line.setMap(map);
+        overlays.push(line);
+      },
+      fitBounds: function (pts, pad) {
+        if (!pts || !pts.length) return;
+        var b = new kakao.maps.LatLngBounds();
+        pts.forEach(function (p) { b.extend(new kakao.maps.LatLng(p[0], p[1])); });
+        // 카카오는 줌 레벨이 정수라, Leaflet 과 같은 여백(60px)을 주면 한 단계
+        // 더 축소되어 지도가 과하게 넓어집니다. 여백을 절반으로 줄여 맞춥니다.
+        var p = Math.round((pad == null ? 60 : pad) / 2);
+        map.setBounds(b, p, p, p, p);
+      },
+      setView: function (g, z) {
+        if (z != null) map.setLevel(_hlZ2Level(z));
+        map.setCenter(new kakao.maps.LatLng(g[0], g[1]));
+      },
+      panTo: function (g) { map.panTo(new kakao.maps.LatLng(g[0], g[1])); },
+      flyTo: function (g, z) {
+        if (z != null) map.setLevel(_hlZ2Level(z), { animate: true });
+        map.panTo(new kakao.maps.LatLng(g[0], g[1]));
+      },
+      panBy: function (dx, dy) { try { map.panBy(dx, dy); } catch (e) {} },
+      relayout: function () { try { map.relayout(); } catch (e) {} },
+      size: function () { return { x: host.clientWidth, y: host.clientHeight }; }
+    };
+  }
+
+  function _hlLeafletMap(host, opts) {
+    // CARTO 베이스맵은 이제 API 키를 요구합니다 (키 없이 쓰면 타일 위에
+    // "API KEY REQUIRED" 워터마크가 깔립니다). 키가 필요 없는 OSM 을 씁니다.
+    // 카카오 JS 키를 넣으면 어차피 카카오맵이 우선합니다.
+    var map = L.map(host, { zoomControl: false, attributionControl: true });
+    var tile = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap',
+    }).addTo(map);
+    if (map.attributionControl) map.attributionControl.setPrefix('');
+    var layer = L.layerGroup().addTo(map);
+    var c = opts.center || [37.49, 128.2];
+    map.setView(c, opts.zoom == null ? 10 : opts.zoom);
+
+    return {
+      backend: 'leaflet',
+      raw: map,
+      tile: tile,
+      clear: function () { layer.clearLayers(); },
+      addMarker: function (g, html, onClick) {
+        var icon = L.divIcon({ className: '', html: html, iconSize: [34, 42], iconAnchor: [17, 38] });
+        var mk = L.marker(g, { icon: icon }).addTo(layer);
+        if (onClick) mk.on('click', onClick);
+        return {
+          get el() { var e = mk.getElement(); return e ? (e.firstElementChild || e) : null; },
+          setZ: function (z) { mk.setZIndexOffset(z); }
+        };
+      },
+      addPolyline: function (pts, style) {
+        style = style || {};
+        L.polyline(pts, {
+          color: style.color || '#3FC358', weight: style.weight || 4,
+          opacity: style.opacity == null ? 0.95 : style.opacity, lineJoin: 'round'
+        }).addTo(layer);
+      },
+      fitBounds: function (pts, pad) {
+        if (!pts || !pts.length) return;
+        var p = pad == null ? 60 : pad;
+        map.fitBounds(pts, { padding: [p, p], maxZoom: opts.maxZoom || 15 });
+      },
+      setView: function (g, z) { map.setView(g, z == null ? map.getZoom() : z); },
+      panTo: function (g) { map.panTo(g, { animate: true, duration: 0.45 }); },
+      flyTo: function (g, z) { map.flyTo(g, z == null ? map.getZoom() : z, { animate: true, duration: 0.6 }); },
+      panBy: function (dx, dy) { map.panBy([dx, dy], { animate: true }); },
+      relayout: function () { map.invalidateSize(); },
+      size: function () { var s = map.getSize(); return { x: s.x, y: s.y }; }
+    };
+  }
+
+  function HLMapCreate(host, opts) {
+    opts = opts || {};
+    var backend = hlMapBackend();
+    if (!backend) return null;
+    try {
+      return backend === 'kakao' ? _hlKakaoMap(host, opts) : _hlLeafletMap(host, opts);
+    } catch (e) {
+      console.warn('[HappyLocal] 지도 생성 실패:', e);
+      return null;
+    }
+  }
+
+  function hlMapUnavailable(host, pad) {
+    host.innerHTML = '<div style="padding:' + (pad || 80) + 'px 16px;text-align:center;'
+      + 'color:var(--text-mut);font-weight:700">지도를 불러오지 못했어요<br>'
+      + '(네트워크 연결을 확인해 주세요)</div>';
+  }
+
   function buildPlaceMap(key){
     const p=PLACES[key];const g=GEO[key]||[37.49,127.98];
     const host=document.getElementById('pmap');if(!host)return;
     document.getElementById('pmap-name').textContent=p?p.nm:'';
     document.getElementById('pmap-addr').textContent='📍 '+(p?p.region:'');
-    if(typeof L==='undefined'){host.innerHTML='<div style="padding:60px 16px;text-align:center;color:var(--text-mut);font-weight:700">지도를 불러오지 못했어요<br>(네트워크 연결을 확인해 주세요)</div>';return;}
-    const dark=(document.querySelector('.phone')&&document.querySelector('.phone').getAttribute('data-theme')!=='light');
-    const url=dark?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    if(!_pmap){_pmap=L.map(host,{zoomControl:false,attributionControl:false});_ptile=L.tileLayer(url,{maxZoom:19,subdomains:'abcd'}).addTo(_pmap);}
-    else{_ptile.setUrl(url);}
-    if(_player)_pmap.removeLayer(_player);
-    _player=L.layerGroup().addTo(_pmap);
-    const icon=L.divIcon({className:'',html:`<div class="mk pk"><span>${p?p.ic:'📍'}</span></div>`,iconSize:[34,42],iconAnchor:[17,38]});
-    L.marker(g,{icon}).addTo(_player);
-    setTimeout(()=>{_pmap.invalidateSize();_pmap.setView(g,14);},80);
+    if(!hlMapBackend()){hlMapUnavailable(host,60);return;}
+    if(!_pmap){_pmap=HLMapCreate(host,{center:g,zoom:14});if(!_pmap){hlMapUnavailable(host,60);return;}}
+    _pmap.clear();
+    _pmap.addMarker(g,`<div class="mk pk"><span>${p?p.ic:'📍'}</span></div>`);
+    setTimeout(()=>{_pmap.relayout();_pmap.setView(g,14);},80);
   }
   function copyAddr(btn){
     const addr=btn.getAttribute('data-addr')||'';
@@ -3676,14 +4147,9 @@
     try{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.top='-9999px';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);cb&&cb();}catch(e){}
   }
   function openSheet(){document.getElementById('scrim').classList.add('show');document.getElementById('sheet').classList.add('show');}
-  function addToPlan(){
-    const ph=document.getElementById('phone'); if(!ph)return;
-    let t=ph.querySelector('.rc-toast');
-    if(!t){t=document.createElement('div');t.className='rc-toast';ph.appendChild(t);}
-    t.textContent='✓ 내 일정에 담았어요';
-    void t.offsetWidth; t.classList.add('show');
-    clearTimeout(window._rcToast); window._rcToast=setTimeout(()=>t.classList.remove('show'),1700);
-  }
+  /* 예전에는 토스트만 띄우고 아무것도 저장하지 않았습니다.
+     지금은 로그인한 계정의 여행 계획으로 서버에 저장합니다. */
+  function addToPlan(){ hlSavePlan(); }
   function closeSheet(){document.getElementById('scrim').classList.remove('show');document.getElementById('sheet').classList.remove('show');go('route');}
   let _mapAddr="";
   function openMapChoose(addr){ _mapAddr=addr||""; document.getElementById("mapscrim").classList.add("show"); document.getElementById("mapsheet").classList.add("show"); }
@@ -3737,17 +4203,7 @@
     {n:'강수정',s:4,m:'4개월 전 · 횡성 1박',c:'#6a4733',p:'comb-x',t:'1박 여행 중 픽업했어요. 농가 풍경도 예쁘고 고기도 훌륭했습니다.'},
     {n:'윤도훈',s:5,m:'4개월 전 · 단골',c:'#46352a',p:'comb',t:'벌써 세 번째 구매예요. 늘 한결같이 만족스럽습니다.'}
   ];
-  function openReview(i){
-    const r=RV[i];
-    const img=document.getElementById('rvd-img');img.className='rvd-img';img.style.background="#eee url('"+rvImg(i)+"') center/cover";
-    const ava=document.getElementById('rvd-ava');ava.className='rv-ava '+r.p;ava.style.setProperty('--tile',r.c);
-    document.getElementById('rvd-name').textContent=r.n;
-    document.getElementById('rvd-sub').textContent=r.m;
-    document.getElementById('rvd-stars').textContent='★'.repeat(r.s)+'☆'.repeat(5-r.s);
-    document.getElementById('rvd-text').textContent=r.t;
-    document.getElementById('rvscrim').classList.add('show');
-    document.getElementById('rvsheet').classList.add('show');
-  }
+
   function closeReview(){
     document.getElementById('rvscrim').classList.remove('show');
     document.getElementById('rvsheet').classList.remove('show');
@@ -3795,7 +4251,7 @@
   }
   function closePV(){document.getElementById('photoview').classList.remove('show');}
 
-  function openOrigin(){const s=document.querySelector('.or-search');if(s){s.value='';filterOrigin('');}document.getElementById('pkscrim').classList.add('show');document.getElementById('orsheet').classList.add('show');}
+
   function filterOrigin(q){
     const t=q.trim().toLowerCase();let n=0;
     document.querySelectorAll('#or-list .or-opt').forEach(o=>{
@@ -3804,7 +4260,7 @@
     });
     document.getElementById('or-empty').style.display=n?'none':'block';
   }
-  function openDate(){buildCal();document.getElementById('pkscrim').classList.add('show');document.getElementById('dtsheet').classList.add('show');}
+
   function closePick(){['pkscrim','orsheet','dtsheet'].forEach(id=>document.getElementById(id).classList.remove('show'));}
   function pickOrigin(name){document.getElementById('org-val').textContent=name;closePick();}
   let selDayN=18;
@@ -3823,7 +4279,7 @@
     closePick();
   }
 
-  const PL=[
+  let PL=[
     {name:'청정한우 김성호 농가',region:'횡성',cat:'한우·정육',prod:'횡성한우 등심 500g',dist:'12km',rate:124,mode:'now',day:'오늘',hours:'14:00 ~ 18:00',was:'89,000원',now:'52,000원',t1:'#5a4636',t2:'#6a4733',tag:'오늘 7팩 예약가능',seasonal:1},
     {name:'우천한우 직매장',region:'횡성',cat:'한우·정육',prod:'횡성한우 채끝 400g',dist:'14km',rate:88,mode:'now',day:'오늘',hours:'13:00 ~ 19:00',was:'76,000원',now:'45,000원',t1:'#5a4030',t2:'#6a4a36',tag:'오늘 5팩 예약가능',seasonal:0},
     {name:'횡성 한우곱창 직판',region:'횡성',cat:'한우·정육',prod:'횡성한우 곱창 500g',dist:'13km',rate:77,mode:'now',day:'오늘',hours:'12:00 ~ 20:00',was:'28,000원',now:'17,000원',t1:'#5a4636',t2:'#6a4733',tag:'오늘 9팩 예약가능',seasonal:0},
@@ -3877,17 +4333,7 @@
           <span class="pl-price"><s>${p.was}</s><b>${p.now}</b></span>
         </div>
       </div>`;}
-  function renderPL(){
-    const list=PL.filter(p=>{
-      if(plFilter==='전체'||plFilter==='직거래 최저가')return true;
-      if(plFilter==='즉시 픽업가능')return p.mode==='now';
-      if(plFilter==='제철 추천')return p.seasonal;
-      return p.region===plFilter;
-    });
-    const el=document.getElementById('pl-list');if(!el)return;
-    if(!list.length){el.innerHTML='<div style="text-align:center;color:var(--text-mut);font-size:13px;padding:40px 0">해당하는 농가가 없어요.</div>';return;}
-    el.innerHTML=list.map((p,i)=>plCardHTML(p,i===0)).join('');
-  }
+
   // 카테고리 아이콘 → PL.cat 매칭
   const CAT_MATCH={
     '한우·정육':   p=>p.cat==='한우·정육',
@@ -3928,12 +4374,8 @@
   document.querySelectorAll('#s-routebuild .cat-row .cat').forEach(c=>{
     var lab=c.querySelector('.cl'); if(lab) c.addEventListener('click',function(){pickCat(c,lab.textContent.trim());});
   });
-  function pickHf(el){el.parentNode.querySelectorAll('.hf-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');plFilter=el.textContent.trim();renderPL();}
-  function pickRegionHome(r){
-    plFilter=r;renderPL();
-    document.querySelectorAll('.hf-chip').forEach(c=>c.classList.toggle('on',c.textContent.trim()===r));
-    var lh=document.querySelector('.hl-listhead');if(lh&&lh.scrollIntoView)lh.scrollIntoView({behavior:'smooth',block:'start'});
-  }
+
+
   /* ===== 로컬 루트 (지역·날짜 → 열려요/추천 루트) ===== */
   const LR_DATA={
     hoengseong:{name:'횡성',
@@ -4038,10 +4480,7 @@
   function routeImg(slug,n){ return n==='thumb' ? 'images/farms/'+slug+'_thumb.jpg' : 'images/farms/'+slug+' ('+n+').jpg'; }
   function availPhotos(slug){ var a=[]; for(var i=1;i<=6;i++)a.push(availImg(slug,i)); return a; }
   function routePhotos(slug){ var a=[]; for(var i=1;i<=6;i++)a.push(routeImg(slug,i)); return a; }
-  function _availSlugByName(nm){
-    for(var k in LR_DATA){ var av=LR_DATA[k].avail||[]; for(var i=0;i<av.length;i++){ if(av[i].nm===nm) return av[i].slug; } }
-    return null;
-  }
+
   let lrState={region:'hoengseong',noDate:false,duration:'1N2D'};
   function lrImgIco(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.6" cy="9" r="1.7"/><path d="M4 16.5l4.5-4 3.5 2.6 3-2.2L21 17"/></svg>';}
   function lrFitIco(k){return k==='season'
@@ -4121,7 +4560,7 @@
     lrRender();
   }
   function lrPickDuration(el,dur){lrState.duration=dur;el.parentNode.querySelectorAll('.lr-dchip').forEach(c=>c.classList.remove('on'));el.classList.add('on');lrRender();}
-  function lrPickDateDemo(){openDatePicker();}
+
   /* ===== 날짜 선택 달력 ===== */
   var dpYear=2026, dpMonth=3; // 0-index: 3=4월
   var dpStart=new Date(2026,3,12), dpEnd=new Date(2026,3,13);
@@ -4214,8 +4653,17 @@
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     var el=document.getElementById('s-avail-detail');el.classList.add('active');el.scrollTop=0;
   }
-  function lrAddAvailCourse(btn){btn.innerHTML='코스에 담겼어요 ✓';btn.style.background='#2B8A3D';btn.disabled=true;
-    try{ var a=window._lrCurAvail; if(a){ MY_COURSES.push({kind:'saved',type:'spot',title:a.nm,region:(lrState&&lrState.region)||'',date:'날짜 미정',foot:'아직 예약 전 · 날짜를 정해보세요',_spot:a}); } }catch(e){} }
+  /** 이미 담은 스팟·코스인지. 제목과 종류로 봅니다. */
+  function _mcHas(type,title){
+    return MY_COURSES.some(function(c){return c.type===type&&c.title===title;});
+  }
+  function lrAddAvailCourse(btn){
+    try{ var a=window._lrCurAvail;
+      if(a&&_mcHas('spot',a.nm)){ hlToast('이미 담은 스팟이에요'); return; }
+      if(a){ MY_COURSES.push({kind:'saved',type:'spot',title:a.nm,region:(lrState&&lrState.region)||'',date:'날짜 미정',foot:'아직 예약 전 · 날짜를 정해보세요',_spot:a}); }
+    }catch(e){}
+    btn.innerHTML='코스에 담겼어요 ✓';btn.style.background='#2B8A3D';btn.disabled=true;
+  }
   function rd2Chevron(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';}
   function rd2TransIco(m){
     if(m==='car')return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.6-4.4A2 2 0 018.5 5.3h7A2 2 0 0117.4 6.6L19 11m-14 0h14v5H5zM6.5 16v2m11-2v2"/><circle cx="8" cy="13.5" r="1"/><circle cx="16" cy="13.5" r="1"/></svg>';
@@ -4260,8 +4708,13 @@
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     var rel=document.getElementById('s-route-detail');rel.classList.add('active');rel.scrollTop=0;
   }
-  function lrAddCourse(btn){btn.innerHTML='코스에 담겼어요 ✓';btn.style.background='#2B8A3D';btn.disabled=true;
-    try{ var r=window._lrCurRoute; if(r){ MY_COURSES.push({kind:'saved',type:'route',title:r.title,region:(r.region||''),date:'날짜 미정',foot:'아직 예약 전 · 날짜를 정해보세요',spots:(r.stops||[]).length,_route:r}); } }catch(e){} }
+  function lrAddCourse(btn){
+    try{ var r=window._lrCurRoute;
+      if(r&&_mcHas('route',r.title)){ hlToast('이미 담은 코스예요'); return; }
+      if(r){ MY_COURSES.push({kind:'saved',type:'route',title:r.title,region:(r.region||''),date:'날짜 미정',foot:'아직 예약 전 · 날짜를 정해보세요',spots:(r.stops||[]).length,_route:r}); }
+    }catch(e){}
+    btn.innerHTML='코스에 담겼어요 ✓';btn.style.background='#2B8A3D';btn.disabled=true;
+  }
   /* ===== 세일 홈 (메인배너 아래) ===== */
   function _hsDiscOf(it){var w=parseInt((it.was||'').replace(/[^0-9]/g,''))||0,n=parseInt((it.now||'').replace(/[^0-9]/g,''))||0;return w?Math.round((w-n)/w*100):0;}
   function _hsStockTxt(t){var m=(t||'').match(/(\d+)\s*(팩|개입|개|명)/);return m?(m[1]+(m[2]==='개입'?'개':m[2])+' 남음'):'예약 가능';}
@@ -4273,7 +4726,24 @@
     '평창':['평창','대관령면','봉평면','진부면'],
     '정선':['정선','정선읍','여량면','임계면','화암면','북평면']
   };
+  /** 픽업 가능 수량. 연결된 상품이 있으면 실재고를, 없으면 문구의 숫자를 씁니다. */
   function _hsMax(t){var m=(t||'').match(/(\d+)/);return m?(+m[1]):5;}
+  /** 거점의 수량 상한. 연결된 상품이 있으면 그 실재고가 정답입니다.
+      예전에는 "오늘 12팩 남음" 이라는 시드 문자열에서 숫자를 뽑아 썼는데,
+      실제 재고가 4개여도 12개까지 담을 수 있었습니다. */
+  function _plMax(pl){
+    if(!pl)return 1;
+    if(typeof pl.stock==='number')return Math.max(0,pl.stock);
+    var p=pl.productId?PL.find(function(x){return x.fid===pl.productId;}):null;
+    return p?p.stock:_hsMax(pl.remain);
+  }
+  /** 화면에 찍히는 "오늘" 문구. 예전에는 4월 12일이 박혀 있었습니다. */
+  var _HL_DOW=['일','월','화','수','목','금','토'];
+  function _hlToday(){return new Date();}
+  function _hlTodayLong(){var d=_hlToday();
+    return '오늘 · '+(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+_HL_DOW[d.getDay()]+')';}
+  function _hlTodayShort(){var d=_hlToday();
+    return '오늘 '+(d.getMonth()+1)+'.'+d.getDate()+' ('+_HL_DOW[d.getDay()]+')';}
   function hsItems(){
     var grp=HS_REGION_GROUP[hsState.region]||[hsState.region]; var items=[];
     PL.forEach(function(p){ if(grp.indexOf(p.region)<0)return;
@@ -4283,23 +4753,28 @@
         pickup:p.mode==='pre'?('선예약 · '+(p.predate||'')):('픽업 '+(p.hours||'').replace(/\s*~\s*/,'\u2013')),
         end:p.mode==='pre'?9999:_hsEndFromHours(p.hours), img:img, imgs:imgs,
         shop:p.name, rating:'4.8', rev:p.rate||0,
-        date:'오늘 · 4월 12일 (토)',
+        date:_hlTodayLong(),
         time:(p.hours||'').replace(/\s*~\s*/,' \u2013 ')||'픽업 시간 문의',
         place:p.region+'군 로컬직거래 픽업지',
         desc:p.region+' 현지 농가에서 당일 손질한 '+p.prod+'입니다. 냉장 상태로 픽업 시간에 맞춰 준비돼요.',
-        max:_hsMax(p.tag)});
+        productId:p.fid,
+        max:p.stock});
     });
+    // 거점과 상품이 연결되면 같은 물건이 두 번 실립니다. 상품 카드만 남깁니다.
+    var seenIds={}; items.forEach(function(i){ if(i.productId) seenIds[i.productId]=1; });
     try{ STORES.forEach(function(s){
       if(grp.indexOf(s.rg)<0)return; var pl=PLACES[s.key]; if(!pl||!pl.was||!pl.now)return;
+      if(pl.productId&&seenIds[pl.productId])return;
       items.push({name:pl.nm,prod:pl.product||pl.desc||'',was:pl.was,now:pl.now,stock:_hsStockTxt(pl.remain),
         pickup:'픽업 '+(pl.hours||'').replace(/\s*~\s*/,'\u2013'),
         end:_hsEndFromHours(pl.hours), img:storeImg(s.key), imgs:storeImgs(s.key),
         shop:pl.nm, rating:pl.rate||'4.8', rev:pl.rev||0,
-        date:'오늘 · 4월 12일 (토)',
+        date:_hlTodayLong(),
         time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
         place:s.addr||(s.rg+'군 픽업지'),
         desc:pl.desc||'현지에서 당일 준비되는 상품입니다.',
-        max:_hsMax(pl.remain)});
+        productId:pl.productId||null,
+        max:_plMax(pl)});
     }); }catch(e){}
     return items;
   }
@@ -4323,10 +4798,16 @@
     var host=document.getElementById('hs-sale-list'); if(!host)return;
     var items=window._hsBaseList||[];
     if(!items.length)return;
-    var start=hsState.loadedCount||0, end=start+HS_BATCH, html='';
-    for(var k=start;k<end;k++){ var it=items[k%items.length]; html+=hsSaleCardHTML(it,k%items.length); }
+    // 예전에는 items[k%items.length] 로 목록을 순환시켜, 상품 12개짜리 지역에서
+    // 스크롤을 내리면 같은 상품이 42번씩 다시 나왔습니다. 끝에서 멈춥니다.
+    var start=hsState.loadedCount||0;
+    if(start>=items.length&&!reset)return;
+    var end=Math.min(start+HS_BATCH,items.length), html='';
+    for(var k=start;k<end;k++){ html+=hsSaleCardHTML(items[k],k); }
     if(reset) host.innerHTML=html; else host.insertAdjacentHTML('beforeend',html);
     hsState.loadedCount=end;
+    var ld=document.getElementById('hs-sale-loader');
+    if(ld) ld.style.display=(end<items.length)?'':'none';
   }
   function hsSaleList(){
     var host=document.getElementById('hs-sale-list');if(!host)return;
@@ -4340,7 +4821,7 @@
   function _hsInfiniteScroll(){
     var el=document.getElementById('s-home'); if(!el||!el.classList.contains('active'))return;
     var items=window._hsBaseList||[]; if(!items.length)return;
-    if((hsState.loadedCount||0)>400)return; // 데모 안전장치: 과도한 DOM 누적 방지
+    if((hsState.loadedCount||0)>=items.length)return;   // 다 보여줬으면 멈춥니다
     if(el.scrollTop+el.clientHeight >= el.scrollHeight-260){ hsRenderBatch(false); }
   }
   document.addEventListener('DOMContentLoaded',function(){
@@ -4377,6 +4858,8 @@
     if(/송어|생선|회/.test(cat))return 'fish';
     if(/메밀|막국수|국수/.test(cat))return 'noodle';
     if(/시장|로컬푸드|직매장|마트/.test(cat))return 'market';
+    if(/축제|행사|공연/.test(cat))return 'festival';
+    if(/관광|명소|전망|체험|사찰|휴양림/.test(cat))return 'tour';
     return 'shop';
   }
   function _homeIcon2D(cat){
@@ -4389,7 +4872,9 @@
       fish:'<path d="M21 12c-2.4 3-6.5 4.2-10 4.2-3.4 0-6.4-1.4-8-4.2 1.6-2.8 4.6-4.2 8-4.2 3.5 0 7.6 1.2 10 4.2z"/><path d="M3 12l-1.5-3v6z" fill="currentColor" stroke="none"/><circle cx="17" cy="10.8" r=".9" fill="currentColor" stroke="none"/>',
       noodle:'<path d="M4.5 11.5h15a7.5 7.5 0 01-15 0z"/><path d="M8 8.5c0-1.6 1-2.6 1-4.2M12 7.8c0-1.6 1-2.6 1-4.2M16 8.5c0-1.6 1-2.6 1-4.2"/>',
       market:'<path d="M6.5 8.5h11l-1 10.5a1.2 1.2 0 01-1.2 1H8.7a1.2 1.2 0 01-1.2-1z"/><path d="M9.2 8.5V6.8a2.8 2.8 0 015.6 0v1.7"/>',
-      shop:'<path d="M4.5 9.2l1-4.2h13l1 4.2"/><path d="M4.5 9.2a2 2 0 003.75 0 2 2 0 003.75 0 2 2 0 003.75 0 2 2 0 003.75 0"/><path d="M5.5 11v8h13v-8"/>'
+      shop:'<path d="M4.5 9.2l1-4.2h13l1 4.2"/><path d="M4.5 9.2a2 2 0 003.75 0 2 2 0 003.75 0 2 2 0 003.75 0 2 2 0 003.75 0"/><path d="M5.5 11v8h13v-8"/>',
+      festival:'<path d="M12 3.2l2.1 4.6 5 .6-3.7 3.4 1 4.9L12 14.3l-4.4 2.4 1-4.9L4.9 8.4l5-.6z"/><path d="M6.5 19.5h11"/>',
+      tour:'<path d="M3.5 17.5l5.2-8.2 3.4 4.8 2.4-3.2 5.9 6.6z"/><circle cx="8" cy="6.6" r="1.9"/>'
     };
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(p[cat]||p.shop)+'</svg>';
   }
@@ -4403,24 +4888,23 @@
   }
   function initHomeMap(){
     if(_homeMap)return;
-    var host=document.getElementById('home-map'); if(!host||typeof L==='undefined')return;
-    _homeMap=L.map(host,{zoomControl:false,attributionControl:false});
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd'}).addTo(_homeMap);
-    _homeLayer=L.layerGroup().addTo(_homeMap);
-    _homeMap.setView([37.49,128.45],10);
+    var host=document.getElementById('home-map'); if(!host||!hlMapBackend())return;
+    _homeMap=HLMapCreate(host,{center:[37.49,128.45],zoom:10,maxZoom:12});
+    if(!_homeMap)return;
+    _homeLayer=true;
     hmRender();
   }
   function hmRender(){
     var list=hmStores(), pts=[];
     if(_homeMap&&_homeLayer){
-      _homeLayer.clearLayers(); _hmMarkers={};
+      _homeMap.clear(); _hmMarkers={};
       list.forEach(function(s){
         var g=GEO[s.key]; if(!g)return; pts.push(g);
-        var icon=L.divIcon({className:'',html:'<div class="mk pk'+(s.off?' off':'')+'"><span class="mkico">'+_homeIcon2D(_homeCat(s.cat))+'</span></div>',iconSize:[34,42],iconAnchor:[17,38]});
-        _hmMarkers[s.key]=L.marker(g,{icon:icon}).addTo(_homeLayer).on('click',function(){hmFocus(s.key);});
+        var html='<div class="mk pk'+(s.off?' off':'')+'"><span class="mkico">'+_homeIcon2D(_homeCat(s.cat))+'</span></div>';
+        _hmMarkers[s.key]=_homeMap.addMarker(g,html,(function(k){return function(){hmFocus(k);};})(s.key));
       });
       _homeMap._pts=pts;
-      if(pts.length)_homeMap.fitBounds(pts,{padding:[60,60],maxZoom:12});
+      if(pts.length)_homeMap.fitBounds(pts,60);
     }
     hmRenderCards(list);
   }
@@ -4467,13 +4951,12 @@
     var wrap=document.getElementById('hmc-cards');
     if(wrap)wrap.querySelectorAll('.mcard').forEach(function(c){ c.classList.toggle('on',c.dataset.key===key); });
     Object.keys(_hmMarkers).forEach(function(k){
-      var el=_hmMarkers[k].getElement(), inner=el&&el.querySelector('.mk');
+      var mk=_hmMarkers[k], inner=mk&&mk.el;
       if(inner)inner.classList.toggle('active',k===key);
-      _hmMarkers[k].setZIndexOffset(k===key?1000:0);
+      if(mk)mk.setZ(k===key?1000:0);
     });
     if(pan&&_homeMap&&typeof GEO!=='undefined'&&GEO[key]){
-      var z=Math.max(_homeMap.getZoom(),11);
-      _homeMap.flyTo(GEO[key],z,{animate:true,duration:.5});
+      _homeMap.flyTo(GEO[key],12);
     }
   }
   function _hmCenteredKey(){
@@ -4506,7 +4989,7 @@
     _homeSetOff(open?_homeMaxOff():0,true);
     if(open){ initHomeMap(); hmRenderCards(); setTimeout(function(){ if(_homeMap){_homeMap.invalidateSize(); if(_homeMap._pts&&_homeMap._pts.length)_homeMap.fitBounds(_homeMap._pts,{padding:[45,45],maxZoom:12});} },360); }
   }
-  function toggleHomeMap(){ _homeSnap(!homeMapOpen); }
+
   function homeHandleDown(e){
     _hhDrag=true; _hhMoved=false; _hhStartY=e.clientY; _hhStartOff=_hhOff;
     var sheet=document.getElementById('home-sheet'); if(sheet)sheet.style.transition='none';
@@ -4555,8 +5038,8 @@
     sdObserver.observe(sent);
   }
   let sdItem=null;
-  function _rsvNum(s){return parseInt((s||'').replace(/[^0-9]/g,''))||0;}
-  function _rsvWon(n){return n.toLocaleString('ko-KR')+'원';}
+
+
   function sdReserve(){openRsv();}
   function openRsv(){
     var it=sdItem; if(!it)return;
@@ -4572,7 +5055,8 @@
   function rsvPay(){if(!document.getElementById('rsv-agree').classList.contains('on'))return;closeRsv();openPay();}
   function closeRsv(){document.getElementById('rsvscrim').classList.remove('show');document.getElementById('rsvsheet').classList.remove('show');}
   /* ===== 결제 화면 ===== */
-  let payQty=1, PAY_COUPON=3000;
+  // PAY_COUPON 은 선택한 쿠폰의 할인액입니다. 예전엔 3,000원 고정이었습니다.
+  let payQty=1, PAY_COUPON=0;
   function _payNum(s){return parseInt((s||'').replace(/[^0-9]/g,''))||0;}
   function _payWon(n){return n.toLocaleString('ko-KR')+'원';}
   function payRecalc(){
@@ -4586,7 +5070,12 @@
     document.getElementById('pay-total').textContent=_payWon(total);
     var t=document.getElementById('pay-ctatxt'); if(t)t.textContent=_payWon(total)+' 결제하기';
   }
-  function payQtyChange(d){payQty=Math.max(1,Math.min(sdMax||1,payQty+d));payRecalc();}
+  function payQtyChange(d){
+    payQty=Math.max(1,Math.min(sdMax||1,payQty+d));
+    payRecalc();
+    // 금액이 바뀌면 쿠폰 조건(최소 주문액·상한)도 달라집니다.
+    try { hlLoadCoupons(); } catch(e){}
+  }
   function paySelectMethod(el,m){document.querySelectorAll('#s-pay .pay-method').forEach(x=>x.classList.remove('on'));el.classList.add('on');}
   function payAgreeToggle(){var a=document.getElementById('pay-agree');a.classList.toggle('on');var b=document.querySelector('.pay-cta-main');if(b)b.disabled=!a.classList.contains('on');}
   function payDo(){if(!document.getElementById('pay-agree').classList.contains('on'))return;var b=document.querySelector('.pay-cta-main');b.textContent='결제 완료 ✓';b.disabled=true;b.style.background='#2B8A3D';
@@ -4596,13 +5085,15 @@
   function _genResvCode(){return _RESV_W1[Math.floor(Math.random()*_RESV_W1.length)]+_RESV_W2[Math.floor(Math.random()*_RESV_W2.length)];}
   function openPay(){
     var it=sdItem; if(!it)return;
+    // 보유 쿠폰을 이 주문 기준으로 다시 계산합니다 (예전엔 3,000원 고정이었습니다).
+    setTimeout(function(){ try { hlLoadCoupons(); } catch(e){} }, 0);
     payQty=sdQtyVal||1;
     document.getElementById('pay-prodnm').textContent=it.prod||it.name;
     document.getElementById('pay-shop').textContent=it.shop||it.name;
     document.getElementById('pay-now').textContent=(it.now||'').replace('원','').trim()+'원';
     document.getElementById('pay-was').textContent=(it.was||'').replace('원','').trim();
     document.getElementById('pay-qtymax').textContent='최대 '+(sdMax||1)+'개';
-    document.getElementById('pay-visit').textContent='오늘 4.12 (토) · '+(it.time||'')+' 방문';
+    document.getElementById('pay-visit').textContent=_hlTodayShort()+' · '+(it.time||'')+' 방문';
     document.getElementById('pay-place').textContent=it.place||'';
     var th=document.getElementById('pay-thumb');
     if(it.img){th.style.backgroundImage="url('"+it.img+"')";th.innerHTML='';}
@@ -4621,9 +5112,10 @@
     var was=pl.was||pl.now||'0', now=pl.now||pl.was||'0';
     return {name:pl.nm,prod:pl.product||pl.desc||'',was:was,now:now,stock:_hsStockTxt(pl.remain),
       shop:pl.nm, rating:s.rate||pl.rate||'4.8', rev:s.rev||pl.rev||0,
-      date:'오늘 · 4월 12일 (토)', time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
+      date:_hlTodayLong(), time:(pl.hours||'').replace(/\s*~\s*/,' \u2013 '),
       place:s.addr||(s.rg+'군 픽업지'), desc:pl.desc||'현지에서 당일 준비되는 상품이에요.',
-      max:_hsMax(pl.remain), img:storeImg(s.key), imgs:storeImgs(s.key)};
+      productId:pl.productId||null,
+      max:_plMax(pl), img:storeImg(s.key), imgs:storeImgs(s.key)};
   }
   function openStore(idx){ openStoreItem((window._hsList||[])[idx]); }
   function openStoreByKey(key){
@@ -4642,11 +5134,11 @@
   function _itemFromPL(p){
     var img=(p.fid&&FARM_SHOTS[p.fid])?farmImg(p.fid,FARM_SHOTS[p.fid][0]):null;
     return {name:p.name,prod:p.prod,was:p.was,now:p.now,stock:_hsStockTxt(p.tag),
-      shop:p.name,rating:'4.8',rev:p.rate||0,date:'오늘 · 4월 12일 (토)',
+      shop:p.name,rating:'4.8',rev:p.rate||0,date:_hlTodayLong(),
       time:(p.hours||'').replace(/\s*~\s*/,' \u2013 ')||'픽업 시간 문의',
       place:p.region+'군 로컬직거래 픽업지',
       desc:p.region+' 현지 농가에서 당일 손질한 '+p.prod+'입니다. 냉장 상태로 픽업 시간에 맞춰 준비돼요.',
-      max:_hsMax(p.tag),img:img};
+      productId:p.fid,max:p.stock,img:img};
   }
   function openStoreByFid(fid){ var p=null; for(var i=0;i<PL.length;i++){ if(PL[i].fid===fid){p=PL[i];break;} } if(p) openStoreItem(_itemFromPL(p)); }
   function _itemFromStop(s){
@@ -4702,34 +5194,42 @@
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     var el=document.getElementById('s-store-detail');el.classList.add('active');el.scrollTop=0;
   }
-  function pickRg(el,name){routeRegion=name;el.parentNode.querySelectorAll('.hl-rg').forEach(c=>c.classList.remove('on'));el.classList.add('on');var b=document.getElementById('hl-cta');if(b)b.textContent=name+' 픽업 둘러보기';routeCat=null;document.querySelectorAll('#s-routebuild .cat').forEach(c=>c.classList.remove('on'));var ac=document.querySelector('#s-routebuild .cat-all');if(ac)ac.classList.add('on');renderRT(name);paintRouteCal();}
-  function toggleTour(el){var box=el.querySelector('.box');box.classList.toggle('on');routeTour=box.classList.contains('on');}
-  function pickFl(el){el.parentNode.querySelectorAll('.fl-tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
+
+
+
   function dDots(){
     const g=document.getElementById('dgallery');if(!g)return;
     const i=Math.round(g.scrollLeft/g.clientWidth);
     document.querySelectorAll('#ddots span').forEach((s,n)=>s.classList.toggle('on',n===i));
   }
-  function pickChip(el){el.parentNode.querySelectorAll('.h2-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
 
-  function toggleTheme(){
+
+  /* 다크/라이트 전환. CSS 는 이미 두 테마를 다 갖고 있는데 전환 수단이 없었습니다. */
+  function applyTheme(mode){
+    const p=document.getElementById('phone'); if(!p)return;
+    p.setAttribute('data-theme',mode);
+    const lbl=document.getElementById('ttoggle');
+    if(lbl)lbl.textContent = mode==='dark' ? '다크' : '라이트';
+    try{ localStorage.setItem('hl-theme',mode); }catch(e){}
+  }
+  function currentTheme(){
     const p=document.getElementById('phone');
-    const dark=p.getAttribute('data-theme')==='dark';
-    p.setAttribute('data-theme',dark?'light':'dark');
-    document.getElementById('ttoggle').textContent=dark?'☾':'☀';
+    return (p&&p.getAttribute('data-theme'))==='dark' ? 'dark' : 'light';
+  }
+  function toggleTheme(){
+    applyTheme(currentTheme()==='dark' ? 'light' : 'dark');
+  }
+  function initTheme(){
+    let saved=null;
+    try{ saved=localStorage.getItem('hl-theme'); }catch(e){}
+    applyTheme(saved==='dark'||saved==='light' ? saved : currentTheme());
   }
 
-  function drawRoute(){
-    const l=document.getElementById('routeline');if(!l)return;
-    const len=l.getTotalLength();
-    l.style.transition='none';l.style.strokeDasharray=len;l.style.strokeDashoffset=len;
-    l.getBoundingClientRect();
-    l.style.transition='stroke-dashoffset 1.05s ease';l.style.strokeDashoffset=0;
-  }
+
 
   let pkSel=1, curCourse=null, _map=null, _tile=null, _layer=null, _pmap=null, _ptile=null, _player=null;
   let routeRegion='횡성', routeTour=true;
-  const GEO={
+  let GEO={
     ic:[37.485,127.958], fest_hanwoo:[37.496,127.985], fest_deodeok:[37.548,128.045], fest_bread:[37.462,128.175],
     lake:[37.585,128.072], birch:[37.556,128.060], church:[37.430,127.880], forest:[37.552,128.252], luge:[37.501,127.980],
     eat_maeul:[37.491,127.990], eat_tongnamu:[37.531,128.228], eat_market:[37.492,127.984], eat_ttosun:[37.550,128.050],
@@ -4742,7 +5242,7 @@
     fest_js_arari:[37.381,128.661], fest_js_deodeok:[37.385,128.665], arari_market:[37.380,128.660], auraji:[37.510,128.690],
     railbike:[37.388,128.642], skywalk:[37.420,128.620], eat_js_gondre:[37.382,128.662], eat_js_kotdeung:[37.379,128.659]
   };
-  const PLACES={
+  let PLACES={
     ic:{ic:'🏁',nm:'횡성 IC 도착',type:'start',lab:'도착',region:'횡성읍',desc:'영동고속도로 횡성IC · 코스 시작 지점이에요.',hours:'상시'},
     fest_hanwoo:{ic:'🎪',nm:'횡성한우축제',type:'festival',lab:'축제',region:'횡성읍 섬강둔치',desc:'한우 구이터·섬강 라이트쇼·한우리 민속마을이 열리는 횡성 대표 축제.',period:'2025.10.22~26',hours:'10:00~21:00'},
     fest_deodeok:{ic:'🎪',nm:'횡성더덕축제',type:'festival',lab:'축제',region:'우천면',desc:'더덕 캐기 체험과 더덕요리 시식을 즐길 수 있어요.',period:'행사 기간 운영',hours:'10:00~18:00'},
@@ -4788,7 +5288,7 @@
     eat_js_kotdeung:{ic:'🍜',nm:'아리랑 콧등치기',type:'food',lab:'점심',region:'정선읍',desc:'정선 향토 메밀국수 전문점.',menu:'콧등치기국수 / 메밀전',rating:'4.5',hours:'10:30~19:30'}
   };
   /* ===== 코스 자동 생성기 (지역×모드×픽업수 조합당 3개) ===== */
-  const POOL={
+  let POOL={
     '횡성':{ic:'ic',pk:['pk_hanwoo','pk_plaza','pk_namul','pk_deodeok','pk_bread','pk_local','pk_potato'],
             tour:['fest_hanwoo','lake','birch','church','forest','luge','fest_deodeok'],
             food:['eat_maeul','eat_tongnamu','eat_market','eat_ttosun']},
@@ -4803,8 +5303,8 @@
   function _won(k){return parseInt(((PLACES[k]&&PLACES[k].now)||'0').replace(/,/g,''))||0;}
   function _fmt(n){return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');}
   function _branch(k){const nm=PLACES[k].nm;const p=nm.split(/—|·/);return (p[p.length-1]||nm).trim();}
-  const COURSES={};
-  (function(){
+  let COURSES={};
+  function buildCourses(){ COURSES={};
     Object.keys(POOL).forEach(region=>{
       const P=POOL[region];
       [true,false].forEach(tour=>{
@@ -4840,7 +5340,8 @@
         }
       });
     });
-  })();
+  }
+  buildCourses();
   /* ===== 리스트용 벡터 아이콘 ===== */
   const VIC={
     flag:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 21V4" stroke="#868b94" stroke-width="2" stroke-linecap="round"/><path d="M6 5h11l-2.5 3.5L17 12H6z" fill="#3FC358"/></svg>',
@@ -4857,63 +5358,12 @@
     bun:'<svg viewBox="0 0 24 24"><path d="M4 16.2c0-5 3.6-9 8-9s8 4 8 9c0 .7-.5 1.2-1.2 1.2H5.2C4.5 17.4 4 16.9 4 16.2z" fill="#f3ece1"/><path d="M4.2 17.2h15.6c-.1 1-.9 1.8-1.9 1.8H6.1c-1 0-1.8-.8-1.9-1.8z" fill="#e6dac6"/></svg>',
     basket:'<svg viewBox="0 0 24 24" fill="none" stroke="#3FC358" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h14l-1.3 9.5a1.5 1.5 0 01-1.5 1.3H7.8a1.5 1.5 0 01-1.5-1.3z"/><path d="M9 9 12 4l3 5"/></svg>'
   };
-  function vmap(k){
-    const p=PLACES[k];const t=p.type;const ic=p.ic;
-    if(t==='start')return 'flag';
-    if(t==='festival')return 'tent';
-    if(t==='food')return 'food';
-    if(t==='tour')return 'pin';
-    if(ic==='🐂'||ic==='🥩')return 'beef';
-    if(ic==='🥔')return 'potato';
-    if(ic==='🌽')return 'corn';
-    if(ic==='🌸')return 'buck';
-    if(ic==='🥬'||ic==='🌿')return 'greens';
-    if(ic==='🫚')return 'root';
-    if(ic==='🐟')return 'fish';
-    if(ic==='🥖')return 'bun';
-    if(ic==='🛒')return 'basket';
-    return 'pin';
-  }
-  function vicon(k){return '<span class="cl-ic">'+(VIC[vmap(k)]||VIC.pin)+'</span>';}
+
+
   const CAR_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l1.6-4.2A2 2 0 017.5 7.5h9a2 2 0 011.9 1.3L20 13"/><path d="M3 13h18v4a1 1 0 01-1 1h-1.5a1 1 0 01-1-1v-1H6.5v1a1 1 0 01-1 1H4a1 1 0 01-1-1z"/><circle cx="7" cy="15.5" r="0.6"/><circle cx="17" cy="15.5" r="0.6"/></svg>';
-  function stopsOf(c){return c.seq.map(s=>{const p=PLACES[s.k];const g=GEO[s.k]||[37.49,127.98];
-    const node=p.type==='pickup'?'pickup':(p.type==='start'?'home':'spot');
-    return {k:s.k,node:node,ic:p.ic,nm:p.nm,lab:p.lab||'',type:p.type,save:p.save,lat:g[0],lng:g[1],time:s.time,leg:s.leg,pick:p.type==='pickup'};});}
-  function renderMap(stops){
-    const pts=stops.map(s=>`${s.x} ${s.y}`).join(' L ');
-    let pins='';
-    stops.forEach(s=>{
-      const isPk=s.node==='pickup';
-      const fill=isPk?'var(--brand)':'var(--map-line)';
-      const stroke=isPk?'':'stroke="var(--brand)" stroke-width="2"';
-      pins+=`<circle cx="${s.x}" cy="${s.y}" r="14" fill="${fill}" ${stroke}/><text x="${s.x}" y="${s.y+4}" text-anchor="middle" font-size="13">${s.ic}</text>`;
-    });
-    return `<svg viewBox="0 0 360 230" width="100%" style="display:block">
-      <rect width="360" height="230" fill="var(--map-land)"/>
-      <g stroke="var(--map-line)" fill="none" stroke-width="1.4" opacity=".85">
-        <path d="M-10 70 Q90 40 180 74 T370 60"/><path d="M-10 130 Q100 104 200 130 T370 120"/>
-        <path d="M-10 180 Q120 156 230 182 T370 170"/></g>
-      <path d="M30 0 C60 60 24 110 70 150 S50 215 100 230" stroke="var(--map-river)" stroke-width="6" fill="none" opacity=".75" stroke-linecap="round"/>
-      <path id="routeline" d="M ${pts}" stroke="var(--brand)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <g font-weight="800">${pins}</g>
-    </svg>`;
-  }
-  function buildMap(stops){
-    const host=document.getElementById('rmap');if(!host)return;
-    if(typeof L==='undefined'){host.innerHTML='<div style="padding:44px 16px;text-align:center;color:var(--text-mut);font-weight:700">지도를 불러오지 못했어요<br>(네트워크 연결을 확인해 주세요)</div>';return;}
-    const dark=(document.querySelector('.phone')&&document.querySelector('.phone').getAttribute('data-theme')!=='light');
-    const url=dark?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png':'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    if(!_map){_map=L.map(host,{zoomControl:false,attributionControl:false});_tile=L.tileLayer(url,{maxZoom:19,subdomains:'abcd'}).addTo(_map);}
-    else{_tile.setUrl(url);}
-    if(_layer)_map.removeLayer(_layer);
-    _layer=L.layerGroup().addTo(_map);
-    const pts=[];
-    stops.forEach(s=>{const ll=[s.lat,s.lng];pts.push(ll);const pk=s.node==='pickup';
-      const icon=L.divIcon({className:'',html:`<div class="mk${pk?' pk':''}"><span>${s.ic}</span></div>`,iconSize:[32,40],iconAnchor:[16,36]});
-      L.marker(ll,{icon}).addTo(_layer);});
-    L.polyline(pts,{color:'#3FC358',weight:4,opacity:.95,lineJoin:'round'}).addTo(_layer);
-    setTimeout(()=>{_map.invalidateSize();if(pts.length)_map.fitBounds(pts,{padding:[36,36]});},80);
-  }
+
+
+
   const STYLE_DESC=[
     '관광지·맛집·축제까지 알차게 꽉 채운 핵심 코스예요.',
     '분위기 좋은 명소와 사진 맛집 위주의 감성 코스예요.',
@@ -4966,36 +5416,18 @@
     wrap.innerHTML=`<div class="rc-wrap">${steps}</div>`+
       `<div class="rc-cta"><button onclick="addToPlan()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/></svg> 내 일정으로 담기</button></div>`;
   }
-  function openCourse(id){
-    curCourse=id;const c=COURSES[id];const stops=stopsOf(c);
-    document.getElementById('route-list').style.display='none';
-    document.getElementById('route-detail').style.display='block';
-    document.getElementById('rd-title').textContent=c.title;
-    document.getElementById('rd-sub').textContent=`픽업 ${c.pk}곳 · ${c.dur} · ${c.region} IC 도착 기준`;
-    buildMap(stops);
-    document.getElementById('rt-price').textContent=c.price;
-    let pk=0;const num=['①','②','③','④'];
-    document.getElementById('tl').innerHTML='<div class="tl-line"></div>'+stops.map(s=>{
-      let lab=s.lab||'';if(s.type==='pickup'){lab='픽업 '+num[pk++];}
-      const sub=s.k==='ic'?'코스 시작점':(s.leg?'<span class="leg-ic">'+CAR_SVG+'</span> '+s.leg:'');
-      const badge=s.type==='pickup'?`<span class="pill brand">−${s.save}원 절약</span> `:'';
-      return `<div class="tl-item"><div class="node ${s.node}"><span class="nic">${VIC[vmap(s.k)]||VIC.pin}</span></div>
-        <div class="tl-card${s.pick?' pick':''}" onclick="openStoreByKey('${s.k}')">
-          <div class="tl-h"><span class="typ${s.pick?' b':''}">${lab} · ${s.time}</span><span class="tl-ch">›</span></div>
-          <div class="nm">${s.nm}</div>
-          <div class="meta">${badge}${sub}</div></div></div>`;
-    }).join('');
-    drawRoute();
-    var sc=document.querySelector('#s-route');if(sc)sc.scrollTop=0;
-  }
+
   function closeCourse(){
     curCourse=null;
     document.getElementById('route-detail').style.display='none';
     document.getElementById('route-list').style.display='block';
   }
   function row(k,v){return `<div class="conf-row"><span class="muted">${k}</span><b>${v}</b></div>`;}
+  let _plOpenKey=null;
   function openPlace(key){
     const p=PLACES[key];if(!p)return;
+    _plOpenKey=key;
+    hlEnrichPlace(key);   // TourAPI 항목이면 상세정보를 채워 다시 그립니다
     const tag={start:'출발',festival:'축제',tour:(p.lab||'관광'),food:'맛집',pickup:'픽업'}[p.type]||'';
     let rows='',btn='';
     if(p.type==='pickup'){
@@ -5003,13 +5435,16 @@
       btn=`<button class="btn primary" style="margin-top:16px" onclick="closePlace();openSheet()">이 품목만 예약하기</button>
            <div class="note">⏰ 픽업 1시간 전까지 무료 취소돼요. 생산자의 수확·준비를 지켜주는 약속이에요.</div>`;
     } else if(p.type==='festival'){
-      rows=row('행사 기간',p.period)+row('운영시간',p.hours);
+      rows=row('행사 기간',p.period)+row('운영시간',p.hours)
+         +(p.feature?row('행사 장소',p.feature):'')+(p.fee?row('이용 요금',p.fee):'');
       btn=`<button class="btn soft" style="margin-top:16px" onclick="closePlace()">코스로 돌아가기</button>`;
     } else if(p.type==='food'){
-      rows=row('대표 메뉴',p.menu)+row('평점','★ '+p.rating)+row('영업시간',p.hours);
+      rows=row('대표 메뉴',p.menu)+(p.rating?row('평점','★ '+p.rating):'')+row('영업시간',p.hours)
+         +(p.restDate?row('휴무일',p.restDate):'');
       btn=`<button class="btn soft" style="margin-top:16px" onclick="closePlace()">코스로 돌아가기</button>`;
     } else if(p.type==='tour'){
-      rows=row('특징',p.feature)+row('운영시간',p.hours);
+      rows=row('특징',p.feature)+row('운영시간',p.hours)
+         +(p.restDate?row('휴무일',p.restDate):'')+(p.parking?row('주차',p.parking):'');
       btn=`<button class="btn soft" style="margin-top:16px" onclick="closePlace()">코스로 돌아가기</button>`;
     } else {
       rows=row('위치',p.region)+row('운영',p.hours);
@@ -5021,8 +5456,13 @@
         <div><div class="ps-name">${p.nm}</div><div class="ps-reg">📍 ${p.region}</div></div>
         <span class="ps-tag">${tag}</span>
       </div>
+      ${p.image?`<div class="ps-photo" style="background-image:url('${p.image}')"></div>`:''}
       <div class="ps-desc">${p.desc}</div>
-      <div>${rows}</div>
+      <div>${rows}${p.address?row('주소',p.address):''}${p.tel?row('전화',`<a href="tel:${p.tel}" style="color:var(--brand);font-weight:800">${p.tel}</a>`):''}</div>
+      ${(p.images&&p.images.length>1)?`<div class="ps-gal">${p.images.slice(0,6).map(u=>`<span style="background-image:url('${u}')"></span>`).join('')}</div>`:''}
+      ${p.source==='tourapi'
+        ? '<div class="ps-src">자료 제공 · 한국관광공사 TourAPI</div>'
+        : '<div class="ps-src">자체 수집 자료 (샘플) · 공공 API 미제공 항목</div>'}
       ${btn}`;
     document.getElementById('plscrim').classList.add('show');
     document.getElementById('plsheet').classList.add('show');
@@ -5031,7 +5471,7 @@
     document.getElementById('plscrim').classList.remove('show');
     document.getElementById('plsheet').classList.remove('show');
   }
-  const STORES=[
+  let STORES=[
     {key:'pk_hanwoo',cat:'한우 직거래',rate:'4.8',rev:124,off:false,tile:'#5a4636',rg:'횡성',dist:'12km',addr:'강원 횡성군 우천면 직거래장터',tags:['당일도축','직접픽업','등심·채끝']},
     {key:'pk_plaza',cat:'한우 직판장',rate:'4.6',rev:88,off:false,tile:'#5a4636',rg:'횡성',dist:'14km',addr:'강원 횡성군 횡성읍 한우플라자',tags:['정육·식당','픽업가능','선물세트']},
     {key:'pk_bread',cat:'안흥찐빵',rate:'4.7',rev:210,off:false,tile:'#6a4733',rg:'평창',dist:'49km',addr:'강원 평창군 봉평면 찐빵마을',tags:['갓쪄낸찐빵','팥·야채','선물포장']},
@@ -5052,22 +5492,60 @@
     {key:'arari_market',cat:'전통시장',rate:'4.6',rev:120,off:false,tile:'#5e5236',rg:'정선',dist:'40km',addr:'강원 정선군 정선읍 아리랑시장',tags:['오일장','곤드레밥','먹거리']}
   ];
   // 매장별 픽업 가능일: today=오늘만 / tomorrow=내일만 / both=둘 다 (미지정 시 both)
-  const MAP_PDAY={
+  let MAP_PDAY={
     pk_hanwoo:'today', pk_plaza:'both', pk_bread:'today', eat_maeul:'both',
     eat_tongnamu:'both', eat_market:'both', pk_namul:'both', pk_deodeok:'tomorrow',
     pk_potato:'both', pk_local:'today', pk_pc_trout:'today', pk_pc_buck:'tomorrow',
     eat_pc_makguksu:'both', eat_pc_hanu:'both', pk_js_gondre:'today',
     pk_js_surichi:'tomorrow', pk_js_hwanggi:'tomorrow', arari_market:'both'
   };
-  let mapRegion='전체', mapDay='전체';
+  let mapRegion='전체', mapDay='전체', mapCat='전체';
+
+  /* 지도 카테고리.
+     축제·관광까지 한 화면에서 보고 싶다는 요구라, STORES 에 픽업/맛집뿐 아니라
+     TourAPI 의 관광지·축제도 함께 담겨 있습니다. 여기서 갈래별로 나눠 봅니다. */
+  const MAP_CATS=[
+    {k:'전체',  label:'전체',   cls:''},
+    {k:'pickup',label:'픽업',   cls:'c-pk'},
+    {k:'food',  label:'맛집',   cls:''},
+    {k:'tour',  label:'관광',   cls:'c-tour'},
+    {k:'festival',label:'축제', cls:'c-fest'}
+  ];
+  function catOK(s){
+    if(mapCat==='전체')return true;
+    return (s.type||'pickup')===mapCat;
+  }
+  /* 오늘/내일은 픽업 재고에만 의미가 있습니다.
+     관광지·축제에까지 적용하면 목록이 통째로 비어버려서, 픽업에만 겁니다. */
   function dayOK(s){
+    if((s.type||'pickup')!=='pickup')return true;
     if(mapDay==='전체')return true;
     const pd=MAP_PDAY[s.key]||'both';
     if(pd==='both')return true;
     return mapDay==='오늘'?pd==='today':pd==='tomorrow';
   }
   function mapStores(){
-    return STORES.filter(s=>(mapRegion==='전체'||s.rg===mapRegion)&&dayOK(s));
+    return STORES.filter(s=>(mapRegion==='전체'||s.rg===mapRegion)&&catOK(s)&&dayOK(s));
+  }
+  /** 지역 필터만 적용한 목록 - 카테고리 칩의 개수 배지를 채우는 데 씁니다. */
+  function mapStoresByRegion(){
+    return STORES.filter(s=>(mapRegion==='전체'||s.rg===mapRegion));
+  }
+  function renderMapCats(){
+    const host=document.getElementById('map-cats');if(!host)return;
+    const base=mapStoresByRegion();
+    host.innerHTML=MAP_CATS.map(c=>{
+      const n=c.k==='전체'?base.length:base.filter(s=>(s.type||'pickup')===c.k).length;
+      if(n===0&&c.k!=='전체')return '';
+      return `<button class="map-cat ${c.cls}${mapCat===c.k?' on':''}" onclick="pickMapCat('${c.k}')">`
+        +`${c.label}<span class="n">${n}</span></button>`;
+    }).join('');
+    const dw=document.getElementById('map-daywrap');
+    if(dw)dw.classList.toggle('hide',!(mapCat==='전체'||mapCat==='pickup'));
+  }
+  function pickMapCat(k){
+    mapCat=k;
+    renderMapCats();renderStoreCards();buildStoreMap();
   }
   function pickMapDay(el,d){
     mapDay=d;
@@ -5094,6 +5572,7 @@
   }
   function selectRegion(r){
     mapRegion=r;
+    setTimeout(renderMapCats,0);
     const lab=document.getElementById('rgn-fab-label');if(lab)lab.textContent=r;
     toggleRegion(false);
     renderStoreCards();buildStoreMap();
@@ -5108,7 +5587,7 @@
     document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab==='map'));
     document.getElementById('fab-home').classList.remove('show');
     document.getElementById('fab-route').classList.remove('show');
-    mapRegion='전체';mapDay='전체';
+    mapRegion='전체';mapDay='전체';mapCat='전체';renderMapCats();
     var lv=document.getElementById('map-listview');if(lv){lv.classList.remove('show');lv.style.transition='none';lv.style.transform='translateY(110%)';sheetY=110;}
     document.getElementById('s-map').classList.remove('sheet-open');
     document.querySelectorAll('#s-map .map-seg-btn').forEach((b,i)=>b.classList.toggle('on',i===0));
@@ -5118,7 +5597,7 @@
     buildStoreMap();
   }
   function mapLocate(){
-    if(_smap){var pts=mapStores().map(s=>GEO[s.key]).filter(Boolean);if(pts.length)_smap.flyToBounds(pts,{padding:[60,60],duration:.6});}
+    if(_smap){var pts=mapStores().map(s=>GEO[s.key]).filter(Boolean);if(pts.length)_smap.fitBounds(pts,60);}
   }
   // ===== 목록 바텀시트 (지도와 동시 표시 · 드래그로 절반/전체/닫힘) =====
   const SHEET_HALF=46;                 // 반쯤 열림: 위 46%는 지도 노출
@@ -5166,19 +5645,45 @@
     else if(sheetY>23)   setSheet(SHEET_HALF,true);  // 절반
     else                 setSheet(0,true);      // 전체
   }
+  /* TourAPI 는 평점을 제공하지 않습니다. "★ 0.0 (0)" 을 그대로 두면 잘못된 정보라,
+     출처에 따라 두 번째 줄에 표시할 내용을 바꿉니다. */
+  function _mcMeta(s,p){
+    // 평점은 실제 후기가 쌓인 픽업/맛집에만 의미가 있습니다.
+    // 축제·관광지는 평점 데이터가 없어서 "★ 0.0 (0)" 이 그대로 보이면
+    // 잘못된 정보가 되므로, 출처가 아니라 갈래로 판단합니다.
+    // TourAPI 에 없어 자체 수집한 자료는 '샘플' 로 밝힙니다.
+    const smp = s.sample ? '<span class="smp-tag">샘플</span>' : '';
+    if(s.type==='festival'){
+      // 행사 기간은 아래 시간 슬롯(_mcTime)에 이미 나오므로 여기선 소재지를 씁니다.
+      return `<span class="mc-brand">축제</span>${p.region?' · '+p.region:''}${smp}`;
+    }
+    const hasRating=Number(s.rev)>0&&Number(s.rate)>0;
+    if(!hasRating){
+      return `<span class="mc-brand">${s.cat}</span>${p.region?' · '+p.region:''}${smp}`;
+    }
+    return `<span class="mc-brand">${s.cat}</span> · ★ ${s.rate} <span class="mc-rev">(${s.rev})</span>${smp}`;
+  }
+  function _mcTime(s,p,clk){
+    if(s.off)return '영업 종료';
+    if(s.type==='festival')return (clk||'')+(p.period||s.period||'행사 기간 운영');
+    if(!p.hours)return (clk||'')+(p.region||'');
+    return (clk||'')+p.hours.replace('~',' ~ ');
+  }
   function renderStoreCards(){
     const list=mapStores();
-    const cnt=document.getElementById('mlv-count');if(cnt)cnt.textContent='주변 매장 '+list.length+'곳';
+    renderMapCats();
+    const label={'전체':'주변 장소','pickup':'픽업 거점','food':'맛집','tour':'관광명소','festival':'축제'}[mapCat]||'주변 장소';
+    const cnt=document.getElementById('mlv-count');if(cnt)cnt.textContent=label+' '+list.length+'곳';
     const lv=document.getElementById('mlv-list');
     if(lv)lv.innerHTML=list.map(s=>{
       const p=PLACES[s.key];
       const parts=p.nm.split(/—|·/);const branch=(parts[parts.length-1]||p.nm).trim();
       const tags=s.tags.slice(0,3).map(t=>`<span class="mc-tag">${t}</span>`).join('');
-      const time=s.off?'영업 종료':'🕐 '+(p.hours||'').replace('~',' ~ ');
+      const time=_mcTime(s,p,'🕐 ');
       return `<div class="mlv-row" onclick="focusStore('${s.key}')">
         <div class="mlv-main">
           <div class="mlv-name">${branch} <span class="mlv-dist">${s.dist}</span></div>
-          <div class="mlv-sub"><span class="b">${s.cat}</span> · ★ ${s.rate} (${s.rev}) · ${s.off?'<span style="color:var(--text-mut);font-weight:800">영업 종료</span>':'<span style="color:var(--brand);font-weight:800">영업 중</span>'}</div>
+          <div class="mlv-sub">${_mcMeta(s,p)}</div>
           <div class="mlv-tags">${tags}</div>
         </div>
         <span class="mlv-time${s.off?' off':''}">${time}</span>
@@ -5190,11 +5695,11 @@
       const shown=s.tags.slice(0,2).map(t=>`<span class="mc-tag">${t}</span>`).join('');
       const extra=s.tags.length>2?`<span class="mc-tag more">+${s.tags.length-2}</span>`:'';
       const clk='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 1.9"/></svg>';
-      const time=s.off?'영업 종료':clk+(p.hours||'').replace('~',' ~ ');
+      const time=_mcTime(s,p,clk);
       return `<div class="mcard" data-key="${s.key}" onclick="openStoreByKey('${s.key}')">
         <div class="mc-info">
           <div class="mc-title"><span class="mc-name">${branch}</span><span class="mc-dist">${s.dist}</span></div>
-          <div class="mc-rate"><span class="mc-brand">${s.cat}</span> · ★ ${s.rate} <span class="mc-rev">(${s.rev})</span></div>
+          <div class="mc-rate">${_mcMeta(s,p)}</div>
         </div>
         <div class="mc-foot">
           <div class="mc-tags">${shown}${extra}</div>
@@ -5203,20 +5708,31 @@
       </div>`;
     }).join('');
   }
+  /* 지도 마커: 픽업/맛집은 초록(pk), 관광은 기본, 축제는 주황(fest) 톤 */
+  function _mkCls(s){
+    var t=s.type||'pickup';
+    if(t==='festival')return 'fest';
+    if(t==='tour')return 'tour';
+    return 'pk';
+  }
+  function _mapIcon(s){
+    var t=s.type||'pickup';
+    if(t==='festival')return _homeIcon2D('festival');
+    if(t==='tour')return _homeIcon2D('tour');
+    return _homeIcon2D(_homeCat(s.cat));
+  }
   function buildStoreMap(){
     const host=document.getElementById('smap');if(!host)return;
-    if(typeof L==='undefined'){host.innerHTML='<div style="padding:80px 16px;text-align:center;color:var(--text-mut);font-weight:700">지도를 불러오지 못했어요<br>(네트워크 연결을 확인해 주세요)</div>';return;}
-    const url='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    if(!_smap){_smap=L.map(host,{zoomControl:false,attributionControl:false});_stile=L.tileLayer(url,{maxZoom:19,subdomains:'abcd'}).addTo(_smap);}
-    if(_slayer)_smap.removeLayer(_slayer);
-    _slayer=L.layerGroup().addTo(_smap);
+    if(!hlMapBackend()){hlMapUnavailable(host,80);return;}
+    if(!_smap){_smap=HLMapCreate(host,{center:[37.49,128.2],zoom:10});if(!_smap){hlMapUnavailable(host,80);return;}}
+    _smap.clear();
     _smarkers={};
     const pts=[];
-    mapStores().forEach(s=>{const g=GEO[s.key];if(!g)return;pts.push(g);const p=PLACES[s.key];
-      const icon=L.divIcon({className:'',html:`<div class="mk pk${s.off?' off':''}"><span class="mkico">${_homeIcon2D(_homeCat(s.cat))}</span></div>`,iconSize:[34,42],iconAnchor:[17,38]});
-      _smarkers[s.key]=L.marker(g,{icon}).addTo(_slayer).on('click',()=>openStoreByKey(s.key));
+    mapStores().forEach(s=>{const g=GEO[s.key];if(!g)return;pts.push(g);
+      const html=`<div class="mk ${_mkCls(s)}${s.off?' off':''}"><span class="mkico">${_mapIcon(s)}</span></div>`;
+      _smarkers[s.key]=_smap.addMarker(g,html,(k=>()=>openStoreByKey(k))(s.key));
     });
-    setTimeout(()=>{_smap.invalidateSize();if(pts.length)_smap.fitBounds(pts,{padding:[60,60]});onCardsScroll(true);},80);
+    setTimeout(()=>{_smap.relayout();if(pts.length)_smap.fitBounds(pts,60);onCardsScroll(true);},80);
   }
   let _scrollT=null;
   function onCardsScroll(initial){
@@ -5231,22 +5747,22 @@
     cards.forEach(c=>{const cc=c.offsetLeft+c.offsetWidth/2;const d=Math.abs(cc-center);if(d<bestD){bestD=d;best=c;}});
     if(!best)return;
     const key=best.dataset.key;const g=GEO[key];if(!g)return;
-    if(initial!==true)_smap.panTo(g,{animate:true,duration:.45});
-    Object.keys(_smarkers).forEach(k=>{const mk=_smarkers[k];const el=mk.getElement();const inner=el&&el.querySelector('.mk');
+    if(initial!==true)_smap.panTo(g);
+    Object.keys(_smarkers).forEach(k=>{const mk=_smarkers[k];const inner=mk&&mk.el;
       if(inner)inner.classList.toggle('active',k===key);
-      mk.setZIndexOffset(k===key?1000:0);});
+      if(mk)mk.setZ(k===key?1000:0);});
   }
   function focusStore(key){
     const g=GEO[key]; if(!g||!_smap) return;
     if(sheetY<SHEET_HALF) setSheet(SHEET_HALF,true);   // 시트가 다 열려 지도를 가리면 절반으로 내려 지도 노출
-    let center=g;
+    _smap.flyTo(g,13);
     if(sheetY>=SHEET_HALF-1){                          // 절반 시트가 하단을 가리므로 핀을 보이는 윗쪽으로 올려 잡음
-      const pt=_smap.project(g,13); pt.y+=_smap.getSize().y*0.26; center=_smap.unproject(pt,13);
+      const dy=Math.round(_smap.size().y*0.26);
+      setTimeout(()=>_smap.panBy(0,dy),160);
     }
-    _smap.flyTo(center,13,{animate:true,duration:.6});
-    Object.keys(_smarkers).forEach(k=>{const mk=_smarkers[k];const el=mk.getElement();const inner=el&&el.querySelector('.mk');
+    Object.keys(_smarkers).forEach(k=>{const mk=_smarkers[k];const inner=mk&&mk.el;
       if(inner)inner.classList.toggle('active',k===key);
-      mk.setZIndexOffset(k===key?1000:0);});
+      if(mk)mk.setZ(k===key?1000:0);});
     const wrap=document.getElementById('map-cards');
     if(wrap){const card=wrap.querySelector('.mcard[data-key="'+key+'"]');
       if(card){const left=card.offsetLeft-(wrap.clientWidth-card.offsetWidth)/2; wrap.scrollTo({left:Math.max(0,left),behavior:'smooth'});}}
@@ -5316,36 +5832,83 @@
     host.innerHTML=`<div class="st-list">`+items.map(calCard).join('')+`</div>`;
   }
   /* 제철 품목 → 연결된 지역 픽업 가게를 지도에서 추천 */
-  function recommendStore(region,store){ openMap(); }
+
   /* ===== 캘린더 → 매장 선택 (거리순) ===== */
   let calTab='near';
-  function pickStTab(el,t){calTab=t;document.querySelectorAll('#s-cal .st-tab').forEach(x=>x.classList.remove('on'));el.classList.add('on');renderCalStores();}
-  function toggleStSearch(){const b=document.getElementById('st-searchbar');b.classList.toggle('show');if(b.classList.contains('show'))setTimeout(()=>document.getElementById('st-search').focus(),30);}
+
+
   function _stKm(d){d=''+d;let m=d.match(/([\d.]+)\s*km/);if(m)return parseFloat(m[1]);m=d.match(/([\d.]+)\s*m/);if(m)return parseFloat(m[1])/1000;return 999;}
+  /* ===== 내 주변 매장 =====
+     CSS 와 렌더 로직은 있었는데 화면 마크업이 없어 renderCalStores() 가
+     매번 조용히 빠져나가고 있었습니다. 화면을 만들고 정렬 탭을 붙입니다. */
+  function openStores(){ go('stores'); renderCalStores(); }
+
+  function pickStTab(el, t){
+    calTab = t;
+    document.querySelectorAll('#s-stores .st-tab').forEach(function(x){ x.classList.remove('on'); });
+    if (el) el.classList.add('on');
+    renderCalStores();
+  }
+
+  function toggleStSearch(){
+    var bar = document.getElementById('st-searchbar'); if (!bar) return;
+    var input = document.getElementById('st-search');
+    var open = bar.classList.toggle('show');
+    if (open) { setTimeout(function(){ if (input) input.focus(); }, 30); }
+    // 닫을 때 검색어가 남아 있으면 목록이 걸러진 채로 숨겨져 혼란스럽습니다.
+    else if (input && input.value) { input.value = ''; renderCalStores(); }
+  }
+
+  /** 마감 임박 정렬용 점수. 낮을수록 급합니다. */
+  function _stUrgency(s){
+    if (s.off) return 1e6;                       // 영업 종료는 맨 뒤로
+    var p = PLACES[s.key] || {};
+    if (typeof p.stock === 'number') return p.stock <= 0 ? 1e6 : p.stock;
+    var m = String(p.remain || '').match(/(\d+)/);
+    if (m) return Number(m[1]);                  // 남은 수량이 적을수록 앞
+    return 1e5;                                  // 수량 정보가 없는 관광지·맛집
+  }
+
   function renderCalStores(){
     const host=document.getElementById('st-list');if(!host)return;
     const si=document.getElementById('st-search');const q=(si&&si.value||'').trim();
-    let list=STORES.slice().sort((a,b)=>_stKm(a.dist)-_stKm(b.dist));
-    if(calTab==='fav')list=list.filter(s=>parseFloat(s.rate)>=4.7);
+    let list=STORES.slice();
+    if(calTab==='soon') list.sort((a,b)=>_stUrgency(a)-_stUrgency(b)||_stKm(a.dist)-_stKm(b.dist));
+    else if(calTab==='rate') list.sort((a,b)=>(parseFloat(b.rate)||0)-(parseFloat(a.rate)||0)||_stKm(a.dist)-_stKm(b.dist));
+    else list.sort((a,b)=>_stKm(a.dist)-_stKm(b.dist));
     if(q)list=list.filter(s=>{const p=PLACES[s.key];return (p.nm+s.addr+s.cat).indexOf(q)>=0;});
     const cnt=document.getElementById('st-count');if(cnt)cnt.textContent=`내 주변에 ${list.length}개의 매장이 있어요`;
-    if(!list.length){host.innerHTML='<div class="st-empty">'+(calTab==='fav'?'즐겨찾기한 매장이 없어요.':'조건에 맞는 매장이 없어요.')+'</div>';return;}
+    if(!list.length){
+      const msg = q ? '검색 결과가 없어요.' : '조건에 맞는 매장이 없어요.';
+      host.innerHTML='<div class="st-empty">'+msg+'</div>'; return;
+    }
     host.innerHTML=list.map((s)=>{
       const p=PLACES[s.key];const parts=p.nm.split(/—|·/);const branch=(parts[parts.length-1]||p.nm).trim();
       const st=_stock(s);
       return `<div class="st-card" onclick="openStoreByKey('${s.key}')">
         <div class="st-info">
-          <div class="st-name">${branch}<span class="st-dist">${s.dist}</span></div>
+          <div class="st-name">${branch}<span class="st-dist">${s.dist}</span>${s.sample?'<span class="smp-tag">샘플</span>':''}</div>
           <div class="st-addr">${s.addr}</div>
-          <div class="st-status"><span class="st-dot" style="background:${st.c}"></span>${st.t}</div>
+          <div class="st-status"><span class="st-dot" style="background:${st.c}"></span>${st.t}${
+            (calTab==='rate'&&Number(s.rev)>0) ? ` · ★ ${s.rate} (${s.rev})` : ''}</div>
         </div>
-        <div class="st-thumb"></div>
+        <div class="st-thumb comb" style="--tile:${s.tile||'#6b7079'}">${p.ic||'📍'}</div>
       </div>`;
     }).join('');
   }
   function _stock(s){
     if(s.off)return {t:'영업 종료',c:'#b6bbc2'};
-    const r=(PLACES[s.key].remain)||'';
+    const p=PLACES[s.key]||{};
+    // 거점에 상품이 붙어 있으면 실재고가 정답입니다 (문구는 오래된 값일 수 있습니다).
+    if(typeof p.stock==='number'){
+      const n=p.stock;
+      if(n<=0)return {t:'오늘 마감',c:'#b6bbc2'};
+      const txt=String(p.remain||'').replace(/^오늘\s*/,'')||(n+'개 남음');
+      if(n>=15)return {t:txt+' · 넉넉',c:'#3FC358'};
+      if(n>=7)return {t:txt,c:'#f4b400'};
+      return {t:txt+' · 마감임박',c:'#ff5a5a'};
+    }
+    const r=p.remain||'';
     const m=r.match(/(\d+)/);
     if(m){
       const n=+m[1];const txt=r.replace(/^오늘\s*/,'');
@@ -5395,8 +5958,846 @@
     var code=document.getElementById('inv-code'); if(!code)return;
     try{ navigator.clipboard&&navigator.clipboard.writeText(code.textContent); }catch(e){}
   }
-  renderCalStores();renderList();renderMonths();paintCal();paintRouteCal();renderCal2();renderMy();renderCartBadge();
-  renderMyReviews();renderMyCoupons();
+  /* ============================================================
+     API 연동 계층
+     ------------------------------------------------------------
+     서버(server/)가 목업과 동일한 shape 으로 데이터를 내려주므로,
+     위쪽 렌더링 코드는 한 줄도 바꾸지 않고 그대로 씁니다.
+     서버에 연결하지 못하면 파일에 내장된 시드 데이터로 그대로 동작합니다.
+     ============================================================ */
+  const HL_API_BASE = (location.protocol === 'file:') ? 'http://localhost:8787' : '';
+  let HL_SOURCE = 'seed';
+
+  const HL = {
+    async get(p) {
+      const r = await fetch(HL_API_BASE + p);
+      if (!r.ok) throw new Error(p + ' -> HTTP ' + r.status);
+      return r.json();
+    },
+    async put(p, body) {
+      const r = await fetch(HL_API_BASE + p, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify(body || {}),
+      });
+      const j = await r.json().catch(function () { return {}; });
+      if (!r.ok) throw Object.assign(new Error(j.error || ('HTTP ' + r.status)), j);
+      return j;
+    },
+    async post(p, body) {
+      const r = await fetch(HL_API_BASE + p, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body || {})
+      });
+      const j = await r.json().catch(function () { return {}; });
+      if (!r.ok) throw Object.assign(new Error(j.error || ('HTTP ' + r.status)), j);
+      return j;
+    }
+  };
+
+  function hlApplyBootstrap(d) {
+    if (d.PLACES && Object.keys(d.PLACES).length) PLACES = d.PLACES;
+    if (d.GEO && Object.keys(d.GEO).length) GEO = d.GEO;
+    if (Array.isArray(d.PL) && d.PL.length) PL = d.PL;
+    if (Array.isArray(d.STORES) && d.STORES.length) STORES = d.STORES;
+    if (d.MAP_PDAY && Object.keys(d.MAP_PDAY).length) MAP_PDAY = d.MAP_PDAY;
+    if (d.POOL && Object.keys(d.POOL).length) POOL = d.POOL;
+    // 예약 내역은 서버(주문)에서 옵니다. 빈 배열도 유효한 상태이므로
+    // 길이가 0이어도 그대로 반영해야 합니다 (다른 값들과 판정이 다릅니다).
+    if (Array.isArray(d.MY_PICKUPS)) {
+      MY_PICKUPS.length = 0;
+      d.MY_PICKUPS.forEach(function (p) { MY_PICKUPS.push(p); });
+    }
+    if (Array.isArray(d.MY_REVIEWS)) {
+      MY_REVIEWS.length = 0;
+      d.MY_REVIEWS.forEach(function (r) { MY_REVIEWS.push(r); });
+    }
+    // 서버가 관리하는 정적 데이터. const 로 선언돼 있어도 내용만 갈아끼웁니다.
+    // (선언을 let 으로 바꾸면 참조를 들고 있는 클로저가 옛 값을 계속 보게 됩니다.)
+    [
+      // CAT_MATCH 는 값이 함수라 JSON 으로 전달할 수 없습니다. 프론트에 그대로 둡니다.
+      'cal', 'RV', 'RV_PHOTOS', 'LR_DATA', 'HS_REGION_GROUP', 'VIC',
+      'FARM_SHOTS', 'STORE_SHOTS', 'STYLE_DESC', 'ADJ', 'FAQ_DATA', 'NOTICE_DATA',
+      'REGIONS', 'LEGAL_DATA', 'CAL2_FESTIVAL', 'CAL2_SEASONAL', 'CAL2_SHOP_LISTS',
+      'CAL2_TODAY', 'MY_STATS',
+    ].forEach(function (k) { hlAdopt(k, d[k]); });
+    // 캘린더 기준 월을 실제 오늘로 맞춥니다 (2026년 4월 고정이었습니다).
+    if (d.CAL2_TODAY && d.CAL2_TODAY.year) {
+      cal2State.year = d.CAL2_TODAY.year;
+      cal2State.month = d.CAL2_TODAY.month;
+    }
+    // 채택 결과를 확인할 수 있게 남겨둡니다 (테스트에서 씁니다).
+    HL_ADOPTED = Object.keys(HL_ADOPTABLE).filter(function (k) { return d[k] != null; });
+
+    // 로그인 상태와 계정별 데이터. 비로그인이면 전부 빈 배열입니다.
+    HL_USER = d.user || null;
+    if (Array.isArray(d.MY_COURSES)) {
+      MY_COURSES.length = 0;
+      d.MY_COURSES.forEach(function (c) { MY_COURSES.push(c); });
+    }
+    if (Array.isArray(d.MY_COUPONS)) {
+      MY_COUPONS.length = 0;
+      d.MY_COUPONS.forEach(function (c) { MY_COUPONS.push(c); });
+    }
+
+    // PL 항목마다 farm 이미지 조회용 fid 를 보장합니다 (원본 코드가 기대하는 값).
+    PL.forEach(function (p, i) { if (!p.fid) p.fid = String(i + 1).padStart(2, '0'); });
+
+    // POOL 이 실제 관광지로 교체됐으므로 코스를 다시 생성합니다.
+    buildCourses();
+
+    HL_SOURCE = d.source || 'seed';
+  }
+
+  /**
+   * TourAPI 장소의 상세정보(운영시간·휴무·메뉴·전화·추가사진)를 받아 채웁니다.
+   * 목록 조회(areaBasedList)에는 이 필드들이 없어서 detailCommon/detailIntro 를
+   * 따로 호출해야 합니다. 한 번 받으면 캐시해 두고 다시 부르지 않습니다.
+   */
+  async function hlEnrichPlace(key) {
+    const p = PLACES[key];
+    if (!p || p.source !== 'tourapi' || !p.contentId || p._detail) return;
+    p._detail = 'loading';
+    try {
+      const qs = p.contentTypeId ? ('?contentTypeId=' + encodeURIComponent(p.contentTypeId)) : '';
+      const d = await HL.get('/api/tour/detail/' + encodeURIComponent(p.contentId) + qs);
+      if (d.place) {
+        ['hours', 'feature', 'menu', 'tel', 'restDate', 'parking', 'fee', 'address', 'desc', 'image']
+          .forEach(function (k) { if (d.place[k]) p[k] = d.place[k]; });
+      }
+      if (Array.isArray(d.images) && d.images.length) p.images = d.images;
+      p._detail = true;
+      if (_plOpenKey === key) openPlace(key);      // 열려 있는 시트를 다시 그립니다
+    } catch (e) {
+      p._detail = false;                            // 다음에 다시 시도할 수 있도록
+      console.warn('[HappyLocal] 상세정보를 불러오지 못했습니다:', e.message);
+    }
+  }
+
+  /* ===== 아이디 · 비밀번호 로그인 =====
+     소셜 로그인만 있으면 카카오 계정이 없는 사람은 들어올 수 없고,
+     배포에서는 개발용 로그인이 막혀 있어 확인할 길이 없습니다. */
+  let LG_MODE = 'login';          // 'login' | 'signup'
+
+  function lgToggleMode() {
+    LG_MODE = LG_MODE === 'login' ? 'signup' : 'login';
+    const signup = LG_MODE === 'signup';
+    document.getElementById('lg-extra').hidden = !signup;
+    document.getElementById('lg-submit').textContent = signup ? '가입하고 시작하기' : '로그인';
+    document.getElementById('lg-swap-txt').textContent = signup
+      ? '이미 계정이 있나요?' : '아직 계정이 없나요?';
+    document.getElementById('lg-swap-btn').textContent = signup ? '로그인' : '회원가입';
+    document.getElementById('lg-pw').setAttribute('autocomplete',
+      signup ? 'new-password' : 'current-password');
+    lgError('');
+  }
+
+  function lgError(msg) {
+    const el = document.getElementById('lg-err');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.hidden = !msg;
+  }
+
+  async function lgSubmit(ev) {
+    if (ev) ev.preventDefault();
+    const btn = document.getElementById('lg-submit');
+    const loginId = (document.getElementById('lg-id').value || '').trim();
+    const password = document.getElementById('lg-pw').value || '';
+    if (!loginId || !password) { lgError('아이디와 비밀번호를 입력해 주세요.'); return false; }
+
+    const prev = btn.textContent;
+    btn.disabled = true; btn.textContent = '처리 중…';
+    lgError('');
+    try {
+      if (LG_MODE === 'signup') {
+        // 초대 링크(?ref=CODE)로 들어왔으면 추천인을 함께 넘깁니다.
+        const ref = new URLSearchParams(location.search).get('ref') || '';
+        await HL.post('/api/auth/register', {
+          loginId: loginId,
+          password: password,
+          nickname: (document.getElementById('lg-nick').value || '').trim(),
+          ref: ref,
+        });
+      } else {
+        await HL.post('/api/auth/login', { loginId: loginId, password: password });
+      }
+      location.href = location.pathname;      // 부팅부터 다시 (내 데이터가 실립니다)
+    } catch (e) {
+      btn.disabled = false; btn.textContent = prev;
+      lgError(e.message || '로그인하지 못했어요.');
+    }
+    return false;
+  }
+
+  /* ===== 픽업 제시 화면 =====
+     예약코드는 매장에서 보여주는 것인데 상세 화면 작은 글씨에만 있었습니다.
+     카운터에서 한 번에 읽히도록 따로 띄웁니다. */
+  function openPickupPass(i){
+    var p=MY_PICKUPS[i]; if(!p)return;
+    document.getElementById('pv-code').textContent=p.code||'—';
+    document.getElementById('pv-prod').textContent=(p.prod||'')+' · '+(p.qty||1)+'개';
+    document.getElementById('pv-meta').textContent=[p.shop,p.group].filter(Boolean).join(' · ');
+    document.getElementById('pv-note').innerHTML=
+      '픽업 시간 안에 방문해 주세요.<br>'
+      +'찾아가지 않으면 매장에서 노쇼로 처리되고, 신선식품은 재고로 되돌리지 않습니다.';
+    document.getElementById('pvscrim').classList.add('show');
+    document.getElementById('pvsheet').classList.add('show');
+  }
+  function closePickupPass(){
+    document.getElementById('pvscrim').classList.remove('show');
+    document.getElementById('pvsheet').classList.remove('show');
+  }
+
+  /* ===== 쿠폰 · 알림 · 초대 =====
+     셋 다 화면만 있고 서버가 없었습니다.
+       쿠폰: PAY_COUPON=3000 고정값을 빼고 있어 보유 쿠폰과 무관했습니다.
+       알림: 클래스만 토글해 화면을 벗어나면 초기화됐습니다.
+       초대: 코드가 HTML 에 박혀 모든 사용자가 같았습니다. */
+  let HL_COUPONS = [];        // 이번 결제에 쓸 수 있는 쿠폰
+  let HL_PICKED_COUPON = null;
+
+  function _cpWon(n) { return Number(n || 0).toLocaleString('ko-KR') + '원'; }
+
+  /** 결제 화면에 들어올 때 쿠폰을 다시 계산합니다. */
+  async function hlLoadCoupons() {
+    HL_COUPONS = []; HL_PICKED_COUPON = null;
+    if (!hlLoggedIn() || !sdItem) { PAY_COUPON = 0; return; }
+    const amount = _payNum(sdItem.now) * (payQty || 1);
+    const region = sdItem.region || '';
+    try {
+      const d = await HL.get('/api/coupons/usable?amount=' + amount + '&region=' + encodeURIComponent(region));
+      HL_COUPONS = d.coupons || [];
+      // 가장 많이 깎이는 쿠폰을 기본 선택합니다.
+      HL_PICKED_COUPON = HL_COUPONS.find(function (c) { return c.usable; }) || null;
+    } catch (e) {
+      console.warn('[HappyLocal] 쿠폰을 불러오지 못했습니다:', e.message);
+    }
+    PAY_COUPON = HL_PICKED_COUPON ? HL_PICKED_COUPON.discount : 0;
+    payRecalc();
+    hlPaintCouponRow();
+  }
+
+  function hlPaintCouponRow() {
+    const el = document.querySelector('#s-pay .pay-coupon-val');
+    if (!el) return;
+    el.textContent = HL_PICKED_COUPON
+      ? ('-' + _cpWon(HL_PICKED_COUPON.discount))
+      : (HL_COUPONS.some(function (c) { return c.usable; }) ? '쿠폰 선택' : '사용 가능한 쿠폰 없음');
+  }
+
+  function openCouponPicker() {
+    if (hlNeedLogin('쿠폰을 쓰려면 로그인이 필요해요.')) return;
+    const list = document.getElementById('cp-pick-list');
+    const sub = document.getElementById('cp-pick-sub');
+    const amount = _payNum(sdItem ? sdItem.now : 0) * (payQty || 1);
+    if (sub) sub.textContent = _cpWon(amount) + ' 주문에 쓸 수 있는 쿠폰이에요.';
+
+    if (list) {
+      const none = '<button class="cp-opt' + (HL_PICKED_COUPON ? '' : ' on')
+        + '" onclick="pickCoupon(null)"><span class="amt">사용 안 함</span>'
+        + '<span class="info"><span class="nm">쿠폰 없이 결제</span></span></button>';
+      list.innerHTML = none + HL_COUPONS.map(function (c) {
+        const on = HL_PICKED_COUPON && HL_PICKED_COUPON.id === c.id;
+        return '<button class="cp-opt' + (on ? ' on' : '') + '"'
+          + (c.usable ? ' onclick="pickCoupon(\'' + c.id + '\')"' : ' disabled')
+          + '><span class="amt">' + (c.usable ? '-' + _cpWon(c.discount) : '사용 불가') + '</span>'
+          + '<span class="info"><span class="nm">' + String(c.nm || '').replace(/<br>/g, ' ') + '</span>'
+          + '<span class="cd">' + (c.usable ? (c.cond || '') : c.reason) + '</span></span></button>';
+      }).join('');
+    }
+    document.getElementById('cpscrim').classList.add('show');
+    document.getElementById('cpsheet').classList.add('show');
+  }
+
+  function closeCouponPicker() {
+    document.getElementById('cpscrim').classList.remove('show');
+    document.getElementById('cpsheet').classList.remove('show');
+  }
+
+  function pickCoupon(id) {
+    HL_PICKED_COUPON = id ? (HL_COUPONS.find(function (c) { return c.id === id; }) || null) : null;
+    PAY_COUPON = HL_PICKED_COUPON ? HL_PICKED_COUPON.discount : 0;
+    payRecalc();
+    hlPaintCouponRow();
+    closeCouponPicker();
+  }
+
+  /* ===== 알림 설정 ===== */
+  async function hlLoadNotif() {
+    if (!hlLoggedIn()) return;
+    try {
+      const d = await HL.get('/api/settings');
+      document.querySelectorAll('#s-notif .ntf-row[data-ntf]').forEach(function (row) {
+        const btn = row.querySelector('.ntf-tog');
+        if (btn) btn.classList.toggle('on', !!d.settings[row.dataset.ntf]);
+      });
+    } catch (e) {
+      console.warn('[HappyLocal] 알림 설정을 불러오지 못했습니다:', e.message);
+    }
+  }
+
+  /** 원래는 클래스만 토글했습니다. 이제 계정에 저장합니다. */
+  async function ntfToggle(btn) {
+    const row = btn.closest('.ntf-row');
+    const key = row && row.dataset ? row.dataset.ntf : '';
+    if (!key) { btn.classList.toggle('on'); return; }
+    if (hlNeedLogin('알림 설정을 저장하려면 로그인이 필요해요.')) return;
+
+    const next = !btn.classList.contains('on');
+    btn.classList.toggle('on', next);
+    try {
+      await HL.put('/api/settings', { key: key, value: next });
+    } catch (e) {
+      btn.classList.toggle('on', !next);       // 실패하면 되돌립니다
+      hlToast('설정을 저장하지 못했어요');
+    }
+  }
+
+  /* ===== 친구 초대 ===== */
+  let HL_INVITE = null;
+  async function hlLoadInvite() {
+    const codeEl = document.getElementById('inv-code');
+    if (!codeEl) return;
+    if (!hlLoggedIn()) { codeEl.textContent = '로그인 후 발급'; return; }
+    try {
+      HL_INVITE = await HL.get('/api/invite');
+      codeEl.textContent = HL_INVITE.code;
+      const sub = document.querySelector('#s-invite .inv-sub');
+      if (sub && HL_INVITE.invitedCount > 0) {
+        sub.textContent = '지금까지 ' + HL_INVITE.invitedCount + '명을 초대했어요. ' + HL_INVITE.reward;
+      }
+    } catch (e) {
+      codeEl.textContent = '발급 실패';
+    }
+  }
+
+  /** 코드만 복사하면 받는 쪽이 쓸 데가 없어서 초대 링크를 복사합니다. */
+  function inviteCopy() {
+    const text = (HL_INVITE && HL_INVITE.link)
+      || (document.getElementById('inv-code') || {}).textContent || '';
+    if (!text) return;
+    try {
+      if (navigator.clipboard) navigator.clipboard.writeText(text);
+      else {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      hlToast('초대 링크를 복사했어요');
+    } catch (e) { hlToast('복사하지 못했어요'); }
+  }
+
+  /* ===== 로그인 / 계정 =====
+     예전에는 MY_USER 상수가 isLoggedIn:true 로 박혀 있어 항상 로그인 상태로 보였습니다.
+     이제 서버 세션이 정본이고, 비로그인 상태가 기본입니다. */
+  let HL_USER = null;
+  let HL_ADOPTED = [];
+  let HL_AUTH = { kakao: false, devLogin: false };
+
+  const hlLoggedIn = () => !!HL_USER;
+
+  async function hlLoadAuthConfig() {
+    try { HL_AUTH = await HL.get('/api/auth/config'); } catch (e) { /* 기본값 유지 */ }
+    const dev = document.getElementById('lg-dev');
+    if (dev) dev.hidden = !HL_AUTH.devLogin;
+    const kko = document.getElementById('lg-kakao');
+    if (kko && !HL_AUTH.kakao) {
+      kko.disabled = true;
+      kko.innerHTML = '카카오 로그인 준비 중';
+      const note = document.getElementById('lg-note');
+      if (note) note.textContent = '서버에 KAKAO_REST_KEY 가 설정되지 않았습니다.';
+    }
+  }
+
+  /** 로그인 화면을 엽니다. reason 을 주면 왜 필요한지 안내합니다. */
+  function openLogin(reason) {
+    const el = document.getElementById('lg-reason');
+    if (el) {
+      el.textContent = reason || '로그인하면 예약 내역과 여행 계획이 저장돼요.';
+    }
+    go('login');
+  }
+
+  function loginWithKakao() {
+    // 서버가 인가 페이지로 리다이렉트합니다. REST 키는 서버에만 있습니다.
+    location.href = (HL_API_BASE || '') + '/api/auth/kakao';
+  }
+
+  async function loginDev() {
+    const btn = document.getElementById('lg-dev');
+    if (btn) { btn.disabled = true; btn.textContent = '로그인 중…'; }
+    try {
+      await HL.post('/api/auth/dev-login', { nickname: '테스트 여행자' });
+      location.href = 'happylocal_v2.html?login=ok';
+    } catch (e) {
+      const note = document.getElementById('lg-note');
+      if (note) note.textContent = '임시 로그인에 실패했습니다: ' + e.message;
+      if (btn) { btn.disabled = false; btn.textContent = '둘러보기용 임시 로그인'; }
+    }
+  }
+
+  async function doLogout() {
+    if (!confirm('로그아웃할까요?')) return;
+    try { await HL.post('/api/auth/logout', {}); } catch (e) {}
+    location.href = 'happylocal_v2.html';
+  }
+
+  /** 로그인이 필요한 동작 앞에 둡니다. 로그인돼 있으면 true. */
+  function hlNeedLogin(reason) {
+    if (hlLoggedIn()) return false;
+    openLogin(reason);
+    return true;
+  }
+
+  /**
+   * MY 화면 프로필 행. 화살표만 있고 눌러도 아무 일도 없었습니다.
+   * 비로그인이면 로그인 화면으로, 로그인 상태면 계정 정보를 엽니다.
+   */
+  function openProfile() {
+    if (!hlLoggedIn()) { openLogin(); return; }
+
+    const PROVIDER = { kakao: '카카오', dev: '둘러보기용 임시' };
+    const av = document.getElementById('ac-ava');
+    if (av) {
+      if (HL_USER.avatar) {
+        av.style.backgroundImage = 'url(' + HL_USER.avatar + ')';
+        av.textContent = '';
+      } else {
+        av.style.backgroundImage = '';
+        av.textContent = (HL_USER.nickname || '여').slice(0, 1);
+      }
+    }
+    const set = function (id, v) { const e = document.getElementById(id); if (e) e.textContent = v; };
+    set('ac-name', (HL_USER.nickname || '여행자') + '님');
+    set('ac-sub', (PROVIDER[HL_USER.provider] || HL_USER.provider) + ' 계정으로 로그인됨');
+
+    const pending = MY_PICKUPS.filter(function (p) { return p.status !== '픽업완료' && p.status !== '취소'; }).length;
+    const rows = [
+      ['연결 계정', (PROVIDER[HL_USER.provider] || HL_USER.provider) + ' 계정'],
+      ['이메일', HL_USER.email || '제공되지 않음'],
+      ['픽업 예정', pending + '건'],
+      ['저장한 코스', MY_COURSES.length + '개'],
+      ['보유 쿠폰', MY_COUPONS.length + '장'],
+    ];
+    const host = document.getElementById('ac-rows');
+    if (host) {
+      host.innerHTML = rows.map(function (r) {
+        return '<div class="ac-row"><span class="k">' + r[0] + '</span><span class="v">' + r[1] + '</span></div>';
+      }).join('');
+    }
+    document.getElementById('acscrim').classList.add('show');
+    document.getElementById('acsheet').classList.add('show');
+  }
+
+  function closeProfile() {
+    document.getElementById('acscrim').classList.remove('show');
+    document.getElementById('acsheet').classList.remove('show');
+  }
+
+  /** MY 화면에 로그인/로그아웃 버튼을 놓습니다. */
+  function hlRenderAuthRow() {
+    const stats = document.querySelector('#s-my .my2-stats');
+    if (!stats) return;
+    let btn = document.getElementById('my2-authbtn');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.id = 'my2-authbtn';
+      btn.className = 'my2-logout';
+      stats.parentNode.insertBefore(btn, stats.nextSibling);
+    }
+    if (hlLoggedIn()) {
+      btn.textContent = '로그아웃';
+      btn.onclick = doLogout;
+    } else {
+      btn.textContent = '로그인 / 회원가입';
+      btn.onclick = function () { openLogin(); };
+    }
+  }
+
+  /** 로그인 리다이렉트로 돌아왔을 때 결과를 알려줍니다. */
+  function hlShowLoginResult() {
+    const q = new URLSearchParams(location.search);
+    const r = q.get('login');
+    if (!r) return;
+    if (r === 'ok') {
+      hlToast(HL_USER ? (HL_USER.nickname + '님, 환영합니다') : '로그인되었어요');
+    } else {
+      // 카카오 오류코드가 오면 그것부터 봅니다. 예전에는 무엇이든
+      // "Redirect URI 를 확인해 주세요" 라고만 해서 엉뚱한 곳을 고치게 했습니다.
+      const byCode = {
+        KOE010: '앱 설정이 맞지 않아요. Client Secret 설정을 확인해 주세요.',
+        KOE006: '등록된 Redirect URI 와 접속 주소가 달라요.',
+        KOE320: '로그인 시간이 지났어요. 다시 시도해 주세요.',
+        KOE303: 'Redirect URI 가 요청 때와 달라요.',
+      }[q.get('code')];
+      const why = byCode || {
+        state_mismatch: '보안 확인에 실패했어요. 다시 시도해 주세요.',
+        token_exchange_failed: '카카오 인증에 실패했어요. 서버 로그에 원인이 남아 있어요.',
+        userinfo_failed: '카카오 계정 정보를 받지 못했어요.',
+        no_code: '로그인이 취소되었어요.',
+      }[q.get('reason')] || '로그인에 실패했어요.';
+      hlToast(why);
+    }
+    // 주소창을 정리해 새로고침 때 같은 안내가 반복되지 않게 합니다.
+    history.replaceState(null, '', location.pathname);
+  }
+
+  /* ===== 여행 계획 저장 =====
+     원래 addToPlan() 은 토스트만 띄우고 아무것도 저장하지 않았습니다. */
+  function hlToast(msg) {
+    const ph = document.getElementById('phone'); if (!ph) return;
+    let t = ph.querySelector('.rc-toast');
+    if (!t) { t = document.createElement('div'); t.className = 'rc-toast'; ph.appendChild(t); }
+    t.textContent = msg;
+    void t.offsetWidth; t.classList.add('show');
+    clearTimeout(window._rcToast);
+    window._rcToast = setTimeout(function () { t.classList.remove('show'); }, 1900);
+  }
+
+  async function hlSavePlan() {
+    if (hlNeedLogin('로그인하면 짠 여행 계획을 저장할 수 있어요.')) return;
+    const c = COURSES[curCourse];
+    if (!c) { hlToast('저장할 코스를 찾지 못했어요'); return; }
+    try {
+      const res = await HL.post('/api/plans', {
+        courseId: curCourse,
+        title: c.title,
+        region: c.region,
+        dur: c.dur,
+        price: c.price,
+        sum: c.sum,
+        stops: c.seq.map(function (x) { return { key: x.k, time: x.time }; }),
+      });
+      await hlRefreshPlans();
+      hlToast(res.duplicated ? '이미 담아둔 코스예요' : '✓ 내 일정에 담았어요');
+    } catch (e) {
+      hlToast('담지 못했어요: ' + e.message);
+    }
+  }
+
+  async function hlRefreshPlans() {
+    if (!hlLoggedIn()) { MY_COURSES.length = 0; renderMyCourse(); return; }
+    try {
+      const d = await HL.get('/api/plans');
+      MY_COURSES.length = 0;
+      (d.plans || []).forEach(function (p) { MY_COURSES.push(p); });
+      renderMyCourse();
+    } catch (e) {
+      console.warn('[HappyLocal] 여행 계획을 받지 못했습니다:', e.message);
+    }
+  }
+
+  async function hlDeletePlan(planId) {
+    if (!planId) return;
+    if (!confirm('이 코스를 내 일정에서 뺄까요?')) return;
+    try {
+      const r = await fetch((HL_API_BASE || '') + '/api/plans/' + encodeURIComponent(planId), {
+        method: 'DELETE', credentials: 'same-origin',
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+    } catch (e) {
+      hlToast('삭제하지 못했어요: ' + e.message);
+      return;
+    }
+    await hlRefreshPlans();
+    hlToast('일정에서 뺐어요');
+  }
+
+  /* ===== 후기 작성 ===== */
+  let wrStars = 0;
+
+  function renderWrStars() {
+    const host = document.getElementById('wr-stars'); if (!host) return;
+    host.innerHTML = [1, 2, 3, 4, 5].map(function (n) {
+      return '<span class="wr-star' + (n <= wrStars ? ' on' : '') + '" onclick="setWrStars(' + n + ')">★</span>';
+    }).join('');
+  }
+  function setWrStars(n) { wrStars = n; renderWrStars(); }
+
+  function openWriteReview() {
+    if (hlNeedLogin('후기를 남기려면 로그인이 필요해요.')) return;
+    wrStars = 0;
+    renderWrStars();
+    const sel = document.getElementById('wr-shop');
+    // 내가 예약한 픽업 중에서 고르게 합니다. 없으면 전체 매장 목록으로 대체합니다.
+    const opts = MY_PICKUPS.length
+      ? MY_PICKUPS.map(function (p) { return { shop: p.shop, prod: p.prod }; })
+      : STORES.slice(0, 30).map(function (s) {
+          const pl = PLACES[s.key] || {};
+          return { shop: pl.nm || s.key, prod: '' };
+        });
+    sel.innerHTML = opts.map(function (o, i) {
+      return '<option value="' + i + '">' + o.shop + (o.prod ? ' · ' + o.prod : '') + '</option>';
+    }).join('');
+    sel._opts = opts;
+    document.getElementById('wr-text').value = '';
+    document.getElementById('wr-err').textContent = '';
+    document.getElementById('wrscrim').classList.add('show');
+    document.getElementById('wrsheet').classList.add('show');
+  }
+  function closeWriteReview() {
+    document.getElementById('wrscrim').classList.remove('show');
+    document.getElementById('wrsheet').classList.remove('show');
+  }
+
+  async function submitReview() {
+    const err = document.getElementById('wr-err');
+    const sel = document.getElementById('wr-shop');
+    const txt = (document.getElementById('wr-text').value || '').trim();
+    const pick = (sel._opts || [])[Number(sel.value)] || null;
+    err.textContent = '';   // 이전 시도의 오류 메시지를 지우고 시작합니다
+
+    if (!pick) { err.textContent = '매장을 선택해 주세요.'; return; }
+    if (!wrStars) { err.textContent = '별점을 선택해 주세요.'; return; }
+    if (!txt) { err.textContent = '후기 내용을 입력해 주세요.'; return; }
+
+    const btn = document.getElementById('wr-submit');
+    btn.disabled = true; btn.textContent = '등록 중…';
+    try {
+      await HL.post('/api/reviews', {
+        shop: pick.shop, prod: pick.prod, stars: wrStars, txt: txt,
+      });
+      await hlRefreshReviews();
+      closeWriteReview();
+    } catch (e) {
+      err.textContent = '등록하지 못했습니다: ' + e.message;
+    } finally {
+      btn.disabled = false; btn.textContent = '등록하기';
+    }
+  }
+
+  /**
+   * 서버 값을 기존 상수 안에 그대로 옮겨 담습니다.
+   * 배열은 length=0 후 push, 객체는 키를 비우고 Object.assign 합니다.
+   * 참조가 유지되므로 const 선언과 기존 클로저를 건드리지 않아도 됩니다.
+   */
+  const HL_ADOPTABLE = {
+    cal, RV, RV_PHOTOS, LR_DATA, HS_REGION_GROUP, VIC,
+    FARM_SHOTS, STORE_SHOTS, STYLE_DESC, ADJ, FAQ_DATA, NOTICE_DATA,
+    REGIONS, LEGAL_DATA, CAL2_FESTIVAL, CAL2_SEASONAL, CAL2_SHOP_LISTS,
+    CAL2_TODAY, MY_STATS,
+  };
+
+  function hlAdopt(name, src) {
+    if (src == null) return false;
+    const target = HL_ADOPTABLE[name];
+    if (!target || typeof target !== 'object') return false;
+
+    // 빈 값이 정상 값을 덮지 않게 막습니다.
+    // (직렬화가 안 되는 데이터가 빈 껍데기로 와서 기능을 지운 적이 있습니다.)
+    const srcSize = Array.isArray(src) ? src.length : Object.keys(src).length;
+    const curSize = Array.isArray(target) ? target.length : Object.keys(target).length;
+    if (srcSize === 0 && curSize > 0) {
+      console.warn('[HappyLocal] ' + name + ' 이 비어서 서버 값을 무시했습니다.');
+      return false;
+    }
+
+    if (Array.isArray(target)) {
+      if (!Array.isArray(src)) return false;
+      target.length = 0;
+      src.forEach(function (x) { target.push(x); });
+      return true;
+    }
+    if (Array.isArray(src)) return false;
+    Object.keys(target).forEach(function (k) { delete target[k]; });
+    Object.assign(target, src);
+    return true;
+  }
+
+  /** 서버에서 쿠폰 목록을 받아 반영합니다. */
+  async function hlRefreshCoupons() {
+    try {
+      const d = await HL.get('/api/coupons');
+      if (!Array.isArray(d.coupons)) return false;
+      MY_COUPONS.length = 0;
+      d.coupons.forEach(function (c) { MY_COUPONS.push(c); });
+      renderMyCoupons();
+      return true;
+    } catch (e) {
+      console.warn('[HappyLocal] 쿠폰을 받지 못했습니다:', e.message);
+      return false;
+    }
+  }
+
+  /** 서버에서 후기 목록을 다시 받아 반영합니다. */
+  async function hlRefreshReviews() {
+    try {
+      // mine=1 이 없으면 다른 사람 후기까지 "내가 쓴 후기"에 섞입니다.
+      const d = await HL.get('/api/reviews?mine=1');
+      MY_REVIEWS.length = 0;
+      (d.reviews || []).forEach(function (r) { MY_REVIEWS.push(r); });
+      renderMyReviews();
+      return true;
+    } catch (e) {
+      console.warn('[HappyLocal] 후기를 새로 받지 못했습니다:', e.message);
+      return false;
+    }
+  }
+
+  /** 서버에서 예약 내역을 다시 받아 화면에 반영합니다. */
+  async function hlRefreshPickups() {
+    try {
+      const d = await HL.get('/api/mypickups');
+      if (!Array.isArray(d.MY_PICKUPS)) return false;
+      MY_PICKUPS.length = 0;
+      d.MY_PICKUPS.forEach(function (p) { MY_PICKUPS.push(p); });
+      renderMy(); renderCartBadge(); renderMyCourse();
+      return true;
+    } catch (e) {
+      console.warn('[HappyLocal] 예약 내역을 새로 받지 못했습니다:', e.message);
+      return false;
+    }
+  }
+
+  /** 예약 취소 확인. 되돌리기 어려운 동작이라 한 번 묻습니다. */
+  async function askCancelResv(orderId) {
+    const p = MY_PICKUPS.find(function (x) { return x.orderId === orderId; });
+    const label = p ? (p.prod || p.shop) : '이 예약';
+    if (!confirm(label + ' 예약을 취소할까요?' + String.fromCharCode(10)
+      + '취소하면 예약 수량이 다시 판매됩니다.')) return;
+    const ok = await hlCancelOrder(orderId);
+    if (ok) {
+      // 재고가 돌아왔으므로 상품 목록도 새로 받습니다.
+      try {
+        const d = await HL.get('/api/products');
+        if (Array.isArray(d.products)) { PL = d.products; renderList(); }
+      } catch (e) { /* 목록 갱신 실패는 치명적이지 않습니다 */ }
+    }
+  }
+
+  /** 예약 취소. 서버에서 재고를 되돌리고 목록을 갱신합니다. */
+  async function hlCancelOrder(orderId) {
+    if (!orderId) return false;
+    try {
+      await HL.post('/api/orders/' + encodeURIComponent(orderId) + '/cancel', {});
+      await hlRefreshPickups();
+      return true;
+    } catch (e) {
+      alert('예약을 취소하지 못했습니다: ' + e.message);
+      return false;
+    }
+  }
+
+  /** 상품명으로 서버 상품 id 를 찾습니다. sdItem 생성 경로가 여러 개라 이름으로 맞춥니다. */
+  function hlFindProductId(it) {
+    if (!it) return null;
+    if (it.productId) return it.productId;
+    const name = (it.prod || it.name || '').trim();
+    if (!name) return null;
+    const hit = PL.find(function (p) { return (p.prod || '').trim() === name; })
+      || PL.find(function (p) { return (p.name || '').trim() === (it.shop || '').trim(); });
+    return hit ? hit.fid : null;
+  }
+
+  /** 화면 상단에 현재 데이터 출처를 알려주는 작은 배지 */
+  function hlSourceBadge(msg, tone) {
+    let el = document.getElementById('hl-src-badge');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'hl-src-badge';
+      el.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:9999;'
+        + 'padding:7px 14px;border-radius:999px;font-size:11.5px;font-weight:800;letter-spacing:.2px;'
+        + 'font-family:inherit;box-shadow:0 4px 16px rgba(0,0,0,.22);pointer-events:none;'
+        + 'transition:opacity .4s ease';
+      document.body.appendChild(el);
+    }
+    const tones = {
+      live: 'background:#2B8A3D;color:#fff',
+      mixed: 'background:#E8A317;color:#231a00',
+      seed: 'background:#4a5058;color:#fff'
+    };
+    el.setAttribute('style', el.getAttribute('style').replace(/background:[^;]*;color:[^;]*/, '') + ';' + (tones[tone] || tones.seed));
+    el.textContent = msg;
+    setTimeout(function () { el.style.opacity = '0'; }, 4200);
+  }
+
+  function hlRenderAll() {
+    renderCalStores(); renderList(); renderMonths(); paintCal(); paintRouteCal();
+    renderCal2(); renderMy(); renderCartBadge(); renderMyReviews(); renderMyCoupons();
+  }
+
+  async function hlBoot() {
+    try {
+      const d = await HL.get('/api/bootstrap');
+      hlApplyBootstrap(d);
+      // 지도 백엔드를 먼저 확정합니다. 렌더보다 먼저 끝나야 첫 지도 생성이
+      // 카카오로 잡힙니다 (실패하면 Leaflet 으로 폴백).
+      HL_KAKAO_KEY = (d.clientConfig && d.clientConfig.kakaoJsKey) || '';
+      if (HL_KAKAO_KEY) await hlLoadKakao(HL_KAKAO_KEY);
+      if (d.warnings && d.warnings.length) {
+        console.warn('[HappyLocal] ' + d.warnings.join('\n[HappyLocal] '));
+      }
+      const label = {
+        tourapi: '한국관광공사 실데이터 연동됨',
+        mixed: '실데이터 일부 연동 (콘솔 경고 확인)',
+        seed: '시드 데이터 — TOUR_API_KEY 미설정'
+      }[HL_SOURCE] || '시드 데이터';
+      hlSourceBadge(label + ' · 지도 ' + (hlMapBackend() === 'kakao' ? '카카오맵' : 'Leaflet'), HL_SOURCE);
+    } catch (e) {
+      console.warn('[HappyLocal] 서버에 연결하지 못해 내장 시드 데이터로 표시합니다:', e.message);
+      hlSourceBadge('오프라인 — 내장 시드 데이터', 'seed');
+    }
+    hlRenderAll();
+    try { renderMapCats(); } catch (e) {}
+    try { initTheme(); } catch (e) {}
+    await hlLoadAuthConfig();
+    hlShowLoginResult();
+  }
+
+  /* --- 결제: 실제 주문 API 호출로 교체 --------------------------------
+     원본 payDo() 는 화면만 바꿨습니다. 이제 서버에 주문을 만들고
+     재고를 실제로 차감합니다. 서버가 없으면 기존 동작으로 물러납니다. */
+  const _payDoLocal = payDo;
+  payDo = async function () {
+    const agree = document.getElementById('pay-agree');
+    if (!agree || !agree.classList.contains('on')) return;
+    if (hlNeedLogin('예약하려면 로그인이 필요해요. 예약코드와 내역이 계정에 저장됩니다.')) return;
+
+    const btn = document.querySelector('.pay-cta-main');
+    const productId = hlFindProductId(sdItem);
+
+    if (!productId) { _payDoLocal(); return; }
+
+    const prevText = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = '결제 처리 중…'; }
+
+    try {
+      const res = await HL.post('/api/orders', {
+        productId: productId,
+        qty: payQty || 1,
+        couponId: HL_PICKED_COUPON ? HL_PICKED_COUPON.id : null,
+      });
+
+      // 예약 내역은 서버가 정본입니다. 로컬에서 만들어 끼워넣지 않고
+      // 다시 받아옵니다 (그래야 새로고침해도 같은 내용이 보입니다).
+      await hlRefreshPickups();
+
+      // 차감된 재고를 목록에 반영합니다.
+      const pl = PL.find(function (p) { return p.fid === productId; });
+      if (pl && res.product) { pl.stock = res.product.stock; pl.tag = res.product.tag; pl.soldOut = res.product.soldOut; }
+
+      if (btn) { btn.textContent = '결제 완료 ✓'; btn.style.background = '#2B8A3D'; }
+      renderCartBadge(); renderList();
+    } catch (e) {
+      if (btn) { btn.disabled = false; btn.textContent = prevText; }
+      if (e.available !== undefined) {
+        alert('재고가 부족합니다. 현재 ' + e.available + '개 남았어요.');
+      } else {
+        console.warn('[HappyLocal] 주문 실패, 로컬 처리로 대체합니다:', e.message);
+        _payDoLocal();
+      }
+    }
+  };
+
+  // 부팅 완료를 기다릴 수 있도록 프라미스를 노출합니다.
+  // (부팅이 끝나면 PLACES/PL/STORES 가 서버 값으로 교체되므로, 그 전에
+  //  이 값들을 만지면 덮어써집니다. 테스트와 외부 스크립트가 이걸 기다립니다.)
+  const HL_READY = hlBoot();
+  try { window.HL_READY = HL_READY; } catch (e) {}
 </script>
 </body>
 </html>
