@@ -796,7 +796,7 @@
 
   <div class="card asset-card">
     <div class="panel-title">📝 자산 입력</div>
-    <p class="panel-sub">7월부터 시작 · 월별 입금액 입력시 현재합계 자동 갱신</p>
+    <p class="panel-sub">통장·현금은 월말 잔액, 주식은 월별 매입액 입력 · 선택한 달 기준으로 합계 계산</p>
 
     <div class="table-scroll">
     <table class="asset">
@@ -808,16 +808,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr data-kind="balance">
           <td class="label">부부통장(원)</td>
-          <td><input value="7161315"></td><td><input value="0"></td>
-          <td><input value="0"></td><td><input value="0"></td><td><input value="0"></td><td><input value="0"></td>
+          <td><input value="7161315"></td><td><input value="7961315"></td>
+          <td><input value="" placeholder="-"></td><td><input value="" placeholder="-"></td><td><input value="" placeholder="-"></td><td><input value="" placeholder="-"></td>
           <td class="total">₩0</td>
         </tr>
-        <tr>
+        <tr data-kind="balance">
           <td class="label">유정현금보유</td>
-          <td><input value="14778472"></td><td><input value="0"></td>
-          <td><input value="0"></td><td><input value="0"></td><td><input value="0"></td><td><input value="0"></td>
+          <td><input value="14778472"></td><td><input value="6879201"></td>
+          <td><input value="" placeholder="-"></td><td><input value="" placeholder="-"></td><td><input value="" placeholder="-"></td><td><input value="" placeholder="-"></td>
           <td class="total">₩0</td>
         </tr>
         <tr>
@@ -901,6 +901,37 @@
     return sum;
   }
 
+  // 선택한 달 기준 행의 현재 값
+  //  - 잔액형(통장·현금): 선택한 달까지 중 가장 최근에 입력된 잔액
+  //  - 누적형(주식 등): 선택한 달까지의 입력값 합계
+  function assetRowValue(tr, month){
+    const inputs = Array.from(tr.querySelectorAll('td:not(.label):not(.total) input'));
+    const upto = Math.min(inputs.length, month - START_MONTH + 1);
+    if(tr.dataset.kind === 'balance'){
+      for(let i = upto - 1; i >= 0; i--){
+        if(String(inputs[i].value).trim() !== '') return parseNum(inputs[i].value);
+      }
+      return 0;
+    }
+    let sum = 0;
+    for(let i = 0; i < upto; i++) sum += parseNum(inputs[i].value);
+    return sum;
+  }
+
+  function findAssetRow(labelText){
+    return Array.from(document.querySelectorAll('table.asset tbody tr')).find(function(tr){
+      const el = tr.querySelector('td.label');
+      return el && el.textContent.trim() === labelText;
+    });
+  }
+
+  function recalcAssetTotals(){
+    document.querySelectorAll('table.asset tbody tr').forEach(function(tr){
+      const td = tr.querySelector('td.total');
+      if(td) td.textContent = formatWon(assetRowValue(tr, currentMonth));
+    });
+  }
+
   function getAssetRowValues(labelText){
     const rows = document.querySelectorAll('table.asset tbody tr');
     for(let i = 0; i < rows.length; i++){
@@ -929,26 +960,37 @@
     const stockH = getAssetRowValues('주식매입(남편)');
     const stockW = getAssetRowValues('주식매입(아내)');
 
-    const stockTotal = stockH.total + stockW.total;
+    const stockTotal = assetRowValue(findAssetRow('주식매입(남편)') || document.createElement('tr'), currentMonth)
+                     + assetRowValue(findAssetRow('주식매입(아내)') || document.createElement('tr'), currentMonth);
     const stockPrincipal = stockH.first + stockW.first;
     const endCash = (husbandSalary + wifeSalary) - (husbandExpense + wifeExpense);
-    // 자산 표의 모든 행(+ 구분 추가로 만든 행 포함)을 합산
+    // 자산 표의 모든 행(+ 구분 추가로 만든 행 포함)을 선택한 달 기준으로 합산
     let grandTotal = 0;
     document.querySelectorAll('table.asset tbody tr').forEach(function(tr){
-      tr.querySelectorAll('td:not(.label):not(.total) input').forEach(function(inp){
-        grandTotal += parseNum(inp.value);
-      });
+      grandTotal += assetRowValue(tr, currentMonth);
     });
+
+    // 통장·현금 잔액과 전월 대비 증감
+    function balanceInfo(label){
+      const tr = findAssetRow(label);
+      if(!tr) return { now: 0, foot: '' };
+      const now = assetRowValue(tr, currentMonth);
+      if(currentMonth === START_MONTH) return { now: now, foot: currentMonth + '월 말 잔액' };
+      const diff = now - assetRowValue(tr, currentMonth - 1);
+      return { now: now, foot: '전월 대비 ' + (diff >= 0 ? '+' : '') + formatWon(diff) };
+    }
+    const coupleBal = balanceInfo('부부통장(원)');
+    const cash2Bal = balanceInfo('유정현금보유');
 
     const coupleValueEl = document.getElementById('tile-couple-value');
     const coupleFootEl = document.getElementById('tile-couple-foot');
-    if(coupleValueEl) coupleValueEl.textContent = formatWon(couple.total);
-    if(coupleFootEl) coupleFootEl.textContent = '이번달 입금 ' + formatWon(couple.current);
+    if(coupleValueEl) coupleValueEl.textContent = formatWon(coupleBal.now);
+    if(coupleFootEl) coupleFootEl.textContent = coupleBal.foot;
 
     const cash2ValueEl = document.getElementById('tile-cash2-value');
     const cash2FootEl = document.getElementById('tile-cash2-foot');
-    if(cash2ValueEl) cash2ValueEl.textContent = formatWon(cash2.total);
-    if(cash2FootEl) cash2FootEl.textContent = '이번달 입금 ' + formatWon(cash2.current);
+    if(cash2ValueEl) cash2ValueEl.textContent = formatWon(cash2Bal.now);
+    if(cash2FootEl) cash2FootEl.textContent = cash2Bal.foot;
 
     const endCashEl = document.getElementById('tile-endcash-value');
     if(endCashEl){
@@ -1198,11 +1240,7 @@
     const isDollar = tr.querySelector('td.label').textContent.includes('($)');
     const monthInputs = Array.from(tr.querySelectorAll('td:not(.label):not(.total) input'));
     function recalc(){
-      let sum = 0;
-      monthInputs.forEach(function(inp){
-        const v = parseFloat(String(inp.value).replace(/[^0-9.-]/g, ''));
-        if(!isNaN(v)) sum += v;
-      });
+      const sum = assetRowValue(tr, currentMonth);
       totalTd.textContent = isDollar ? ('$' + Math.round(sum).toLocaleString('en-US')) : formatWon(sum);
     }
     monthInputs.forEach(function(inp){
@@ -1336,6 +1374,50 @@
   // 7월 기록은 처음 입력돼 있던 값 그대로 보관
   saveMonth(START_MONTH);
 
+  // 8월 기록 (남편·아내 지출) — 순서는 표의 항목 순서와 같음
+  monthData[8] = {
+    husbandSalary: '3229730',
+    wifeSalary: '2796183',
+    husband: [
+      '83380',    // 전기세
+      '',         // 가스비
+      '70000',    // 관리비
+      '36300',    // 핸드폰
+      '',         // 보험료
+      '',         // 건강보험료
+      '',         // 교통카드
+      '',         // 식권비
+      '450000',   // 데이트통장
+      '1481188',  // 그외
+      '231690',   // 전세자금대출
+      '500728',   // 대출이자
+      '32000000', // 대출원금 (합계 제외)
+      '',         // 구독료
+      '',         // 미용
+      '',         // 건강
+      ''          // 경조사
+    ],
+    wife: [
+      '200000',   // 전기세
+      '',         // 가스비
+      '',         // 관리비
+      '117110',   // 핸드폰
+      '320282',   // 보험료
+      '',         // 건강보험료
+      '',         // 교통카드
+      '100000',   // 식권비
+      '500000',   // 데이트통장
+      '430000',   // 그외
+      '',         // 전세자금대출
+      '',         // 대출이자
+      '',         // 대출원금 (합계 제외)
+      '23000',    // 구독료
+      '11000',    // 미용
+      '',         // 건강
+      '10000000'  // 경조사
+    ]
+  };
+
   document.querySelectorAll('.tabs .tab').forEach(function(tab, i, tabs){
     tab.addEventListener('click', function(){
       const m = parseInt(tab.dataset.month, 10);
@@ -1346,6 +1428,8 @@
       tab.classList.add('active');
       document.getElementById('summary-title').textContent = m + '월 현금 현황';
       loadMonth(m);
+      recalcAssetTotals();
+      updateSummaryCard();
       resetFocusPanel();
       if(chartGenerated) renderChart();
     });
