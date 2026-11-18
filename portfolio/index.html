@@ -97,16 +97,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;
   border-bottom:1px solid rgba(255,255,255,.08);}
 nav .logo{font-family:'Manrope',sans-serif;font-weight:800;
   font-size:var(--fs-h4);letter-spacing:.12em;color:#fff;}
-nav .menu{display:flex;align-items:center;gap:4px;}
+nav .menu{display:flex;align-items:center;gap:4px;min-width:0;overflow-x:auto;}
 nav .menu button{background:none;border:none;color:rgba(255,255,255,.55);
   font-size:var(--fs-body-sm);font-weight:600;letter-spacing:.01em;
-  padding:8px 16px;border-radius:8px;transition:.2s var(--ease);}
+  padding:8px 16px;border-radius:8px;white-space:nowrap;transition:.2s var(--ease);}
 nav .menu button:hover{color:#fff;background:rgba(255,255,255,.08);}
 nav .menu button.active{background:#fff;color:#111;}
-nav .cta{margin-left:8px;background:var(--accent);color:#fff;border:none;
-  font-size:var(--fs-caption);font-weight:700;padding:10px 20px;border-radius:8px;
-  transition:.2s var(--ease);}
-nav .cta:hover{background:var(--accent-deep);transform:translateY(-1px);}
 
 /* PAGE SYSTEM */
 .page{display:none;}
@@ -1673,7 +1669,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 }
 @media(max-width:560px){
   nav .menu button{padding:8px 10px;font-size:var(--fs-caption);}
-  nav .cta{display:none;}
+  nav{gap:12px;}
   .contact-grid{grid-template-columns:1fr;}
   .tl-row{grid-template-columns:1fr;gap:6px;padding:16px 0;}
   .acc-head .ttl{font-size:1.3rem;}
@@ -1689,10 +1685,12 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <!-- [[ 로고 텍스트 ]] -->
   <a class="logo" href="#" onclick="go('home');return false;">PORTFOLIO</a>
   <div class="menu">
-    <button data-nav="home" class="active" onclick="go('home')">Home</button>
-    <button data-nav="work" onclick="go('work')">Work</button>
     <button data-nav="about" onclick="go('about')">About</button>
-    <button class="cta" onclick="go('contact')">제작 문의하기</button>
+    <button data-nav="work" data-cat="detail" onclick="goFilter('detail')">상세페이지</button>
+    <button data-nav="work" data-cat="website" onclick="goFilter('website')">웹사이트</button>
+    <button data-nav="work" data-cat="promotion" onclick="goFilter('promotion')">광고·프로모션</button>
+    <button data-nav="work" data-cat="print" onclick="goFilter('print')">인쇄물</button>
+    <button data-nav="contact" onclick="go('contact')">Contact</button>
   </div>
 </nav>
 
@@ -3536,9 +3534,8 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 function go(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
-  document.querySelectorAll('nav .menu button[data-nav]').forEach(b=>{
-    b.classList.toggle('active', b.dataset.nav===name);
-  });
+  const category = document.querySelector('#workFilter button.active')?.dataset.cat;
+  updateNav(name, category);
   window.scrollTo({top:0,behavior:'instant'});
   setTimeout(()=>{
     initReveal();
@@ -3577,16 +3574,18 @@ function initMasonry(){
     setTimeout(()=>el.classList.add('pop'), 200 + i*100);
   });
 }
+function updateNav(page, category){
+  document.querySelectorAll('nav .menu button[data-nav]').forEach(button=>{
+    const active = button.dataset.nav === page &&
+      (!button.dataset.cat || button.dataset.cat === category);
+    button.classList.toggle('active', active);
+    if(active) button.setAttribute('aria-current', 'page');
+    else button.removeAttribute('aria-current');
+  });
+}
 function goFilter(cat){
   go('work');
-  setTimeout(()=>{
-    // 필터 버튼 활성화
-    document.querySelectorAll('.work-filter button').forEach(b=>{
-      b.classList.toggle('active', b.dataset.cat===cat||b.dataset.cat==='all'&&cat==='all');
-    });
-    const btn = document.querySelector(`.work-filter button[data-cat="${cat}"]`);
-    if(btn){ btn.click(); }
-  }, 100);
+  document.querySelector(`#workFilter button[data-cat="${cat}"]`)?.click();
 }
 function toggleAcc(btn){
   const item=btn.closest('.acc-item');
@@ -3654,6 +3653,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
     filter.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     const cat=btn.dataset.cat;
+    updateNav('work', cat);
     grid.style.opacity='0';
     setTimeout(()=>{
       cards.forEach(c=>{
