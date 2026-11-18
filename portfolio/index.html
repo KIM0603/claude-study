@@ -102,7 +102,7 @@ nav .menu button{background:none;border:none;color:rgba(255,255,255,.55);
   font-size:var(--fs-body-sm);font-weight:600;letter-spacing:.01em;
   padding:8px 16px;border-radius:8px;white-space:nowrap;transition:.2s var(--ease);}
 nav .menu button:hover{color:#fff;background:rgba(255,255,255,.08);}
-nav .menu button.active{background:#fff;color:#111;}
+nav .menu button.active{background:var(--accent);color:#111;}
 
 /* PAGE SYSTEM */
 .page{display:none;}
@@ -1038,38 +1038,28 @@ section{position:relative;}
 }
 
 /* WORK */
-.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-items:start;}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:start;}
 #page-work{background:#000;color:#fff;min-height:100vh;}
 .work-hero{padding-top:clamp(110px,15vw,150px);}
-.work-hero .headline{font-size:clamp(2.6rem,8vw,6.4rem);color:#fff;}
 .work-detail-intro{text-align:center;max-width:880px;margin-inline:auto;}
-.work-detail-intro h1{
-  font-size:clamp(1.85rem,5vw,3.4rem);line-height:1.25;
+.work-detail-intro .work-category-title{
+  font-size:clamp(2.6rem,8vw,6.4rem);
+  margin-bottom:clamp(20px,4vw,36px);
+  color:var(--accent);
+  line-height:1.05;letter-spacing:-.045em;
+}
+.work-detail-intro h2{
+  font-size:clamp(1.125rem,2.6vw,1.75rem);line-height:1.35;color:#fff;
+  background:transparent;
   letter-spacing:-.04em;word-break:keep-all;
 }
 .work-detail-intro p{
-  margin-top:20px;color:#d6d6d6;font-size:var(--fs-body);
+  margin-top:14px;color:#fff;font-size:clamp(1rem,2vw,1.375rem);font-weight:500;
   line-height:1.7;word-break:keep-all;
-}
-.work-filter{
-  display:flex;flex-wrap:wrap;gap:8px;
-  margin-bottom:clamp(24px,4vh,40px);
-}
-.work-filter button{
-  font-family:'Pretendard',sans-serif;font-weight:600;
-  font-size:var(--fs-caption);letter-spacing:-.01em;
-  padding:8px 18px;border-radius:8px;
-  background:#151515;border:1px solid #454545;
-  color:#e2e2e2;cursor:pointer;
-  transition:.2s var(--ease);
-}
-.work-filter button:hover{color:var(--accent);border-color:var(--accent);}
-.work-filter button.active{
-  background:var(--accent);border-color:var(--accent);color:var(--txt-dark);
 }
 .work.is-hidden{display:none;}
 .work{position:relative;border-radius:var(--radius);overflow:hidden;
-  background:#fff;border:1px solid var(--card-border);
+  background:#141414;border:1px solid #333;
   transition:.3s var(--ease);
   box-shadow:var(--shadow-sm);}
 .work img{display:block;width:100%;height:auto;}
@@ -1081,14 +1071,14 @@ section{position:relative;}
   font-size:var(--fs-caption);letter-spacing:.06em;}
 .work .ph::after{content:"[[ PROJECT IMAGE ]]";}
 .work .meta{position:static;z-index:2;
-  padding:18px 20px 20px;background:#fff;}
+  padding:18px 20px 20px;background:#141414;}
 .work .meta .tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
 .work .meta .tag{display:inline-block;font-family:'Pretendard';font-weight:600;
   font-size:15px;letter-spacing:.02em;color:#6b6157;
   background:#f1efe8;
   padding:3px 9px;border-radius:6px;margin-bottom:0;}
 .work .meta h3{font-family:'Pretendard';font-weight:700;font-size:clamp(1.3rem,1.5vw,1.55rem);
-  color:#1a1a1a;letter-spacing:-.02em;}
+  color:#fff;letter-spacing:-.02em;}
 .work .corner{position:absolute;top:14px;right:14px;z-index:2;
   width:38px;height:38px;border-radius:8px;
   background:#fff;color:var(--txt-dark);
@@ -1549,6 +1539,12 @@ section{position:relative;}
 .pj-images img{
   width:100%;height:auto;display:block;
 }
+.proj-overlay,.proj-inner{background:#000;}
+.proj-close{background:#111;border-bottom-color:#333;color:#ddd;}
+.pj-h1,.pj-mt-label{color:#fff;}
+.pj-mt-val,.pj-summary{color:#ddd;}
+.pj-site-link{border-color:#555;color:#ddd;}
+.pj-images{border-top-color:#333;}
 @media(max-width:640px){
   .proj-inner{width:100%;}
   .proj-close{padding:13px 20px;}
@@ -1698,10 +1694,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   <a class="logo" href="#" onclick="go('home');return false;">PORTFOLIO</a>
   <div class="menu">
     <button data-nav="about" onclick="go('about')">About</button>
-    <button data-nav="work" data-cat="detail" onclick="goFilter('detail')">상세페이지</button>
-    <button data-nav="work" data-cat="website" onclick="goFilter('website')">웹사이트</button>
-    <button data-nav="work" data-cat="promotion" onclick="goFilter('promotion')">광고·프로모션</button>
-    <button data-nav="work" data-cat="print" onclick="goFilter('print')">인쇄물</button>
+    <button data-nav="work" data-cat="detail" onclick="goFilter('detail')">Detail Pages</button>
+    <button data-nav="work" data-cat="website" onclick="goFilter('website')">Websites</button>
+    <button data-nav="work" data-cat="promotion" onclick="goFilter('promotion')">Ads &amp; Events</button>
+    <button data-nav="work" data-cat="print" onclick="goFilter('print')">Print</button>
     <button data-nav="contact" onclick="go('contact')">Contact</button>
   </div>
 </nav>
@@ -2084,32 +2080,35 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
 <!-- ============ WORK ============ -->
 <div class="page" id="page-work">
-  <section class="work-hero">
+  <section class="work-hero" style="background:#000;">
     <div class="wrap">
-      <div id="workIntro">
-        <div class="eyebrow sr">2023 — 2026</div>
-        <h1 class="headline sr">WORK</h1>
-      </div>
-      <div class="work-detail-intro" id="workDetailIntro" hidden>
-        <h1>브랜드의 매력을 구매 이유로 바꾸는 상세페이지</h1>
-        <p>
-          한눈에 이해하고, 읽을수록 확신이 생기는 상세페이지를 만듭니다.<br>
-          첫 화면의 메시지부터 제품의 강점이 설득력 있게 이어지는 흐름까지 설계합니다.
-        </p>
+      <div class="work-detail-intro">
+        <h1 class="work-category-title" id="workCategoryTitle">Detail Pages</h1>
+        <div class="work-intro-copy" data-cat="detail">
+          <h2>브랜드의 매력을 구매 이유로 바꾸는 상세페이지</h2>
+          <p>한눈에 이해하고, 읽을수록 확신이 생기는 상세페이지를 만듭니다.<br>
+            첫 화면의 메시지부터 제품의 강점이 설득력 있게 이어지는 흐름까지 설계합니다.</p>
+        </div>
+        <div class="work-intro-copy" data-cat="website" hidden>
+          <h2>브랜드의 첫인상과 사용자 흐름을 설계하는 웹사이트</h2>
+          <p>방문자가 필요한 정보를 쉽게 찾을 수 있도록 화면을 구성합니다.<br>
+            PC와 모바일에서 주요 콘텐츠와 다음 행동이 자연스럽게 이어지도록 설계합니다.</p>
+        </div>
+        <div class="work-intro-copy" data-cat="promotion" hidden>
+          <h2>핵심 메시지가 한눈에 들어오는 광고·프로모션</h2>
+          <p>짧은 순간에도 혜택과 참여 방법이 명확히 보이도록 디자인합니다.<br>
+            메타 광고부터 월별 이벤트까지, 채널과 목적에 맞춰 메시지를 구성합니다.</p>
+        </div>
+        <div class="work-intro-copy" data-cat="print" hidden>
+          <h2>현장에서 필요한 정보를 선명하게 전달하는 인쇄물</h2>
+          <p>포스터는 멀리서도 핵심이 보이도록, 리플렛은 가까이에서 읽기 쉽도록 구성합니다.<br>
+            인쇄물의 크기와 사용 환경에 맞춰 글자와 이미지의 배치를 설계합니다.</p>
+        </div>
       </div>
     </div>
   </section>
-  <section class="sec-pad">
+  <section class="sec-pad" style="background:#000;">
     <div class="wrap">
-      <!-- 카테고리 필터 탭 -->
-      <div class="work-filter sr" id="workFilter">
-        <button class="active" data-cat="all">전체</button>
-        <button data-cat="website">웹사이트</button>
-        <button data-cat="detail">상세페이지</button>
-        <button data-cat="promotion">광고·프로모션</button>
-        <button data-cat="print">인쇄물</button>
-      </div>
-
       <div class="work-grid" id="workGrid">
         <!-- 프로젝트 0: 미올한의원 메인 페이지 -->
         <div class="work sr" data-cat="website" onclick="openProject('miol')" style="cursor:pointer;">
@@ -3550,10 +3549,9 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 </footer>
 
 <script>
-function go(name){
+function go(name, category){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
-  const category = document.querySelector('#workFilter button.active')?.dataset.cat;
   updateNav(name, category);
   window.scrollTo({top:0,behavior:'instant'});
   setTimeout(()=>{
@@ -3603,8 +3601,15 @@ function updateNav(page, category){
   });
 }
 function goFilter(cat){
-  go('work');
-  document.querySelector(`#workFilter button[data-cat="${cat}"]`)?.click();
+  const menuButton=document.querySelector(`nav button[data-cat="${cat}"]`);
+  document.getElementById('workCategoryTitle').textContent=menuButton.textContent;
+  document.querySelectorAll('.work-intro-copy').forEach(intro=>{
+    intro.hidden=intro.dataset.cat!==cat;
+  });
+  document.querySelectorAll('#workGrid .work').forEach(card=>{
+    card.classList.toggle('is-hidden', card.dataset.cat!==cat);
+  });
+  go('work', cat);
 }
 function toggleAcc(btn){
   const item=btn.closest('.acc-item');
@@ -3658,36 +3663,6 @@ window.addEventListener('load',()=>{
   initMasonry();
 });
 document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
-
-/* ---------- WORK 카테고리 필터 ---------- */
-(function(){
-  const filter=document.getElementById('workFilter');
-  const grid=document.getElementById('workGrid');
-  if(!filter||!grid) return;
-  const cards=[...grid.querySelectorAll('.work')];
-  const workIntro=document.getElementById('workIntro');
-  const detailIntro=document.getElementById('workDetailIntro');
-  // 탭 클릭 → 필터링
-  filter.addEventListener('click',e=>{
-    const btn=e.target.closest('button');
-    if(!btn) return;
-    filter.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat=btn.dataset.cat;
-    updateNav('work', cat);
-    workIntro.hidden=cat==='detail';
-    detailIntro.hidden=cat!=='detail';
-    grid.style.opacity='0';
-    setTimeout(()=>{
-      cards.forEach(c=>{
-        const show=cat==='all'||c.dataset.cat===cat;
-        c.classList.toggle('is-hidden',!show);
-      });
-      grid.style.opacity='1';
-    },200);
-  });
-})();
-
 
 /* ---------- HOME ↔ WORK 자동 연동 ---------- */
 (function(){
