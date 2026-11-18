@@ -1039,6 +1039,18 @@ section{position:relative;}
 
 /* WORK */
 .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-items:start;}
+#page-work{background:#000;color:#fff;min-height:100vh;}
+.work-hero{padding-top:clamp(110px,15vw,150px);}
+.work-hero .headline{font-size:clamp(2.6rem,8vw,6.4rem);color:#fff;}
+.work-detail-intro{text-align:center;max-width:880px;margin-inline:auto;}
+.work-detail-intro h1{
+  font-size:clamp(1.85rem,5vw,3.4rem);line-height:1.25;
+  letter-spacing:-.04em;word-break:keep-all;
+}
+.work-detail-intro p{
+  margin-top:20px;color:#d6d6d6;font-size:var(--fs-body);
+  line-height:1.7;word-break:keep-all;
+}
 .work-filter{
   display:flex;flex-wrap:wrap;gap:8px;
   margin-bottom:clamp(24px,4vh,40px);
@@ -1047,8 +1059,8 @@ section{position:relative;}
   font-family:'Pretendard',sans-serif;font-weight:600;
   font-size:var(--fs-caption);letter-spacing:-.01em;
   padding:8px 18px;border-radius:8px;
-  background:#fff;border:1px solid var(--card-border);
-  color:var(--txt-dim);cursor:pointer;
+  background:#151515;border:1px solid #454545;
+  color:#e2e2e2;cursor:pointer;
   transition:.2s var(--ease);
 }
 .work-filter button:hover{color:var(--accent);border-color:var(--accent);}
@@ -2072,15 +2084,22 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
 <!-- ============ WORK ============ -->
 <div class="page" id="page-work">
-  <section style="padding-top:150px;padding-bottom:0;background:#fff;">
+  <section class="work-hero">
     <div class="wrap">
-      <div class="eyebrow sr">2023 — 2026</div>
-      <h1 class="headline sr" style="font-size:clamp(2.6rem,8vw,6.4rem);text-transform:uppercase;color:#111;">
-        WORK
-      </h1>
+      <div id="workIntro">
+        <div class="eyebrow sr">2023 — 2026</div>
+        <h1 class="headline sr">WORK</h1>
+      </div>
+      <div class="work-detail-intro" id="workDetailIntro" hidden>
+        <h1>브랜드의 매력을 구매 이유로 바꾸는 상세페이지</h1>
+        <p>
+          한눈에 이해하고, 읽을수록 확신이 생기는 상세페이지를 만듭니다.<br>
+          첫 화면의 메시지부터 제품의 강점이 설득력 있게 이어지는 흐름까지 설계합니다.
+        </p>
+      </div>
     </div>
   </section>
-  <section class="sec-pad" style="background:#fff;">
+  <section class="sec-pad">
     <div class="wrap">
       <!-- 카테고리 필터 탭 -->
       <div class="work-filter sr" id="workFilter">
@@ -3646,6 +3665,8 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   const grid=document.getElementById('workGrid');
   if(!filter||!grid) return;
   const cards=[...grid.querySelectorAll('.work')];
+  const workIntro=document.getElementById('workIntro');
+  const detailIntro=document.getElementById('workDetailIntro');
   // 탭 클릭 → 필터링
   filter.addEventListener('click',e=>{
     const btn=e.target.closest('button');
@@ -3654,6 +3675,8 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
     btn.classList.add('active');
     const cat=btn.dataset.cat;
     updateNav('work', cat);
+    workIntro.hidden=cat==='detail';
+    detailIntro.hidden=cat!=='detail';
     grid.style.opacity='0';
     setTimeout(()=>{
       cards.forEach(c=>{
