@@ -166,6 +166,11 @@ section{position:relative;}
 .hero-left h1 .row:nth-child(3) i{animation-delay:.69s;}
 @keyframes rowUp{to{transform:translateY(0);}}
 .hero-left h1 .dim{color:var(--accent);}
+.hero-subtitle{
+  margin-top:18px;max-width:42ch;
+  font-size:var(--fs-body);font-weight:400;line-height:1.6;
+  color:var(--txt-dim);word-break:keep-all;
+}
 /* 버튼 */
 .hero-btn{
   align-self:flex-start;
@@ -395,19 +400,7 @@ section{position:relative;}
   padding:clamp(60px,9vh,120px) 0 clamp(64px,10vh,130px);
   overflow:hidden;
 }
-.roller .roller-head{
-  max-width:var(--maxw);margin:0 auto;
-  padding:0 clamp(18px,4vw,52px) clamp(36px,5vh,60px);
-}
-.roller .roller-head .f-label{
-  font-family:'Manrope',sans-serif;font-weight:500;
-  font-size:var(--fs-body);color:var(--txt-dim);margin-bottom:18px;
-}
-.roller .roller-head h2{
-  font-family:'Pretendard',sans-serif;font-weight:700;
-  font-size:var(--fs-h2);
-  line-height:1.32;letter-spacing:-.03em;color:var(--txt-dark);
-}
+.roller .home-section-header{width:calc(100% - 2 * clamp(18px,2.5vw,30px));}
 /* 트랙 : 무한 롤링 */
 .roller-viewport{width:100%;overflow:hidden;}
 .roller-track{
@@ -461,17 +454,17 @@ section{position:relative;}
 
 /* SHOWCASE */
 .showcase{
-  background:#fff;
-  padding:clamp(50px,7vh,90px) 0 clamp(30px,5vh,60px);
+  background:var(--bg-2);
+  padding:clamp(14px,2vw,24px) clamp(18px,2.5vw,30px) clamp(30px,5vh,60px);
   overflow:hidden;
 }
+.showcase-viewport,.sc-nav{max-width:1480px;margin-inline:auto;}
 .showcase-viewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
-  scroll-snap-type:x proximity;scroll-padding-left:clamp(18px,2.5vw,30px);
+  scroll-snap-type:x proximity;
   scrollbar-width:none;-ms-overflow-style:none;}
 .showcase-viewport::-webkit-scrollbar{display:none;}
 .showcase-track{
   display:flex;gap:10px;align-items:flex-start;
-  padding:0 clamp(18px,2.5vw,30px);
 }
 .sc-card{
   flex:0 0 clamp(300px,40vw,560px);
@@ -521,7 +514,7 @@ section{position:relative;}
 .sc-card .sc-desc p:last-child{margin-bottom:0;}
 .sc-nav{
   display:flex;gap:10px;
-  padding:10px clamp(18px,2.5vw,30px) 0;
+  padding-top:10px;
 }
 .sc-nav button{
   width:clamp(56px,7vw,86px);height:clamp(48px,5.5vw,66px);
@@ -719,6 +712,19 @@ section{position:relative;}
 }
 
 /* FEATURE ROW */
+.home-section-header{max-width:1480px;margin:0 auto clamp(20px,2.5vw,32px);}
+.home-section-label{
+  font-family:'Pretendard',sans-serif;font-size:var(--fs-caption);font-weight:700;
+  line-height:1.4;color:var(--accent);margin-bottom:8px;
+}
+.home-section-header h2{
+  font-family:'Pretendard',sans-serif;font-weight:700;
+  font-size:clamp(1.5rem,2.5vw,2.25rem);line-height:1.25;
+  letter-spacing:-.03em;color:var(--txt-dark);word-break:keep-all;
+}
+.feature-row .home-section-header{padding-top:clamp(24px,4vw,48px);}
+.feature-row .cap-card .cap-ttl{white-space:normal;word-break:keep-all;}
+.process-label{margin-top:5px;font-size:var(--fs-caption);font-weight:700;color:var(--txt-dim);}
 .feature-row{
   background:var(--bg-2);
   padding:10px clamp(18px,2.5vw,30px) clamp(60px,9vh,120px);
@@ -1713,6 +1719,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <span class="row"><i>머무는 경험을</i></span>
           <span class="row"><i>설계합니다.</i></span>
         </h1>
+        <p class="hero-subtitle">브랜드의 인상을 정하고, 사용자가 필요한 정보를 자연스럽게 찾도록 웹사이트와 상세페이지를 디자인합니다.</p>
 
         <div class="hero-foot">
           <div class="foot-top">
@@ -1741,46 +1748,45 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
     </div>
   </section>
 
-  <!-- ===== 히어로 아래 : 카드 3개 + Who I am ===== -->
-  <section class="feature-row">
+  <section class="feature-row" aria-labelledby="process-title">
+    <header class="home-section-header">
+      <p class="home-section-label">Working Process</p>
+      <h2 id="process-title">목적과 기능을 중심으로 설계하는 4단계</h2>
+    </header>
     <div class="feature-grid-cap">
-      <!-- 카드 1: UI·UX & 브랜딩 (통합) -->
       <div class="cap-card sr">
         <div class="cap-num">01</div>
-        <div class="cap-ttl">UI·UX & <br>브랜딩 디자인</div>
-        <div class="cap-desc">브랜드 무드 기획부터 상세페이지·홍보물 제작까지, 사용자 흐름을 먼저 설계해 PC·모바일·태블릿 모든 환경에서 일관된 경험을 만듭니다.</div>
+        <h3 class="cap-ttl">분석 및 기획</h3>
+        <p class="process-label">UX &amp; Strategy</p>
+        <p class="cap-desc">브랜드가 처한 문제를 파악하고, 사용자 행동 패턴과 여정을 분석하여 실효성 있는 화면의 기획 뼈대를 기획합니다.</p>
       </div>
-      <!-- 카드 2: SNS -->
       <div class="cap-card sr">
         <div class="cap-num">02</div>
-        <div class="cap-ttl">SNS 콘텐츠 <br>디자인</div>
-        <div class="cap-desc">인스타그램·페이스북 채널의 톤을 먼저 정의하고, 이벤트·프로모션 콘텐츠를 일관된 결로 설계합니다.</div>
+        <h3 class="cap-ttl">비주얼 시스템 설계</h3>
+        <p class="process-label">BI &amp; UI Design</p>
+        <p class="cap-desc">도출된 기획을 바탕으로, 브랜드의 정체성이 돋보이는 시각 요소와 모바일·PC까지 일관된 UI 시스템을 구축합니다.</p>
       </div>
-      <!-- 카드 3: 오프라인 -->
       <div class="cap-card sr">
         <div class="cap-num">03</div>
-        <div class="cap-ttl">오프라인 <br>디자인물</div>
-        <div class="cap-desc">박람회·팝업·행사용 배너, 리플렛, 포스터까지 — 전달할 메시지의 구조를 먼저 잡고 인쇄물로 설계합니다.</div>
+        <h3 class="cap-ttl">멀티 채널 확장</h3>
+        <p class="process-label">Content &amp; Print</p>
+        <p class="cap-desc">웹과 모바일을 넘어 상세페이지, SNS 콘텐츠, 브랜드 인쇄물까지 일관성 있는 디자인으로 고객 경험의 접점을 확장합니다.</p>
       </div>
-      <!-- 카드 4: AI Creative Works (신규) -->
       <div class="cap-card sr">
         <div class="cap-num">04</div>
-        <div class="cap-ttl">AI Creative <br>Works</div>
-        <div class="cap-desc">Midjourney·ChatGPT·Runway 등 AI 도구를 실무에 들여, 촬영 없이 이미지·영상·카피를 직접 만들고 제작 효율과 완성도를 함께 끌어올립니다.</div>
+        <h3 class="cap-ttl">AI 효율 극대화</h3>
+        <p class="process-label">AI Creative Works</p>
+        <p class="cap-desc">프로젝트에 맞는 AI 툴을 리서치와 제작 과정에 유연하게 활용하여 작업 완성도를 높이고 일정을 효율화합니다.</p>
       </div>
     </div>
   </section>
 
   <!-- ===== 프로젝트 이미지 롤링 (Heritade 식) ===== -->
-  <section class="roller">
-    <div class="roller-head">
-      <div class="f-label">Completed projects</div>
-      <!-- [[ 롤링 섹션 제목 ]] -->
-      <h2>
-        감각이 아닌 구조로,<br>
-        완성해온 작업들입니다.
-      </h2>
-    </div>
+  <section class="roller" aria-labelledby="completed-projects-title">
+    <header class="home-section-header">
+      <p class="home-section-label">Completed Projects</p>
+      <h2 id="completed-projects-title">프로젝트로 보여주는 디자인 설계</h2>
+    </header>
     <div class="roller-viewport">
       <!-- 9개 카드를 2번 반복 = 무한 롤링용. 실제로는 앞 9개만 채우면 됩니다 -->
       <!-- [[ 프로젝트 이미지 ]] 각 카드의 .ph 를 <img loading="lazy" decoding="async" src="경로" alt="">로 교체하세요 -->
@@ -1892,7 +1898,11 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   </section>
 
   <!-- ===== 웹사이트 제작 사례 슬라이더 (Heritade 식) ===== -->
-  <section class="showcase">
+  <section class="showcase" aria-labelledby="projects-title">
+    <header class="home-section-header">
+      <p class="home-section-label">Projects</p>
+      <h2 id="projects-title">웹사이트와 상세페이지 제작 사례</h2>
+    </header>
     <div class="showcase-viewport">
       <div class="showcase-track" id="scTrack">
 
@@ -2069,11 +2079,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
   <section class="sec-pad dark">
     <div class="wrap" style="text-align:center;">
-      <div class="eyebrow sr">Let's talk</div>
-      <h2 class="headline sr" style="margin-bottom:34px;">이제, 당신의 브랜드를<br>설계할 시간입니다.</h2>
-      <button class="sr cta-lg" onclick="go('contact')">
-        제작 문의하기 →
-      </button>
+      <h2 class="headline sr" style="font-size:clamp(1.25rem,2.2vw,1.75rem);font-weight:500;line-height:1.4;">포트폴리오를 봐주셔서 감사합니다.</h2>
     </div>
   </section>
 </div>
