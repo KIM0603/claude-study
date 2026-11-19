@@ -413,7 +413,7 @@ section{position:relative;}
 .roll-card{
   width:clamp(340px,40vw,580px);
   aspect-ratio:3/2;
-  border-radius:var(--radius);
+  border-radius:var(--radius-lg);
   overflow:hidden;flex-shrink:0;
   background:#f0efec;position:relative;
   cursor:default;
@@ -454,22 +454,31 @@ section{position:relative;}
 
 /* SHOWCASE */
 .showcase{
+  --showcase-padding:clamp(18px,2.5vw,30px);
+  --showcase-content-width:1480px;
+  --showcase-start:max(var(--showcase-padding), calc((100% - var(--showcase-content-width)) / 2));
   background:var(--bg-2);
-  padding:clamp(14px,2vw,24px) clamp(18px,2.5vw,30px) clamp(30px,5vh,60px);
+  padding:clamp(14px,2vw,24px) var(--showcase-padding) clamp(30px,5vh,60px);
   overflow:hidden;
 }
-.showcase-viewport,.sc-nav{max-width:1480px;margin-inline:auto;}
-.showcase-viewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
-  scroll-snap-type:x proximity;
+.showcase .home-section-header,.sc-nav{max-width:var(--showcase-content-width);}
+.sc-nav{margin-inline:auto;}
+.showcase-viewport{
+  margin-inline:calc(-1 * var(--showcase-padding));
+  overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  scroll-padding-inline-start:var(--showcase-start);
   scrollbar-width:none;-ms-overflow-style:none;}
 .showcase-viewport::-webkit-scrollbar{display:none;}
 .showcase-track{
+  padding-inline-start:var(--showcase-start);
   display:flex;gap:10px;align-items:flex-start;
 }
 .sc-card{
-  flex:0 0 clamp(300px,40vw,560px);
+  flex:0 0 calc((100% - 20px) / 3);
+  min-width:0;
   scroll-snap-align:start;
-  background:#fff;border-radius:var(--radius);
+  background:#fff;border-radius:var(--radius-lg);
   overflow:hidden;display:flex;flex-direction:column;
   min-height:0;
   border:1px solid var(--card-border);
@@ -478,7 +487,7 @@ section{position:relative;}
 .sc-card .sc-thumb{
   width:100%;aspect-ratio:16/10;
   background:var(--bg-3);position:relative;overflow:hidden;flex-shrink:0;
-  border-bottom:1px solid var(--card-border);
+  border-radius:var(--radius-lg);
 }
 .sc-card .sc-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 .sc-card .sc-thumb .ph{
@@ -529,8 +538,11 @@ section{position:relative;}
 .sc-nav button svg{width:24px;height:24px;}
 .sc-nav button:disabled{opacity:.3;cursor:default;}
 .sc-nav button:disabled:hover{background:#fff;border-color:var(--card-border);color:var(--txt-dark);}
+@media(width < 1200px){
+  .sc-card{flex-basis:calc((100% - 10px) / 2);}
+}
 @media(max-width:600px){
-  .sc-card{flex-basis:84vw;min-height:0;}
+  .sc-card{flex-basis:100%;}
   .sc-card .sc-title{font-size:1.25rem;line-height:1.3;margin-bottom:6px;}
   .sc-card .sc-label{font-size:11.6px;font-weight:500;margin-bottom:0;}
   .roll-card .cap .t{font-size:11.6px;font-weight:500;}
@@ -1064,11 +1076,19 @@ section{position:relative;}
   line-height:1.3;word-break:keep-all;
 }
 .work.is-hidden{display:none;}
-.work{position:relative;border-radius:var(--radius);overflow:hidden;
+.work{position:relative;border-radius:var(--radius-lg);overflow:hidden;isolation:isolate;
   background:#141414;border:1px solid #333;
   transition:.3s var(--ease);
   box-shadow:var(--shadow-sm);}
-.work img{display:block;width:100%;height:auto;}
+.work > img,.work > .ph{
+  background:#202020;
+  border-radius:var(--radius-lg);
+}
+.work > img{
+  display:block;width:100%;height:auto;
+  aspect-ratio:auto 16/10;
+  object-fit:cover;
+}
 .work:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
 .work .ph{position:relative;width:100%;aspect-ratio:16/11;
   display:flex;align-items:center;justify-content:center;
@@ -1076,12 +1096,24 @@ section{position:relative;}
   color:#adb5bd;font-family:'Pretendard';font-weight:600;
   font-size:var(--fs-caption);letter-spacing:.06em;}
 .work .ph::after{content:"[[ PROJECT IMAGE ]]";}
-.work .meta{position:static;z-index:2;
-  padding:18px 20px 20px;background:#141414;}
+.work::before{
+  content:"";position:absolute;inset:-24px;z-index:-1;pointer-events:none;
+  background:#242424 var(--work-thumbnail, none) center bottom / cover no-repeat;
+  filter:blur(24px);
+}
+.work > img,.work > .ph{position:relative;z-index:1;}
+.work .meta{
+  position:relative;isolation:isolate;padding:18px 20px 20px;
+}
+.work .meta::before{
+  content:"";position:absolute;inset:calc(-1 * var(--radius-lg)) 0 0;
+  z-index:-1;pointer-events:none;
+  background:linear-gradient(155deg,rgba(35,35,35,.76),rgba(25,25,25,.93));
+}
 .work .meta .tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
 .work .meta .tag{display:inline-block;font-family:'Pretendard';font-weight:600;
-  font-size:15px;letter-spacing:.02em;color:#6b6157;
-  background:#f1efe8;
+  font-size:15px;letter-spacing:.02em;color:#e8ded7;
+  background:rgba(24,20,19,.72);box-shadow:inset 0 0 0 1px rgba(244,224,211,.22);
   padding:3px 9px;border-radius:6px;margin-bottom:0;}
 .work .meta h3{font-family:'Pretendard';font-weight:700;font-size:clamp(1.3rem,1.5vw,1.55rem);
   color:#fff;letter-spacing:-.02em;}
@@ -1161,18 +1193,12 @@ section{position:relative;}
 .arh-bullet{
   display:flex;gap:10px;align-items:flex-start;
 }
-.arh-ico{
-  color:var(--accent);font-size:clamp(1rem,1.3vw,1.15rem);flex-shrink:0;margin-top:2px;
-}
 .arh-bullet span{
   font-family:'Pretendard',sans-serif;font-size:clamp(1rem,1.3vw,1.15rem);
   line-height:1.6;color:#333;
 }
 .arh-bullet{
   display:flex;gap:10px;align-items:flex-start;
-}
-.arh-ico{
-  color:var(--accent);font-size:clamp(1rem,1.3vw,1.15rem);flex-shrink:0;margin-top:2px;
 }
 .arh-bullet span{
   font-family:'Pretendard',sans-serif;font-size:clamp(1rem,1.3vw,1.15rem);
@@ -1278,7 +1304,10 @@ section{position:relative;}
 .about-intro p{font-size:var(--fs-body);line-height:1.6;color:var(--txt-dim);margin-bottom:16px;}
 .about-intro p strong{color:var(--txt);font-weight:600;}
 
+#page-about{--about-intro-bottom:clamp(24px,3vw,40px);}
 #page-about *{line-height:1.6;}
+#page-about .about-profile{padding-top:150px;padding-bottom:var(--about-intro-bottom);background:#fff;}
+#page-about .about-qualifications{padding-top:calc(clamp(70px,11vh,150px) - var(--about-intro-bottom));}
 .info-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .info-box{background:#fff;border:1px solid var(--card-border);
   border-radius:var(--radius);padding:clamp(24px,3vw,36px);
@@ -1416,9 +1445,14 @@ section{position:relative;}
 .exp-header .exp-date{font-family:'Manrope';font-weight:600;font-size:var(--fs-label);
   color:var(--txt-dim);padding-top:4px;letter-spacing:0;}
 .exp-header .exp-date span{display:inline;}
+.exp-work-history .exp-date .exp-duration{display:block;white-space:nowrap;}
 .exp-tasks{margin-top:18px;}
 .exp-task-group{margin-bottom:16px;}
 .exp-task-group:last-child{margin-bottom:0;}
+.exp-work-history .exp-tasks > .exp-task-group:first-child{border-top:1px dashed var(--line-dark);padding-top:14px;}
+.exp-work-history .exp-task-group{border-bottom:0;padding-bottom:0;}
+.exp-work-history .task-title strong{font-weight:700;}
+.exp-work-history .exp-header .exp-meta .exp-role{color:#111;}
 .exp-task-group .task-title{font-family:'Pretendard';font-weight:600;
   font-size:var(--fs-body-sm);color:var(--txt-dark);margin-bottom:6px;}
 .exp-task-group ul{padding-left:0;list-style:none;}
@@ -1476,7 +1510,7 @@ section{position:relative;}
 
 /* 텍스트 정보 영역 */
 .pj-info{
-  padding:64px 64px 0;
+  padding:64px 64px 0;background:#fff;
 }
 .pj-h1{
   font-family:'Pretendard';font-weight:800;
@@ -1547,9 +1581,6 @@ section{position:relative;}
 }
 .proj-overlay,.proj-inner{background:#000;}
 .proj-close{background:#111;border-bottom-color:#333;color:#ddd;}
-.pj-h1,.pj-mt-label{color:#fff;}
-.pj-mt-val,.pj-summary{color:#ddd;}
-.pj-site-link{border-color:#555;color:#ddd;}
 .pj-images{border-top-color:#333;}
 @media(max-width:640px){
   .proj-inner{width:100%;}
@@ -1584,29 +1615,76 @@ section{position:relative;}
 
 
 /* CONTACT */
-.contact-block{background:#fff;border:1px solid var(--card-border);
-  border-radius:var(--radius-lg);padding:clamp(40px,7vw,90px);text-align:center;
-  box-shadow:var(--shadow-sm);}
-.contact-block h2{font-family:'Pretendard',sans-serif;font-weight:800;
-  font-size:clamp(2rem,6vw,5rem);line-height:1.06;
-  letter-spacing:-.04em;color:var(--txt-dark);}
-.contact-block h2 .o{-webkit-text-stroke:1.4px var(--txt-dark);color:transparent;}
-.contact-block .mail{display:inline-flex;align-items:center;gap:10px;
-  margin-top:36px;font-family:'Pretendard';font-weight:700;
-  font-size:clamp(.9rem,1.8vw,1.15rem);
-  background:var(--accent);color:#fff;border:none;
-  padding:16px 32px;border-radius:10px;transition:.2s var(--ease);}
-.contact-block .mail:hover{background:var(--accent-deep);transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(255,107,71,.32);}
-.contact-block .mail .c{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.7);}
-.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
-.contact-grid a{background:#fff;border:1px solid var(--card-border);
-  border-radius:var(--radius);padding:24px 20px;transition:.2s var(--ease);
-  box-shadow:var(--shadow-sm);}
-.contact-grid a:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
-.contact-grid .l{font-family:'Pretendard';font-weight:700;font-size:var(--fs-label);
-  letter-spacing:.04em;color:var(--accent);margin-bottom:10px;}
-.contact-grid .v{font-size:var(--fs-body-sm);font-weight:500;color:var(--txt-dark);word-break:break-all;}
+.contact-section{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:#101010;color:#f7f5f3;
+  min-height:calc(100svh - 96px);
+  display:grid;align-items:center;
+  padding:clamp(112px,17vh,176px) 0 clamp(54px,9vh,100px);
+}
+.contact-section .wrap{position:relative;width:100%;max-width:1000px;}
+.contact-motion{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  mask-image:linear-gradient(180deg,transparent 1%,#000 20%,#000 72%,transparent 100%);
+}
+.contact-motion-tile{
+  position:absolute;left:var(--x);top:var(--y);
+  display:grid;place-items:center;overflow:hidden;
+  width:clamp(76px,var(--size),220px);aspect-ratio:var(--shape);
+  padding:10px;border:1px solid #453f3e;border-radius:var(--radius);
+  background:linear-gradient(145deg,#352f30,#1c1c1c);
+  color:#b8aeaa;text-align:center;font-size:.8rem;
+  opacity:var(--strength);
+  transform:translate(-50%,-50%);
+  animation:contact-float var(--duration) linear var(--delay) infinite alternate;
+  animation-play-state:paused;
+}
+#page-contact.active .contact-section:not(.motion-paused) .contact-motion-tile{animation-play-state:running;}
+.contact-motion-tile img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+.contact-motion-toggle{
+  display:block;margin:12px 0 0 auto;padding:8px 12px;
+  border:1px solid #46413e;border-radius:8px;
+  background:#1d1d1d;color:#e5ded9;font:inherit;font-size:.875rem;cursor:pointer;
+}
+.contact-motion-toggle[hidden]{display:none;}
+.contact-motion-toggle:hover,.contact-motion-toggle:focus-visible{border-color:var(--accent);}
+@keyframes contact-float{
+  to{transform:translate(calc(-50% + var(--drift-x)),calc(-50% + var(--drift-y)));}
+}
+
+.contact-intro{text-align:center;margin-bottom:clamp(24px,5vw,40px);}
+.contact-intro h1{
+  font-size:clamp(2.25rem,6vw,4rem);font-weight:800;
+  line-height:1.08;letter-spacing:-.045em;
+}
+.contact-intro p{margin-top:12px;color:#bfbfbf;font-size:1rem;line-height:1.65;}
+.contact-block{
+  padding:clamp(22px,4vw,44px);
+  border:1px solid #383838;border-radius:var(--radius-lg);
+  background:#252525;
+}
+.contact-name{
+  font-size:clamp(2rem,5vw,3.5rem);font-weight:800;
+  line-height:1.12;letter-spacing:-.045em;
+}
+.contact-role{margin:6px 0 0;color:#c6c6c6;font-size:1rem;}
+.contact-details{margin-top:20px;border-top:1px solid #3c3c3c;}
+.contact-details div{
+  display:grid;grid-template-columns:clamp(56px,14vw,92px) minmax(0,1fr);
+  align-items:baseline;gap:10px;padding:12px 0;
+}
+.contact-details div+div{border-top:1px solid #3c3c3c;}
+.contact-details dt{font-size:.875rem;color:#bfbfbf;}
+.contact-details dd{margin:0;overflow-wrap:anywhere;}
+.contact-details a{color:#f7f5f3;}
+.contact-details a:hover,.contact-details a:focus-visible{text-decoration:underline;}
+#page-contact.active + footer{background:#101010;border-color:#333;color:#f7f5f3;}
+#page-contact.active + footer .fl{color:#f7f5f3;}
+#page-contact.active + footer .fc,#page-contact.active + footer .ft{color:#bcb5b1;}
+#page-contact.active + footer .ft{border-color:#46413e;}
+#page-contact.active + footer .ft:hover{color:#111;border-color:var(--accent);}
 
 /* FOOTER */
 footer{background:#fff;border-top:1px solid var(--line);
@@ -1679,12 +1757,10 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   .work-grid{grid-template-columns:1fr;}
   .about-top{grid-template-columns:1fr;}
   .info-2{grid-template-columns:1fr;}
-  .contact-grid{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:560px){
   nav .menu button{padding:8px 10px;font-size:var(--fs-caption);}
   nav{gap:12px;}
-  .contact-grid{grid-template-columns:1fr;}
   .tl-row{grid-template-columns:1fr;gap:6px;padding:16px 0;}
   .acc-head .ttl{font-size:1.3rem;}
   .work .meta{padding:16px;}
@@ -2337,7 +2413,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
 <!-- ============ ABOUT ============ -->
 <div class="page" id="page-about">
-  <section class="sec-pad" style="padding-top:150px;background:#fff;">
+  <section class="sec-pad about-profile">
     <div class="wrap">
       <!-- 이력서 스타일 상단 헤더 -->
       <div class="about-resume-header sr">
@@ -2352,21 +2428,18 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           </div>
 
           <div class="arh-intro">
-            <p class="arh-tagline">사람의 마음을 먼저 떠올리고, 그 마음이 닿도록 설계하는 디자이너입니다.</p>
-            <p>화면을 예쁘게 만들기보다, 볼 사람의 마음을 먼저 떠올리는 데서 시작합니다. 가전·뷰티부터 한의원 브랜드까지 기획·리뉴얼과 상세페이지·이벤트를 전 과정 직접 책임졌고, 제 결과물이 사람들에게 가닿을 때 가장 큰 보람을 느낍니다.</p>
+            <p class="arh-tagline">사람의 마음을 움직이는 UI/UX를 설계하는 디자이너 김유정입니다.</p>
+            <p>화면을 볼 사람의 경험과 맥락을 먼저 고민하는 데서 디자인을 시작합니다. 가전, 뷰티, 의료(한의원) 등 다양한 산업군에서 브랜드 런칭부터 리뉴얼, 상세페이지 및 프로모션 기획까지 프로젝트 전 과정을 주도해 왔으며, 제 디자인이 사용자에게 정확히 닿아 비즈니스 가치로 이어질 때 가장 큰 보람을 느낍니다.</p>
 
             <div class="arh-bullets">
               <div class="arh-bullet">
-                <span class="arh-ico">✦</span>
-                <span><strong>[일하는 방식]</strong> 예쁨보다 '왜 이렇게'라는 이유와 구조를 먼저 세우고, 복잡한 정보도 한눈에 정리합니다.</span>
+                <span><strong>[일하는 방식]</strong> 화려함보다 '왜 이 디자인이어야 하는가'에 대한 구조와 이유를 먼저 세우고, 복잡한 정보도 직관적으로 정리합니다.</span>
               </div>
               <div class="arh-bullet">
-                <span class="arh-ico">✦</span>
-                <span><strong>[강점]</strong> 고객의 시선을 끌어당기는 비주얼과 카피를 '무엇으로 보여줄지' 정확히 골라내는 감각이 있고, AI 등 새 툴을 빠르게 익혀 완성도 높은 결과물로 연결합니다.</span>
+                <span><strong>[강점]</strong> 타깃의 시선을 사로잡는 비주얼과 소구점을 정확히 짚어내는 감각이 있으며, AI 등 신기술을 실무 워크플로우에 빠르게 도입해 제작 효율을 극대화합니다.</span>
               </div>
               <div class="arh-bullet">
-                <span class="arh-ico">✦</span>
-                <span><strong>[태도]</strong> 낯선 업무에도 빠르게 적응하며, 늘 한 걸음 더 나아지려 합니다.</span>
+                <span><strong>[태도]</strong> 낯선 환경과 새로운 과제에도 유연하게 적응하며, 매 프로젝트 더 나은 완성도를 위해 치열하게 고민합니다.</span>
               </div>
             </div>
 
@@ -2379,7 +2452,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       </div>
     </div>
   </section>
-  <section class="sec-pad dark" style="padding-top:0;">
+  <section class="sec-pad dark about-qualifications">
     <div class="wrap">
       <div class="info-2">
         <div class="info-box sr">
@@ -2412,88 +2485,160 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       </div>
 
       <!-- 업무경험 -->
-      <div class="exp-section sr">
+      <div class="exp-section sr exp-work-history">
         <div class="exp-box">
           <h3>업무경험</h3>
 
-          <!-- 아이엠브릿지 (현재) -->
           <div class="exp-item">
             <div class="exp-header">
-              <div class="exp-date">2025.09 — 재직중</div>
+              <div class="exp-date">2025.11 <span style="color:var(--accent);font-weight:700;">– 재직 중</span></div>
               <div class="exp-meta">
-                <div class="exp-company">아이엠브릿지<span class="c-name-change">구. 휴렙</span></div>
+                <h4 class="exp-company">아이엠브릿지<span class="c-name-change">구. 휴렙</span></h4>
                 <div class="exp-role">사원 · 웹디자이너</div>
               </div>
             </div>
-            <p class="exp-summary">한의원 홈페이지 전반적인 사용성 개선과 디자인 시스템 구축을 주도하였으며, 상세페이지·메인 디자인을 시술별 콘셉트에 맞는 감성 비주얼과 AI 활용 제작으로 브랜드 신뢰도와 상담 전환에 기여했습니다.</p>
+            <p class="exp-summary">한의원 브랜드 홈페이지의 사용자 경험(UX) 고도화 및 디자인 시스템 구축을 주도했습니다. 시술별 타깃 니즈를 반영한 비주얼 전략과 생성형 AI 기반의 제작 워크플로우를 도입하여, 콘텐츠 생산 효율을 극대화하고 브랜드 신뢰도 제고 및 온라인 상담 전환율 개선에 기여했습니다.</p>
             <div class="exp-tasks">
               <div class="exp-task-group">
+                <h4 class="task-title"><strong>브랜드 홈페이지 리뉴얼 및 디자인 시스템 구축</strong></h4>
                 <ul>
-                  <li>브랜드 홈페이지 리뉴얼 개선 (상세페이지·랜딩)</li>
-                  <li>시술별 콘셉트에 맞춘 감성 비주얼 및 신뢰감 있는 톤 설계</li>
-                  <li>SNS 및 광고 채널 디자인 (AI를 활용한 비주얼 제작)</li>
-                  <li>맘카페 17개 지점 월별 이벤트·프로모션 운영</li>
-                  <li>해외팀 월별 이벤트·프로모션 운영</li>
+                  <li>사용자 탐색 동선과 정보 구조(IA)를 재설계하여 메인·랜딩·상세페이지 전반의 UI/UX 사용성 개선</li>
+                  <li>컬러, 타이포그래피, UI 컴포넌트 가이드라인을 표준화하여 다수의 시술 페이지 제작 시 디자인 일관성 확보 및 유지보수 효율 증대</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>시술별 맞춤형 상세페이지 및 랜딩페이지 기획·디자인</strong></h4>
+                <ul>
+                  <li>의료/뷰티 분야 특성에 맞춰 시술별 핵심 소구점(USP)을 시각화하고, 신뢰감을 주는 톤앤매너와 감성 비주얼 설계</li>
+                  <li>고객의 이탈을 줄이고 상담 신청(DB 전환)으로 자연스럽게 이어지는 설득형 레이아웃 및 CTA(Call-to-Action) 동선 최적화</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>생성형 AI 활용 퍼포먼스 광고 및 SNS 콘텐츠 제작</strong></h4>
+                <ul>
+                  <li>이미지 생성 AI 등 최신 툴을 실무 디자인 프로세스에 적극 도입하여 고품질 비주얼 에셋 제작 리드타임 단축</li>
+                  <li>매체별(인스타그램, 블로그, 검색광고 등) 특성에 최적화된 카드뉴스, 배너, 이벤트 소재 제작으로 마케팅 캠페인 집행 지원</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>다지점(17개 지점) 및 해외팀 월별 프로모션 디자인 총괄 운영</strong></h4>
+                <ul>
+                  <li>전국 17개 지점 맘카페 및 온·오프라인 채널 대상 월별 정기 이벤트·프로모션 키비주얼 및 홍보물 일괄 기획·제작</li>
+                  <li>해외 마케팅팀과 협업하여 글로벌 타깃 현지화 프로모션 배너 및 SNS 홍보 에셋 제작·운영</li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <!-- 레이트코리아 -->
           <div class="exp-item">
             <div class="exp-header">
-              <div class="exp-date">2024.09 — 2025.09 <span>(1년)</span></div>
+              <div class="exp-date">2024.09 – 2025.09 <span class="exp-duration">(1년)</span></div>
               <div class="exp-meta">
-                <div class="exp-company">레이트코리아</div>
+                <h4 class="exp-company">레이트코리아</h4>
                 <div class="exp-role">대리 · 웹디자이너</div>
               </div>
             </div>
-            <p class="exp-summary">레이트코리아(RATE)는 BLDC 항공모터 드라이기 '데이노바', 자동 봉고데기 '이지랩' 등 합리적인 가격의 프리미엄 이미용 가전을 자사몰·카카오선물하기 등 다양한 채널로 선보이는 D2C 뷰티·이미용 가전 브랜드로, 온라인/오프라인 디자인 전반을 담당했습니다.</p>
+            <p class="exp-summary">D2C 뷰티·이미용 가전 브랜드(데이노바, 이지랩 등)의 자사몰 및 카카오선물하기 등 다양한 채널을 아우르는 온·오프라인 디자인 전반을 총괄했습니다. 시즌별 기획전과 SNS 브랜딩을 통해 브랜드 가치를 제고하고, 신규 브랜드 런칭 프로젝트의 기획부터 촬영, AI 기반 비주얼 제작까지 주도적으로 완수했습니다.</p>
             <div class="exp-tasks">
               <div class="exp-task-group">
+                <h4 class="task-title"><strong>D2C 브랜드 SNS 운영 및 마케팅 비주얼 리뉴얼</strong></h4>
                 <ul>
-                  <li>인스타그램 운영 및 마케팅 디자인 제작: 비주얼·콘텐츠 전면 교체로 브랜드 인상 개선</li>
-                  <li>썸머·추석·블랙프라이데이 등 월별 프로모션과 앱 내 이벤트를 상시 기획·디자인</li>
-                  <li>박람회·팝업·오프라인 행사 인쇄물 제작</li>
-                  <li>청년가구 브랜드 신규 런칭 홈페이지 기획 및 디자인 총괄 (브랜드 컨셉 기획·촬영·누끼+AI 배경 합성)</li>
+                  <li>인스타그램 채널의 비주얼과 콘텐츠 에셋 전면 교체를 주도하여 프리미엄 이미용 가전에 걸맞은 세련된 브랜드 인상(Brand Identity) 구축</li>
+                  <li>제품 소구점을 극대화한 퍼포먼스 마케팅 디자인 제작으로 고객 인지도 및 유입 강화</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>시즌별 온·오프라인 프로모션 및 앱 내 이벤트 기획·디자인</strong></h4>
+                <ul>
+                  <li>썸머, 추석, 블랙프라이데이 등 대형 시즌 이슈와 연계한 월별 정기 프로모션 키비주얼 및 상세페이지 기획·설계</li>
+                  <li>자사몰 앱 내 상시 이벤트를 신속하게 기획·디자인하여 고객 체류 시간 및 참여율 유도</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>박람회 및 오프라인 행사 인쇄물·홍보물 제작</strong></h4>
+                <ul>
+                  <li>브랜드 오프라인 팝업 및 대규모 박람회 현장에서 사용되는 다양한 마케팅 인쇄물(배너, 리플렛, 패키지 등) 디자인 총괄</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>청년가구 신규 브랜드 런칭 총괄 (0 to 1 프로젝트)</strong></h4>
+                <ul>
+                  <li>신규 브랜드 런칭에 따른 홈페이지 기획부터 디자인 전 과정 주도</li>
+                  <li>제품 컨셉 기획, 스튜디오 촬영 디렉팅, 누끼 작업 및 AI 배경 합성을 결합한 고효율 비주얼 에셋 제작 완료</li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <!-- 아텐츠게임아카데미 -->
           <div class="exp-item">
             <div class="exp-header">
-              <div class="exp-date">2021.12 — 2024.08 <span>(2년 6개월)</span></div>
+              <div class="exp-date">2021.12 – 2024.08 <span class="exp-duration">(2년 6개월)</span></div>
               <div class="exp-meta">
-                <div class="exp-company">아텐츠게임아카데미<span class="c-name-change">구. KH정보교육원</span></div>
+                <h4 class="exp-company">아텐츠게임아카데미<span class="c-name-change">구. KH정보교육원</span></h4>
                 <div class="exp-role">주임 · 콘텐츠개발팀</div>
               </div>
             </div>
-            <p class="exp-summary">교육 브랜드 웹사이트의 기획·디자인과 디자인 시스템 구축</p>
+            <p class="exp-summary">교육 브랜드 웹사이트의 정보 구조(IA) 기획부터 반응형 UI/UX 디자인, 디자인 시스템 구축까지 디지털 프로덕트 전반의 고도화를 주도했습니다. 신규 브랜드 런칭 및 핵심 서비스 리뉴얼 프로젝트를 기획·와이어프레임·디자인·QA 전 과정에 걸쳐 완수하며 디자인 리소스 절감과 수강생 모집 활성화에 기여했습니다.</p>
             <div class="exp-tasks">
               <div class="exp-task-group">
+                <h4 class="task-title"><strong>KH정보교육원 통합 홈페이지 반응형 UI/UX 설계 및 QA 총괄</strong></h4>
                 <ul>
-                  <li>KH정보교육원 통합 홈페이지를 Web·Tablet·Mobile 반응형으로 설계하고 디자인·기능 QA까지 진행</li>
-                  <li>디자인 리소스를 줄이는 디자인 시스템을 구축 : 유지보수 효율 개선</li>
-                  <li>KH영상아카데미 신규런칭 홈페이지 기획 및 디자인 UI/UX 전면 디자인</li>
-                  <li>교육과정·취업팀(RAD) 페이지를 기획→와이어프레임→UI/UX→QA 리뉴얼 진행</li>
-                  <li>모집 활성화를 위한 미디어 마케팅·상시 이벤트와 온·오프라인 홍보물 디자인</li>
+                  <li>Web·Tablet·Mobile 등 다양한 디바이스 환경에 최적화된 반응형 웹 레이아웃 설계 및 일관된 사용자 경험(UX) 구현</li>
+                  <li>개발팀과 긴밀히 협업하여 퍼블리싱·기능 구현 단계의 디자인 및 기능 QA(품질 보증)를 직접 수행하며 완성도 제고</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>디자인 시스템 구축을 통한 제작 리소스 및 유지보수 효율 극대화</strong></h4>
+                <ul>
+                  <li>반복되는 UI 컴포넌트와 스타일 가이드를 체계화한 디자인 시스템 구축</li>
+                  <li>다수의 교육 과정 및 이벤트 페이지 제작 시 투입되는 디자인 리소스를 대폭 절감하고 유지보수 프로세스 표준화</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>신규 브랜드(KH영상아카데미) 웹사이트 런칭 기획 및 UI/UX 전면 디자인</strong></h4>
+                <ul>
+                  <li>신규 교육 브랜드 런칭에 따른 타깃 분석 및 사이트 구조 기획부터 메인·서브페이지 UI/UX 디자인 전반 단독 수행</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>핵심 서비스(교육과정·취업지원 RAD) 페이지 End-to-End 리뉴얼</strong></h4>
+                <ul>
+                  <li>사용자(수강생 및 취업 준비생)의 정보 탐색 편의성을 높이기 위해 서비스 기획 → 와이어프레임 설계 → UI/UX 디자인 → 최종 QA에 이르는 전 과정 리딩</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>수강생 모집 활성화를 위한 온·오프라인 통합 마케팅 디자인</strong></h4>
+                <ul>
+                  <li>원생 모집 극대화를 위한 온라인 미디어 마케팅 소재, 상시 프로모션 이벤트 및 오프라인 홍보 인쇄물(브로슈어, 포스터 등) 제작 운영</li>
                 </ul>
               </div>
             </div>
           </div>
 
-          <!-- 무버먼한국 -->
           <div class="exp-item">
             <div class="exp-header">
-              <div class="exp-date">2020.01 — 2020.07 <span>(6개월)</span></div>
+              <div class="exp-date">2020.01 – 2020.07 <span class="exp-duration">(6개월)</span></div>
               <div class="exp-meta">
-                <div class="exp-company">무버먼한국</div>
-                <div class="exp-role">디자인 보조</div>
+                <h4 class="exp-company">무버먼한국</h4>
+                <div class="exp-role">디자인 (인턴·보조)</div>
               </div>
             </div>
-            <p class="exp-para">무버먼한국은 SNS·프로모션을 전문으로 하는 PR·홍보 대행사입니다. 저는 디자인 보조로 근무하며 인스타그램·페이스북 채널의 이벤트·프로모션 디자인과 콘텐츠 기획을 담당했고, SNS 데이터 분석을 바탕으로 콘텐츠 운영 전략 수립을 보조했습니다. 비록 6개월의 짧은 기간이었지만, 실무 현장의 흐름을 직접 체득할 수 있는 값진 시간이었습니다. (학업 복귀를 위해 퇴사)</p>
+            <p class="exp-summary">SNS·프로모션 전문 PR·홍보 대행사에서 인스타그램 및 페이스북 공식 채널의 이벤트·프로모션 디자인과 마케팅 콘텐츠 기획을 담당했습니다. 소셜 미디어 지표 분석을 바탕으로 타깃 맞춤형 콘텐츠 운영 전략 수립을 지원하며 실무 현장의 마케팅 흐름을 체득했습니다.</p>
+            <div class="exp-tasks">
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>SNS 공식 채널(인스타그램·페이스북) 마케팅 콘텐츠 기획 및 디자인</strong></h4>
+                <ul>
+                  <li>브랜드 인지도 제고와 이용자 참여를 유도하는 이벤트 및 프로모션 시각 디자인 전반 담당</li>
+                  <li>매체 특성을 반영한 트렌디한 카드뉴스 및 홍보 에셋 제작으로 소셜 미디어 채널 활성화 기여</li>
+                </ul>
+              </div>
+              <div class="exp-task-group">
+                <h4 class="task-title"><strong>데이터 기반 소셜 미디어 콘텐츠 운영 전략 수립 지원</strong></h4>
+                <ul>
+                  <li>채널별 성과 데이터 분석을 기반으로 반응이 우수한 콘텐츠 요소를 도출하고, 후속 콘텐츠 운영 전략 수립 및 개선 과정 보조</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -3518,31 +3663,22 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
 <!-- ============ CONTACT ============ -->
 <div class="page" id="page-contact">
-  <section class="sec-pad dark" style="padding-top:150px;min-height:100vh;">
+  <section class="contact-section" aria-labelledby="contact-title">
+    <div class="contact-motion" id="contactMotion" aria-hidden="true"></div>
     <div class="wrap">
-      <div class="contact-block sr">
-        <div class="eyebrow" style="background:#0e0e0e;">Get in touch</div>
-        <h2>Let's<br><span class="o">work</span> together</h2>
-        <!-- [[ 이메일 ]] -->
-        <a class="mail" href="mailto:lucky771628@naver.com">
-          <span class="c"></span> lucky771628@naver.com
-        </a>
+      <header class="contact-intro">
+        <h1 id="contact-title">Let’s work together.</h1>
+        <p>채용 및 프로젝트 협업 문의를 기다립니다.</p>
+      </header>
+      <div class="contact-block">
+        <h2 class="contact-name">김유정</h2>
+        <p class="contact-role">Web Designer · UI/UX</p>
+        <dl class="contact-details">
+          <div><dt>이메일</dt><dd>lucky771628@naver.com</dd></div>
+          <div><dt>전화</dt><dd><a href="tel:01041569889">010-4156-9889</a></dd></div>
+        </dl>
       </div>
-      <div class="contact-grid">
-        <!-- [[ 연락처 정보 ]] -->
-        <a href="tel:01041569889" class="sr">
-          <div class="l">Phone</div><div class="v">010-4156-9889</div>
-        </a>
-        <a href="mailto:lucky771628@naver.com" class="sr">
-          <div class="l">Email</div><div class="v">lucky771628@naver.com</div>
-        </a>
-        <a href="#" class="sr">
-          <div class="l">Location</div><div class="v">서울시 강동구 천호대로 1077</div>
-        </a>
-        <a href="#" class="sr">
-          <div class="l">Birth</div><div class="v">1997.10.17 (만 29세)</div>
-        </a>
-      </div>
+      <button type="button" class="contact-motion-toggle" id="contactMotionToggle" aria-controls="contactMotion" hidden>배경 모션 멈추기</button>
     </div>
   </section>
 </div>
@@ -3555,7 +3691,45 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 </footer>
 
 <script>
-function go(name, category){
+const portfolioPages = new Set(['home', 'about', 'contact']);
+const workCategories = new Set([...document.querySelectorAll('nav button[data-cat]')]
+  .map(button => button.dataset.cat));
+let activeView = 'home';
+let activeProject = '';
+
+function navigate(view, project = '', replace = false){
+  const hash = '#' + view + (project ? '/' + project : '');
+  if(location.hash !== hash){
+    if(replace) history.replaceState(null, '', hash);
+    else history.pushState(project ? { portfolioOverlay: true } : null, '', hash);
+  }
+  restoreView();
+}
+
+function restoreView(){
+  const [requestedView, requestedProject] = location.hash.slice(1).split('/');
+  const view = portfolioPages.has(requestedView) || workCategories.has(requestedView)
+    ? requestedView : 'home';
+  const overlay = requestedProject && document.getElementById('proj-' + requestedProject);
+  const project = overlay?.classList.contains('proj-overlay') ? requestedProject : '';
+
+  if(view !== activeView){
+    if(workCategories.has(view)) renderWork(view);
+    else renderPage(view);
+    activeView = view;
+  }
+  if(project !== activeProject){
+    document.getElementById('proj-' + activeProject)?.classList.remove('open');
+    if(project) overlay.classList.add('open');
+    document.body.style.overflow = project ? 'hidden' : '';
+    activeProject = project;
+  }
+}
+
+function go(name){ navigate(name); }
+function goFilter(category){ navigate(category); }
+
+function renderPage(name, category){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   updateNav(name, category);
@@ -3571,14 +3745,12 @@ function go(name, category){
 }
 
 function openProject(id){
-  const el = document.getElementById('proj-'+id);
-  if(!el) return;
-  el.classList.add('open');
-  document.body.style.overflow='hidden';
+  if(document.getElementById('proj-' + id)) navigate(activeView, id);
 }
 function closeProject(){
-  document.querySelectorAll('.proj-overlay').forEach(el=>el.classList.remove('open'));
-  document.body.style.overflow='';
+  if(!activeProject) return;
+  if(history.state?.portfolioOverlay) history.back();
+  else navigate(activeView, '', true);
 }
 function handleOverlayClick(e){
   if(e.target === e.currentTarget) closeProject();
@@ -3606,7 +3778,7 @@ function updateNav(page, category){
     else button.removeAttribute('aria-current');
   });
 }
-function goFilter(cat){
+function renderWork(cat){
   const menuButton=document.querySelector(`nav button[data-cat="${cat}"]`);
   document.getElementById('workCategoryTitle').textContent=menuButton.textContent;
   document.querySelectorAll('.work-intro-copy').forEach(intro=>{
@@ -3615,7 +3787,7 @@ function goFilter(cat){
   document.querySelectorAll('#workGrid .work').forEach(card=>{
     card.classList.toggle('is-hidden', card.dataset.cat!==cat);
   });
-  go('work', cat);
+  renderPage('work', cat);
 }
 function toggleAcc(btn){
   const item=btn.closest('.acc-item');
@@ -3677,9 +3849,11 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   const data=[...grid.querySelectorAll('.work')].map(c=>{
     const m=(c.getAttribute('onclick')||'').match(/openProject\('([^']+)'\)/);
     const img=c.querySelector('img');
+    const src=img?.getAttribute('src')||'';
+    if(src) c.style.setProperty('--work-thumbnail','url('+JSON.stringify(src)+')');
     return {
       id:m?m[1]:'',
-      src:img?img.getAttribute('src'):'',
+      src,
       alt:img?(img.getAttribute('alt')||''):'',
       tag:(c.querySelector('.tag')||{}).textContent||'',
       tags:[...c.querySelectorAll('.tag')].map(t=>t.textContent.replace(/^#/,'').trim()).filter(Boolean),
@@ -3687,6 +3861,59 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
     };
   }).filter(d=>d.id);
   if(!data.length) return;
+
+  const backdrop=document.getElementById('contactMotion');
+  const motionToggle=document.getElementById('contactMotionToggle');
+  const thumbnails=data.filter(project=>project.src);
+  if(backdrop && motionToggle && thumbnails.length){
+    const section=backdrop.closest('.contact-section');
+    // Card center, width, aspect ratio and opacity.
+    const layout=[
+      [-1,23,13,'4/3',.24], [8,11,8,'16/10',.19],
+      [14,24,12,'16/10',.35], [27,15,10,'4/3',.31],
+      [37,26,9,'3/2',.19], [46,10,7,'16/10',.18],
+      [68,18,10,'16/10',.23], [79,12,13,'4/3',.43],
+      [89,23,9,'3/2',.25], [99,20,12,'16/10',.36],
+      [5,46,13,'16/10',.38], [9,62,8,'4/3',.25],
+      [2,77,12,'3/2',.36], [17,82,10,'4/3',.22],
+      [30,91,11,'16/10',.28], [64,89,8,'3/2',.22],
+      [92,43,12,'4/3',.39], [98,59,13,'16/10',.32],
+      [88,69,9,'3/2',.23], [96,82,12,'16/10',.39],
+      [79,85,8,'4/3',.19],
+    ];
+    layout.forEach(([x,y,width,shape,opacity],index)=>{
+      const project=thumbnails[index%thumbnails.length];
+      const tile=document.createElement('div');
+      tile.className='contact-motion-tile';
+      const properties={
+        '--x':x+'%', '--y':y+'%', '--size':width+'vw',
+        '--shape':shape, '--strength':opacity,
+        '--duration':(32+(index*7)%19)+'s', '--delay':-(index*11%41)+'s',
+        '--drift-x':(index%2===0?1:-1)*(38+(index*17)%38)+'px', '--drift-y':((index*23)%33-16)+'px',
+      };
+      for(const [name,value] of Object.entries(properties)) tile.style.setProperty(name,value);
+      tile.textContent=project.title;
+      const image=new Image();
+      image.alt='';
+      image.loading='lazy';
+      image.decoding='async';
+      image.addEventListener('error',()=>image.remove(),{once:true});
+      image.src=project.src;
+      tile.append(image);
+      backdrop.append(tile);
+    });
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    const setPaused=paused=>{
+      section.classList.toggle('motion-paused',paused);
+      motionToggle.textContent=paused?'배경 모션 재생':'배경 모션 멈추기';
+    };
+    setPaused(reducedMotion.matches);
+    reducedMotion.addEventListener('change',event=>setPaused(event.matches));
+    motionToggle.hidden=false;
+    motionToggle.addEventListener('click',()=>{
+      setPaused(!section.classList.contains('motion-paused'));
+    });
+  }
 
   // 1) 자동 롤링 띠
   const rt=document.querySelector('.roller-track');
@@ -3718,7 +3945,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
   const vp=track.parentElement; // .showcase-viewport (가로 스크롤)
   const step=()=>{
     const card=track.querySelector('.sc-card');
-    return card?card.getBoundingClientRect().width+10:320;
+    return card?card.getBoundingClientRect().width+parseFloat(getComputedStyle(track).columnGap):0;
   };
   const sync=()=>{
     if(!prev||!next) return;
@@ -3734,6 +3961,8 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
 })();
 
 
+window.addEventListener('hashchange', restoreView);
+restoreView();
 </script>
 </body>
 </html>
