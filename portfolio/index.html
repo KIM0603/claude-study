@@ -184,6 +184,9 @@ section{position:relative;}
 }
 .hero-btn:hover{background:var(--warm-deep);transform:translateY(-3px);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@media(prefers-reduced-motion:no-preference){
+  .hero-subtitle{animation:fadeUp 1s var(--ease) .81s both;}
+}
 /* 카드 하단 © + 설명 */
 .hero-foot{
   display:flex;flex-direction:column;gap:22px;
@@ -402,10 +405,10 @@ section{position:relative;}
 }
 .roller .home-section-header{width:calc(100% - 2 * clamp(18px,2.5vw,30px));}
 /* 트랙 : 무한 롤링 */
-.roller-viewport{width:100%;overflow:hidden;}
+.roller-viewport{width:100%;overflow:hidden;padding-top:10px;margin-top:-10px;}
 .roller-track{
   display:flex;gap:10px;width:max-content;
-  animation:slideRoll 44s linear infinite;
+  animation:slideRoll 70s linear infinite;
 }
 .roller-track:hover{animation-play-state:running;}
 @keyframes slideRoll{to{transform:translateX(-50%);}}
@@ -470,6 +473,13 @@ section{position:relative;}
   scroll-padding-inline-start:var(--showcase-start);
   scrollbar-width:none;-ms-overflow-style:none;}
 .showcase-viewport::-webkit-scrollbar{display:none;}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  .showcase-viewport{padding-top:10px;margin-top:-10px;}
+  .sc-card{transition:transform .35s var(--ease);}
+  .sc-card .sc-thumb img{transition:transform .45s var(--ease);}
+  .sc-card:hover{transform:translateY(-6px);}
+  .sc-card:hover .sc-thumb img{transform:scale(1.035);}
+}
 .showcase-track{
   padding-inline-start:var(--showcase-start);
   display:flex;gap:10px;align-items:flex-start;
@@ -962,8 +972,8 @@ section{position:relative;}
   transform:scale(1.12);
 }
 /* 로고형(Figma·HTML·CSS): 투명 배경 + 내부 여백 → 잘리지 않게 키워 채움 */
-.tool-grid.tool-grid-small .tool-item:nth-child(3) img{
-  object-fit:contain;transform:scale(1.32);
+.tool-grid.tool-grid-small .tool-item img[alt="Figma"]{
+  object-fit:contain;transform:scale(.84);
 }
 .tool-grid.tool-grid-small .tool-item:nth-child(5) img,
 .tool-grid.tool-grid-small .tool-item:nth-child(6) img{
@@ -1716,6 +1726,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
   transition:.2s var(--ease);
   min-width:0;
 }
+.company-logos > .co-logo{grid-column:1/-1;}
 .co-logo:hover{transform:translateY(-3px);}
 .co-name{
   font-family:'Pretendard',sans-serif;font-weight:800;
@@ -1923,10 +1934,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
             <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/illustrator/illustrator-original.svg" alt="Illustrator"><span class="tool-name">Illustrator</span></div>
             <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/figma/figma-original.svg" alt="Figma"><span class="tool-name">Figma</span></div>
             <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/xd/xd-original.svg" alt="XD"><span class="tool-name">XD</span></div>
-            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/html5/html5-original.svg" alt="HTML"><span class="tool-name">HTML</span></div>
-            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/css3/css3-original.svg" alt="CSS"><span class="tool-name">CSS</span></div>
-            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/javascript/javascript-original.svg" alt="JavaScript"><span class="tool-name">JavaScript</span></div>
-            <div class="tool-item"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon@master/icons/aftereffects/aftereffects-original.svg" alt="After Effects"><span class="tool-name">After Effects</span></div>
           </div>
         </div>
         <!-- 크레딧 롤 -->
@@ -2074,26 +2081,25 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <div class="f-pill">Experience &amp; Career</div>
         <h2>경험이<br class="exp-mbr"> 시작된 공간들</h2>
         <div class="p-body">
-          <p>교육기관, 뷰티기업, 한의원까지 — 결이 다른 세 곳을 거치며 폭넓은 실무를 경험했습니다.</p>
-          <p>서로 다른 속도와 문화였지만 늘 좋은 사람들과 건강하게 일했고, 그 시간들이 쌓여 지금의 디자인 방향과 단단한 작업 방식이 되었습니다.</p>
+          <p>교육기관, 뷰티 기업, 한의원까지. 업종과 문화가 다른 환경에서 폭넓은 디자인 실무를 경험했습니다.</p>
+          <p>서로 다른 속도 속에서도 좋은 동료들과 신뢰를 바탕으로 협업했고, 그 경험이 지금의 디자인 방향과 일관성·효율을 놓치지 않는 작업 방식의 바탕이 되었습니다.</p>
         </div>
         <!-- 회사명 텍스트 그리드 -->
         <div class="company-logos">
           <!-- Row 1: 아이엠브릿지 ↔ 휴렙 -->
           <div class="co-group">
             <div class="co-logo"><div class="co-name">아이엠브릿지</div></div>
-            <div class="co-group-label">도중 법인변경</div>
+            <div class="co-group-label">(법인명 변경)</div>
             <div class="co-logo"><div class="co-name">휴렙</div></div>
           </div>
           <!-- Row 2: KH정보교육원 ↔ 아텐츠게임아카데미 -->
           <div class="co-group">
             <div class="co-logo"><div class="co-name">KH정보교육원</div></div>
-            <div class="co-group-label">도중 법인변경</div>
+            <div class="co-group-label">(법인명 변경)</div>
             <div class="co-logo"><div class="co-name">아텐츠게임아카데미</div></div>
           </div>
-          <!-- Row 3: 레이트코리아 + 무버먼한국 -->
+          <!-- Row 3: 레이트코리아 -->
           <div class="co-logo"><div class="co-name">레이트코리아</div></div>
-          <div class="co-logo"><div class="co-name">무버먼한국</div></div>
         </div>
       </div>
 
@@ -2102,45 +2108,36 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
       <div class="partner-right sr">
         <div class="career-head">
           <h3>Career</h3>
-          <span class="yr">2020 — Present</span>
+          <span class="yr">2021 – 2026</span>
         </div>
         <div class="career-tl">
           <!-- 항목 0 (최신) -->
           <div class="career-row">
             <div class="marker"></div>
             <div class="c-body">
-              <div class="c-date">2025.09 — 2026.09</div>
+              <div class="c-date">2025.11 – 2026.11</div>
               <h4>아이엠브릿지<span class="cdot">·</span>사원 웹디자이너</h4>
-              <p class="c-role">한의원 브랜드 홈페이지 리뉴얼·상세페이지 제작 및 월별 이벤트 프로모션 운영</p>
+              <p class="c-role">한의원 브랜드 홈페이지 리뉴얼, 디자인 시스템 구축 및 생성형 AI 기반 프로모션 운영</p>
             </div>
           </div>
           <!-- 항목 1 -->
           <div class="career-row">
             <div class="marker"></div>
             <div class="c-body">
-              <div class="c-date">2024.09 — 2025.09</div>
+              <div class="c-date">2024.09 – 2025.09</div>
               <h4>레이트코리아<span class="cdot">·</span>대리 웹디자이너</h4>
-              <p class="c-role">가전/뷰티 브랜드 홈페이지 기획·리뉴얼 및 프로모션 운영</p>
+              <p class="c-role">D2C 뷰티 가전 온·오프라인 디자인 총괄 및 신규 브랜드 런칭(홈페이지 기획·촬영)</p>
             </div>
           </div>
           <!-- 항목 2 -->
           <div class="career-row">
             <div class="marker"></div>
             <div class="c-body">
-              <div class="c-date">2021.12 — 2024.08</div>
-              <h4>아텐츠게임아카데미<span class="cdot">·</span>주임 컨텐츠개발팀
+              <div class="c-date">2021.12 – 2024.08</div>
+              <h4>아텐츠게임아카데미<span class="cdot">·</span>주임 콘텐츠개발팀
                 <span class="c-name-change">구. KH정보교육원</span>
               </h4>
-              <p class="c-role">반응형 웹사이트 기획·디자인, 디자인 시스템 구축</p>
-            </div>
-          </div>
-          <!-- 항목 3 -->
-          <div class="career-row">
-            <div class="marker"></div>
-            <div class="c-body">
-              <div class="c-date">2020.01 — 2020.07</div>
-              <h4>무버먼한국<span class="cdot">·</span>디자인 보조</h4>
-              <p class="c-role">SNS 이벤트·프로모션 디자인 및 상세페이지 서브 업무</p>
+              <p class="c-role">반응형 통합 홈페이지 구축, 디자인 시스템 도입 및 서비스 End-to-End 리뉴얼</p>
             </div>
           </div>
         </div>
@@ -2429,17 +2426,14 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
 
           <div class="arh-intro">
             <p class="arh-tagline">사람의 마음을 움직이는 UI/UX를 설계하는 디자이너 김유정입니다.</p>
-            <p>화면을 볼 사람의 경험과 맥락을 먼저 고민하는 데서 디자인을 시작합니다. 가전, 뷰티, 의료(한의원) 등 다양한 산업군에서 브랜드 런칭부터 리뉴얼, 상세페이지 및 프로모션 기획까지 프로젝트 전 과정을 주도해 왔으며, 제 디자인이 사용자에게 정확히 닿아 비즈니스 가치로 이어질 때 가장 큰 보람을 느낍니다.</p>
+            <p>화면을 볼 사람의 경험과 맥락을 먼저 고민하는 데서 디자인을 시작합니다. 가전, 뷰티, 의료(한의원) 등 다양한 산업군에서 브랜드 런칭부터 리뉴얼, 상세페이지, 프로모션 기획까지 프로젝트 전 과정을 경험했습니다. 제 디자인이 사용자에게 정확히 닿아 비즈니스 가치로 이어질 때 가장 큰 보람을 느낍니다.</p>
 
             <div class="arh-bullets">
               <div class="arh-bullet">
-                <span><strong>[일하는 방식]</strong> 화려함보다 '왜 이 디자인이어야 하는가'에 대한 구조와 이유를 먼저 세우고, 복잡한 정보도 직관적으로 정리합니다.</span>
+                <span><strong>[강점]</strong> 시선을 사로잡는 비주얼과 정보 위계가 분명한 레이아웃을 설계합니다. HTML·CSS를 활용한 웹 구현 능력과 생성형 AI, 자동화 툴을 실무 워크플로우에 접목하여 디자인 품질과 제작 속도를 극대화하고, 개발자와 디자인 의도를 명확하게 조율합니다.</span>
               </div>
               <div class="arh-bullet">
-                <span><strong>[강점]</strong> 타깃의 시선을 사로잡는 비주얼과 소구점을 정확히 짚어내는 감각이 있으며, AI 등 신기술을 실무 워크플로우에 빠르게 도입해 제작 효율을 극대화합니다.</span>
-              </div>
-              <div class="arh-bullet">
-                <span><strong>[태도]</strong> 낯선 환경과 새로운 과제에도 유연하게 적응하며, 매 프로젝트 더 나은 완성도를 위해 치열하게 고민합니다.</span>
+                <span><strong>[태도]</strong> 새로운 트렌드와 미지의 과제 앞에서도 주저하지 않고 빠르게 흡수하며, 다양한 환경에서 다져온 경험을 바탕으로 유연하게 적응합니다.</span>
               </div>
             </div>
 
@@ -2458,8 +2452,6 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
         <div class="info-box sr">
           <h3>Education</h3>
           <!-- [[ 학력 정보 ]] -->
-          <div class="tl-row"><div class="d">2023.01 — 06</div>
-            <div class="b"><h4>UI/UX 반응형 웹디자인 과정 수료</h4><p>UI/UX 반응형 웹디자인 과정</p></div></div>
           <div class="tl-row"><div class="d">2016 — 2020</div>
             <div class="b"><h4>백석대학교</h4><p>학사 졸업</p></div></div>
           <div class="tl-row"><div class="d">2013 — 2016</div>
@@ -2471,8 +2463,7 @@ footer .ft:hover{background:var(--accent);border-color:var(--accent);color:#fff;
           <div class="skill"><div class="top"><span>Figma</span><span class="p">90%</span></div><div class="bar"><i data-pct="90"></i></div></div>
           <div class="skill"><div class="top"><span>Photoshop</span><span class="p">85%</span></div><div class="bar"><i data-pct="85"></i></div></div>
           <div class="skill"><div class="top"><span>Illustrator</span><span class="p">80%</span></div><div class="bar"><i data-pct="80"></i></div></div>
-          <div class="skill"><div class="top"><span>HTML / CSS</span><span class="p">85%</span></div><div class="bar"><i data-pct="85"></i></div></div>
-          <div class="skill"><div class="top"><span>JavaScript</span><span class="p">65%</span></div><div class="bar"><i data-pct="65"></i></div></div>
+          <div class="skill"><div class="top"><span>XD</span><span class="p">85%</span></div><div class="bar"><i data-pct="85"></i></div></div>
         </div>
       </div>
       <div class="info-box sr" style="margin-top:14px;">
@@ -3922,7 +3913,7 @@ document.addEventListener('DOMContentLoaded',()=>setTimeout(initReveal,200));
       +(d.src?`<img loading="lazy" decoding="async" src="${d.src}" alt="${d.alt}">`:`<div class="ph">${d.title}</div>`)
       +`</div>`;
     rt.innerHTML=data.map(d=>make(d,false)).join('')+data.map(d=>make(d,true)).join('');
-    rt.style.animationDuration=Math.max(30,data.length*2.6)+'s';
+    rt.style.animationDuration=Math.max(48,data.length*4.2)+'s';
   }
 
   // 2) 사례 슬라이더
